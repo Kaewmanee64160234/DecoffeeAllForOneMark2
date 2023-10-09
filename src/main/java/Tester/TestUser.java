@@ -15,8 +15,10 @@ import java.util.List;
 public class TestUser {
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
-        List<User> userList = userDao.getAll();
-        for (User user : userList) {
+//        User new_user = new User("Kaewmanee", "Pass1234", "pim123", "user", 1);
+//        userDao.save(new_user);
+        
+        for (User user : userDao.getAll()) {
             System.out.println(user.toString());
             
         }

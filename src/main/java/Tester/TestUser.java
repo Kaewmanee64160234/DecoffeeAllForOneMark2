@@ -16,8 +16,7 @@ public class TestUser {
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
         User new_user = userDao.get(4);
-        new_user.setPassword("pass@1234");
-        userDao.update(new_user);
+        userDao.delete(new_user);
         for (User user : userDao.getAll()) {
             System.out.println(user.toString());
         }

@@ -104,10 +104,10 @@ public class User {
         User user = new User();
         try {
           user.setId(rs.getInt("user_id"));
-            user.setUsername(rs.getString("username"));
-            user.setPassword(rs.getString("password"));
-            user.setLogin(rs.getString("login"));
-            user.setRole(rs.getString("role"));
+            user.setUsername(rs.getString("user_name"));
+            user.setPassword(rs.getString("user_password"));
+            user.setLogin(rs.getString("user_login"));
+            user.setRole(rs.getString("user_role"));
             user.setEmployee_id(rs.getInt("employee_id"));
             
         } catch (SQLException ex) {

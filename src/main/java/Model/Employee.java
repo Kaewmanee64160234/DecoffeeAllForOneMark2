@@ -122,8 +122,8 @@ public class Employee {
           employee.setName(rs.getString("employee_name"));
           employee.setAddress(rs.getString("employee_address"));
           employee.setTelephone(rs.getString("employee_tel"));
-          employee.setPosition(rs.getString("employee_position"));
           employee.setEmail(rs.getString("employee_email"));
+          employee.setPosition(rs.getString("employee_position"));
           employee.setHourlyWage(rs.getInt("employee_hourly_wage"));
             
         } catch (SQLException ex) {

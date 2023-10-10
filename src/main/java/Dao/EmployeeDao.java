@@ -159,6 +159,7 @@ public class EmployeeDao implements Dao<Employee> {
             stmt.setString(4, obj.getEmail());
             stmt.setString(5, obj.getPosition());
             stmt.setInt(6, obj.getHourlyWage());
+            stmt.setInt(7, obj.getId());
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

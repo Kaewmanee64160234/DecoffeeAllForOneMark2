@@ -4,6 +4,12 @@
 
 package com.mycompany.decoffeeallforone;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
 /**
  *
  * @author USER
@@ -11,6 +17,6 @@ package com.mycompany.decoffeeallforone;
 public class DecoffeeAllForOne {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("Hello world");
     }
 }

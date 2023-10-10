@@ -125,14 +125,13 @@ public class CustomerDao implements Dao<Customer> {
     public Customer save(Customer obj) {
 
         String sql = "INSERT INTO customer (customer_name, customer_tel,customer_point)"
-                + "VALUES(?, ?,?)";
+                + "VALUES(?,?,?)";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, obj.getName());
             stmt.setString(2, obj.getTel());
             stmt.setInt(3, obj.getPoint());
-//            System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);
@@ -155,7 +154,6 @@ public class CustomerDao implements Dao<Customer> {
             stmt.setString(2, obj.getTel());
             stmt.setInt(3, obj.getPoint());
             stmt.setInt(4, obj.getId());
-//            System.out.println(stmt);
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

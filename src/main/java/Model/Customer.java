@@ -37,6 +37,14 @@ public class Customer {
         this.point = point;
         this.startDate = startDate;
     }
+    
+     public Customer(String name, String tel, int point) {
+        this.id = -1;
+        this.name = name;
+        this.tel = tel;
+        this.point = point;
+        this.startDate = null;
+    }
 
     public Customer() {
         this.id = -1;

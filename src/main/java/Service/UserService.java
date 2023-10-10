@@ -4,10 +4,22 @@
  */
 package Service;
 
+import Dao.UserDao;
+import Model.User;
+
 /**
  *
  * @author USER
  */
 public class UserService {
+    
+      public User login(String login, String password) {
+        UserDao userDao = new UserDao();
+        User user = userDao.getByLogin(login);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 
 }

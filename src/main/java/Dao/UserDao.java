@@ -157,4 +157,8 @@ public class UserDao implements Dao<User> {
         }
         return -1;
     }
+
+    public User getByLogin(String login) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

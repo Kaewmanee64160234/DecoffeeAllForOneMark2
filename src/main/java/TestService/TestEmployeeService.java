@@ -25,16 +25,16 @@ public class TestEmployeeService {
         for (Employee employee : cs.getEmployees()) {
             System.out.println(employee);
         }
-        Employee delEmp = cs.getByTel("0925687459");
-        delEmp.setTelephone("0878825590");
-        cs.update(delEmp);
-        System.out.println("After Updated");
-         for (Employee employee : cs.getEmployees()) {
-            System.out.println(employee);
-        }
-//        cs.delete(delEmp);
-//        for (Employee employee : cs.getEmployees()) {
+        Employee delEmp = cs.getByTel("0878825590");
+//        delEmp.setTelephone("0878825590");
+//        cs.update(delEmp);
+//        System.out.println("After Updated");
+//         for (Employee employee : cs.getEmployees()) {
 //            System.out.println(employee);
 //        }
+        cs.delete(delEmp);
+        for (Employee employee : cs.getEmployees()) {
+            System.out.println(employee);
+        }
     }
 }

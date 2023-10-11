@@ -99,7 +99,7 @@ public class ProductDialog extends javax.swing.JDialog {
         });
 
         btnClear.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnClear.setText("Cancel");
+        btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);

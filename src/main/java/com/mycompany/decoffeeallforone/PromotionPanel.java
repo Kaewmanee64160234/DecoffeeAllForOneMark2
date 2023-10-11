@@ -6,7 +6,6 @@ import Service.PromotionService;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -23,7 +22,7 @@ public class PromotionPanel extends javax.swing.JFrame {
         promotionService = new PromotionService();
 
         list = promotionService.getPromotions();
-        tblPromotion.setRowHeight(100);
+        tblPromotion.setRowHeight(20);
         tblPromotion.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount", "Used_Point"};
 
@@ -46,7 +45,7 @@ public class PromotionPanel extends javax.swing.JFrame {
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
                     case 0:
-                        return ImageIcon.class;
+                        return String.class;
                     default:
                         return String.class;
                 }
@@ -106,7 +105,7 @@ public class PromotionPanel extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblPromotion);
 
-        jPanel2.setBackground(new java.awt.Color(176, 204, 187));
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnAdd.setText("Add");
@@ -206,6 +205,43 @@ public class PromotionPanel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PromotionPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PromotionPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PromotionPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PromotionPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PromotionPanel().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

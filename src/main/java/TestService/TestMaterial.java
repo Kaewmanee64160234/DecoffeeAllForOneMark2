@@ -18,10 +18,10 @@ public class TestMaterial {
         for(Material material:md.getAll()){
             System.out.println(material);
         }
-        Material mat1 = new Material(9, "cake", 7, "Kg", 70);
-        md.save(mat1);
-        for(Material material:md.getAll()){
-            System.out.println(material);
-        }
+//        Material mat1 = new Material(9, "cake", 7, "Kg", 70);
+//        md.save(mat1);
+//        for(Material material:md.getAll()){
+//            System.out.println(material);
+//        }
     }
 }

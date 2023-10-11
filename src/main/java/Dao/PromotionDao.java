@@ -101,8 +101,9 @@ public class PromotionDao implements Dao<Promotion> {
                 + "prom_name, "
                 + "prom_discount, "
                 + "prom_discount_perc, "
-                + "prom_point_discount)"
-                + "VALUES(?, ?, ?, ?, ?)";
+                + "prom_point_discount"
+                + "prom_used_point)"
+                + "VALUES(?, ?, ?, ?, ?, ?)";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -111,6 +112,7 @@ public class PromotionDao implements Dao<Promotion> {
             stmt.setFloat(3, obj.getDiscount());
             stmt.setInt(4, obj.getDiscountPerc());
             stmt.setInt(5, obj.getPointDiscount());
+            stmt.setInt(6, obj.getUsedPoint());
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);
@@ -129,6 +131,7 @@ public class PromotionDao implements Dao<Promotion> {
                 + "prom_discount = ?, "
                 + "prom_discount_perc = ?, "
                 + "prom_point_discount = ?"
+                + "prom_used_point = ?"
                 + " WHERE prom_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -138,7 +141,8 @@ public class PromotionDao implements Dao<Promotion> {
             stmt.setFloat(3, obj.getDiscount());
             stmt.setInt(4, obj.getDiscountPerc());
             stmt.setInt(5, obj.getPointDiscount());
-            stmt.setInt(6, obj.getId());
+            stmt.setInt(6, obj.getUsedPoint());
+            stmt.setInt(7, obj.getId());
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

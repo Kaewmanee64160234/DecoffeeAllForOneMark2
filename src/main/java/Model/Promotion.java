@@ -17,8 +17,9 @@ public class Promotion {
     private float Discount;
     private int discountPerc;
     private int pointDiscount;
+    private int usedPoint;
 
-    public Promotion(int id, Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount) {
+    public Promotion(int id, Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount, int usedPoint) {
         this.id = id;
         this.createdDate = createdDate;
         this.endDate = endDate;
@@ -26,9 +27,10 @@ public class Promotion {
         this.Discount = Discount;
         this.discountPerc = discountPerc;
         this.pointDiscount = pointDiscount;
+        this.usedPoint = usedPoint;
     }
 
-    public Promotion(Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount) {
+    public Promotion(Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount, int usedPoint) {
         this.id = -1;
         this.createdDate = createdDate;
         this.endDate = endDate;
@@ -36,9 +38,10 @@ public class Promotion {
         this.Discount = Discount;
         this.discountPerc = discountPerc;
         this.pointDiscount = pointDiscount;
+        this.usedPoint = usedPoint;
     }
 
-    public Promotion(String endDate, String Name, float Discount, int discountPerc, int pointDiscount) {
+    public Promotion(String endDate, String Name, float Discount, int discountPerc, int pointDiscount, int usedPoint) {
         this.id = -1;
         this.createdDate = null;
         this.endDate = endDate;
@@ -46,6 +49,7 @@ public class Promotion {
         this.Discount = Discount;
         this.discountPerc = discountPerc;
         this.pointDiscount = pointDiscount;
+        this.usedPoint = usedPoint;
     }
 
     public Promotion() {
@@ -56,6 +60,7 @@ public class Promotion {
         this.Discount = 0;
         this.discountPerc = 0;
         this.pointDiscount = 0;
+        this.usedPoint = 0;
     }
 
     public int getId() {
@@ -114,9 +119,17 @@ public class Promotion {
         this.pointDiscount = pointDiscount;
     }
 
+    public int getUsedPoint() {
+        return usedPoint;
+    }
+
+    public void setUsedPoint(int usedPoint) {
+        this.usedPoint = usedPoint;
+    }
+
     @Override
     public String toString() {
-        return "Promotion{" + "id=" + id + ", createdDate=" + createdDate + ", endDate=" + endDate + ", Name=" + Name + ", Discount=" + Discount + ", discountPerc=" + discountPerc + ", pointDiscount=" + pointDiscount + '}';
+        return "Promotion{" + "id=" + id + ", createdDate=" + createdDate + ", endDate=" + endDate + ", Name=" + Name + ", Discount=" + Discount + ", discountPerc=" + discountPerc + ", pointDiscount=" + pointDiscount + ", usedPoint=" + usedPoint + '}';
     }
 
 //    public Promotion(String endDateStr, String Name, float Discount, int discountPerc, int pointDiscount) {
@@ -137,6 +150,7 @@ public class Promotion {
             promotion.setDiscount(rs.getFloat("prom_discount"));
             promotion.setDiscountPerc(rs.getInt("prom_discount_perc"));
             promotion.setPointDiscount(rs.getInt("prom_point_discount"));
+            promotion.setUsedPoint(rs.getInt("prom_used_point"));
         } catch (SQLException ex) {
             Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, ex);
             return null;

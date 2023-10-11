@@ -13,6 +13,11 @@ import java.util.List;
  * @author USER
  */
 public class UserService {
+    static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }    
     
       public User login(String login, String password) {
         UserDao userDao = new UserDao();

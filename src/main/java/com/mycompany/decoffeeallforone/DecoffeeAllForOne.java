@@ -18,30 +18,33 @@ import java.awt.event.ActionListener;
  * @author USER
  */
 public class DecoffeeAllForOne {
-
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Show/Hide Password Checkbox Demo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new FlowLayout());
-
-        JPasswordField passwordField = new JPasswordField(20);
-        JCheckBox showPasswordCheckBox = new JCheckBox("Show Password");
-
-        showPasswordCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JCheckBox checkBox = (JCheckBox) e.getSource();
-                if (checkBox.isSelected()) {
-                    passwordField.setEchoChar((char) 0); // Show the password
-                } else {
-                    passwordField.setEchoChar('\u2022'); // Hide the password with asterisks
-                }
-            }
-        });
-
-        frame.add(passwordField);
-        frame.add(showPasswordCheckBox);
-        frame.pack();
-        frame.setVisible(true);
+        System.out.println("Hwllo world");
     }
+
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame("Show/Hide Password Checkbox Demo");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setLayout(new FlowLayout());
+//
+//        JPasswordField passwordField = new JPasswordField(20);
+//        JCheckBox showPasswordCheckBox = new JCheckBox("Show Password");
+//
+//        showPasswordCheckBox.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JCheckBox checkBox = (JCheckBox) e.getSource();
+//                if (checkBox.isSelected()) {
+//                    passwordField.setEchoChar((char) 0); // Show the password
+//                } else {
+//                    passwordField.setEchoChar('\u2022'); // Hide the password with asterisks
+//                }
+//            }
+//        });
+//
+//        frame.add(passwordField);
+//        frame.add(showPasswordCheckBox);
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
 }

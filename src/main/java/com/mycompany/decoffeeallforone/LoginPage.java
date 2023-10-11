@@ -59,9 +59,9 @@ public class LoginPage extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        txtLogin.setBackground(new java.awt.Color(51, 153, 255));
+        txtLogin.setBackground(new java.awt.Color(153, 204, 255));
         txtLogin.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image (1).png"))); // NOI18N
@@ -72,7 +72,7 @@ public class LoginPage extends javax.swing.JFrame {
         loginLbl.setFont(loginLbl.getFont().deriveFont(loginLbl.getFont().getSize()+6f));
         loginLbl.setText("Login ");
 
-        btnExit.setBackground(new java.awt.Color(51, 153, 255));
+        btnExit.setBackground(new java.awt.Color(153, 204, 255));
         btnExit.setFont(new java.awt.Font("TH SarabunPSK", 0, 24)); // NOI18N
         btnExit.setText("X");
         btnExit.setBorder(null);
@@ -88,8 +88,11 @@ public class LoginPage extends javax.swing.JFrame {
         loginLbl2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginLbl2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btnLogin.setBackground(new java.awt.Color(153, 204, 255));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Login");
+        btnLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
@@ -113,7 +116,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        txtPass.setBackground(new java.awt.Color(51, 153, 255));
+        txtPass.setBackground(new java.awt.Color(153, 204, 255));
         txtPass.setText("jPasswordField1");
         txtPass.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 

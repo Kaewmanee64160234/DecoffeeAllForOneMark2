@@ -6,12 +6,18 @@ package Service;
 
 import Dao.UserDao;
 import Model.User;
+import java.util.List;
 
 /**
  *
  * @author USER
  */
 public class UserService {
+    static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }    
     
       public User login(String login, String password) {
         UserDao userDao = new UserDao();
@@ -20,6 +26,26 @@ public class UserService {
             return user;
         }
         return null;
+    }
+      
+      public List<User>getUsers() {
+        UserDao userDao = new UserDao();
+        return userDao.getAll(" user_login asc");  
+    }
+
+    public User addNew(User editedUser) {
+        UserDao userDao = new UserDao();
+        return userDao.save(editedUser);
+    }
+
+    public User update(User editedUser) {
+        UserDao userDao = new UserDao();
+        return userDao.update(editedUser);
+    }
+
+    public int delete(User editedUser) {
+        UserDao userDao = new UserDao();
+        return userDao.delete(editedUser);
     }
 
 }

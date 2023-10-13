@@ -134,6 +134,11 @@ public class EmployeePage extends javax.swing.JFrame {
         });
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
 
@@ -292,6 +297,20 @@ public class EmployeePage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtTelActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(editedEmployee.getId()<0){ //Addnew
+            setFormToObject();
+            enableForm(false);
+            userService.addNew(editedUser);
+            refreshTable();
+        }else{
+            setFormToObject();
+            enableForm(false);
+            userService.update(editedUser);
+            refreshTable();
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -325,6 +344,24 @@ public class EmployeePage extends javax.swing.JFrame {
                 new EmployeePage().setVisible(true);
             }
         });
+    }
+    
+    private void setFormToObject() {
+        editedEmployee.setName(edtName.getText());
+        editedEmployee.setAddress(edtAddress.getText());
+        editedEmployee.setName(edtTel.getText());
+        editedEmployee.setAddress(edtEmail.getText());
+        editedEmployee.setPosition(cmbPosition.getSelectedIndex());
+        editedEmployee.setHourlyWage(edtHourly.getText());
+    }   
+
+    private void setObjectToForm() {
+        edtName.setText(editedEmployee.getName());
+        edtAddress.setText(editedEmployee.getAddress());
+        edtTel.setText(editedEmployee.getTelephone());
+        edtEmail.setText(editedEmployee.getEmail());
+        cmbPosition.setSelectedIndex(editedEmployee.getPosition());
+        edtHourly.setText(editedEmployee.getHourlyWage());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

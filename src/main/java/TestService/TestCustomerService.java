@@ -6,6 +6,7 @@ package TestService;
 
 import Model.Customer;
 import Service.CustomerService;
+import Service.ValidateException;
 
 /**
  *
@@ -13,7 +14,7 @@ import Service.CustomerService;
  */
 public class TestCustomerService {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ValidateException {
         CustomerService cs = new CustomerService();
         for (Customer customer : cs.getCustomers()) {
             System.out.println(customer);

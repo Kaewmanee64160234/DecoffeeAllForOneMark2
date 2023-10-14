@@ -37,8 +37,8 @@ public class Customer {
         this.point = point;
         this.startDate = startDate;
     }
-    
-     public Customer(String name, String tel, int point) {
+
+    public Customer(String name, String tel, int point) {
         this.id = -1;
         this.name = name;
         this.tel = tel;
@@ -99,6 +99,7 @@ public class Customer {
         return "Customer{" + "id=" + id + ", name=" + name + ", tel=" + tel + ", point=" + point + ", startDate=" + startDate + '}';
     }
 
+
     public static Customer fromRS(ResultSet rs) {
         Customer customer = new Customer();
         try {
@@ -112,5 +113,13 @@ public class Customer {
             return null;
         }
         return customer;
+    }
+
+    public boolean isValid() {
+        // Business Rule
+        // Name >= 3
+        // Tel = 10
+        return this.name.length() >= 3
+                && this.tel.length() == 10;
     }
 }

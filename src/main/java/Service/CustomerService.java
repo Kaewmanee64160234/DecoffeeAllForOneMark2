@@ -25,12 +25,18 @@ public class CustomerService {
         return customerDao.getAll(" customer_id asc");
     }
 
-    public Customer addNew(Customer editedCustomer) {
+    public Customer addNew(Customer editedCustomer) throws ValidateException {
+        if(!editedCustomer.isValid()){
+            throw new ValidateException("Customer is invalid!!!");
+        }
         CustomerDao customerDao = new CustomerDao();
         return customerDao.save(editedCustomer);
     }
 
-    public Customer update(Customer editedCustomer) {
+    public Customer update(Customer editedCustomer) throws ValidateException{
+         if(!editedCustomer.isValid()){
+            throw new ValidateException("Customer is invalid!!!");
+        }
         CustomerDao customerDao = new CustomerDao();
         return customerDao.update(editedCustomer);
     }

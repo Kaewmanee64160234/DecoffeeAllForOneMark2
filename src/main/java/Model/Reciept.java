@@ -47,7 +47,12 @@ public class Reciept {
         this.customerId = customerId;
         this.promotionId = promotionId;
     }
-
+    public ArrayList<RecieptDetail> getRecieptDetails() {
+        return recieptDetails;
+    }
+    public void setRecieptDetails(ArrayList recieptDetails) {
+        this.recieptDetails = recieptDetails;
+    }
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId, int promotionId) {
         this.id = -1;

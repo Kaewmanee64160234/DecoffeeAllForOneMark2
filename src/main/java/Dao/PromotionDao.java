@@ -96,7 +96,6 @@ public class PromotionDao implements Dao<Promotion> {
 
     @Override
     public Promotion save(Promotion obj) {
-
         String sql = "INSERT INTO promotion (prom_end_date, "
                 + "prom_name, "
                 + "prom_discount, "

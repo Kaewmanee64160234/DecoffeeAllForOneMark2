@@ -23,10 +23,10 @@ public class TestRecieptService {
         RecieptService recieptService = new RecieptService();
         ProductService productService = new ProductService();
         RecieptDao recieptDao = new RecieptDao();
-        Reciept reciept = new Reciept(1, "Promppay", 1, 1, 4, 1);
+        Reciept reciept = new Reciept(1, "Promppay", 1, 4, 1,0);
 
 
-        Product product1 = productService.getById(2);
+        Product product1 = productService.getById(1);
         Product product2 = productService.getById(3);
         reciept.addReceiptDetail(product1, 2, "M", "C", "Cheese", 19, 0, 0);
         reciept.addReceiptDetail(product2, 1, "M", "C", "Cheese", 19, 0, 0);

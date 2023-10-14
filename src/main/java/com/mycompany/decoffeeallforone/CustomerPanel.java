@@ -55,7 +55,6 @@ public class CustomerPanel extends javax.swing.JPanel {
                 Customer customer = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-
                         return customer.getId();
                     case 1:
                         return customer.getName();

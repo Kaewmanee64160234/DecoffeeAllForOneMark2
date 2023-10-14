@@ -22,7 +22,7 @@ public class CustomerDialog extends javax.swing.JDialog {
     /**
      * Creates new form CustomerDialog
      */
-    public CustomerDialog(java.awt.Frame parent, Customer edCustomer) {
+    public CustomerDialog(java.awt.Frame parent, Customer editedCustomer) {
         super(parent, true);
         initComponents();
         this.editedCustomer = editedCustomer;
@@ -181,8 +181,10 @@ public class CustomerDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-       Customer customer;
+        Customer customer;
+        try {
             if (editedCustomer.getId() < 0) {
+
                 setFormToObject();
                 customer = customerService.addNew(editedCustomer);
 
@@ -190,23 +192,25 @@ public class CustomerDialog extends javax.swing.JDialog {
                 setFormToObject();
                 customer = customerService.update(editedCustomer);
             }
-            
-        
+
+        } catch (Exception e) {
+            Logger.getLogger(CustomerDialog.class.getName()).log(Level.SEVERE, null, e);
+        }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-     private void setFormToObject() {
+    private void setFormToObject() {
         editedCustomer.setName(edtName.getText());
-        editedCustomer.setTel( (edtTel.getText()));
-        editedCustomer.setPoint( (Integer.parseInt(edtPoint.getText())) );
+        editedCustomer.setTel((edtTel.getText()));
+        editedCustomer.setPoint((Integer.parseInt(edtPoint.getText())));
     }
 
     private void setObjectToForm() {
         edtName.setText(editedCustomer.getName());
         edtTel.setText(editedCustomer.getTel());
-        edtPoint.setText((editedCustomer.getPoint()+""));
+        edtPoint.setText((editedCustomer.getPoint() + ""));
     }
-    
+
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
@@ -214,8 +218,6 @@ public class CustomerDialog extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;

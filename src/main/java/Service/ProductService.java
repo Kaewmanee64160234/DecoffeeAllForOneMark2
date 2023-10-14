@@ -6,6 +6,7 @@ package Service;
 
 import Dao.ProductDao;
 import Model.Product;
+import Model.Topping;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +14,30 @@ import java.util.ArrayList;
  * @author Chaiwat
  */
 public class ProductService {
+    private ProductDao productDao = new ProductDao(); 
+    private  ArrayList<Topping> toppings;
+     
+    public ProductService(){
+     
+        toppings = new ArrayList<Topping>();
+        
+        toppings.add(new Topping("Cheese",10));
+        toppings.add(new Topping("Pearl",10));
+        toppings.add(new Topping("HoneyPearl",10));
+        toppings.add(new Topping("KonjacJelly ",10));
+        toppings.add(new Topping("FruitSalad",10));
+    } 
 
-    private ProductDao productDao = new ProductDao();
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
 
+    public void setToppings(ArrayList<Topping> toppings) {
+        this.toppings = toppings;
+    }
+    
+    
+    
     public ArrayList<Product> getProductsOrderByName() {
         return (ArrayList<Product>) productDao.getAll("product_name ASC");
     }

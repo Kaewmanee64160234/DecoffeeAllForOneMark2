@@ -48,18 +48,4 @@ public class Topping {
     public String toString() {
         return "Topping{" + "name=" + name + ", price=" + price + '}';
     }
-
-    public static Topping fromRS(ResultSet rs) {
-        Topping topping = new Topping();
-        try {
-
-            topping.setName(rs.getString("topping_name"));
-            topping.setPrice(rs.getFloat("topping_price"));
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Topping.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        return topping;
-    }
 }

@@ -5,8 +5,10 @@
 package TestService;
 
 import Model.Product;
+import Model.Topping;
 import Service.ProductService;
 import Service.ValidateException;
+import java.util.ArrayList;
 
 /**
  *
@@ -39,4 +41,10 @@ public class TestProductService {
             System.out.println(product);
         }
     }
+
+//        ArrayList<Topping> toppings = pd.getToppings();
+//        for (Topping topping : toppings) {
+//            System.out.println(topping);
+//        }
+//    }
 }

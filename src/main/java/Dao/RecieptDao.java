@@ -19,11 +19,11 @@ import java.util.List;
  *
  * @author USER
  */
-public class RecieptDao implements Dao<Reciept>{
+public class RecieptDao implements Dao<Reciept> {
 
     @Override
     public Reciept get(int id) {
-        Reciept reciept =null;
+        Reciept reciept = null;
         String sql = "SELECT * FROM reciept WHERE reciept_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -61,10 +61,11 @@ public class RecieptDao implements Dao<Reciept>{
         }
         return list;
     }
+
     @Override
     public List<Reciept> getAll(String where, String order) {
         ArrayList<Reciept> list = new ArrayList();
-        String sql = "SELECT * FROM receipt where " + where + " ORDER BY" + order;
+        String sql = "SELECT * FROM receipt where " + where + " ORDER BY " + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -81,9 +82,10 @@ public class RecieptDao implements Dao<Reciept>{
         }
         return list;
     }
+
     public List<Reciept> getAll(String order) {
         ArrayList<Reciept> list = new ArrayList();
-        String sql = "SELECT * FROM receipt  ORDER BY" + order;
+        String sql = "SELECT * FROM reciept  ORDER BY" + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -103,39 +105,41 @@ public class RecieptDao implements Dao<Reciept>{
 
     @Override
     public Reciept save(Reciept obj) {
-        String sql = "INSERT INTO receipt (reciept_id,created_date,reciept_queue,reciept_discount,reciept_total,reciept_receive,reciept_change,reciept_total_qty,reciept_payment,store_id,customer_id,prom_id,employee_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        String sql = "INSERT INTO reciept (reciept_queue,reciept_discount,reciept_total,reciept_receive,reciept_change,reciept_total_qty,reciept_payment,store_id,customer_id,prom_id,employee_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        System.out.println(sql);
         Connection conn = DatabaseHelper.getConnect();
-        try{
+        try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, obj.getId());
-            stmt.setDate(2, obj.getCreaetedDate());
-            stmt.setInt(3, obj.getQueue());
-            stmt.setFloat(4, obj.getDiscount());
-            stmt.setFloat(5, obj.getTotal());
-            stmt.setFloat(6, obj.getReceive());
-            stmt.setFloat(7, obj.getChange());
-            stmt.setInt(8, obj.getTotalQTY());
-            stmt.setString(9, obj.getPayment());
-            stmt.setInt(10, obj.getStoreId());
-            stmt.setInt(11, obj.getCustomerId());
-            stmt.setInt(12, obj.getPromotionId());
-            stmt.setInt(13, obj.getEmployeeId());
+            stmt.setInt(1, obj.getQueue());
+            stmt.setFloat(2, obj.getDiscount());
+            stmt.setFloat(3, obj.getTotal());
+            stmt.setFloat(4, obj.getReceive());
+            stmt.setFloat(5, obj.getChange());
+            stmt.setInt(6, obj.getTotalQTY());
+            stmt.setString(7, obj.getPayment());
+            stmt.setInt(8, obj.getStoreId());
+            stmt.setInt(9, obj.getCustomerId());
+            stmt.setInt(10, obj.getPromotionId());
+            stmt.setInt(11, obj.getEmployeeId());
+           
             stmt.executeUpdate();
+            int id = DatabaseHelper.getInsertedId(stmt);
+            obj.setId(id);
             return obj;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            return null;
         }
-        return null;
+
     }
 
     @Override
     public Reciept update(Reciept obj) {
         String sql = "UPDATE receipt SET created_date = ?,reciept_queue = ?,reciept_discount = ?,reciept_total = ?,reciept_receive = ?,reciept_change = ?,reciept_total_qty = ?,reciept_payment = ?,store_id = ?,customer_id = ?,prom_id = ?,employee_id = ? WHERE reciept_id = ?";
         Connection conn = DatabaseHelper.getConnect();
-        try{
+        try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, obj.getCreaetedDate());
             stmt.setInt(2, obj.getQueue());
             stmt.setFloat(3, obj.getDiscount());
             stmt.setFloat(4, obj.getTotal());
@@ -150,8 +154,7 @@ public class RecieptDao implements Dao<Reciept>{
             stmt.setInt(13, obj.getId());
             stmt.executeUpdate();
             return obj;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return null;
@@ -161,17 +164,14 @@ public class RecieptDao implements Dao<Reciept>{
     public int delete(Reciept obj) {
         String sql = "DELETE FROM receipt WHERE reciept_id = ?";
         Connection conn = DatabaseHelper.getConnect();
-        try{
+        try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, obj.getId());
             return stmt.executeUpdate();
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return -1;
     }
 
-    
-    
 }

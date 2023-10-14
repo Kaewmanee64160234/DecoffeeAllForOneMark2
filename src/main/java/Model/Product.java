@@ -129,4 +129,11 @@ public class Product {
         }
         return product;
     }
+    public boolean isValid() {
+        // Business Rule
+        // Name >= 3
+        // price >= 0
+        return this.name.length() >= 3 && 
+               this.price >= 0;
+    }
 }

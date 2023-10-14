@@ -4,17 +4,32 @@
  */
 package Component;
 
+import Model.Product;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author toey
  */
 public class ProductItemPanel extends javax.swing.JPanel {
 
+    private final Product product;
+
     /**
      * Creates new form ProductItemPanel
      */
-    public ProductItemPanel() {
+    public ProductItemPanel(Product p) {
         initComponents();
+        product = p;
+        lblName.setText(product.getName());
+        ImageIcon icon = new ImageIcon("./product" + product.getId() + ".png");
+        Image image = icon.getImage();
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
+        Image newImage = image.getScaledInstance((int) ((120.0 * width) / height), 120, Image.SCALE_SMOOTH);
+        icon.setImage(newImage);
+        lblImage.setIcon(icon);
     }
 
     /**

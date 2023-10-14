@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
@@ -21,9 +22,11 @@ import javax.swing.table.AbstractTableModel;
  * @author Chaiwat
  */
 public class ProductPanel extends javax.swing.JFrame {
+
     private final ProductService productService;
     private List<Product> list;
     private Product editedProduct;
+
     /**
      * Creates new form ProductPanel
      */
@@ -34,7 +37,7 @@ public class ProductPanel extends javax.swing.JFrame {
         list = productService.getProductsOrderByName();
         tblProduct.setRowHeight(100);
         tblProduct.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Image","ID", "Name", "Price", "Size", "Sweet_Level", "Type", "Cat_Id"};
+            String[] columnNames = {"Image", "ID", "Name", "Price", "Size", "Sweet_Level", "Type", "Cat_Id"};
 
             @Override
             public String getColumnName(int column) {
@@ -212,12 +215,12 @@ public class ProductPanel extends javax.swing.JFrame {
         int selectedIndex = tblProduct.getSelectedRow();
         if (selectedIndex >= 0) {
             editedProduct = list.get(selectedIndex);
-            //            int input = JOptionpane.showConfirmdialog(this,"Do you want to proceed?", "Select and Option..."),
-            //                        JOptionpane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
-        //            if (input == 0) {
-            productService.delete(editedProduct);
-            //            }
-        refreshTable();
+            int input = JOptionPane.showConfirmDialog(this, "Do you want to proceed?", "Select an Option...",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (input == 0) {
+                productService.delete(editedProduct);
+            }
+            refreshTable();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -276,7 +279,8 @@ public class ProductPanel extends javax.swing.JFrame {
             }
         });
     }
-        private void refreshTable() {
+
+    private void refreshTable() {
         list = productService.getProductsOrderByName();
         tblProduct.revalidate();
         tblProduct.repaint();

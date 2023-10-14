@@ -6,6 +6,7 @@ package TestService;
 
 import Model.Product;
 import Model.Topping;
+import Model.Type;
 import Service.ProductService;
 import Service.ValidateException;
 import java.util.ArrayList;
@@ -45,6 +46,11 @@ public class TestProductService {
 //        ArrayList<Topping> toppings = pd.getToppings();
 //        for (Topping topping : toppings) {
 //            System.out.println(topping);
+//        }
+//        
+//        ArrayList<Type> types = pd.getTypes();
+//        for (Type type : types) {
+//            System.out.println(type);
 //        }
 //    }
 }

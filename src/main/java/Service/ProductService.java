@@ -7,6 +7,7 @@ package Service;
 import Dao.ProductDao;
 import Model.Product;
 import Model.Topping;
+import Model.Type;
 import java.util.ArrayList;
 
 /**
@@ -14,19 +15,26 @@ import java.util.ArrayList;
  * @author Chaiwat
  */
 public class ProductService {
-    private ProductDao productDao = new ProductDao(); 
-    private  ArrayList<Topping> toppings;
-     
-    public ProductService(){
-     
+
+    private ProductDao productDao = new ProductDao();
+    private ArrayList<Topping> toppings;
+    private ArrayList<Type> types;
+
+    public ProductService() {
+
         toppings = new ArrayList<Topping>();
-        
-        toppings.add(new Topping("Cheese",10));
-        toppings.add(new Topping("Pearl",10));
-        toppings.add(new Topping("HoneyPearl",10));
-        toppings.add(new Topping("KonjacJelly ",10));
-        toppings.add(new Topping("FruitSalad",10));
-    } 
+        types = new ArrayList<Type>();
+
+        toppings.add(new Topping("Cheese", 10));
+        toppings.add(new Topping("Pearl", 10));
+        toppings.add(new Topping("HoneyPearl", 10));
+        toppings.add(new Topping("KonjacJelly ", 10));
+        toppings.add(new Topping("FruitSalad", 10));
+
+        types.add(new Type("Hot", 0));
+        types.add(new Type("Cold", 10));
+        types.add(new Type("Frappe", 10));
+    }
 
     public ArrayList<Topping> getToppings() {
         return toppings;
@@ -35,9 +43,15 @@ public class ProductService {
     public void setToppings(ArrayList<Topping> toppings) {
         this.toppings = toppings;
     }
-    
-    
-    
+
+    public ArrayList<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(ArrayList<Type> types) {
+        this.types = types;
+    }
+
     public ArrayList<Product> getProductsOrderByName() {
         return (ArrayList<Product>) productDao.getAll("product_name ASC");
     }

@@ -6,6 +6,7 @@ package Model;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Reciept {
     private Promotion promotion;
     private Employee employee;
     private Store store;
+     private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
 
     public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY, String payment, int storeId, int customerId, int promotionId) {
         this.id = id;
@@ -223,6 +225,22 @@ public class Reciept {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+
+    public void calculateTotal() {
+        int total_qty = 0;
+        float total = 0.0f;
+        for (RecieptDetail rd : recieptDetails) {
+
+            total += rd.getTotal();
+            total += rd.getToppingPrice();
+            total += rd.getTypePrice();
+            total += rd.getSizePrice();
+            total_qty += rd.getQty();
+        }
+        this.total = total;
+        this.totalQTY = total_qty;
     }
 
     @Override

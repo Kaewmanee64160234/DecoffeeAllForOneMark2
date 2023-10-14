@@ -25,6 +25,6 @@ public class Reciept {
     private int promotionId;
     private Customer customer;
     private Promotion promotion;
-    
+    private Employee employee;
     
 }

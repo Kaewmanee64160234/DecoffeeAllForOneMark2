@@ -257,6 +257,8 @@ public class Reciept {
         calculateTotal();
     }
 
+    
+
     @Override
     public String toString() {
         return "Reciept{" + "id=" + id + ", creaetedDate=" + creaetedDate + ", queue=" + queue + ", discount="

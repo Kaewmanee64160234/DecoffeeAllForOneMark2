@@ -115,11 +115,11 @@ public class Customer {
         return customer;
     }
 
-//    public boolean isValid() {
-//        // Business Rule
-//        // Name >= 3
-//        // Tel = 10
-//        return this.name.length() >= 3
-//                && this.tel.length() == 10;
-//    }
+    public boolean isValid() {
+        // Business Rule
+        // Name >= 3
+        // Tel = 10
+        return this.name.length() >= 3
+                && this.tel.length() == 10;
+    }
 }

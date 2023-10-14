@@ -6,9 +6,11 @@ package com.mycompany.decoffeeallforone;
 
 import Model.Customer;
 import Service.CustomerService;
+import Service.ValidateException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -193,8 +195,9 @@ public class CustomerDialog extends javax.swing.JDialog {
                 customer = customerService.update(editedCustomer);
             }
 
-        } catch (Exception e) {
-            Logger.getLogger(CustomerDialog.class.getName()).log(Level.SEVERE, null, e);
+        } catch (ValidateException ex) {
+            Logger.getLogger(CustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed

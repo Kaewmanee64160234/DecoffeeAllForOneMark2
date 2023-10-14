@@ -31,7 +31,7 @@ public class Reciept {
     private Employee employee;
     private Store store;
     private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
-
+// all
     public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change,
             int totalQTY, String payment, int storeId, int customerId, int promotionId) {
         this.id = id;
@@ -47,15 +47,18 @@ public class Reciept {
         this.customerId = customerId;
         this.promotionId = promotionId;
     }
+
     public ArrayList<RecieptDetail> getRecieptDetails() {
         return recieptDetails;
     }
+
     public void setRecieptDetails(ArrayList recieptDetails) {
         this.recieptDetails = recieptDetails;
     }
+//not id
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId, int promotionId) {
-        this.id = -1;
+         this.id = -1;
         this.creaetedDate = creaetedDate;
         this.queue = queue;
         this.discount = discount;
@@ -68,10 +71,10 @@ public class Reciept {
         this.customerId = customerId;
         this.promotionId = promotionId;
     }
-
+// no Promotion
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId) {
-        this.id = -1;
+         this.id = -1;
         this.creaetedDate = creaetedDate;
         this.queue = queue;
         this.discount = discount;
@@ -82,6 +85,7 @@ public class Reciept {
         this.payment = payment;
         this.storeId = storeId;
         this.customerId = customerId;
+        this.promotionId = -1;
     }
 
     public Reciept() {
@@ -101,6 +105,13 @@ public class Reciept {
 
     public int getId() {
         return id;
+    }
+
+    public void addReceiptDetail(Product product, int qty, String size, String type, String topping, float toppingPrice,
+            float typePrice, float sizePrice) {
+        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), size, typePrice, type, sizePrice, topping, toppingPrice, product.getPrice()*qty, -1, product.getId());
+        recieptDetails.add(rd);
+        calculateTotal();
     }
 
     public void setId(int id) {
@@ -250,19 +261,12 @@ public class Reciept {
         this.totalQTY = total_qty;
     }
 
-    public void addReceiptDetail(Product product, int qty,String size,String type,String topping,float toppingPrice,float typePrice,float sizePrice) {
-        //fix later when have select payment
-        RecieptDetail rd = new RecieptDetail(product.getName(),qty,product.getPrice(),size,typePrice,type,sizePrice,topping,toppingPrice,product.getPrice()*qty,this.id,product.getId());
-        recieptDetails.add(rd);
-        calculateTotal();
-    }
+    
 
     public void removeReceiptDetail(RecieptDetail receiptDateil) {
         recieptDetails.remove(receiptDateil);
         calculateTotal();
     }
-
-    
 
     @Override
     public String toString() {

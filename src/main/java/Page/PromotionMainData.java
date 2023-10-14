@@ -1,5 +1,6 @@
-package Dialog;
+package Page;
 
+import Dialog.PromotionDialog;
 import Model.Promotion;
 import Service.PromotionService;
 

@@ -23,10 +23,13 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
-        initComponents();
-     
-    }
+   public MainFrame() {
+    initComponents();
+
+    ProductPanel productPanel = new ProductPanel();
+    jScrollPane1.setViewportView(productPanel);
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

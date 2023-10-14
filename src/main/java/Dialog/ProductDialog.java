@@ -89,6 +89,11 @@ public class ProductDialog extends javax.swing.JDialog {
 
         cmbCatId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbCatId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cmbCatId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCatIdActionPerformed(evt);
+            }
+        });
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSave.setText("Save");
@@ -120,13 +125,13 @@ public class ProductDialog extends javax.swing.JDialog {
         jLabel8.setText("Type:");
 
         cmbSweetlv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "-" }));
+        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0123", "-" }));
 
         cmbSize.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "-" }));
+        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SML", "-" }));
 
         cmbType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "H", "C", "F", "-" }));
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HCF", "-" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Select picture:");
@@ -255,6 +260,10 @@ public class ProductDialog extends javax.swing.JDialog {
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
+
+    private void cmbCatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatIdActionPerformed
+        
+    }//GEN-LAST:event_cmbCatIdActionPerformed
 
     private void loadImage() {
         if(editedProduct.getId()>0){

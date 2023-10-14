@@ -13,21 +13,28 @@ import java.util.ArrayList;
  * @author Chaiwat
  */
 public class ProductService {
+
     private ProductDao productDao = new ProductDao();
 
     public ArrayList<Product> getProductsOrderByName() {
         return (ArrayList<Product>) productDao.getAll("product_name ASC");
     }
-    
+
     public Product getById(int id) {
         return productDao.get(id);
     }
 
-    public Product addNew(Product editedProduct) {
+    public Product addNew(Product editedProduct) throws ValidateException {
+        if (!editedProduct.isValid()) {
+            throw new ValidateException("Product is invalid!!!");
+        }
         return productDao.save(editedProduct);
     }
 
-    public Product update(Product editedProduct) {
+    public Product update(Product editedProduct) throws ValidateException {
+        if (!editedProduct.isValid()) {
+            throw new ValidateException("Product is invalid!!!");
+        }
         return productDao.update(editedProduct);
     }
 

@@ -130,7 +130,7 @@ public class PromotionDao implements Dao<Promotion> {
                 + "prom_name = ?, "
                 + "prom_discount = ?, "
                 + "prom_discount_perc = ?, "
-                + "prom_point_discount = ?"
+                + "prom_point_discount = ?,"
                 + "prom_used_point = ?"
                 + " WHERE prom_id = ?";
         Connection conn = DatabaseHelper.getConnect();

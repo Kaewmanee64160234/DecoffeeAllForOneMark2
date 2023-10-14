@@ -23,7 +23,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author toey
  */
-public class UserMainData extends javax.swing.JPanel {
+public class UserPanel extends javax.swing.JPanel {
 
     private final UserService userService;
     private List<User> list;
@@ -31,7 +31,7 @@ public class UserMainData extends javax.swing.JPanel {
     /**
      * Creates new form UserPanel
      */
-    public UserMainData() {
+    public UserPanel() {
         initComponents();
         userService = new UserService();
 

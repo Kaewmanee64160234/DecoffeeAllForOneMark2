@@ -30,9 +30,10 @@ public class Reciept {
     private Promotion promotion;
     private Employee employee;
     private Store store;
-     private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
+    private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
 
-    public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY, String payment, int storeId, int customerId, int promotionId) {
+    public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change,
+            int totalQTY, String payment, int storeId, int customerId, int promotionId) {
         this.id = id;
         this.creaetedDate = creaetedDate;
         this.queue = queue;
@@ -47,7 +48,8 @@ public class Reciept {
         this.promotionId = promotionId;
     }
 
-    public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY, String payment, int storeId, int customerId, int promotionId) {
+    public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
+            String payment, int storeId, int customerId, int promotionId) {
         this.id = -1;
         this.creaetedDate = creaetedDate;
         this.queue = queue;
@@ -62,7 +64,8 @@ public class Reciept {
         this.promotionId = promotionId;
     }
 
-    public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY, String payment, int storeId, int customerId) {
+    public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
+            String payment, int storeId, int customerId) {
         this.id = -1;
         this.creaetedDate = creaetedDate;
         this.queue = queue;
@@ -227,7 +230,6 @@ public class Reciept {
         this.store = store;
     }
 
-
     public void calculateTotal() {
         int total_qty = 0;
         float total = 0.0f;
@@ -243,14 +245,28 @@ public class Reciept {
         this.totalQTY = total_qty;
     }
 
-    @Override
-    public String toString() {
-        return "Reciept{" + "id=" + id + ", creaetedDate=" + creaetedDate + ", queue=" + queue + ", discount=" + discount + ", total=" + total + ", receive=" + receive + ", change=" + change + ", totalQTY=" + totalQTY + ", payment=" + payment + ", storeId=" + storeId + ", customerId=" + customerId + ", promotionId=" + promotionId + ", employeeId=" + employeeId + ", customer=" + customer + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}';
+    public void addReceiptDetail(Product product, int qty,String size,String type,String topping,float toppingPrice,float typePrice,float sizePrice) {
+        //fix later when have select payment
+        RecieptDetail rd = new RecieptDetail(product.getName(),qty,product.getPrice(),size,typePrice,type,sizePrice,topping,toppingPrice,product.getPrice()*qty,this.id,product.getId());
+        recieptDetails.add(rd);
+        calculateTotal();
     }
 
-   
+    public void removeReceiptDetail(RecieptDetail receiptDateil) {
+        recieptDetails.remove(receiptDateil);
+        calculateTotal();
+    }
 
-    public static Reciept fromRs(ResultSet rs){
+    @Override
+    public String toString() {
+        return "Reciept{" + "id=" + id + ", creaetedDate=" + creaetedDate + ", queue=" + queue + ", discount="
+                + discount + ", total=" + total + ", receive=" + receive + ", change=" + change + ", totalQTY="
+                + totalQTY + ", payment=" + payment + ", storeId=" + storeId + ", customerId=" + customerId
+                + ", promotionId=" + promotionId + ", employeeId=" + employeeId + ", customer=" + customer
+                + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}';
+    }
+
+    public static Reciept fromRs(ResultSet rs) {
         try {
             Reciept obj = new Reciept();
             obj.setId(rs.getInt("reciept_id"));
@@ -272,11 +288,5 @@ public class Reciept {
         }
         return null;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

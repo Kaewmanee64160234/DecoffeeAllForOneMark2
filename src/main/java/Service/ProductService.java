@@ -6,6 +6,9 @@ package Service;
 
 import Dao.ProductDao;
 import Model.Product;
+import Model.Size;
+import Model.Topping;
+import Model.Type;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +18,56 @@ import java.util.ArrayList;
 public class ProductService {
 
     private ProductDao productDao = new ProductDao();
+    private ArrayList<Topping> toppings;
+    private ArrayList<Type> types;
+    private ArrayList<Size> sizes;
 
+    public ProductService() {
+
+        toppings = new ArrayList<Topping>();
+        types = new ArrayList<Type>();
+        sizes = new ArrayList<Size>();
+
+        toppings.add(new Topping("Cheese", 10));
+        toppings.add(new Topping("Pearl", 10));
+        toppings.add(new Topping("HoneyPearl", 10));
+        toppings.add(new Topping("KonjacJelly ", 10));
+        toppings.add(new Topping("FruitSalad", 10));
+
+        types.add(new Type("Hot", 0));
+        types.add(new Type("Cold", 10));
+        types.add(new Type("Frappe", 10));
+        
+        sizes.add(new Size("S", 0));
+        sizes.add(new Size("M", 10));
+        sizes.add(new Size("L", 15));
+    }
+
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
+
+    public void setToppings(ArrayList<Topping> toppings) {
+        this.toppings = toppings;
+    }
+
+    public ArrayList<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(ArrayList<Type> types) {
+        this.types = types;
+    }
+
+    public ArrayList<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(ArrayList<Size> sizes) {
+        this.sizes = sizes;
+    }
+
+    
     public ArrayList<Product> getProductsOrderByName() {
         return (ArrayList<Product>) productDao.getAll("product_name ASC");
     }

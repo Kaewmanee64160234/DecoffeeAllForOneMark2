@@ -4,7 +4,7 @@
  */
 package Model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author USER
  */
 public class Reciept {
+
     private int id;
     private Date creaetedDate;
     private int queue;
@@ -31,6 +32,7 @@ public class Reciept {
     private Employee employee;
     private Store store;
     private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
+// all
 
     public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change,
             int totalQTY, String payment, int storeId, int customerId, int promotionId) {
@@ -47,12 +49,16 @@ public class Reciept {
         this.customerId = customerId;
         this.promotionId = promotionId;
     }
+
     public ArrayList<RecieptDetail> getRecieptDetails() {
         return recieptDetails;
     }
+
     public void setRecieptDetails(ArrayList recieptDetails) {
         this.recieptDetails = recieptDetails;
     }
+//not id
+
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId, int promotionId) {
         this.id = -1;
@@ -68,6 +74,7 @@ public class Reciept {
         this.customerId = customerId;
         this.promotionId = promotionId;
     }
+// no Promotion
 
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId) {
@@ -82,6 +89,7 @@ public class Reciept {
         this.payment = payment;
         this.storeId = storeId;
         this.customerId = customerId;
+        this.promotionId = -1;
     }
 
     public Reciept() {
@@ -99,8 +107,44 @@ public class Reciept {
         this.promotionId = -1;
     }
 
+    //have customer promotion
+    public Reciept(int queue, String payment, int storeId, int customerId, int promotionId, int employeeId, float receive) {
+        this.queue = queue;
+        this.payment = payment;
+        this.storeId = storeId;
+        this.customerId = customerId;
+        this.promotionId = promotionId;
+        this.employeeId = employeeId;
+        this.receive = receive;
+        this.change = 0;
+
+    }
+
+    public Reciept(int queue, String payment, int storeId, int promotionId, int employeeId, float receive) {
+        this.queue = queue;
+        this.payment = payment;
+        this.storeId = storeId;
+        this.customerId = -1;
+        this.promotionId = promotionId;
+        this.employeeId = employeeId;
+        this.receive = receive;
+        this.change = 0;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void addReceiptDetail(Product product, int qty, String size, String type, String topping, float toppingPrice,
+            float typePrice, float sizePrice) {
+        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), size, typePrice, type, sizePrice, topping, toppingPrice, product.getPrice() * qty, -1, product.getId());
+        int idProduct = product.getId();
+        System.out.println("Model.Reciept.addReceiptDetail()");
+
+        rd.setProductId(idProduct);
+        System.out.println(rd.toString());
+        recieptDetails.add(rd);
+        calculateTotal();
     }
 
     public void setId(int id) {
@@ -250,19 +294,10 @@ public class Reciept {
         this.totalQTY = total_qty;
     }
 
-    public void addReceiptDetail(Product product, int qty,String size,String type,String topping,float toppingPrice,float typePrice,float sizePrice) {
-        //fix later when have select payment
-        RecieptDetail rd = new RecieptDetail(product.getName(),qty,product.getPrice(),size,typePrice,type,sizePrice,topping,toppingPrice,product.getPrice()*qty,this.id,product.getId());
-        recieptDetails.add(rd);
-        calculateTotal();
-    }
-
     public void removeReceiptDetail(RecieptDetail receiptDateil) {
         recieptDetails.remove(receiptDateil);
         calculateTotal();
     }
-
-    
 
     @Override
     public String toString() {
@@ -270,14 +305,14 @@ public class Reciept {
                 + discount + ", total=" + total + ", receive=" + receive + ", change=" + change + ", totalQTY="
                 + totalQTY + ", payment=" + payment + ", storeId=" + storeId + ", customerId=" + customerId
                 + ", promotionId=" + promotionId + ", employeeId=" + employeeId + ", customer=" + customer
-                + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}';
+                + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}' + " recieptdetail " + recieptDetails;
     }
 
     public static Reciept fromRS(ResultSet rs) {
         try {
             Reciept obj = new Reciept();
             obj.setId(rs.getInt("reciept_id"));
-            obj.setCreaetedDate(rs.getDate("created_date"));
+            obj.setCreaetedDate(rs.getTimestamp("create_date"));
             obj.setQueue(rs.getInt("reciept_queue"));
             obj.setDiscount(rs.getFloat("reciept_discount"));
             obj.setTotal(rs.getFloat("reciept_total"));

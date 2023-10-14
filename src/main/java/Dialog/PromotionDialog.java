@@ -245,6 +245,7 @@ public class PromotionDialog extends javax.swing.JDialog {
 
         String discountString = edtDiscount.getText();
         float discount = Float.parseFloat(discountString);
+     
         editedPromotion.setDiscount(discount);
 
         String discountPercString = edtDiscountPerc.getText();
@@ -258,6 +259,7 @@ public class PromotionDialog extends javax.swing.JDialog {
         String usedPointString = edtUsedPoint.getText();
         int usedPoint = Integer.parseInt(usedPointString);
         editedPromotion.setDiscount(usedPoint);
+        System.out.println(editedPromotion.toString());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

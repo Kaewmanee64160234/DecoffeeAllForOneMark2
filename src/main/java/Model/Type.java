@@ -4,26 +4,20 @@
  */
 package Model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Lenovo
  */
-public class Topping {
-
+public class Type {
     private String name;
     private float price;
 
-    public Topping(String name, float price) {
+    public Type(String name, float price) {
         this.name = name;
         this.price = price;
     }
-
-    public Topping() {
+    
+    public Type() {
         this.name = "";
         this.price = 0;
     }
@@ -43,9 +37,9 @@ public class Topping {
     public void setPrice(float price) {
         this.price = price;
     }
-
-    @Override
+    
+     @Override
     public String toString() {
-        return "Topping{" + "name=" + name + ", price=" + price + '}';
+        return "Type{" + "name=" + name + ", price=" + price + '}';
     }
 }

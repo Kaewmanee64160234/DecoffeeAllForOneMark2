@@ -120,13 +120,13 @@ public class ProductDialog extends javax.swing.JDialog {
         jLabel8.setText("Type:");
 
         cmbSweetlv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "-" }));
+        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0123", "-" }));
 
         cmbSize.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "-" }));
+        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SML", "-" }));
 
         cmbType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "H", "C", "F", "-" }));
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HCF", "-" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Select picture:");

@@ -4,6 +4,7 @@
  */
 package com.mycompany.decoffeeallforone;
 
+import Dialog.CustomerDialog;
 import Model.Customer;
 import Service.CustomerService;
 import java.awt.event.WindowAdapter;

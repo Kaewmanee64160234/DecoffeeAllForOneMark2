@@ -2,11 +2,14 @@ package Dialog;
 
 import Model.Promotion;
 import Service.PromotionService;
+
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
@@ -15,11 +18,13 @@ public class PromotionMainData extends javax.swing.JDialog {
     private final PromotionService promotionService;
     private List<Promotion> list;
     private Promotion editedPromotion;
-
-    public PromotionMainData(java.awt.Frame parent, Promotion editedPromotion) {
+    private JPanel mainDataPanel;
+    public PromotionMainData() {
+        
         initComponents();
         promotionService = new PromotionService();
-
+        mainDataPanel = new JPanel();
+        mainDataPanel.setLayout(new BorderLayout());
         list = promotionService.getPromotions();
         tblPromotion.setRowHeight(20);
         tblPromotion.setModel(new AbstractTableModel() {

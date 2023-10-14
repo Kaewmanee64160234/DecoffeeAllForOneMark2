@@ -84,7 +84,6 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="passwordLbl" alignment="0" min="-2" pref="293" max="-2" attributes="0"/>
                                   <Component id="loginLbl" alignment="0" min="-2" pref="291" max="-2" attributes="0"/>
-                                  <Component id="checkBoxSeePass" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
                                   <Component id="btnLogin" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -138,8 +137,7 @@
                               <Component id="txtPass" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="lblImage2" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="checkBoxSeePass" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -238,15 +236,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLoginMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="checkBoxSeePass">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="see password"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkBoxSeePassMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxSeePassActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPass">

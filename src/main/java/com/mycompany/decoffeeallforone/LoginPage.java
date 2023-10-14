@@ -58,7 +58,7 @@ public class LoginPage extends javax.swing.JFrame {
         if (isPasswordVisible) {
             // Show the password and change the image to invisible.png
             txtPass.setEchoChar((char) 0); // Set the echo char to 0 to make it visible
-            lblImage2.setIcon(new ImageIcon("./invisible.png")); // Change the icon
+            lblImage2.setIcon(new ImageIcon("./hide.png")); // Change the icon
         } else {
             // Hide the password and change the image back to visible.png
             txtPass.setEchoChar('*'); // Set the echo char back to '*'
@@ -84,7 +84,6 @@ public class LoginPage extends javax.swing.JFrame {
         btnExit = new javax.swing.JToggleButton();
         loginLbl2 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        checkBoxSeePass = new javax.swing.JCheckBox();
         txtPass = new javax.swing.JPasswordField();
         lblImage1 = new javax.swing.JLabel();
         lblImage2 = new javax.swing.JLabel();
@@ -148,18 +147,6 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        checkBoxSeePass.setText("see password");
-        checkBoxSeePass.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkBoxSeePassMouseClicked(evt);
-            }
-        });
-        checkBoxSeePass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxSeePassActionPerformed(evt);
-            }
-        });
-
         txtPass.setBackground(new java.awt.Color(153, 204, 255));
         txtPass.setText("password");
         txtPass.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
@@ -178,7 +165,6 @@ public class LoginPage extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(loginLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkBoxSeePass, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,8 +205,7 @@ public class LoginPage extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblImage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkBoxSeePass)))
+                        .addGap(32, 32, 32)))
                 .addGap(18, 18, 18)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
@@ -278,21 +263,6 @@ public class LoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void checkBoxSeePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSeePassActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_checkBoxSeePassActionPerformed
-
-    private void checkBoxSeePassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkBoxSeePassMouseClicked
-        // TODO add your handling code here:
-
-        if (checkBoxSeePass.isSelected()) {
-            txtPass.setEchoChar((char) 0); // Show the password
-        } else {
-            txtPass.setEchoChar('\u2022'); // Hide the password with asterisks
-        }
-    }//GEN-LAST:event_checkBoxSeePassMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -333,7 +303,6 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JPanel base;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JCheckBox checkBoxSeePass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblImage1;

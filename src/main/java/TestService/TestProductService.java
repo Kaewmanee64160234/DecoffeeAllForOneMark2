@@ -6,6 +6,7 @@ package TestService;
 
 import Model.Product;
 import Service.ProductService;
+import Service.ValidateException;
 
 /**
  *
@@ -13,7 +14,7 @@ import Service.ProductService;
  */
 public class TestProductService {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ValidateException {
         ProductService pd = new ProductService();
         for (Product product : pd.getProductsOrderByName()) {
             System.out.println(product);

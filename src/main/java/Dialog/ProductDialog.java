@@ -6,6 +6,7 @@ package Dialog;
 
 import Model.Product;
 import Service.ProductService;
+import Service.ValidateException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -242,14 +243,24 @@ public class ProductDialog extends javax.swing.JDialog {
         Product product;
         if (editedProduct.getId() < 0) {//Add New
             setFormToObject();
-            product = productService.addNew(editedProduct);
+            try {
+                product = productService.addNew(editedProduct);
+                 saveImage(product);
+            } catch (ValidateException ex) {
+                Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             setFormToObject();
-            product = productService.update(editedProduct);
+            try {
+                product = productService.update(editedProduct);
+                 saveImage(product);
+            } catch (ValidateException ex) {
+                Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
-        saveImage(product);
+       
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 

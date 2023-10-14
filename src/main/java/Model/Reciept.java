@@ -268,7 +268,7 @@ public class Reciept {
                 + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}';
     }
 
-    public static Reciept fromRs(ResultSet rs) {
+    public static Reciept fromRS(ResultSet rs) {
         try {
             Reciept obj = new Reciept();
             obj.setId(rs.getInt("reciept_id"));

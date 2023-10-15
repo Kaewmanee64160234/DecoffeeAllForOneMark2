@@ -290,11 +290,11 @@ public class EmployeePanel extends javax.swing.JPanel {
         });
     }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-//        int selectIndex = tblEmployee.getSelectedRow();
-//        if (selectIndex >= 0) {
-//            editedEmployee = list.get(selectIndex);
-////            openDialog();
-//        }
+        int selectIndex = tblEmployee.getSelectedRow();
+        if (selectIndex >= 0) {
+            editedEmployee = list.get(selectIndex);
+            openDialog();
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

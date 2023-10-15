@@ -4,59 +4,38 @@
  */
 package Page;
 
-
+import Component.CategoryObs;
+import Component.ProductListPanel;
 import Dao.RecieptDao;
+import Dialog.FindMemberDialog;
 import Model.Reciept;
 import Service.ProductService;
 
 import Dialog.PromotionDialog;
-import Component.BuyProductable;
-import Component.CategoryObs;
-import Component.ProductListPanel;
-import Dialog.AddCustomerDialog;
-import Dialog.EmployeeDialog;
-import Dialog.FindMemberDialog;
-import Dialog.PosPromotionDialog;
-import Dialog.PromotionDialog;
 import Model.Customer;
-import Model.Employee;
-import Model.Product;
 import Model.Promotion;
-import Model.Reciept;
 import Model.RecieptDetail;
 import Service.RecieptService;
-
-
-import java.awt.Font;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author toey
  */
-
-
-
-public class PosPanel extends javax.swing.JPanel implements BuyProductable{
-
+public final class PosPanel extends javax.swing.JPanel {
 
     private ProductListPanel productListPanel;
     private final RecieptService recieptService;
     private List<RecieptDetail> list;
     private RecieptDetail editedRecieptDetail;
     private Promotion editedPromotion;
-    private Customer editedCustomer;
-
     private CategoryObs catObs;
-    Reciept reciept;
-
+    private FindMemberDialog findMemberDialog;
+    private Reciept reciept;
 
     /**
      * Creates new form PosDialog
@@ -64,55 +43,12 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
     public PosPanel() {
         initComponents();
 
-
         this.productListPanel = new ProductListPanel(1);
-        scrProductList.setViewportView(productListPanel);
-        productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
 
         recieptService = new RecieptService();
-        reciept = new Reciept();
-
-        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
-        tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty", "Total"};
-
-            @Override
-            public String getColumnName(int column) {
-                return headers[column];
-            }
-
-            @Override
-            public int getRowCount() {
-                return reciept.getRecieptDetails().size();
-            }
-
-            @Override
-            public int getColumnCount() {
-                return 4;
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
-                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
-                switch (columnIndex) {
-                    case 0:
-                        return recieptDetail.getName();
-                    case 1:
-                        return recieptDetail.getPrice();
-                    case 2:
-                        return recieptDetail.getQty();
-                    case 3:
-                        return recieptDetail.getTotal();
-                    default:
-                        return "";
-                }
-            }
-        });
+        this.reciept = new Reciept();
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -503,7 +439,6 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
             }
         });
 
-
         btnDessert.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDessert.setText("Dessert");
         btnDessert.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -586,11 +521,6 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         btnAddMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAddMember.setText("Add Member");
-        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMemberActionPerformed(evt);
-            }
-        });
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -689,6 +619,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosConfirmActionPerformed
         RecieptService recieptService = new RecieptService();
         ProductService productService = new ProductService();
@@ -713,41 +644,27 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
     }//GEN-LAST:event_btnDrinksActionPerformed
 
 
-
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
-        openPosPromotionDialog();
+        openDialog();
     }//GEN-LAST:event_btnPromotionActionPerformed
 
-    private void btnFindMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindMemberActionPerformed
-        editedCustomer = new Customer();
-        openFindMemberDialog();
-    }//GEN-LAST:event_btnFindMemberActionPerformed
-
-    private void btnAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMemberActionPerformed
-        editedCustomer = new Customer();
-        openAddCustomerDialog();
-    }//GEN-LAST:event_btnAddMemberActionPerformed
-
-    private void openPosPromotionDialog() {
-    
-    }
     private void btnDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDrinksMouseClicked
         // TODO add your handling code here:
         productListPanel = new ProductListPanel(1);
-         scrProductList.setViewportView(productListPanel);
+        scrProductList.setViewportView(productListPanel);
     }//GEN-LAST:event_btnDrinksMouseClicked
 
     private void btnDessertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDessertMouseClicked
         // TODO add your handling code here:
         productListPanel = new ProductListPanel(2);
-         scrProductList.setViewportView(productListPanel);
+        scrProductList.setViewportView(productListPanel);
     }//GEN-LAST:event_btnDessertMouseClicked
 
     private void btnFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFoodMouseClicked
         // TODO add your handling code here:
         productListPanel = new ProductListPanel(3);
-         scrProductList.setViewportView(productListPanel);
+        scrProductList.setViewportView(productListPanel);
         System.out.println(3);
     }//GEN-LAST:event_btnFoodMouseClicked
 
@@ -755,12 +672,17 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDessertActionPerformed
 
+    private void btnFindMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindMemberActionPerformed
+        // TODO add your handling code here:
+        openDialogFindMember();
+    }//GEN-LAST:event_btnFindMemberActionPerformed
+
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PosPromotionDialog PosPromotionDialog = new PosPromotionDialog(frame, editedPromotion);
-        PosPromotionDialog.setLocationRelativeTo(this); //set dialog to center
-        PosPromotionDialog.setVisible(true);
-        PosPromotionDialog.addWindowListener(new WindowAdapter() {
+        PromotionDialog PromotionDialog = new PromotionDialog(frame, editedPromotion);
+        PromotionDialog.setLocationRelativeTo(this); //set dialog to center
+        PromotionDialog.setVisible(true);
+        PromotionDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
@@ -768,35 +690,21 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         });
     }
-    
-    private void openFindMemberDialog() {
+
+    private void openDialogFindMember() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        FindMemberDialog FindMemberDialog = new FindMemberDialog(frame, editedCustomer);
-        FindMemberDialog.setLocationRelativeTo(this); //set dialog to center
-        FindMemberDialog.setVisible(true);
-        FindMemberDialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                refreshTable();
-            }
-
-        });
+        FindMemberDialog findMemberDialog = new FindMemberDialog(frame, reciept, this);
+        findMemberDialog.setLocationRelativeTo(this); //set dialog to center
+        findMemberDialog.setVisible(true);
     }
-    
-    private void openAddCustomerDialog() {
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        AddCustomerDialog AddCustomerDialog = new AddCustomerDialog(frame, editedCustomer);
-        AddCustomerDialog.setLocationRelativeTo(this); //set dialog to center
-        AddCustomerDialog.setVisible(true);
-        AddCustomerDialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                refreshTable();
-            }
 
-        });
+    public void setFromMemeber(Customer cus) {
+        lblMemberName.setText(cus.getName());
+        lblMemberPoint.setText(cus.getPoint() + "");
+
+        lblPhoneNumber.setText(cus.getTel());
+
     }
-    
 
     private void refreshTable() {
 //        list = recieptService.getReciepts();
@@ -859,9 +767,4 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
     private javax.swing.JLabel txtmemberName;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void buy(Product product, int qty) {
-        reciept.addReceiptDetail(product, qty, "-", "-", "-", 0, 0, 0);
-        refreshTable();
-    }
 }

@@ -12,15 +12,15 @@ import Component.ProductListPanel;
  */
 public class PosPanel extends javax.swing.JPanel {
 
-    private final ProductListPanel productListPanel;
+
     
     /**
      * Creates new form PosDialog
      */
     public PosPanel() {
         initComponents();
-        productListPanel = new ProductListPanel();
-        scrProductList.setViewportView(productListPanel);
+        
+     
     }
 
     /**

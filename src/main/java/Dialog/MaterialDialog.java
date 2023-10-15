@@ -29,9 +29,7 @@ public class MaterialDialog extends javax.swing.JDialog {
         materialService = new MaterialService();
     }
 
-    public MaterialDialog(JFrame frame, Material editedMaterial) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
 
 

@@ -3,16 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Page;
-
 import Component.NavigationBar;
 import Dialog.MaterialDialog;
-import Dialog.UserDialog;
 import Model.Material;
-import Model.User;
 import Service.MaterialService;
-import Service.UserService;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -74,13 +69,6 @@ public class MaterialPanel extends javax.swing.JPanel {
                 Material material = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./material"+material.getId()+".png");
-                        Image image = icon.getImage();
-                        int width = image.getWidth(null);
-                        int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int)(50*((float)width)/height), 50, Image.SCALE_SMOOTH);
-                        icon.setImage(newImage);
-                        return icon;
                     case 1:
                         return material.getId();
                     case 2:
@@ -110,7 +98,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGender = new javax.swing.ButtonGroup();
         pnlNavigation = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMaterial = new javax.swing.JTable();
@@ -304,7 +291,6 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.ButtonGroup btnGender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -65,7 +65,7 @@ public class ProductPanel extends javax.swing.JPanel {
                 Product product = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./product" + product.getId() + ".png");
+                        ImageIcon icon = new ImageIcon("./product" + product.getName()+ ".png");
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);

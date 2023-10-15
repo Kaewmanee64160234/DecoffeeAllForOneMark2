@@ -278,7 +278,7 @@ public class ProductDialog extends javax.swing.JDialog {
 
     private void loadImage() {
         if(editedProduct.getId()>0){
-            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getId() + ".png");
+            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getName()+ ".png");
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
             icon.setImage(newImage);
@@ -287,13 +287,14 @@ public class ProductDialog extends javax.swing.JDialog {
     }
     private void loadImage(String path) {
         if(editedProduct.getId()>0){
-            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getId() + ".png");
+            ImageIcon icon = new ImageIcon(path);
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
             icon.setImage(newImage);
             lblPhoto.setIcon(icon);
         }
     }
+
     
     public void chooseImage(){
         JFileChooser fileChooser = new JFileChooser();
@@ -342,7 +343,7 @@ public class ProductDialog extends javax.swing.JDialog {
         if(path == null || path.isEmpty()) return;
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            ImageIO.write(image, "png", new File("./Product" + product.getId() + ".png"));
+            ImageIO.write(image, "png", new File("./Product" + product.getName()+ ".png"));
         } catch (IOException ex) {
             Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
         }

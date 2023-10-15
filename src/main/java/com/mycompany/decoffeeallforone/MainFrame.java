@@ -8,6 +8,7 @@ import Component.ProductListPanel;
 import Page.PromotionMainData;
 import Model.Promotion;
 import Page.EmployeePanel;
+import Page.MaterialPanel;
 import Page.PosPanel;
 import Page.UserPanel;
 import Service.PromotionService;
@@ -34,6 +35,8 @@ public class MainFrame extends javax.swing.JFrame {
     //scrPanel.setViewportView(productPanel);
     scrPanel.setViewportView(new UserPanel());
     scrPanel.setViewportView(new EmployeePanel());
+    //scrPanel.setViewportView(new UserPanel());
+    scrPanel.setViewportView(new MaterialPanel());
 }
 
 

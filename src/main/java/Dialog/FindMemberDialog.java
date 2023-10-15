@@ -44,7 +44,7 @@ public class FindMemberDialog extends javax.swing.JDialog {
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             icon.setImage(newImage);
-            lblPhoto.setIcon(icon);
+            //lblPhoto.setIcon(icon);
         }
 
     }
@@ -55,7 +55,7 @@ public class FindMemberDialog extends javax.swing.JDialog {
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
             icon.setImage(newImage);
-            lblPhoto.setIcon(icon);
+            //lblPhoto.setIcon(icon);
         }
 
     }
@@ -254,15 +254,15 @@ public class FindMemberDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void setFormToObject() {
-        editedUser.setLogin(edtLogin.getText());
-        editedUser.setUsername(edtName.getText());
-        editedUser.setPassword(new String(edtPassword.getPassword()));
+        //editedUser.setLogin(edtLogin.getText());
+        //editedUser.setUsername(edtName.getText());
+        //editedUser.setPassword(new String(edtPassword.getPassword()));
     }
 
     private void setObjectToForm() {
-        edtLogin.setText(editedUser.getLogin());
-        edtName.setText(editedUser.getUsername());
-        edtPassword.setText(editedUser.getPassword());
+        //edtLogin.setText(editedUser.getLogin());
+        //edtName.setText(editedUser.getUsername());
+        //edtPassword.setText(editedUser.getPassword());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

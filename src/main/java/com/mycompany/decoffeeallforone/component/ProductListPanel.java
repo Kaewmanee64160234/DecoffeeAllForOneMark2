@@ -2,31 +2,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Component;
+package com.mycompany.decoffeeallforone.component;
 
 import Model.Product;
 import Service.ProductService;
-import component.CategoryObs;
+import com.mycompany.decoffeeallforone.component.CategoryObs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+
 
 /**
  *
  * @author toey
  */
-public class ProductListPanel extends javax.swing.JPanel implements CategoryObs{
+public class ProductListPanel extends javax.swing.JPanel {
 
     private final ProductService productService;
     private ArrayList<Product> products;
 
-
     /**
      * Creates new form ProductListPanel
      */
-    public ProductListPanel() {
+    public ProductListPanel(int cat) {
         initComponents();
         productService = new ProductService();
-        products = productService.getProductsByCatId(1);
+        products = new ArrayList<Product>();
+        products = productService.getProductsByCatId(cat);
+
         int productSize = products.size();
         for (Product p : products) {
             pnlProductList.add(new ProductItemPanel(p));
@@ -79,8 +81,6 @@ public class ProductListPanel extends javax.swing.JPanel implements CategoryObs{
     private javax.swing.JPanel pnlProductList;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void updateCategory(int categoryId) {
-        products = productService.getProductsByCatId(categoryId);
-    }
+ 
+   
 }

@@ -4,7 +4,7 @@
  */
 package Page;
 
-import Component.NavigationBar;
+import com.mycompany.decoffeeallforone.component.NavigationBar;
 import Dialog.UserDialog;
 import Model.User;
 import Service.UserService;

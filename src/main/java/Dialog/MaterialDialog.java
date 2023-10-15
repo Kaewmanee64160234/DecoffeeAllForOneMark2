@@ -50,13 +50,13 @@ public class MaterialDialog extends javax.swing.JDialog {
         txtMinimum = new javax.swing.JLabel();
         edtMinimum = new javax.swing.JTextField();
         txtUnit = new javax.swing.JLabel();
-        edtUnit = new javax.swing.JPasswordField();
         btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         txtQuantity = new javax.swing.JLabel();
         edtQuantity = new javax.swing.JTextField();
         txtPricePerUnit = new javax.swing.JLabel();
         edtPericePerUnit = new javax.swing.JTextField();
+        edtUnit = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,8 +79,6 @@ public class MaterialDialog extends javax.swing.JDialog {
 
         txtUnit.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         txtUnit.setText("Unit: ");
-
-        edtUnit.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnCancel.setText("Cancel");
@@ -107,6 +105,8 @@ public class MaterialDialog extends javax.swing.JDialog {
         txtPricePerUnit.setText("Price Per Unit");
 
         edtPericePerUnit.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+
+        edtUnit.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -163,12 +163,12 @@ public class MaterialDialog extends javax.swing.JDialog {
                         .addComponent(edtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUnit)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(edtUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPricePerUnit)
-                            .addComponent(edtPericePerUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtUnit)
+                        .addComponent(edtUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtPricePerUnit)
+                        .addComponent(edtPericePerUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -218,7 +218,7 @@ public class MaterialDialog extends javax.swing.JDialog {
         editedMaterial.setMatMinQty((Integer.parseInt(edtMinimum.getText())));
         editedMaterial.setMatQty((Integer.parseInt(edtQuantity.getText())));
         editedMaterial.setMatUnit(edtUnit.getText());
-        editedMaterial.setMatPricePerUnit((Integer.parseInt(edtPericePerUnit.getText())));
+        editedMaterial.setMatPricePerUnit((Float.parseFloat(edtPericePerUnit.getText())));
     }
 
     private void setObjectToForm() {
@@ -235,7 +235,7 @@ public class MaterialDialog extends javax.swing.JDialog {
     private javax.swing.JTextField edtName;
     private javax.swing.JTextField edtPericePerUnit;
     private javax.swing.JTextField edtQuantity;
-    private javax.swing.JPasswordField edtUnit;
+    private javax.swing.JTextField edtUnit;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblID;

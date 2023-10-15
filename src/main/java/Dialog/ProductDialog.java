@@ -6,6 +6,7 @@ package Dialog;
 
 import Model.Product;
 import Service.ProductService;
+import Service.ValidateException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -54,7 +55,7 @@ public class ProductDialog extends javax.swing.JDialog {
         edtPrice = new javax.swing.JTextField();
         cmbCatId = new javax.swing.JComboBox<>();
         btnSave = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -89,6 +90,11 @@ public class ProductDialog extends javax.swing.JDialog {
 
         cmbCatId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbCatId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cmbCatId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCatIdActionPerformed(evt);
+            }
+        });
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSave.setText("Save");
@@ -98,11 +104,11 @@ public class ProductDialog extends javax.swing.JDialog {
             }
         });
 
-        btnClear.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnClear.setText("Clear");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -120,13 +126,13 @@ public class ProductDialog extends javax.swing.JDialog {
         jLabel8.setText("Type:");
 
         cmbSweetlv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "-" }));
+        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0123", "-" }));
 
         cmbSize.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "-" }));
+        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SML", "-" }));
 
         cmbType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "H", "C", "F", "-" }));
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HCF", "-" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Select picture:");
@@ -160,7 +166,7 @@ public class ProductDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnClear)
+                                .addComponent(btnCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSave))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -209,7 +215,7 @@ public class ProductDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnClear))
+                    .addComponent(btnCancel))
                 .addContainerGap())
         );
 
@@ -237,28 +243,42 @@ public class ProductDialog extends javax.swing.JDialog {
         Product product;
         if (editedProduct.getId() < 0) {//Add New
             setFormToObject();
-            product = productService.addNew(editedProduct);
+            try {
+                product = productService.addNew(editedProduct);
+                 saveImage(product);
+            } catch (ValidateException ex) {
+                Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             setFormToObject();
-            product = productService.update(editedProduct);
+            try {
+                product = productService.update(editedProduct);
+                 saveImage(product);
+            } catch (ValidateException ex) {
+                Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
-        saveImage(product);
+       
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
-    }//GEN-LAST:event_btnClearActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
 
+    private void cmbCatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatIdActionPerformed
+        
+    }//GEN-LAST:event_cmbCatIdActionPerformed
+
     private void loadImage() {
         if(editedProduct.getId()>0){
-            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getId() + ".png");
+            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getName()+ ".png");
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
             icon.setImage(newImage);
@@ -267,13 +287,14 @@ public class ProductDialog extends javax.swing.JDialog {
     }
     private void loadImage(String path) {
         if(editedProduct.getId()>0){
-            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getId() + ".png");
+            ImageIcon icon = new ImageIcon(path);
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
             icon.setImage(newImage);
             lblPhoto.setIcon(icon);
         }
     }
+
     
     public void chooseImage(){
         JFileChooser fileChooser = new JFileChooser();
@@ -322,7 +343,7 @@ public class ProductDialog extends javax.swing.JDialog {
         if(path == null || path.isEmpty()) return;
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            ImageIO.write(image, "png", new File("./Product" + product.getId() + ".png"));
+            ImageIO.write(image, "png", new File("./Product" + product.getName()+ ".png"));
         } catch (IOException ex) {
             Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -332,7 +353,7 @@ public class ProductDialog extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbCatId;
     private javax.swing.JComboBox<String> cmbSize;

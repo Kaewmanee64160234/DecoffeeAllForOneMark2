@@ -5,7 +5,11 @@
 package TestService;
 
 import Model.Product;
+import Model.Topping;
+import Model.Type;
 import Service.ProductService;
+import Service.ValidateException;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +17,7 @@ import Service.ProductService;
  */
 public class TestProductService {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ValidateException {
         ProductService pd = new ProductService();
         for (Product product : pd.getProductsOrderByName()) {
             System.out.println(product);
@@ -38,4 +42,15 @@ public class TestProductService {
             System.out.println(product);
         }
     }
+
+//        ArrayList<Topping> toppings = pd.getToppings();
+//        for (Topping topping : toppings) {
+//            System.out.println(topping);
+//        }
+//        
+//        ArrayList<Type> types = pd.getTypes();
+//        for (Type type : types) {
+//            System.out.println(type);
+//        }
+//    }
 }

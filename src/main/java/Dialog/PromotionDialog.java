@@ -27,7 +27,7 @@ public class PromotionDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         edtName = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         lblPromotionId = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -64,11 +64,11 @@ public class PromotionDialog extends javax.swing.JDialog {
             }
         });
 
-        btnClear.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnClear.setText("Clear");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -125,7 +125,7 @@ public class PromotionDialog extends javax.swing.JDialog {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(edtDiscountPerc, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(edtUsedPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnClear))
+                            .addComponent(btnCancel))
                         .addGap(18, 18, 18))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -174,7 +174,7 @@ public class PromotionDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnClear))
+                    .addComponent(btnCancel))
                 .addContainerGap())
         );
 
@@ -210,9 +210,9 @@ public class PromotionDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
-    }//GEN-LAST:event_btnClearActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void setObjectToForm() {
 
@@ -245,23 +245,24 @@ public class PromotionDialog extends javax.swing.JDialog {
 
         String discountString = edtDiscount.getText();
         float discount = Float.parseFloat(discountString);
+     
         editedPromotion.setDiscount(discount);
 
         String discountPercString = edtDiscountPerc.getText();
         int discountPerc = Integer.parseInt(discountPercString);
-        editedPromotion.setDiscount(discountPerc);
+        editedPromotion.setDiscountPerc(discountPerc);
 
         String pointDiscountString = edtPointDiscount.getText();
         int pointDiscount = Integer.parseInt(pointDiscountString);
-        editedPromotion.setDiscount(pointDiscount);
+        editedPromotion.setPointDiscount(pointDiscount);
 
         String usedPointString = edtUsedPoint.getText();
         int usedPoint = Integer.parseInt(usedPointString);
-        editedPromotion.setDiscount(usedPoint);
+        editedPromotion.setUsedPoint(usedPoint);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JTextField edtDiscount;
     private javax.swing.JTextField edtDiscountPerc;

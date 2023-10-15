@@ -5,12 +5,11 @@
 package Page;
 
 import Component.ProductListPanel;
-<<<<<<< HEAD
 import Dao.RecieptDao;
 import Model.Reciept;
 import Service.ProductService;
 import Service.RecieptService;
-=======
+
 import Dialog.EmployeeDialog;
 import Dialog.PromotionDialog;
 import Model.Employee;
@@ -23,7 +22,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
->>>>>>> 88ab88af6d333b8f5df523d9e7a46924041c8a99
+
 
 /**
  *

@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class AddCustomerDialog extends javax.swing.JDialog {
 
     private final CustomerService customerService;
-    private List<Customer> list;
+    private ArrayList<Customer> lists;
     private Customer editedCustomer;
     private String path;
 
@@ -37,6 +38,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         this.editedCustomer = editedCustomer;
+        setObjectToForm();
         customerService = new CustomerService();
     }
 
@@ -52,17 +54,15 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
-        txtLogin = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        edtLogin = new javax.swing.JTextField();
-        txtName = new javax.swing.JLabel();
-        edtName = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JLabel();
-        edtPassword = new javax.swing.JPasswordField();
-        txtRole = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblTel = new javax.swing.JLabel();
+        txtTel = new javax.swing.JTextField();
+        lblPoint = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        edtName1 = new javax.swing.JTextField();
+        txtPoint = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -71,25 +71,20 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         lblID.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblID.setText("ID: ");
 
-        txtLogin.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtLogin.setText("Name:");
+        lblName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblName.setText("Name:");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        edtLogin.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-
         txtName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtName.setText("Telephone:");
 
-        edtName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTel.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTel.setText("Telephone:");
 
-        txtPassword.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtPassword.setText("Point: ");
+        txtTel.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
-        edtPassword.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-
-        txtRole.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtRole.setText("Start member:");
+        lblPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPoint.setText("Point: ");
 
         btnClear.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnClear.setText("Clear");
@@ -107,7 +102,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        edtName1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -126,20 +121,16 @@ public class AddCustomerDialog extends javax.swing.JDialog {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLogin))
+                    .addComponent(lblPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRole)
-                    .addComponent(txtName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtName1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblTel)
+                .addGap(29, 29, 29)
+                .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -148,18 +139,15 @@ public class AddCustomerDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblID)
-                    .addComponent(txtLogin)
+                    .addComponent(lblName)
                     .addComponent(jLabel8)
-                    .addComponent(edtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName)
-                    .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTel)
+                    .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPassword)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRole)
-                        .addComponent(edtName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPoint)
+                    .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -192,18 +180,30 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         try {
             if (editedCustomer.getId() < 0) {
                 customer = customerService.addNew(editedCustomer);
-
+                setFormToObject();
             } else {
+                setFormToObject();
                 customer = customerService.update(editedCustomer);
             }
 
-        } catch (ValidateException ex) {
+            } catch (ValidateException ex) {
             Logger.getLogger(CustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void setFormToObject() {
+        editedCustomer.setName(txtName.getText());
+        editedCustomer.setTel((txtTel.getText()));
+        editedCustomer.setPoint((Integer.parseInt(txtPoint.getText())));
+    }
+
+    private void setObjectToForm() {
+        txtName.setText(editedCustomer.getName());
+        txtTel.setText(editedCustomer.getTel());
+        txtPoint.setText((editedCustomer.getPoint() + ""));
+    }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
@@ -211,16 +211,14 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
-    private javax.swing.JTextField edtLogin;
-    private javax.swing.JTextField edtName;
-    private javax.swing.JTextField edtName1;
-    private javax.swing.JPasswordField edtPassword;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblID;
-    private javax.swing.JLabel txtLogin;
-    private javax.swing.JLabel txtName;
-    private javax.swing.JLabel txtPassword;
-    private javax.swing.JLabel txtRole;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPoint;
+    private javax.swing.JLabel lblTel;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPoint;
+    private javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables
 }

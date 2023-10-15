@@ -6,8 +6,12 @@ package Page;
 
 import Component.BuyProductable;
 import Component.ProductListPanel;
+import Dialog.AddCustomerDialog;
 import Dialog.EmployeeDialog;
+import Dialog.FindMemberDialog;
+import Dialog.PosPromotionDialog;
 import Dialog.PromotionDialog;
+import Model.Customer;
 import Model.Employee;
 import Model.Product;
 import Model.Promotion;
@@ -35,6 +39,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
     private List<RecieptDetail> list;
     private RecieptDetail editedRecieptDetail;
     private Promotion editedPromotion;
+    private Customer editedCustomer;
     Reciept reciept;
 
     /**
@@ -50,7 +55,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty", "Toatal"};
+            String[] headers = {"Name", "Price", "Qty", "Total"};
 
             @Override
             public String getColumnName(int column) {
@@ -330,7 +335,7 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
                     .addComponent(txtTotalPoint)
                     .addComponent(lblTotalPoint)
                     .addComponent(txtPoint2))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnlCaculator.setBackground(new java.awt.Color(199, 195, 188));
@@ -525,9 +530,19 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         btnFindMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnFindMember.setText("Find Member");
+        btnFindMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindMemberActionPerformed(evt);
+            }
+        });
 
         btnAddMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAddMember.setText("Add Member");
+        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMemberActionPerformed(evt);
+            }
+        });
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -624,15 +639,25 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
-        openDialog();
+        openPosPromotionDialog();
     }//GEN-LAST:event_btnPromotionActionPerformed
 
-    private void openDialog() {
+    private void btnFindMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindMemberActionPerformed
+        editedCustomer = new Customer();
+        openFindMemberDialog();
+    }//GEN-LAST:event_btnFindMemberActionPerformed
+
+    private void btnAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMemberActionPerformed
+        editedCustomer = new Customer();
+        openAddCustomerDialog();
+    }//GEN-LAST:event_btnAddMemberActionPerformed
+
+    private void openPosPromotionDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PromotionDialog PromotionDialog = new PromotionDialog(frame, editedPromotion);
-        PromotionDialog.setLocationRelativeTo(this); //set dialog to center
-        PromotionDialog.setVisible(true);
-        PromotionDialog.addWindowListener(new WindowAdapter() {
+        PosPromotionDialog PosPromotionDialog = new PosPromotionDialog(frame, editedPromotion);
+        PosPromotionDialog.setLocationRelativeTo(this); //set dialog to center
+        PosPromotionDialog.setVisible(true);
+        PosPromotionDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
@@ -640,6 +665,35 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         });
     }
+    
+    private void openFindMemberDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        FindMemberDialog FindMemberDialog = new FindMemberDialog(frame, editedCustomer);
+        FindMemberDialog.setLocationRelativeTo(this); //set dialog to center
+        FindMemberDialog.setVisible(true);
+        FindMemberDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+            }
+
+        });
+    }
+    
+    private void openAddCustomerDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        AddCustomerDialog AddCustomerDialog = new AddCustomerDialog(frame, editedCustomer);
+        AddCustomerDialog.setLocationRelativeTo(this); //set dialog to center
+        AddCustomerDialog.setVisible(true);
+        AddCustomerDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+            }
+
+        });
+    }
+    
 
     private void refreshTable() {
 //        list = recieptService.getReciepts();

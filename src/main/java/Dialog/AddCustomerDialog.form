@@ -51,56 +51,45 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnSave" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblID" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblTelephone" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPosition" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtName" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="txtTelephone" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="cmbPosition" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblHourlyWage" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAddress" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtLogin" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPassword1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtAddress" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="txtEmail" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="edtLogin" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="edtPassword" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtRole" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtName" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="edtName" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="cmbRole" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="txtHourlyWage" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="lblPhoto" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="235" max="-2" attributes="0"/>
-                          <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblPassword1" min="-2" pref="63" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblPhoto" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="216" pref="216" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -108,48 +97,34 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblID" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblAddress" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblTelephone" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="txtTelephone" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="txtAddress" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cmbPosition" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPosition" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblHourlyWage" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtHourlyWage" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtPassword" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="edtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtRole" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbRole" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblPhoto" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="lblPassword1" alignment="0" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="txtPassword1" alignment="0" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,12 +138,12 @@
             <Property name="text" type="java.lang.String" value="ID: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblName">
+        <Component class="javax.swing.JLabel" name="txtLogin">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Name: "/>
+            <Property name="text" type="java.lang.String" value="Login: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -178,66 +153,63 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtName">
+        <Component class="javax.swing.JTextField" name="edtLogin">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblAddress">
+        <Component class="javax.swing.JLabel" name="txtName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Address:"/>
+            <Property name="text" type="java.lang.String" value="Name:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtAddress">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="12" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTelephone">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="12" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Telephone:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JPasswordField" name="txtTelephone">
+        <Component class="javax.swing.JTextField" name="edtName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblEmail">
+        <Component class="javax.swing.JLabel" name="txtPassword">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Email: "/>
+            <Property name="text" type="java.lang.String" value="Password: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbPosition">
+        <Component class="javax.swing.JPasswordField" name="edtPassword">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Kanit" size="12" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="txtRole">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Kanit" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Role:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbRole">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="Cashier"/>
-                <StringItem index="1" value="Cleaner"/>
+                <StringItem index="0" value="Admin"/>
+                <StringItem index="1" value="User"/>
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbPositionActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -274,42 +246,12 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPhotoMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPassword1">
+        <Component class="javax.swing.JLabel" name="txtPassword1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Select Pic:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtEmail">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="12" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblPosition">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="12" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Position:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblHourlyWage">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="12" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Hourly Wage: "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtHourlyWage">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="12" style="0"/>
-            </Property>
           </Properties>
         </Component>
       </SubComponents>

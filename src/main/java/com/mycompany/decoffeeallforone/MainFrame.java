@@ -30,6 +30,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     ProductPanel productPanel = new ProductPanel();
     //scrPanel.setViewportView(productPanel);
+//    scrPanel.setViewportView(new UserPanel());
+//    scrPanel.setViewportView(new EmployeePanel());
+    //scrPanel.setViewportView(new UserPanel());
+//    scrPanel.setViewportView(new MaterialPanel());
     scrPanel.setViewportView(new PosPanel());
 }
 
@@ -84,7 +88,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                .addComponent(scrPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

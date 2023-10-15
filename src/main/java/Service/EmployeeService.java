@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class EmployeeService {
 
+    private Employee editedEmployee;
+    
     public Employee getByTel(String tel) {
         EmployeeDao employeeDao = new EmployeeDao();
         Employee employee = employeeDao.getByTel(tel);
@@ -25,6 +27,15 @@ public class EmployeeService {
         return employeeDao.getAll(" employee_id asc");
     }
 
+    public Employee getEditedEmployee() {
+        return editedEmployee;
+    }
+
+    public void setEditedEmployee(Employee editedEmployee) {
+        this.editedEmployee = editedEmployee;
+    }
+
+    
     public Employee addNew(Employee editedEmployee) {
         EmployeeDao employeeDao = new EmployeeDao();
         return employeeDao.save(editedEmployee);

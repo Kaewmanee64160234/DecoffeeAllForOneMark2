@@ -6,6 +6,7 @@ package Component;
 
 import Model.Product;
 import Service.ProductService;
+import component.CategoryObs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -13,10 +14,10 @@ import java.util.ArrayList;
  *
  * @author toey
  */
-public class ProductListPanel extends javax.swing.JPanel {
+public class ProductListPanel extends javax.swing.JPanel implements CategoryObs{
 
     private final ProductService productService;
-    private final ArrayList<Product> products;
+    private ArrayList<Product> products;
 
 
     /**
@@ -25,7 +26,7 @@ public class ProductListPanel extends javax.swing.JPanel {
     public ProductListPanel() {
         initComponents();
         productService = new ProductService();
-        products = productService.getProductsOrderByName();
+        products = productService.getProductsByCatId(1);
         int productSize = products.size();
         for (Product p : products) {
             pnlProductList.add(new ProductItemPanel(p));
@@ -77,4 +78,9 @@ public class ProductListPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel pnlProductList;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateCategory(int categoryId) {
+        products = productService.getProductsByCatId(categoryId);
+    }
 }

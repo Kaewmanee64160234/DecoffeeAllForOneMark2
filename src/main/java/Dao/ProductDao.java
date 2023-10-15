@@ -102,6 +102,28 @@ public class ProductDao implements Dao<Product>{
         return list;
     }
 
+    public ArrayList<Product> getByCatId(int id){
+        ArrayList<Product> list = new ArrayList();
+        String sql = "SELECT * FROM product WHERE category_id = ? ORDER BY product_name ASC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Product product = Product.fromRS(rs);
+                list.add(product);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return list;
+    }
+
     @Override
     public Product save(Product obj) {
 

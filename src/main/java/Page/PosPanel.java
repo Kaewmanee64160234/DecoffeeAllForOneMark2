@@ -5,6 +5,10 @@
 package Page;
 
 import Component.ProductListPanel;
+import Dao.RecieptDao;
+import Model.Reciept;
+import Service.ProductService;
+import Service.RecieptService;
 
 /**
  *
@@ -458,6 +462,11 @@ public class PosPanel extends javax.swing.JPanel {
 
         btnPosConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPosConfirm.setText("Confirm");
+        btnPosConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPosConfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlDetailLayout = new javax.swing.GroupLayout(jpnlDetail);
         jpnlDetail.setLayout(jpnlDetailLayout);
@@ -545,6 +554,25 @@ public class PosPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosConfirmActionPerformed
+          RecieptService recieptService = new RecieptService();
+        ProductService productService = new ProductService();
+        RecieptDao recieptDao = new RecieptDao();
+        
+        Reciept reciept = new Reciept();
+        reciept.setQueue(1);
+        reciept.setPayment("cash");
+        reciept.setStoreId(1);
+        //set emplyee
+        reciept.setEmployeeId(1);
+        reciept.setReceive((float) Double.parseDouble(lblCange.getText()));
+        float cash = (float) Double.parseDouble(lblCange.getText());
+        
+        
+
+        
+    }//GEN-LAST:event_btnPosConfirmActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

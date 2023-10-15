@@ -16,6 +16,12 @@ public class EmployeeService {
 
     private Employee editedEmployee;
     
+    public Employee getById(int id) {
+        EmployeeDao employeeDao = new EmployeeDao();
+        Employee employee = employeeDao.getById(id);
+        return employee;
+    }
+    
     public Employee getByTel(String tel) {
         EmployeeDao employeeDao = new EmployeeDao();
         Employee employee = employeeDao.getByTel(tel);

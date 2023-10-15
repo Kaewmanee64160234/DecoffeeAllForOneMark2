@@ -58,29 +58,29 @@
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtTelephone" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtName" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPosition" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTelephone" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPosition" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="edtName" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="edtTelephone" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="txtName" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="txtTelephone" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="cmbPosition" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtHourlyWage" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAddress" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblHourlyWage" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAddress" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="edtAddress" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="edtEmail" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="txtAddress" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="txtEmail" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="edtHourlyWage" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="txtHourlyWage" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
               </Group>
@@ -94,7 +94,7 @@
                           <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtPassword1" min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="lblPassword1" min="-2" pref="63" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblPhoto" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="216" pref="216" max="-2" attributes="0"/>
@@ -112,37 +112,37 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblID" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="edtName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtAddress" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtTelephone" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTelephone" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="edtTelephone" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTelephone" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="edtAddress" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAddress" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="edtEmail" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cmbPosition" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPosition" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPosition" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblHourlyWage" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtHourlyWage" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="edtHourlyWage" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblPhoto" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="txtPassword1" alignment="0" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="lblPassword1" alignment="0" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -163,7 +163,7 @@
             <Property name="text" type="java.lang.String" value="ID: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtName">
+        <Component class="javax.swing.JLabel" name="lblName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -178,14 +178,14 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtName">
+        <Component class="javax.swing.JTextField" name="txtName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtAddress">
+        <Component class="javax.swing.JLabel" name="lblAddress">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -193,14 +193,14 @@
             <Property name="text" type="java.lang.String" value="Address:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtAddress">
+        <Component class="javax.swing.JTextField" name="txtAddress">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtTelephone">
+        <Component class="javax.swing.JLabel" name="lblTelephone">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -208,14 +208,14 @@
             <Property name="text" type="java.lang.String" value="Telephone:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="edtTelephone">
+        <Component class="javax.swing.JPasswordField" name="txtTelephone">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtEmail">
+        <Component class="javax.swing.JLabel" name="lblEmail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -274,7 +274,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPhotoMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtPassword1">
+        <Component class="javax.swing.JLabel" name="lblPassword1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -282,14 +282,14 @@
             <Property name="text" type="java.lang.String" value="Select Pic:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtEmail">
+        <Component class="javax.swing.JTextField" name="txtEmail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtPosition">
+        <Component class="javax.swing.JLabel" name="lblPosition">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -297,7 +297,7 @@
             <Property name="text" type="java.lang.String" value="Position:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtHourlyWage">
+        <Component class="javax.swing.JLabel" name="lblHourlyWage">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>
@@ -305,7 +305,7 @@
             <Property name="text" type="java.lang.String" value="Hourly Wage: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtHourlyWage">
+        <Component class="javax.swing.JTextField" name="txtHourlyWage">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="12" style="0"/>

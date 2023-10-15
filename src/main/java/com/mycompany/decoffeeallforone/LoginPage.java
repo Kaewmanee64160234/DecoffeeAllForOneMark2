@@ -5,6 +5,7 @@
 package com.mycompany.decoffeeallforone;
 
 import Model.User;
+import Service.EmployeeService;
 import Service.UserService;
 import java.awt.Color;
 import java.awt.Image;
@@ -79,6 +80,7 @@ public class LoginPage extends javax.swing.JFrame {
         base = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         txtLogin = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         passwordLbl = new javax.swing.JLabel();
         loginLbl = new javax.swing.JLabel();
         btnExit = new javax.swing.JToggleButton();
@@ -104,6 +106,8 @@ public class LoginPage extends javax.swing.JFrame {
 
         txtLogin.setBackground(new java.awt.Color(153, 204, 255));
         txtLogin.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image (1).png"))); // NOI18N
 
         passwordLbl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         passwordLbl.setText("Password");
@@ -154,69 +158,6 @@ public class LoginPage extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-<<<<<<< HEAD
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkBoxSeePass, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPass, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-<<<<<<< HEAD
-                        .addGap(441, 441, 441)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-=======
-                        .addGap(365, 365, 365)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(loginLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
->>>>>>> 414ea09a471e1ff80a5eee6c586753b44ed73072
-                .addContainerGap(1173, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-<<<<<<< HEAD
-                        .addGap(8, 8, 8)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-=======
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
->>>>>>> 414ea09a471e1ff80a5eee6c586753b44ed73072
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(loginLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(loginLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-<<<<<<< HEAD
-                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-=======
-                        .addComponent(passwordLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkBoxSeePass)))
-                .addGap(18, 18, 18)
->>>>>>> 414ea09a471e1ff80a5eee6c586753b44ed73072
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-=======
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(76, 76, 76)
@@ -301,7 +242,6 @@ public class LoginPage extends javax.swing.JFrame {
                                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)));
->>>>>>> bbec17b0b907998630185acac8eb3ee110b9b949
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -345,6 +285,7 @@ public class LoginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "Your password or Login is wrong. Please check again", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
+         
             LoginPage loginPage = new LoginPage();
             
             MainFrame mainFrame = new MainFrame();
@@ -407,14 +348,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JPanel base;
     private javax.swing.JToggleButton btnExit;
     private javax.swing.JButton btnLogin;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    private javax.swing.JCheckBox checkBoxSeePass;
-=======
->>>>>>> bbec17b0b907998630185acac8eb3ee110b9b949
     private javax.swing.JLabel jLabel1;
->>>>>>> 414ea09a471e1ff80a5eee6c586753b44ed73072
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblImage1;
     private javax.swing.JLabel lblImage2;

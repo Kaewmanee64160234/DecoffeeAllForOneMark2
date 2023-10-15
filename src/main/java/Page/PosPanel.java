@@ -86,8 +86,9 @@ public class PosPanel extends javax.swing.JPanel {
         lblTotal = new javax.swing.JLabel();
         lblDiscount = new javax.swing.JLabel();
         lblTotalNet = new javax.swing.JLabel();
-        lblCash = new javax.swing.JLabel();
         lblCange = new javax.swing.JLabel();
+        lblCash = new javax.swing.JTextField();
+        btnPromtpay = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnDrinks = new javax.swing.JButton();
         btnDessert = new javax.swing.JButton();
@@ -282,7 +283,7 @@ public class PosPanel extends javax.swing.JPanel {
                     .addComponent(txtTotalPoint)
                     .addComponent(lblTotalPoint)
                     .addComponent(txtPoint2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jpnlCaculator.setBackground(new java.awt.Color(199, 195, 188));
@@ -329,13 +330,16 @@ public class PosPanel extends javax.swing.JPanel {
         lblTotalNet.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotalNet.setText("0");
 
-        lblCash.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        lblCash.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCash.setText("0");
-
         lblCange.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblCange.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCange.setText("0");
+
+        lblCash.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        lblCash.setText("0");
+
+        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnPromtpay.setText("Promtpay");
 
         javax.swing.GroupLayout jpnlCaculatorLayout = new javax.swing.GroupLayout(jpnlCaculator);
         jpnlCaculator.setLayout(jpnlCaculatorLayout);
@@ -344,6 +348,7 @@ public class PosPanel extends javax.swing.JPanel {
             .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtTotal)
                         .addGap(19, 19, 19)
@@ -353,7 +358,7 @@ public class PosPanel extends javax.swing.JPanel {
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtCange)
                         .addGap(13, 13, 13)
-                        .addComponent(lblCange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCange, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBaht5))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
@@ -370,8 +375,8 @@ public class PosPanel extends javax.swing.JPanel {
                         .addComponent(txtBaht3))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtCash)
-                        .addGap(28, 28, 28)
-                        .addComponent(lblCash, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBaht4)))
                 .addContainerGap())
@@ -398,12 +403,14 @@ public class PosPanel extends javax.swing.JPanel {
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCash)
                     .addComponent(txtBaht4)
-                    .addComponent(lblCash))
+                    .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCange)
                     .addComponent(txtBaht5)
                     .addComponent(lblCange))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPromtpay)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -547,7 +554,7 @@ public class PosPanel extends javax.swing.JPanel {
                                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -611,6 +618,7 @@ public class PosPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnPosConfirm;
     private javax.swing.JButton btnPromotion;
+    private javax.swing.JButton btnPromtpay;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
@@ -619,7 +627,7 @@ public class PosPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jpnlHeader;
     private javax.swing.JPanel jpnlMember;
     private javax.swing.JLabel lblCange;
-    private javax.swing.JLabel lblCash;
+    private javax.swing.JTextField lblCash;
     private javax.swing.JLabel lblDiscount;
     private javax.swing.JLabel lblMemberDiscount;
     private javax.swing.JLabel lblMemberName;

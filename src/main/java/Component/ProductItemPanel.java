@@ -23,7 +23,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         initComponents();
         product = p;
         lblName.setText(product.getName());
-        ImageIcon icon = new ImageIcon("./product" + product.getId() + ".png");
+        ImageIcon icon = new ImageIcon("./" + product.getName() + ".jpg");
         Image image = icon.getImage();
         int width = image.getWidth(null);
         int height = image.getHeight(null);

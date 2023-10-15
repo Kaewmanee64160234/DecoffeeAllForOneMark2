@@ -4,23 +4,22 @@
  */
 package Component;
 
-import Dialog.AddToppingDialog;
-import Dialog.UserDialog;
+
 import Model.Product;
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author toey
  */
-public class ProductItemPanel extends javax.swing.JPanel {
+public class ProductItemPanel extends javax.swing.JPanel{
 
     private final Product product;
+    private ArrayList<BuyProductable> subscibers = new ArrayList();
 
     /**
      * Creates new form ProductItemPanel
@@ -36,6 +35,19 @@ public class ProductItemPanel extends javax.swing.JPanel {
         Image newImage = image.getScaledInstance((int) ((120.0 * width) / height), 120, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
         lblImage.setIcon(icon);
+        btnBuy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                for(BuyProductable s: subscibers) {
+                    s.buy(product, 1);
+                }
+            }
+         
+        });
+    }
+    
+    public void addOnBuyProduct(BuyProductable subsciber) {
+        subscibers.add(subsciber);
     }
 
     /**
@@ -133,4 +145,6 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     // End of variables declaration//GEN-END:variables
+
+
 }

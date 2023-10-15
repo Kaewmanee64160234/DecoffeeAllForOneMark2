@@ -728,9 +728,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Drinks"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDrinksActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnDessert">
               <Properties>

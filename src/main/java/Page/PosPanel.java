@@ -4,40 +4,87 @@
  */
 package Page;
 
+import Component.BuyProductable;
 import Component.ProductListPanel;
 import Dialog.EmployeeDialog;
 import Dialog.PromotionDialog;
 import Model.Employee;
+import Model.Product;
 import Model.Promotion;
+import Model.Reciept;
 import Model.RecieptDetail;
 import Service.EmployeeService;
 import Service.RecieptService;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author toey
  */
-public class PosPanel extends javax.swing.JPanel {
+public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
     private final ProductListPanel productListPanel;
     private final RecieptService recieptService;
     private List<RecieptDetail> list;
     private RecieptDetail editedRecieptDetail;
     private Promotion editedPromotion;
+    Reciept reciept;
+
     /**
      * Creates new form PosDialog
      */
     public PosPanel() {
         initComponents();
         productListPanel = new ProductListPanel();
+        productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
-        
         recieptService = new RecieptService();
+        reciept = new Reciept();
+
+        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblRecieptDetail.setModel(new AbstractTableModel() {
+            String[] headers = {"Name", "Price", "Qty", "Toatal"};
+
+            @Override
+            public String getColumnName(int column) {
+                return headers[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return reciept.getRecieptDetails().size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 4;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail.getName();
+                    case 1:
+                        return recieptDetail.getPrice();
+                    case 2:
+                        return recieptDetail.getQty();
+                    case 3:
+                        return recieptDetail.getTotal();
+                    default:
+                        return "";
+                }
+            }
+        });
     }
 
     /**
@@ -418,11 +465,6 @@ public class PosPanel extends javax.swing.JPanel {
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
-        btnDrinks.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDrinksActionPerformed(evt);
-            }
-        });
 
         btnDessert.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDessert.setText("Dessert");
@@ -580,10 +622,6 @@ public class PosPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrinksActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDrinksActionPerformed
-
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
         openDialog();
@@ -602,7 +640,7 @@ public class PosPanel extends javax.swing.JPanel {
 
         });
     }
-    
+
     private void refreshTable() {
 //        list = recieptService.getReciepts();
         tblRecieptDetail.revalidate();
@@ -663,4 +701,10 @@ public class PosPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtTotalPoint;
     private javax.swing.JLabel txtmemberName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void buy(Product product, int qty) {
+        reciept.addReceiptDetail(product, qty, "-", "-", "-", 0, 0, 0);
+        refreshTable();
+    }
 }

@@ -728,6 +728,13 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Drinks"/>
               </Properties>
+<<<<<<< HEAD
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDrinksMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDrinksActionPerformed"/>
+              </Events>
+=======
+>>>>>>> e20ee9d47e6891807b46a12eaa3b65b863e1eedb
             </Component>
             <Component class="javax.swing.JButton" name="btnDessert">
               <Properties>
@@ -736,6 +743,10 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Dessert"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDessertMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDessertActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnFood">
               <Properties>
@@ -744,6 +755,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Food"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnFoodMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -832,6 +846,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Confirm"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPosConfirmActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -35,8 +35,7 @@ public class TestRecieptService {
         
         for (Reciept re : recieptDao.getAll(" reciept_id asc")) {
             System.out.println(re.toString());
-            
-            
+
         }
         
 

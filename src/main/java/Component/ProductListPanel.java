@@ -2,12 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Component;
 
+package  Component;
+
+import Component.BuyProductable;
 import Model.Product;
 import Service.ProductService;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -16,17 +19,20 @@ import java.util.ArrayList;
 public class ProductListPanel extends javax.swing.JPanel implements BuyProductable{
 
     private final ProductService productService;
-    private final ArrayList<Product> products;
+    private ArrayList<Product> products;
+
     private ArrayList<BuyProductable> subscibers = new ArrayList();
 
 
     /**
      * Creates new form ProductListPanel
      */
-    public ProductListPanel() {
+    public ProductListPanel(int cat) {
         initComponents();
         productService = new ProductService();
-        products = productService.getProductsOrderByName();
+        products = new ArrayList<Product>();
+        products = productService.getProductsByCatId(cat);
+
         int productSize = products.size();
         for (Product p : products) {
             ProductItemPanel pnlProductItem = new ProductItemPanel(p);
@@ -85,6 +91,7 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
     private javax.swing.JPanel pnlProductList;
     // End of variables declaration//GEN-END:variables
 
+
     @Override
     public void buy(Product product, int qty) {
         System.out.println("" + product.getName() + " " + qty);
@@ -92,4 +99,5 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
                     s.buy(product, qty);
                 }
     }
+
 }

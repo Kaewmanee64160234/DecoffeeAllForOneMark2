@@ -4,7 +4,14 @@
  */
 package Page;
 
+
+import Dao.RecieptDao;
+import Model.Reciept;
+import Service.ProductService;
+
+import Dialog.PromotionDialog;
 import Component.BuyProductable;
+import Component.CategoryObs;
 import Component.ProductListPanel;
 import Dialog.AddCustomerDialog;
 import Dialog.EmployeeDialog;
@@ -17,9 +24,11 @@ import Model.Product;
 import Model.Promotion;
 import Model.Reciept;
 import Model.RecieptDetail;
-import Service.EmployeeService;
 import Service.RecieptService;
+
+
 import java.awt.Font;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -32,24 +41,35 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author toey
  */
+
+
+
 public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
-    private final ProductListPanel productListPanel;
+
+    private ProductListPanel productListPanel;
     private final RecieptService recieptService;
     private List<RecieptDetail> list;
     private RecieptDetail editedRecieptDetail;
     private Promotion editedPromotion;
     private Customer editedCustomer;
+
+    private CategoryObs catObs;
     Reciept reciept;
+
 
     /**
      * Creates new form PosDialog
      */
     public PosPanel() {
         initComponents();
-        productListPanel = new ProductListPanel();
+
+
+        this.productListPanel = new ProductListPanel(1);
+        scrProductList.setViewportView(productListPanel);
         productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
+
         recieptService = new RecieptService();
         reciept = new Reciept();
 
@@ -91,6 +111,8 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
             }
         });
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -470,12 +492,38 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
+        btnDrinks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDrinksMouseClicked(evt);
+            }
+        });
+        btnDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDrinksActionPerformed(evt);
+            }
+        });
+
 
         btnDessert.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDessert.setText("Dessert");
+        btnDessert.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDessertMouseClicked(evt);
+            }
+        });
+        btnDessert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDessertActionPerformed(evt);
+            }
+        });
 
         btnFood.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnFood.setText("Food");
+        btnFood.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFoodMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -549,6 +597,11 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
         btnPosConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPosConfirm.setText("Confirm");
+        btnPosConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPosConfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlDetailLayout = new javax.swing.GroupLayout(jpnlDetail);
         jpnlDetail.setLayout(jpnlDetailLayout);
@@ -636,6 +689,30 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosConfirmActionPerformed
+        RecieptService recieptService = new RecieptService();
+        ProductService productService = new ProductService();
+        RecieptDao recieptDao = new RecieptDao();
+
+        Reciept reciept = new Reciept();
+        reciept.setQueue(1);
+        reciept.setPayment("cash");
+        reciept.setStoreId(1);
+        //set emplyee
+        reciept.setEmployeeId(1);
+        reciept.setReceive((float) Double.parseDouble(lblCange.getText()));
+        float cash = (float) Double.parseDouble(lblCange.getText());
+
+
+    }//GEN-LAST:event_btnPosConfirmActionPerformed
+
+
+    private void btnDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrinksActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnDrinksActionPerformed
+
+
 
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
@@ -653,6 +730,32 @@ public class PosPanel extends javax.swing.JPanel implements BuyProductable{
     }//GEN-LAST:event_btnAddMemberActionPerformed
 
     private void openPosPromotionDialog() {
+    
+    }
+    private void btnDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDrinksMouseClicked
+        // TODO add your handling code here:
+        productListPanel = new ProductListPanel(1);
+         scrProductList.setViewportView(productListPanel);
+    }//GEN-LAST:event_btnDrinksMouseClicked
+
+    private void btnDessertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDessertMouseClicked
+        // TODO add your handling code here:
+        productListPanel = new ProductListPanel(2);
+         scrProductList.setViewportView(productListPanel);
+    }//GEN-LAST:event_btnDessertMouseClicked
+
+    private void btnFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFoodMouseClicked
+        // TODO add your handling code here:
+        productListPanel = new ProductListPanel(3);
+         scrProductList.setViewportView(productListPanel);
+        System.out.println(3);
+    }//GEN-LAST:event_btnFoodMouseClicked
+
+    private void btnDessertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDessertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDessertActionPerformed
+
+    private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         PosPromotionDialog PosPromotionDialog = new PosPromotionDialog(frame, editedPromotion);
         PosPromotionDialog.setLocationRelativeTo(this); //set dialog to center

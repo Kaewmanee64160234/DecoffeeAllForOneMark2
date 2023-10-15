@@ -22,8 +22,7 @@
               <EmptySpace min="-2" pref="542" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <Component id="navigationBar1" min="-2" pref="184" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="pnlNavigation" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
@@ -35,15 +34,10 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlNavigation" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="navigationBar1" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlNavigation" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
           </Group>
@@ -201,7 +195,5 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="Component.NavigationBar" name="navigationBar1">
-    </Component>
   </SubComponents>
 </Form>

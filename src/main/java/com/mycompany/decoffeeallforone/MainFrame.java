@@ -4,14 +4,12 @@
  */
 package com.mycompany.decoffeeallforone;
 
+
 import Component.ProductListPanel;
 import Dialog.CustomerDialog;
 import Page.PromotionMainData;
 import Model.Promotion;
-import Page.EmployeePanel;
-import Page.MaterialPanel;
 import Page.PosPanel;
-import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

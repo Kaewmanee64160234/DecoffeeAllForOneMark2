@@ -22,6 +22,7 @@ import Model.Topping;
 
 public class RecieptService{
     private ArrayList<Topping> toppings;
+    private Reciept editedReciept;
 
     public RecieptService() {
         toppings = new ArrayList<Topping>();
@@ -32,6 +33,22 @@ public class RecieptService{
         toppings.add(new Topping("Bacon", 19));
         toppings.add(new Topping("Ham", 19));
         toppings.add(new Topping("Pineapple", 19));
+    }
+
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
+
+    public void setToppings(ArrayList<Topping> toppings) {
+        this.toppings = toppings;
+    }
+
+    public Reciept getEditedReciept() {
+        return editedReciept;
+    }
+
+    public void setEditedReciept(Reciept editedReciept) {
+        this.editedReciept = editedReciept;
     }
 
     public Reciept getById(int id){

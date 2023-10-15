@@ -5,6 +5,18 @@
 package Page;
 
 import Component.ProductListPanel;
+import Dialog.EmployeeDialog;
+import Dialog.PromotionDialog;
+import Model.Employee;
+import Model.Promotion;
+import Model.RecieptDetail;
+import Service.EmployeeService;
+import Service.RecieptService;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -13,7 +25,10 @@ import Component.ProductListPanel;
 public class PosPanel extends javax.swing.JPanel {
 
     private final ProductListPanel productListPanel;
-    
+    private final RecieptService recieptService;
+    private List<RecieptDetail> list;
+    private RecieptDetail editedRecieptDetail;
+    private Promotion editedPromotion;
     /**
      * Creates new form PosDialog
      */
@@ -21,6 +36,8 @@ public class PosPanel extends javax.swing.JPanel {
         initComponents();
         productListPanel = new ProductListPanel();
         scrProductList.setViewportView(productListPanel);
+        
+        recieptService = new RecieptService();
     }
 
     /**
@@ -394,6 +411,11 @@ public class PosPanel extends javax.swing.JPanel {
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
+        btnDrinks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDrinksActionPerformed(evt);
+            }
+        });
 
         btnDessert.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDessert.setText("Dessert");
@@ -430,6 +452,11 @@ public class PosPanel extends javax.swing.JPanel {
 
         btnPromotion.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPromotion.setText("Promotion");
+        btnPromotion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromotionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -546,7 +573,34 @@ public class PosPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrinksActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDrinksActionPerformed
 
+    private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
+        editedPromotion = new Promotion();
+        openDialog();
+    }//GEN-LAST:event_btnPromotionActionPerformed
+
+    private void openDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PromotionDialog PromotionDialog = new PromotionDialog(frame, editedPromotion);
+        PromotionDialog.setLocationRelativeTo(this); //set dialog to center
+        PromotionDialog.setVisible(true);
+        PromotionDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+            }
+
+        });
+    }
+    
+    private void refreshTable() {
+//        list = recieptService.getReciepts();
+        tblRecieptDetail.revalidate();
+        tblRecieptDetail.repaint();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddMember;
     private javax.swing.JButton btnCancel;

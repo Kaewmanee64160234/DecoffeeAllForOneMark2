@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Page;
-import com.mycompany.decoffeeallforone.component.NavigationBar;
 import Dialog.MaterialDialog;
 import Model.Material;
 import Service.MaterialService;

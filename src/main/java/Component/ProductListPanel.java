@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.decoffeeallforone.component;
 
+package  Component;
+
+import Component.BuyProductable;
 import Model.Product;
 import Service.ProductService;
-import com.mycompany.decoffeeallforone.component.CategoryObs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -15,10 +16,13 @@ import java.util.ArrayList;
  *
  * @author toey
  */
-public class ProductListPanel extends javax.swing.JPanel {
+public class ProductListPanel extends javax.swing.JPanel implements BuyProductable{
 
     private final ProductService productService;
     private ArrayList<Product> products;
+
+    private ArrayList<BuyProductable> subscibers = new ArrayList();
+
 
     /**
      * Creates new form ProductListPanel
@@ -31,9 +35,15 @@ public class ProductListPanel extends javax.swing.JPanel {
 
         int productSize = products.size();
         for (Product p : products) {
-            pnlProductList.add(new ProductItemPanel(p));
+            ProductItemPanel pnlProductItem = new ProductItemPanel(p);
+            pnlProductItem.addOnBuyProduct(this);
+            pnlProductList.add(pnlProductItem);
         }
         pnlProductList.setLayout(new GridLayout((productSize / 3) + ((productSize % 3 != 0) ? 1 : 0), 3, 0, 0));
+    }
+    
+    public void addOnBuyProduct(BuyProductable subsciber) {
+        subscibers.add(subsciber);
     }
 
     /**
@@ -81,6 +91,13 @@ public class ProductListPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlProductList;
     // End of variables declaration//GEN-END:variables
 
- 
-   
+
+    @Override
+    public void buy(Product product, int qty) {
+        System.out.println("" + product.getName() + " " + qty);
+        for(BuyProductable s: subscibers) {
+                    s.buy(product, qty);
+                }
+    }
+
 }

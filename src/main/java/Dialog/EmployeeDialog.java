@@ -89,23 +89,23 @@ public class EmployeeDialog extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
-        txtName = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        edtName = new javax.swing.JTextField();
-        txtAddress = new javax.swing.JLabel();
-        edtAddress = new javax.swing.JTextField();
-        txtTelephone = new javax.swing.JLabel();
-        edtTelephone = new javax.swing.JPasswordField();
-        txtEmail = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblAddress = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextField();
+        lblTelephone = new javax.swing.JLabel();
+        txtTelephone = new javax.swing.JPasswordField();
+        lblEmail = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
         btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
-        txtPassword1 = new javax.swing.JLabel();
-        edtEmail = new javax.swing.JTextField();
-        txtPosition = new javax.swing.JLabel();
-        txtHourlyWage = new javax.swing.JLabel();
-        edtHourlyWage = new javax.swing.JTextField();
+        lblPassword1 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblPosition = new javax.swing.JLabel();
+        lblHourlyWage = new javax.swing.JLabel();
+        txtHourlyWage = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,25 +114,25 @@ public class EmployeeDialog extends javax.swing.JDialog {
         lblID.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblID.setText("ID: ");
 
-        txtName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtName.setText("Name: ");
+        lblName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblName.setText("Name: ");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        edtName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+
+        lblAddress.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblAddress.setText("Address:");
 
         txtAddress.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtAddress.setText("Address:");
 
-        edtAddress.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTelephone.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTelephone.setText("Telephone:");
 
         txtTelephone.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtTelephone.setText("Telephone:");
 
-        edtTelephone.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-
-        txtEmail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtEmail.setText("Email: ");
+        lblEmail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblEmail.setText("Email: ");
 
         cmbPosition.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cashier", "Cleaner" }));
@@ -167,18 +167,18 @@ public class EmployeeDialog extends javax.swing.JDialog {
             }
         });
 
-        txtPassword1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtPassword1.setText("Select Pic:");
+        lblPassword1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPassword1.setText("Select Pic:");
 
-        edtEmail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
-        txtPosition.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtPosition.setText("Position:");
+        lblPosition.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPosition.setText("Position:");
+
+        lblHourlyWage.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblHourlyWage.setText("Hourly Wage: ");
 
         txtHourlyWage.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtHourlyWage.setText("Hourly Wage: ");
-
-        edtHourlyWage.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -191,25 +191,25 @@ public class EmployeeDialog extends javax.swing.JDialog {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTelephone)
-                    .addComponent(txtName)
-                    .addComponent(txtPosition))
+                    .addComponent(lblTelephone)
+                    .addComponent(lblName)
+                    .addComponent(lblPosition))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtHourlyWage)
-                    .addComponent(txtEmail)
-                    .addComponent(txtAddress))
+                    .addComponent(lblHourlyWage)
+                    .addComponent(lblEmail)
+                    .addComponent(lblAddress))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(edtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(edtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(edtHourlyWage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHourlyWage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 8, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,7 +220,7 @@ public class EmployeeDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSave))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(216, 216, 216)))
@@ -234,30 +234,30 @@ public class EmployeeDialog extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblID)
-                            .addComponent(txtName)
+                            .addComponent(lblName)
                             .addComponent(jLabel8)
-                            .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAddress))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAddress))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTelephone)
+                            .addComponent(lblTelephone)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(edtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEmail))))
+                                .addComponent(txtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblEmail))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(edtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPosition)
-                    .addComponent(txtHourlyWage)
-                    .addComponent(edtHourlyWage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPosition)
+                    .addComponent(lblHourlyWage)
+                    .addComponent(txtHourlyWage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -321,50 +321,50 @@ public class EmployeeDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cmbPositionActionPerformed
 
     private void setFormToObject() {
-        editedEmployee.setName(edtName.getText());
-        editedEmployee.setAddress(edtAddress.getText());
-        editedEmployee.setTelephone(edtTelephone.getText());
-        editedEmployee.setEmail(edtEmail.getText());
+        editedEmployee.setName(txtName.getText());
+        editedEmployee.setAddress(txtAddress.getText());
+        editedEmployee.setTelephone(txtTelephone.getText());
+        editedEmployee.setEmail(txtEmail.getText());
         if(0 == cmbPosition.getSelectedIndex()){
             editedEmployee.setPosition("Cashier");
         }else{
             editedEmployee.setPosition("Cleaner");
         }
-        editedEmployee.setHourlyWage(Integer.parseInt(edtHourlyWage.getText()));
+        editedEmployee.setHourlyWage(Integer.parseInt(txtHourlyWage.getText()));
        
     }
 
     private void setObjectToForm() {
-        edtName.setText(editedEmployee.getName());
-        edtAddress.setText(editedEmployee.getAddress());
-        edtTelephone.setText(editedEmployee.getTelephone());
-        edtEmail.setText(editedEmployee.getEmail());
+        txtName.setText(editedEmployee.getName());
+        txtAddress.setText(editedEmployee.getAddress());
+        txtTelephone.setText(editedEmployee.getTelephone());
+        txtEmail.setText(editedEmployee.getEmail());
         if(0 == cmbPosition.getSelectedIndex()){
             editedEmployee.setPosition("Cashier");
         }else{
             editedEmployee.setPosition("Cleaner");
         }
-        edtHourlyWage.setText(editedEmployee.getHourlyWage()+"");
+        txtHourlyWage.setText(editedEmployee.getHourlyWage()+"");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JTextField edtAddress;
-    private javax.swing.JTextField edtEmail;
-    private javax.swing.JTextField edtHourlyWage;
-    private javax.swing.JTextField edtName;
-    private javax.swing.JPasswordField edtTelephone;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblHourlyWage;
     private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword1;
     private javax.swing.JLabel lblPhoto;
-    private javax.swing.JLabel txtAddress;
-    private javax.swing.JLabel txtEmail;
-    private javax.swing.JLabel txtHourlyWage;
-    private javax.swing.JLabel txtName;
-    private javax.swing.JLabel txtPassword1;
-    private javax.swing.JLabel txtPosition;
-    private javax.swing.JLabel txtTelephone;
+    private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblTelephone;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtHourlyWage;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtTelephone;
     // End of variables declaration//GEN-END:variables
 }

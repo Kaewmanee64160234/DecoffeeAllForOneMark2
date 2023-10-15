@@ -4,8 +4,11 @@
  */
 package Dialog;
 
+import Model.Customer;
 import Model.User;
+import Service.CustomerService;
 import Service.UserService;
+import Service.ValidateException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,10 +16,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -24,57 +25,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class FindMemberDialog extends javax.swing.JDialog {
 
-    private final UserService userService;
-    private List<User> list;
-    private User editedUser;
+    private final CustomerService customerService;
+    private List<Customer> customer;
+    private Customer editedCustomer;
     private String path;
 
     public FindMemberDialog(java.awt.Frame parent, User editedUser) {
         super(parent, true);
         initComponents();
-        this.editedUser = editedUser;
-        setObjectToForm();
-        userService = new UserService();
-        loadImage();
+        this.editedCustomer = editedCustomer;
+        customerService = new CustomerService();
+        ImageIcon iconpass = new ImageIcon("./find.png"); // Assuming this is a valid path to your image file
+        Image imagepass = iconpass.getImage(); // Use iconpass here
+        int width = imagepass.getWidth(null);
+        int height = imagepass.getHeight(null);
+        Image newImage = imagepass.getScaledInstance((int) (40 * ((float) width / height)), 40, Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(newImage);
+        lblPhoto.setIcon(newIcon);
     }
 
-    private void loadImage() {
-        if (editedUser.getId() > 0) {
-            ImageIcon icon = new ImageIcon("./user" + editedUser.getId() + ".png");
-            Image image = icon.getImage();
-            Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-            icon.setImage(newImage);
-            lblPhoto.setIcon(icon);
-        }
-
-    }
-    
-    private void loadImage(String path) {
-        if (editedUser.getId() > 0) {
-            ImageIcon icon = new ImageIcon(path);
-            Image image = icon.getImage();
-            Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-            icon.setImage(newImage);
-            lblPhoto.setIcon(icon);
-        }
-
-    }
-
-    public void chooseImage() {
-        JFileChooser fileChooser = new JFileChooser();
-
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg");
-        fileChooser.setFileFilter(filter);
-
-        int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            System.out.println("Selected file" + file.getAbsolutePath());
-            loadImage(file.getAbsolutePath());
-            path = file.getAbsolutePath();
-        }
-
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,14 +57,14 @@ public class FindMemberDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
+        btnConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        lblPhoto = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        btnOk = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblFindMember = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,23 +80,32 @@ public class FindMemberDialog extends javax.swing.JDialog {
             }
         });
 
-        btnSave.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnSave.setText("Confirm");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirm.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnConfirm.setText("Confirm");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                btnConfirmActionPerformed(evt);
             }
         });
 
         jPanel1.setBackground(new java.awt.Color(183, 202, 219));
 
-        jLabel1.setOpaque(true);
+        lblPhoto.setOpaque(true);
 
-        jTextField1.setText("jTextField1");
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("OK");
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblFindMember.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -138,7 +116,7 @@ public class FindMemberDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblFindMember);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -157,11 +135,11 @@ public class FindMemberDialog extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnOk)
                 .addContainerGap(32, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -171,12 +149,12 @@ public class FindMemberDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))))
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnOk))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -192,7 +170,7 @@ public class FindMemberDialog extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSave)
+                        .addComponent(btnConfirm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -207,7 +185,7 @@ public class FindMemberDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSave)
+                        .addComponent(btnConfirm)
                         .addComponent(btnCancel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -226,55 +204,53 @@ public class FindMemberDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        User user;
-        if (editedUser.getId() < 0) {//Add New
-            setFormToObject();
-            user = userService.addNew(editedUser);
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        Customer customer;
+        if (editedCustomer.getId() < 0) {try {
+            //Add New
+            customer = customerService.addNew(editedCustomer);
+            } catch (ValidateException ex) {
+                Logger.getLogger(FindMemberDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            setFormToObject();
-            user = userService.update(editedUser);
+            try {
+                customer = customerService.update(editedCustomer);
+            } catch (ValidateException ex) {
+                Logger.getLogger(FindMemberDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        saveImage(user);
         this.dispose();
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void saveImage(User user) {
-        if(path==null || path.isEmpty()) return;
-        try {
-            BufferedImage  image = ImageIO.read(new File(path));
-            ImageIO.write(image, "png", new File("./user" + user.getId() + ".png")); // name image
-        } catch (IOException ex) {
-            Logger.getLogger(FindMemberDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void setFormToObject() {
-        editedUser.setLogin(edtLogin.getText());
-        editedUser.setUsername(edtName.getText());
-        editedUser.setPassword(new String(edtPassword.getPassword()));
-    }
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
 
-    private void setObjectToForm() {
-        edtLogin.setText(editedUser.getLogin());
-        edtName.setText(editedUser.getUsername());
-        edtPassword.setText(editedUser.getPassword());
-    }
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        txtSearch.getText();
+        Customer customer;
+        if (txtSearch.getText() == customerService.getByTel("")) {//Add New
+            customer = customerService.addNew(editedCustomer);
+        } else {
+            customer = customerService.update(editedCustomer);
+        }
+    }//GEN-LAST:event_btnOkActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSave;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblPhoto;
+    private javax.swing.JTable tblFindMember;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

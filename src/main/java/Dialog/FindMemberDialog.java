@@ -5,19 +5,26 @@
 package Dialog;
 
 import Model.Customer;
+import Model.Reciept;
 import Model.User;
+import Page.PosPanel;
 import Service.CustomerService;
+import Service.RecieptService;
 import Service.UserService;
 import Service.ValidateException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -26,15 +33,65 @@ import javax.swing.JFileChooser;
 public class FindMemberDialog extends javax.swing.JDialog {
 
     private final CustomerService customerService;
-    private List<Customer> customer;
+    private ArrayList<Customer> customers;
     private Customer editedCustomer;
     private String path;
-
-    public FindMemberDialog(java.awt.Frame parent, Customer editedCustomer) {
+    private Reciept reciept;
+     private PosPanel posPanel;
+    public FindMemberDialog(java.awt.Frame parent,Reciept reciept,PosPanel posPanel) {
+         
         super(parent, true);
         initComponents();
-        this.editedCustomer = editedCustomer;
-        customerService = new CustomerService();
+        this.customerService = new CustomerService();
+        customers = (ArrayList<Customer>) customerService.getCustomers();        
+        initImage();   
+        setTable();
+        this.reciept = reciept;
+        this.posPanel = posPanel;
+    }
+
+    private void setTable() {
+        tblFindMember.setModel(new AbstractTableModel() {
+            String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember"};
+            
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return customers.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Customer customer = customers.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return customer.getId();
+                    case 1:
+                        return customer.getName();
+                    case 2:
+                        return customer.getTel();
+                    case 3:
+                        return customer.getPoint();
+                    case 4:
+                        return customer.getStartDate();
+
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
+    }
+
+    private void initImage() {
         ImageIcon iconpass = new ImageIcon("./find.png"); // Assuming this is a valid path to your image file
         Image imagepass = iconpass.getImage(); // Use iconpass here
         int width = imagepass.getWidth(null);
@@ -205,20 +262,16 @@ public class FindMemberDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        Customer customer;
-        if (editedCustomer.getId() < 0) {try {
-            //Add New
-            customer = customerService.addNew(editedCustomer);
-            } catch (ValidateException ex) {
-                Logger.getLogger(FindMemberDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
-                customer = customerService.update(editedCustomer);
-            } catch (ValidateException ex) {
-                Logger.getLogger(FindMemberDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        int row = tblFindMember.getSelectedRow();
+         TableModel model = tblFindMember.getModel();
+         String tel = model.getValueAt(row, 2)+"";
+         Customer cus = customerService.getByTel(tel);
+         reciept.setCustomer(cus);
+         reciept.setCustomerId(cus.getId());
+         posPanel.setFromMemeber(cus);
+        
+//        0856681796
+        
         this.dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
@@ -231,12 +284,22 @@ public class FindMemberDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        txtSearch.getText();
-        Customer customer;
-        if (txtSearch.getText() == customerService.getByTel("")) {//Add New
-            customer = customerService.addNew(editedCustomer);
-        } else {
-            customer = customerService.update(editedCustomer);
+        String tel = txtSearch.getText();
+        if(tel.isBlank()){
+            JOptionPane.showConfirmDialog(this, "Plase Input telPhone");
+        }else{
+            Customer cus =null;
+           cus = customerService.getByTel(tel);
+           if(cus== null){
+                JOptionPane.showConfirmDialog(this, "Not found Member");
+           }else{
+               customers.clear();
+               customers.add(cus);
+               tblFindMember.revalidate();
+               tblFindMember.repaint();
+           }
+            
+            
         }
     }//GEN-LAST:event_btnOkActionPerformed
 

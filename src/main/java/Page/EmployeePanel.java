@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Dialog.EmployeeDialog;
 import Dialog.UserDialog;
 import Model.Employee;
 import Model.User;
@@ -272,22 +273,22 @@ public class EmployeePanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         editedEmployee = new Employee();
-//        openDialog();
+        openDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
-//    private void openDialog() {
-//        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-//        EmployeeDialog EmployeeDialog = new EmployeeDialog(frame, editedEmployee);
-//        EmployeeDialog.setLocationRelativeTo(this); //set dialog to center
-//        EmployeeDialog.setVisible(true);
-//        EmployeeDialog.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosed(WindowEvent e) {
-//                refreshTable();
-//            }
-//
-//        });
-//    }
+    private void openDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        EmployeeDialog EmployeeDialog = new EmployeeDialog(frame, editedEmployee);
+        EmployeeDialog.setLocationRelativeTo(this); //set dialog to center
+        EmployeeDialog.setVisible(true);
+        EmployeeDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+            }
+
+        });
+    }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
 //        int selectIndex = tblEmployee.getSelectedRow();
 //        if (selectIndex >= 0) {
@@ -309,6 +310,11 @@ public class EmployeePanel extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void refreshTable() {
+        list = employeeService.getEmployees();
+        tblEmployee.revalidate();
+        tblEmployee.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

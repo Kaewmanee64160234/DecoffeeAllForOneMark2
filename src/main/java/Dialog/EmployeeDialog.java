@@ -26,57 +26,57 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class EmployeeDialog extends javax.swing.JDialog {
 
-//    private final EmployeeService employeeService;
-//    private List<Employee> list;
-//    private Employee editedEmployee;
-//    private String path;
-//
-//    public EmployeeDialog(java.awt.Frame parent, Employee editedEmployee) {
-//        super(parent, true);
-//        initComponents();
-//        this.editedEmployee = editedEmployee;
-//        setObjectToForm();
-//        employeeService = new EmployeeService();
-//        loadImage();
-//    }
-//
-//    private void loadImage() {
-//        if (editedEmployee.getId() > 0) {
-//            ImageIcon icon = new ImageIcon("./employee" + editedEmployee.getId() + ".png");
-//            Image image = icon.getImage();
-//            Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-//            icon.setImage(newImage);
-//            lblPhoto.setIcon(icon);
-//        }
-//
-//    }
-//    
-//    private void loadImage(String path) {
-//        if (editedEmployee.getId() > 0) {
-//            ImageIcon icon = new ImageIcon(path);
-//            Image image = icon.getImage();
-//            Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-//            icon.setImage(newImage);
-//            lblPhoto.setIcon(icon);
-//        }
-//
-//    }
-//
-//    public void chooseImage() {
-//        JFileChooser fileChooser = new JFileChooser();
-//
-//        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg");
-//        fileChooser.setFileFilter(filter);
-//
-//        int returnVal = fileChooser.showOpenDialog(this);
-//        if (returnVal == JFileChooser.APPROVE_OPTION) {
-//            File file = fileChooser.getSelectedFile();
-//            System.out.println("Selected file" + file.getAbsolutePath());
-//            loadImage(file.getAbsolutePath());
-//            path = file.getAbsolutePath();
-//        }
-//
-//    }
+    private final EmployeeService employeeService;
+    private List<Employee> list;
+    private Employee editedEmployee;
+    private String path;
+
+    public EmployeeDialog(java.awt.Frame parent, Employee editedEmployee) {
+        super(parent, true);
+        initComponents();
+        this.editedEmployee = editedEmployee;
+        setObjectToForm();
+        employeeService = new EmployeeService();
+        loadImage();
+    }
+
+    private void loadImage() {
+        if (editedEmployee.getId() > 0) {
+            ImageIcon icon = new ImageIcon("./employee" + editedEmployee.getId() + ".png");
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            lblPhoto.setIcon(icon);
+        }
+
+    }
+    
+    private void loadImage(String path) {
+        if (editedEmployee.getId() > 0) {
+            ImageIcon icon = new ImageIcon(path);
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            lblPhoto.setIcon(icon);
+        }
+
+    }
+
+    public void chooseImage() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "png", "jpg");
+        fileChooser.setFileFilter(filter);
+
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            System.out.println("Selected file" + file.getAbsolutePath());
+            loadImage(file.getAbsolutePath());
+            path = file.getAbsolutePath();
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -286,66 +286,66 @@ public class EmployeeDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-//        Employee employee;
-//        if (editedEmployee.getId() < 0) {//Add New
-//            setFormToObject();
-//            employee = employeeService.addNew(editedEmployee);
-//        } else {
-//            setFormToObject();
-//            employee = employeeService.update(editedEmployee);
-//        }
-//        saveImage(employee);
-//        this.dispose();
+        Employee employee;
+        if (editedEmployee.getId() < 0) {//Add New
+            setFormToObject();
+            employee = employeeService.addNew(editedEmployee);
+        } else {
+            setFormToObject();
+            employee = employeeService.update(editedEmployee);
+        }
+        saveImage(employee);
+        this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-//    private void saveImage(Employee employee) {
-//        if(path==null || path.isEmpty()) return;
-//        try {
-//            BufferedImage  image = ImageIO.read(new File(path));
-//            ImageIO.write(image, "png", new File("./user" + employee.getId() + ".png")); // name image
-//        } catch (IOException ex) {
-//            Logger.getLogger(EmployeeDialog.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    private void saveImage(Employee employee) {
+        if(path==null || path.isEmpty()) return;
+        try {
+            BufferedImage  image = ImageIO.read(new File(path));
+            ImageIO.write(image, "png", new File("./user" + employee.getId() + ".png")); // name image
+        } catch (IOException ex) {
+            Logger.getLogger(EmployeeDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
-//        chooseImage();
+        chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
 
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPositionActionPerformed
 
-//    private void setFormToObject() {
-//        editedEmployee.setName(edtName.getText());
-//        editedEmployee.setAddress(edtAddress.getText());
-//        editedEmployee.setTelephone(edtTelephone.getText());
-//        editedEmployee.setEmail(edtEmail.getText());
-//        if(0 == cmbPosition.getSelectedIndex()){
-//            editedEmployee.setPosition("Cashier");
-//        }else{
-//            editedEmployee.setPosition("Cleaner");
-//        }
-//        editedEmployee.setHourlyWage(Integer.parseInt(edtHourlyWage.getText()));
-//       
-//    }
-//
-//    private void setObjectToForm() {
-//        edtName.setText(editedEmployee.getName());
-//        edtAddress.setText(editedEmployee.getAddress());
-//        edtTelephone.setText(editedEmployee.getTelephone());
-//        edtEmail.setText(editedEmployee.getEmail());
-//        if(0 == cmbPosition.getSelectedIndex()){
-//            editedEmployee.setPosition("Cashier");
-//        }else{
-//            editedEmployee.setPosition("Cleaner");
-//        }
-//        edtHourlyWage.setText(editedEmployee.getHourlyWage());
-//    }
+    private void setFormToObject() {
+        editedEmployee.setName(edtName.getText());
+        editedEmployee.setAddress(edtAddress.getText());
+        editedEmployee.setTelephone(edtTelephone.getText());
+        editedEmployee.setEmail(edtEmail.getText());
+        if(0 == cmbPosition.getSelectedIndex()){
+            editedEmployee.setPosition("Cashier");
+        }else{
+            editedEmployee.setPosition("Cleaner");
+        }
+        editedEmployee.setHourlyWage(Integer.parseInt(edtHourlyWage.getText()));
+       
+    }
+
+    private void setObjectToForm() {
+        edtName.setText(editedEmployee.getName());
+        edtAddress.setText(editedEmployee.getAddress());
+        edtTelephone.setText(editedEmployee.getTelephone());
+        edtEmail.setText(editedEmployee.getEmail());
+        if(0 == cmbPosition.getSelectedIndex()){
+            editedEmployee.setPosition("Cashier");
+        }else{
+            editedEmployee.setPosition("Cleaner");
+        }
+        edtHourlyWage.setText(editedEmployee.getHourlyWage()+"");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;

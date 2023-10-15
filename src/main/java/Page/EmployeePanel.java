@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
@@ -298,16 +299,16 @@ public class EmployeePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-//        int selectIndex = tblEmployee.getSelectedRow();
-//        if (selectIndex >= 0) {
-//            editedUser = list.get(selectIndex);
-//            int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
-//                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-//            if (input == 0) {
-//                userService.delete(editedUser);
-//            }
-//            refreshTable();
-//        }
+        int selectIndex = tblEmployee.getSelectedRow();
+        if (selectIndex >= 0) {
+            editedEmployee = list.get(selectIndex);
+            int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (input == 0) {
+                employeeService.delete(editedEmployee);
+            }
+            refreshTable();
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void refreshTable() {

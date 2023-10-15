@@ -6,21 +6,28 @@ package Component;
 
 
 import Component.BuyProductable;
+
+import Dialog.ToppingDialog;
+
 import Model.Product;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author toey
  */
-public class ProductItemPanel extends javax.swing.JPanel{
+public class ProductItemPanel extends javax.swing.JPanel {
 
     private final Product product;
     private ArrayList<BuyProductable> subscibers = new ArrayList();
+    private Product editedProduct;
 
     /**
      * Creates new form ProductItemPanel
@@ -39,14 +46,14 @@ public class ProductItemPanel extends javax.swing.JPanel{
         btnBuy.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                for(BuyProductable s: subscibers) {
+                for (BuyProductable s : subscibers) {
                     s.buy(product, 1);
                 }
             }
-         
+
         });
     }
-    
+
     public void addOnBuyProduct(BuyProductable subsciber) {
         subscibers.add(subsciber);
     }
@@ -81,6 +88,11 @@ public class ProductItemPanel extends javax.swing.JPanel{
 
         btnMore.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnMore.setText("More");
+        btnMore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoreActionPerformed(evt);
+            }
+        });
 
         btnBuy.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnBuy.setText("Buy");
@@ -138,6 +150,14 @@ public class ProductItemPanel extends javax.swing.JPanel{
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoreActionPerformed
+        editedProduct = new Product();
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        ToppingDialog toppingDialog = new ToppingDialog(frame, editedProduct);
+        toppingDialog.setLocationRelativeTo(this);
+        toppingDialog.setVisible(true);
+    }//GEN-LAST:event_btnMoreActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuy;
     private javax.swing.JButton btnMore;
@@ -146,6 +166,5 @@ public class ProductItemPanel extends javax.swing.JPanel{
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     // End of variables declaration//GEN-END:variables
-
 
 }

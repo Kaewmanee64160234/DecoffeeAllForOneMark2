@@ -4,7 +4,6 @@
  */
 package com.mycompany.decoffeeallforone;
 
-import com.mycompany.decoffeeallforone.component.ProductListPanel;
 import Page.PromotionMainData;
 import Model.Promotion;
 import Page.PosPanel;

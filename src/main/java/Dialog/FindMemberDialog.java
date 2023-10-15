@@ -30,7 +30,7 @@ public class FindMemberDialog extends javax.swing.JDialog {
     private Customer editedCustomer;
     private String path;
 
-    public FindMemberDialog(java.awt.Frame parent, User editedUser) {
+    public FindMemberDialog(java.awt.Frame parent, Customer editedCustomer) {
         super(parent, true);
         initComponents();
         this.editedCustomer = editedCustomer;

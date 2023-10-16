@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.decoffeeallforone;
+package Page;
 
 import Dialog.ProductDialog;
 import Model.Product;
@@ -85,7 +85,17 @@ public class ProductPanel extends javax.swing.JPanel {
                     case 6:
                         return product.getType();
                     case 7:
-                        return product.getCategoryId();
+                        String ShowProductCategory ;
+                        if(product.getCategoryId() == 1 ){
+                            ShowProductCategory = "Drink";
+                        } else if (product.getCategoryId() == 2){
+                            ShowProductCategory = "Cake";
+                        } else if(product.getCategoryId() == 3){
+                            ShowProductCategory = "Candy";
+                        } else {
+                            ShowProductCategory = "-";
+                        }
+                        return ShowProductCategory;
                     default:
                         return "Unknown";
                 }
@@ -118,7 +128,7 @@ public class ProductPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblProduct);
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(166, 190, 178));
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnAdd.setText("Add");

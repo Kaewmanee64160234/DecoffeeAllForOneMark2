@@ -17,9 +17,9 @@ public class Promotion {
     private float Discount;
     private int discountPerc;
     private int pointDiscount;
-    private int usedPoint;
+    private boolean usedPoint;
 
-    public Promotion(int id, Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount, int usedPoint) {
+    public Promotion(int id, Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount, boolean usedPoint) {
         this.id = id;
         this.createdDate = createdDate;
         this.endDate = endDate;
@@ -30,7 +30,7 @@ public class Promotion {
         this.usedPoint = usedPoint;
     }
 
-    public Promotion(Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount, int usedPoint) {
+    public Promotion(Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount, boolean usedPoint) {
         this.id = -1;
         this.createdDate = createdDate;
         this.endDate = endDate;
@@ -41,7 +41,7 @@ public class Promotion {
         this.usedPoint = usedPoint;
     }
 
-    public Promotion(String endDate, String Name, float Discount, int discountPerc, int pointDiscount, int usedPoint) {
+    public Promotion(String endDate, String Name, float Discount, int discountPerc, int pointDiscount, boolean usedPoint) {
         this.id = -1;
         this.createdDate = null;
         this.endDate = endDate;
@@ -60,7 +60,7 @@ public class Promotion {
         this.Discount = 0;
         this.discountPerc = 0;
         this.pointDiscount = 0;
-        this.usedPoint = 0;
+        this.usedPoint = false;
     }
 
     public int getId() {
@@ -119,11 +119,11 @@ public class Promotion {
         this.pointDiscount = pointDiscount;
     }
 
-    public int getUsedPoint() {
+    public boolean getUsedPoint() {
         return usedPoint;
     }
 
-    public void setUsedPoint(int usedPoint) {
+    public void setUsedPoint(boolean usedPoint) {
         this.usedPoint = usedPoint;
     }
 
@@ -150,7 +150,7 @@ public class Promotion {
             promotion.setDiscount(rs.getFloat("prom_discount"));
             promotion.setDiscountPerc(rs.getInt("prom_discount_perc"));
             promotion.setPointDiscount(rs.getInt("prom_point_discount"));
-            promotion.setUsedPoint(rs.getInt("prom_used_point"));
+            promotion.setUsedPoint(rs.getBoolean("prom_used_point"));
         } catch (SQLException ex) {
             Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, ex);
             return null;

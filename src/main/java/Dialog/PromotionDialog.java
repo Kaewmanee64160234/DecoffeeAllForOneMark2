@@ -232,9 +232,16 @@ public class PromotionDialog extends javax.swing.JDialog {
         String pointDiscountString = Integer.toString(pointDiscount);
         edtPointDiscount.setText(pointDiscountString);
 
-        int usedPoint = editedPromotion.getUsedPoint();
-        String usedPointString = Integer.toString(usedPoint);
-        edtUsedPoint.setText(usedPointString);
+        boolean usedPoint = editedPromotion.getUsedPoint();
+        if (usedPoint) {
+            String usedPointString = "Used";
+            edtUsedPoint.setText(usedPointString);
+
+        } else {
+            String usedPointString = "Not Used";
+            edtUsedPoint.setText(usedPointString);
+
+        }
     }
 
     private void setFormToObject() {
@@ -245,7 +252,7 @@ public class PromotionDialog extends javax.swing.JDialog {
 
         String discountString = edtDiscount.getText();
         float discount = Float.parseFloat(discountString);
-     
+
         editedPromotion.setDiscount(discount);
 
         String discountPercString = edtDiscountPerc.getText();
@@ -256,9 +263,16 @@ public class PromotionDialog extends javax.swing.JDialog {
         int pointDiscount = Integer.parseInt(pointDiscountString);
         editedPromotion.setPointDiscount(pointDiscount);
 
-        String usedPointString = edtUsedPoint.getText();
-        int usedPoint = Integer.parseInt(usedPointString);
-        editedPromotion.setUsedPoint(usedPoint);
+         boolean usedPoint = editedPromotion.getUsedPoint();
+        if (usedPoint) {
+            String usedPointString = "Used";
+            edtUsedPoint.setText(usedPointString);
+
+        } else {
+            String usedPointString = "Not Used";
+            edtUsedPoint.setText(usedPointString);
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

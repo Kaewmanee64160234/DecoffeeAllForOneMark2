@@ -111,7 +111,7 @@ public class PromotionDao implements Dao<Promotion> {
             stmt.setFloat(3, obj.getDiscount());
             stmt.setInt(4, obj.getDiscountPerc());
             stmt.setInt(5, obj.getPointDiscount());
-            stmt.setInt(6, obj.getUsedPoint());
+            stmt.setBoolean(6, obj.getUsedPoint());
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);
@@ -140,7 +140,7 @@ public class PromotionDao implements Dao<Promotion> {
             stmt.setFloat(3, obj.getDiscount());
             stmt.setInt(4, obj.getDiscountPerc());
             stmt.setInt(5, obj.getPointDiscount());
-            stmt.setInt(6, obj.getUsedPoint());
+            stmt.setBoolean(6, obj.getUsedPoint());
             stmt.setInt(7, obj.getId());
             int ret = stmt.executeUpdate();
             System.out.println(ret);

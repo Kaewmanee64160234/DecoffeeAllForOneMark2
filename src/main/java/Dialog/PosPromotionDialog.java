@@ -1,26 +1,40 @@
 package Dialog;
 
+import Component.PromotionObs;
+import Model.Customer;
 import Model.Promotion;
+import Page.PosPanel;
 import Service.PromotionService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
-public class PosPromotionDialog extends javax.swing.JDialog {
+public class PosPromotionDialog extends javax.swing.JDialog implements PromotionObs {
 
-    private  PromotionService promotionService;
+    private PromotionService promotionService;
     private Promotion editedPromotion;
     private ArrayList<Promotion> promotions;
+    private ArrayList<PromotionObs> subscripts;
+    private PosPanel pospanel;
 
-
-    public PosPromotionDialog(java.awt.Frame parent) {
+    public PosPromotionDialog(java.awt.Frame parent, PosPanel pospanel) {
         super(parent, true);
         initComponents();
-         initPromotion();
+        initPromotion();
         initDateLable();
-        tblPosPromotion.setModel(new AbstractTableModel(){
-          String[] columnNames = {"ID", "Created Date", "End Date", "Name", "Discount", "Discount Perc", "Point Discount", "Used Point"};
+        this.pospanel = pospanel;
+        this.subscripts = new ArrayList<PromotionObs>();
+        addPromotionSub(pospanel);
+        initTable();
+
+    }
+
+    private void initTable() {
+        tblPosPromotion.setModel(new AbstractTableModel() {
+            String[] columnNames = {"ID", "Created Date", "End Date", "Name", "Discount", "Discount Perc", "Point Discount", "Used Point"};
 
             @Override
             public String getColumnName(int column) {
@@ -72,7 +86,6 @@ public class PosPromotionDialog extends javax.swing.JDialog {
                 }
             }
         });
-      
     }
 
     private void initPromotion() {
@@ -84,7 +97,7 @@ public class PosPromotionDialog extends javax.swing.JDialog {
     private void initDateLable() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formattedDate = sdf.format(new Date());
-        lblDate.setText("Date: "+formattedDate);
+        lblDate.setText("Date: " + formattedDate);
     }
 
     @SuppressWarnings("unchecked")
@@ -255,14 +268,27 @@ public class PosPromotionDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+
+        int row = tblPosPromotion.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Pase Select Index In Table");
+            return;
+        }
+        TableModel model = tblPosPromotion.getModel();
+        int index = Integer.parseInt(model.getValueAt(row, 0) + "");
         
+        Promotion pro = promotionService.getById(index);
+        System.out.println(pro.toString());
+        setInfoPromotion(pro);
+        this.dispose();
+
+
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -277,4 +303,16 @@ public class PosPromotionDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblPromotionId;
     private javax.swing.JTable tblPosPromotion;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setInfoPromotion(Promotion promotion) {
+        for (PromotionObs sub : subscripts) {
+            sub.setInfoPromotion(promotion);
+        }
+    }
+
+    public void addPromotionSub(PromotionObs sub) {
+        subscripts.add(sub);
+    }
+
 }

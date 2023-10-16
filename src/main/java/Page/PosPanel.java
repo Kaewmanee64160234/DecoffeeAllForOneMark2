@@ -849,7 +849,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void validateNotCusUsePromotion(Promotion promotion1) throws NumberFormatException {
         // not cus
-        if (!promotion1.getUsedPoint()) {
+        if (promotion1.getPointDiscount()==0) {
             reciept.setPromotion(promotion1);
             reciept.setPromotionId(promotion1.getId());
             if (promotion1.getDiscountPerc() != 0) {
@@ -862,11 +862,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             lblPromotionNameShow.setText(promotion1.getName());
             lblTotalPoint.setText(0 + "");
         }
+        return;
     }
 
     private boolean validateCusUsePromotion(Promotion promotion1) throws HeadlessException, NumberFormatException {
         //cus
-        if (reciept.getCustomer() == null || promotion1.getUsedPoint()) {
+        if (reciept.getCustomer() == null || promotion1.getPointDiscount()>0) {
             JOptionPane.showMessageDialog(this, "This Promotion for Member");
             return true;
         }

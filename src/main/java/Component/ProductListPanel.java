@@ -20,18 +20,17 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
 
     private final ProductService productService;
     private ArrayList<Product> products;
-
     private ArrayList<BuyProductable> subscibers = new ArrayList();
 
 
     /**
      * Creates new form ProductListPanel
      */
-    public ProductListPanel(int cat) {
+    public ProductListPanel(int CatId) {
         initComponents();
         productService = new ProductService();
         products = new ArrayList<Product>();
-        products = productService.getProductsByCatId(cat);
+        products = productService.getProductsByCatId(CatId);
 
         int productSize = products.size();
         for (Product p : products) {
@@ -98,6 +97,18 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
         for(BuyProductable s: subscibers) {
                     s.buy(product, qty);
                 }
+    }
+
+    @Override
+    public void chageCat(int catId) {
+
+        int productSize = products.size();
+        for (Product p : products) {
+            ProductItemPanel pnlProductItem = new ProductItemPanel(p);
+            pnlProductItem.addOnBuyProduct(this);
+            pnlProductList.add(pnlProductItem);
+        }
+        pnlProductList.setLayout(new GridLayout((productSize / 3) + ((productSize % 3 != 0) ? 1 : 0), 3, 0, 0));
     }
 
 }

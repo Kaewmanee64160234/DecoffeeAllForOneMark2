@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import Component.CusObs;
+import Dialog.PosPromotionDialog;
 
 /**
  *
@@ -795,10 +796,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PromotionDialog PromotionDialog = new PromotionDialog(frame, editedPromotion);
-        PromotionDialog.setLocationRelativeTo(this); // set dialog to center
-        PromotionDialog.setVisible(true);
-        PromotionDialog.addWindowListener(new WindowAdapter() {
+        PosPromotionDialog posPromotionDailog = new PosPromotionDialog(frame);
+        posPromotionDailog.setLocationRelativeTo(this); // set dialog to center
+        posPromotionDailog.setVisible(true);
+        posPromotionDailog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();

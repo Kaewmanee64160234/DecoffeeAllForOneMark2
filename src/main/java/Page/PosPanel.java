@@ -48,6 +48,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private FindMemberDialog findMemberDialog;
     private Reciept reciept;
     private Promotion promotion;
+    private Customer customer;
 
     /**
      * Creates new form PosDialog
@@ -846,9 +847,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     @Override
     public void updateCustomer(Customer customer) {
-        System.out.println("Page.PosPanel" + customer.toString());
+       this.customer = customer;
         reciept.setCustomer(customer);
         reciept.setCustomerId(customer.getId());
+        System.out.println("Page.PosPanel" + reciept.getCustomer().toString());
         lblMemberName.setText(customer.getName());
         lblMemberPoint.setText(customer.getPoint() + "");
         lblPhoneNumber.setText(customer.getTel());
@@ -904,9 +906,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     }
 
-    private boolean validateCusUsePromotion(Promotion promotion1) throws HeadlessException, NumberFormatException {
+    private boolean validateCusUsePromotion(Promotion promotion1){
         //cus
-        if (reciept.getCustomer() == null || promotion1.getPointDiscount() > 0) {
+        
+        if (reciept.getCustomerId()< 0 && promotion1.getPointDiscount() > 0) {
             JOptionPane.showMessageDialog(this, "This Promotion for Member");
             return true;
         }

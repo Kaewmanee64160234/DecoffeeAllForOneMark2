@@ -30,9 +30,9 @@ import Component.PromotionObs;
 import Dialog.PosPromotionDialog;
 import javax.swing.JOptionPane;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-
 
 /**
  *
@@ -97,7 +97,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 }
             }
         });
-        
+
         this.reciept = new Reciept();
         this.promotion = new Promotion();
         initFindMemberDialog();
@@ -840,32 +840,53 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     @Override
     public void setInfoPromotion(Promotion promotion) {
-        if(reciept.getCustomer()== null || promotion.getUsedPoint()){
-             JOptionPane.showMessageDialog(this, "This Promotion for Member");
+        validateNotCusUsePromotion(promotion);
+        if (validateCusUsePromotion(promotion)) {
             return;
         }
-                int totalPoint = reciept.getCustomer().getPoint()- promotion.getPointDiscount();
 
-        if(totalPoint<0){
+    }
+
+    private void validateNotCusUsePromotion(Promotion promotion1) throws NumberFormatException {
+        // not cus
+        if (!promotion1.getUsedPoint()) {
+            reciept.setPromotion(promotion1);
+            reciept.setPromotionId(promotion1.getId());
+            if (promotion1.getDiscountPerc() != 0) {
+                lblDiscount.setText(((promotion1.getDiscount() / 100)) * Integer.parseInt(lblTotal.getText()) + "");
+            }
+            if (promotion1.getDiscount() != 0) {
+                lblDiscount.setText(promotion1.getDiscount() + "");
+            }
+            lblPointEarn.setText(promotion1.getPointDiscount() + "");
+            lblPromotionNameShow.setText(promotion1.getName());
+            lblTotalPoint.setText(0 + "");
+        }
+    }
+
+    private boolean validateCusUsePromotion(Promotion promotion1) throws HeadlessException, NumberFormatException {
+        //cus
+        if (reciept.getCustomer() == null || promotion1.getUsedPoint()) {
+            JOptionPane.showMessageDialog(this, "This Promotion for Member");
+            return true;
+        }
+        int totalPoint = reciept.getCustomer().getPoint() - promotion1.getPointDiscount();
+        if (totalPoint < 0) {
             JOptionPane.showMessageDialog(this, "Point Not Enogh");
-            return;
+            return true;
         }
-        
-        reciept.setPromotion(promotion);
-        reciept.setPromotionId(promotion.getId());
-        if (promotion.getDiscountPerc() != 0) {
-            lblDiscount.setText(((promotion.getDiscount() / 100)) * Integer.parseInt(lblTotal.getText()) + "");
-
+        reciept.setPromotion(promotion1);
+        reciept.setPromotionId(promotion1.getId());
+        if (promotion1.getDiscountPerc() != 0) {
+            lblDiscount.setText(((promotion1.getDiscount() / 100)) * Integer.parseInt(lblTotal.getText()) + "");
         }
-        if (promotion.getDiscount() != 0) {
-            lblDiscount.setText(promotion.getDiscount() + "");
-
+        if (promotion1.getDiscount() != 0) {
+            lblDiscount.setText(promotion1.getDiscount() + "");
         }
-        lblPointEarn.setText(promotion.getPointDiscount() + "");
-
-        lblPromotionNameShow.setText(promotion.getName());
-        lblTotalPoint.setText(totalPoint+"");
-        
+        lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        lblPromotionNameShow.setText(promotion1.getName());
+        lblTotalPoint.setText(totalPoint + "");
+        return false;
     }
 
 }

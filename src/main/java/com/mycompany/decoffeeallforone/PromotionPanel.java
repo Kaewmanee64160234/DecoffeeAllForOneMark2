@@ -24,7 +24,7 @@ public class PromotionPanel extends javax.swing.JPanel {
         list = promotionService.getPromotions();
         tblPromotion.setRowHeight(20);
         tblPromotion.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount", "Used_Point"};
+            String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount"};
 
             @Override
             public String getColumnName(int column) {
@@ -69,8 +69,6 @@ public class PromotionPanel extends javax.swing.JPanel {
                         return promotion.getDiscountPerc();
                     case 6:
                         return promotion.getPointDiscount();
-                    case 7:
-                        return promotion.getUsedPoint();
                     default:
                         return "Unknown";
                 }

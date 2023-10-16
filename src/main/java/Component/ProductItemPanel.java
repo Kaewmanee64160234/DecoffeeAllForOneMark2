@@ -35,6 +35,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         initComponents();
         product = p;
         lblName.setText(product.getName());
+        lblPrice.setText("฿ "+ (product.getPrice()));
         ImageIcon icon = new ImageIcon("./" + product.getName() + ".jpg");
         Image image = icon.getImage();
         int width = image.getWidth(null);

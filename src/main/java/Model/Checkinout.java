@@ -4,10 +4,11 @@
  */
 package Model;
 
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.Date;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +51,7 @@ public class Checkinout {
     }
     public Checkinout( ) {
         this.id = -1;
-        this.cioDate = new Date(2023, 10, 16, 21, 58);
+        this.cioDate = null;
         this.cioTimeIn = null;
         this.cioTimeOut = null;
         this.cioTotalHour = 0;
@@ -135,7 +136,9 @@ public class Checkinout {
         Checkinout checkinout = new Checkinout();
         try {
             checkinout.setId(rs.getInt("cio_id"));
-            checkinout.setCioDate(rs.getDate("cio_date"));
+            checkinout.setCioDate(rs.getTimestamp("cio_date"));
+//                        obj.setCreaetedDate(rs.getTimestamp("create_date"));
+
             checkinout.setCioTimeIn(rs.getTime("cio_time_in"));
             checkinout.setCioTimeOut(rs.getTime("cio_time_out"));
             checkinout.setCioTotalHour(rs.getInt("cio_total_hour"));

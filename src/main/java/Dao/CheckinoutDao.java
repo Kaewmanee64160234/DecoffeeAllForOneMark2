@@ -43,7 +43,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
 
    
 
-    public List<Checkinout> getAll() {
+    public ArrayList<Checkinout> getAll() {
         ArrayList<Checkinout> list = new ArrayList();
         String sql = "SELECT * FROM check_in_out";
         Connection conn = DatabaseHelper.getConnect();

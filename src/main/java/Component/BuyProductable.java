@@ -12,4 +12,5 @@ import Model.Product;
  */
 public interface BuyProductable {
     public void buy(Product product, int qty);
+    public void chageCat(int catId);
 }

@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Component.BuyProductable;
 import Component.CategoryObs;
 import Component.ProductListPanel;
 import Dao.RecieptDao;
@@ -13,6 +14,7 @@ import Service.ProductService;
 
 import Dialog.PromotionDialog;
 import Model.Customer;
+import Model.Product;
 import Model.Promotion;
 import Model.RecieptDetail;
 import Service.RecieptService;
@@ -26,7 +28,7 @@ import javax.swing.SwingUtilities;
  *
  * @author toey
  */
-public final class PosPanel extends javax.swing.JPanel {
+public final class PosPanel extends javax.swing.JPanel implements BuyProductable{
 
     private ProductListPanel productListPanel;
     private final RecieptService recieptService;
@@ -651,21 +653,18 @@ public final class PosPanel extends javax.swing.JPanel {
 
     private void btnDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDrinksMouseClicked
         // TODO add your handling code here:
-        productListPanel = new ProductListPanel(1);
-        scrProductList.setViewportView(productListPanel);
+      chageCat(1);
     }//GEN-LAST:event_btnDrinksMouseClicked
 
     private void btnDessertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDessertMouseClicked
         // TODO add your handling code here:
-        productListPanel = new ProductListPanel(2);
-        scrProductList.setViewportView(productListPanel);
+       chageCat(2);
     }//GEN-LAST:event_btnDessertMouseClicked
 
     private void btnFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFoodMouseClicked
         // TODO add your handling code here:
-        productListPanel = new ProductListPanel(3);
-        scrProductList.setViewportView(productListPanel);
-        System.out.println(3);
+      
+       chageCat(3);
     }//GEN-LAST:event_btnFoodMouseClicked
 
     private void btnDessertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDessertActionPerformed
@@ -766,5 +765,17 @@ public final class PosPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtTotalPoint;
     private javax.swing.JLabel txtmemberName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void buy(Product product, int qty) {
+        reciept.addReceiptDetail(product, qty, "M", "H", "Chese", 10, 0, 0);
+        refreshTable();
+    }
+
+    @Override
+    public void chageCat(int catId) {
+          productListPanel = new ProductListPanel(catId);
+        scrProductList.setViewportView(productListPanel);
+    }
 
 }

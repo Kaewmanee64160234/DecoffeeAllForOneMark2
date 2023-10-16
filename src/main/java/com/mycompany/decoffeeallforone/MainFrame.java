@@ -6,7 +6,6 @@ package com.mycompany.decoffeeallforone;
 
 import Component.ProductListPanel;
 import Dialog.CustomerDialog;
-import Page.PromotionMainData;
 import Model.Promotion;
 import Page.PosPanel;
 import Page.ProductPanel;
@@ -35,7 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
         // scrPanel.setViewportView(new EmployeePanel());
         // scrPanel.setViewportView(new UserPanel());
         // scrPanel.setViewportView(new MaterialPanel());
-//        scrPanel.setViewportView(new PosPanel());//        
+        scrPanel.setViewportView(new PosPanel());//        
 //scrPanel.setViewportView(new PromotionMainData());
     }
 

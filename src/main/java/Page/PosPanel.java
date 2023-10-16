@@ -565,6 +565,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         btnFindMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnFindMember.setText("Find Member");
+        btnFindMember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFindMemberMouseClicked(evt);
+            }
+        });
         btnFindMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFindMemberActionPerformed(evt);
@@ -677,6 +682,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnFindMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFindMemberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFindMemberMouseClicked
+
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed
         RecieptService recieptService = new RecieptService();
         ProductService productService = new ProductService();
@@ -759,6 +768,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         // list = recieptService.getReciepts();
         tblRecieptDetail.revalidate();
         tblRecieptDetail.repaint();
+        lblTotal.setText(reciept.getTotal() + "");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -819,6 +829,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty) {
         reciept.addReceiptDetail(product, qty, "M", "H", "Chese", 10, 0, 0);
+        if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc()>0) {
+            double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+            System.out.println("--------IN--------------");
+        }
+        setTotalNet();
         refreshTable();
     }
 
@@ -836,38 +852,61 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblMemberName.setText(customer.getName());
         lblMemberPoint.setText(customer.getPoint() + "");
         lblPhoneNumber.setText(customer.getTel());
+        lblTotalPoint.setText(customer.getPoint() + "");
     }
 
     @Override
     public void setInfoPromotion(Promotion promotion) {
-        validateNotCusUsePromotion(promotion);
-        if (validateCusUsePromotion(promotion)) {
+        this.promotion = promotion;
+        
+        if (promotion.getPointDiscount() == 0) {
+            validateNotCusUsePromotion(promotion);
+            setTotalNet();
             return;
         }
 
+        validateCusUsePromotion(promotion);
+        
+
     }
 
-    private void validateNotCusUsePromotion(Promotion promotion1) throws NumberFormatException {
+    private void setTotalNet() throws NumberFormatException {
+        double totalNet = reciept.getTotal()-Double.parseDouble(lblDiscount.getText());
+        lblTotalNet.setText(totalNet+"");
+    }
+
+    private void validateNotCusUsePromotion(Promotion promotion1) {
         // not cus
-        if (promotion1.getPointDiscount()==0) {
-            reciept.setPromotion(promotion1);
-            reciept.setPromotionId(promotion1.getId());
-            if (promotion1.getDiscountPerc() != 0) {
-                lblDiscount.setText(((promotion1.getDiscount() / 100)) * Integer.parseInt(lblTotal.getText()) + "");
-            }
-            if (promotion1.getDiscount() != 0) {
-                lblDiscount.setText(promotion1.getDiscount() + "");
-            }
-            lblPointEarn.setText(promotion1.getPointDiscount() + "");
-            lblPromotionNameShow.setText(promotion1.getName());
-            lblTotalPoint.setText(0 + "");
+
+        System.out.println("Page.PosPanel.validateNotCusUsePromotion()");
+        reciept.setPromotion(promotion1);
+        reciept.setPromotionId(promotion1.getId());
+        System.out.println(promotion1.toString());
+        if (promotion1.getDiscountPerc() > 0) {
+
+            lblDiscount.setText(((promotion1.getDiscountPerc() / 100)) * reciept.getTotal() + "");
+        } else {
+            lblDiscount.setText(promotion1.getDiscount() + "");
         }
-        return;
+        lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        lblPromotionNameShow.setText(promotion1.getName());
+        lblTotalPoint.setText(0 + "");
+        if (promotion1.getDiscountPerc() != 0) {
+            double presentForCal = (Double.parseDouble(promotion1.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+        }
+        if (promotion1.getDiscount() != 0) {
+            lblDiscount.setText(promotion1.getDiscount() + "");
+        }
+        lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        lblPromotionNameShow.setText(promotion1.getName());
+        lblTotalPoint.setText(0 + "");
+
     }
 
     private boolean validateCusUsePromotion(Promotion promotion1) throws HeadlessException, NumberFormatException {
         //cus
-        if (reciept.getCustomer() == null || promotion1.getPointDiscount()>0) {
+        if (reciept.getCustomer() == null || promotion1.getPointDiscount() > 0) {
             JOptionPane.showMessageDialog(this, "This Promotion for Member");
             return true;
         }
@@ -879,14 +918,16 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         reciept.setPromotion(promotion1);
         reciept.setPromotionId(promotion1.getId());
         if (promotion1.getDiscountPerc() != 0) {
-            lblDiscount.setText(((promotion1.getDiscount() / 100)) * Integer.parseInt(lblTotal.getText()) + "");
-        }
-        if (promotion1.getDiscount() != 0) {
+            double presentForCal = (Double.parseDouble(promotion1.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+
+        } else {
             lblDiscount.setText(promotion1.getDiscount() + "");
         }
         lblPointEarn.setText(promotion1.getPointDiscount() + "");
         lblPromotionNameShow.setText(promotion1.getName());
         lblTotalPoint.setText(totalPoint + "");
+        setTotalNet();
         return false;
     }
 

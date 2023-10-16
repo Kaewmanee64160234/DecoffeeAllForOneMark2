@@ -12,7 +12,7 @@ public class TestPromotionService {
         }
 
         // Add New Promotion
-        Promotion P1 = new Promotion("2023-08-01", "HalloweenDay", 0, 5, 0, false);
+        Promotion P1 = new Promotion("2023-08-01", "HalloweenDay", 0, 5, 0);
         pd.save(P1);
         for (Promotion promotion : pd.getAll()) {
             System.out.println(promotion);

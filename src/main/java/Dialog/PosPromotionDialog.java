@@ -34,7 +34,7 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
 
     private void initTable() {
         tblPosPromotion.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Created Date", "End Date", "Name", "Discount", "Discount Perc", "Point Discount", "Used Point"};
+            String[] columnNames = {"ID", "Created Date", "End Date", "Name", "Discount", "Discount Perc", "Point Discount"};
 
             @Override
             public String getColumnName(int column) {
@@ -48,7 +48,7 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
 
             @Override
             public int getColumnCount() {
-                return 8;
+                return 7;
             }
 
             @Override
@@ -79,8 +79,6 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
                         return promotion.getDiscountPerc();
                     case 6:
                         return promotion.getPointDiscount();
-                    case 7:
-                        return promotion.getUsedPoint();
                     default:
                         return "Unknown";
                 }

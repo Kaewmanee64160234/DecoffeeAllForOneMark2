@@ -135,9 +135,8 @@ public class Reciept {
         return id;
     }
 
-    public void addReceiptDetail(Product product, int qty, String size, String type, String topping, float toppingPrice,
-            float typePrice, float sizePrice) {
-        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), size, typePrice, type, sizePrice, topping, toppingPrice, product.getPrice() * qty, -1, product.getId());
+    public void addReceiptDetail(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
+        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName, sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId());
         int idProduct = product.getId();
         System.out.println("Model.Reciept.addReceiptDetail()");
 

@@ -7,6 +7,7 @@ package Service;
 import Dao.ProductDao;
 import Model.Product;
 import Model.Size;
+import Model.Sweet;
 import Model.Topping;
 import Model.Type;
 import java.util.ArrayList;
@@ -21,12 +22,14 @@ public class ProductService {
     private ArrayList<Topping> toppings;
     private ArrayList<Type> types;
     private ArrayList<Size> sizes;
+    private ArrayList<Sweet> sweets;
 
     public ProductService() {
 
         toppings = new ArrayList<Topping>();
         types = new ArrayList<Type>();
         sizes = new ArrayList<Size>();
+        sweets = new ArrayList<Sweet>();
 
         toppings.add(new Topping("Cheese", 10));
         toppings.add(new Topping("Pearl", 10));
@@ -41,10 +44,26 @@ public class ProductService {
         sizes.add(new Size("S", 0));
         sizes.add(new Size("M", 10));
         sizes.add(new Size("L", 15));
+
+        sweets.add(new Sweet("Normal", 0));
+        sweets.add(new Sweet("Less", 0));
+        sweets.add(new Sweet("Half", 0));
+        sweets.add(new Sweet("More", 10));
+        sweets.add(new Sweet("No", 0));
+        
+       
     }
 
     public ArrayList<Topping> getToppings() {
         return toppings;
+    }
+
+    public ArrayList<Sweet> getSweets() {
+        return sweets;
+    }
+
+    public void setSweets(ArrayList<Sweet> sweets) {
+        this.sweets = sweets;
     }
     
 

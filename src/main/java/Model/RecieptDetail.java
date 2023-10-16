@@ -30,7 +30,7 @@ public class RecieptDetail {
     private Product product;
     private Reciept reciept;
 
-    public RecieptDetail(int id, String name, int qty, float price, String size, float typePrice, String type, float sizePrice, String topping, float toppingPrice, float total, int recieptId, int productId) {
+    public RecieptDetail(String name, int id, float price, String size, double typePrice1, String type, double sizePrice1, String topping, double toppingPrice1, float typePrice, int qty, int recieptId) {
         this.id = id;
         this.name = name;
         this.qty = qty;

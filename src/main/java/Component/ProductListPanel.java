@@ -92,14 +92,6 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
 
 
     @Override
-    public void buy(Product product, int qty) {
-        System.out.println("" + product.getName() + " " + qty);
-        for(BuyProductable s: subscibers) {
-                    s.buy(product, qty);
-                }
-    }
-
-    @Override
     public void chageCat(int catId) {
 
         int productSize = products.size();
@@ -109,6 +101,14 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
             pnlProductList.add(pnlProductItem);
         }
         pnlProductList.setLayout(new GridLayout((productSize / 3) + ((productSize % 3 != 0) ? 1 : 0), 3, 0, 0));
+    }
+
+    @Override
+    public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
+        System.out.println("" + product.getName() + " " + qty);
+        for(BuyProductable s: subscibers) {
+            s.buy(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
+                }
     }
 
 }

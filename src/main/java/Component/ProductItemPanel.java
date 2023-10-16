@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
  *
  * @author toey
  */
-public class ProductItemPanel extends javax.swing.JPanel {
+public class ProductItemPanel extends javax.swing.JPanel implements ProductDetailObs{
 
     private final Product product;
     private ArrayList<BuyProductable> subscibers = new ArrayList();
@@ -160,7 +160,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
         for (BuyProductable s : subscibers) {
-            s.buy(product, 1);
+            s.buy(product, 1, "", 0, "", 0, "", 0, "", 0);
         }
     }//GEN-LAST:event_btnBuyActionPerformed
 
@@ -172,5 +172,13 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setDetailProduct(double sizePrice, String sizeName, double toppingPrice, String toppingName, double sweetPrice, String sweetName, double typePrice, String typeName) {
+        for (BuyProductable subsciber : subscibers) {
+            subsciber.buy(product, WIDTH, sizeName, (float) sizePrice, toppingName, (float) toppingPrice, sweetName, (float) sweetPrice, typeName, (float) typePrice);
+            
+        }
+    }
 
 }

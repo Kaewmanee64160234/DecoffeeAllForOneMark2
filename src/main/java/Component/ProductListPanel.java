@@ -20,7 +20,6 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
 
     private final ProductService productService;
     private ArrayList<Product> products;
-
     private ArrayList<BuyProductable> subscibers = new ArrayList();
 
 
@@ -102,7 +101,6 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
 
     @Override
     public void chageCat(int catId) {
-
 
         int productSize = products.size();
         for (Product p : products) {

@@ -4,10 +4,13 @@
  */
 package Component;
 
+import Model.Customer;
+
 /**
  *
  * @author USER
  */
-public interface CategoryObs {
-     void updateCategory(int categoryId);
+public interface CusObs {
+     void updateCustomer(Customer customer);
+     
 }

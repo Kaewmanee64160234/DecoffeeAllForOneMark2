@@ -5,7 +5,6 @@
 package Page;
 
 import Component.BuyProductable;
-import Component.CategoryObs;
 import Component.ProductListPanel;
 import Dao.RecieptDao;
 import Dialog.FindMemberDialog;
@@ -23,19 +22,20 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import Component.CusObs;
 
 /**
  *
  * @author toey
  */
-public final class PosPanel extends javax.swing.JPanel implements BuyProductable{
+public final class PosPanel extends javax.swing.JPanel implements BuyProductable, CusObs {
 
     private ProductListPanel productListPanel;
     private final RecieptService recieptService;
     private List<RecieptDetail> list;
     private RecieptDetail editedRecieptDetail;
     private Promotion editedPromotion;
-    private CategoryObs catObs;
+    private CusObs catObs;
     private FindMemberDialog findMemberDialog;
     private Reciept reciept;
 
@@ -44,12 +44,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
      */
     public PosPanel() {
         initComponents();
-
         this.productListPanel = new ProductListPanel(1);
         scrProductList.setViewportView(productListPanel);
-
         recieptService = new RecieptService();
         this.reciept = new Reciept();
+        initFindMemberDialog();
+    }
+
+    private void initFindMemberDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        this.findMemberDialog = new FindMemberDialog(frame, this);
+        this.findMemberDialog.setInfoCustomer(this);
+
     }
 
     /**
@@ -653,18 +659,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void btnDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDrinksMouseClicked
         // TODO add your handling code here:
-      chageCat(1);
+        chageCat(1);
     }//GEN-LAST:event_btnDrinksMouseClicked
 
     private void btnDessertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDessertMouseClicked
         // TODO add your handling code here:
-       chageCat(2);
+        chageCat(2);
     }//GEN-LAST:event_btnDessertMouseClicked
 
     private void btnFoodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFoodMouseClicked
         // TODO add your handling code here:
-      
-       chageCat(3);
+
+        chageCat(3);
     }//GEN-LAST:event_btnFoodMouseClicked
 
     private void btnDessertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDessertActionPerformed
@@ -692,17 +698,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void openDialogFindMember() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        FindMemberDialog findMemberDialog = new FindMemberDialog(frame, reciept, this);
+        FindMemberDialog findMemberDialog = new FindMemberDialog(frame, this);
         findMemberDialog.setLocationRelativeTo(this); //set dialog to center
         findMemberDialog.setVisible(true);
-    }
-
-    public void setFromMemeber(Customer cus) {
-        lblMemberName.setText(cus.getName());
-        lblMemberPoint.setText(cus.getPoint() + "");
-
-        lblPhoneNumber.setText(cus.getTel());
-
     }
 
     private void refreshTable() {
@@ -774,8 +772,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     @Override
     public void chageCat(int catId) {
-          productListPanel = new ProductListPanel(catId);
+        productListPanel = new ProductListPanel(catId);
         scrProductList.setViewportView(productListPanel);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        System.out.println("Page.PosPanel" + customer.toString());
+        reciept.setCustomer(customer);
+        reciept.setCustomerId(customer.getId());
+        lblMemberName.setText(customer.getName());
+        lblMemberPoint.setText(customer.getPoint() + "");
+        lblPhoneNumber.setText(customer.getTel());
     }
 
 }

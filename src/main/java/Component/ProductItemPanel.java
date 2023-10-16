@@ -4,7 +4,6 @@
  */
 package Component;
 
-
 import Component.BuyProductable;
 
 import Dialog.ToppingDialog;
@@ -36,6 +35,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         initComponents();
         product = p;
         lblName.setText(product.getName());
+        lblPrice.setText("฿ "+ (product.getPrice()));
         ImageIcon icon = new ImageIcon("./" + product.getName() + ".jpg");
         Image image = icon.getImage();
         int width = image.getWidth(null);
@@ -43,15 +43,6 @@ public class ProductItemPanel extends javax.swing.JPanel {
         Image newImage = image.getScaledInstance((int) ((120.0 * width) / height), 120, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
         lblImage.setIcon(icon);
-        btnBuy.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                for (BuyProductable s : subscibers) {
-                    s.buy(product, 1);
-                }
-            }
-
-        });
     }
 
     public void addOnBuyProduct(BuyProductable subsciber) {
@@ -96,6 +87,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
         btnBuy.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnBuy.setText("Buy");
+        btnBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,6 +153,12 @@ public class ProductItemPanel extends javax.swing.JPanel {
         toppingDialog.setLocationRelativeTo(this);
         toppingDialog.setVisible(true);
     }//GEN-LAST:event_btnMoreActionPerformed
+
+    private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
+        for (BuyProductable s : subscibers) {
+            s.buy(product, 1);
+        }
+    }//GEN-LAST:event_btnBuyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuy;

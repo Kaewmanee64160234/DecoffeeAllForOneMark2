@@ -25,9 +25,14 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import Component.CusObs;
+
 import Component.PromotionObs;
 import Dialog.PosPromotionDialog;
 import javax.swing.JOptionPane;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
+
 
 /**
  *
@@ -50,8 +55,49 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     public PosPanel() {
         initComponents();
         this.productListPanel = new ProductListPanel(1);
+        productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
         recieptService = new RecieptService();
+        reciept = new Reciept();
+
+        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblRecieptDetail.setModel(new AbstractTableModel() {
+            String[] headers = {"Name", "Price", "Qty", "Toatal"};
+
+            @Override
+            public String getColumnName(int column) {
+                return headers[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return reciept.getRecieptDetails().size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 4;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail.getName();
+                    case 1:
+                        return recieptDetail.getPrice();
+                    case 2:
+                        return recieptDetail.getQty();
+                    case 3:
+                        return recieptDetail.getTotal();
+                    default:
+                        return "";
+                }
+            }
+        });
+        
         this.reciept = new Reciept();
         this.promotion = new Promotion();
         initFindMemberDialog();

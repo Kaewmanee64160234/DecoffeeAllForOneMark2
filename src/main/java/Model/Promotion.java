@@ -18,7 +18,9 @@ public class Promotion {
     private int discountPerc;
     private int pointDiscount;
 
+
     public Promotion(int id, Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount) {
+
         this.id = id;
         this.createdDate = createdDate;
         this.endDate = endDate;
@@ -28,6 +30,7 @@ public class Promotion {
         this.pointDiscount = pointDiscount;
 
     }
+
 
     public Promotion(Date createdDate, String endDate, String Name, float Discount, int discountPerc, int pointDiscount) {
         this.id = -1;
@@ -40,7 +43,9 @@ public class Promotion {
 
     }
 
+
     public Promotion(String endDate, String Name, float Discount, int discountPerc, int pointDiscount) {
+
         this.id = -1;
         this.createdDate = null;
         this.endDate = endDate;
@@ -118,6 +123,8 @@ public class Promotion {
         this.pointDiscount = pointDiscount;
     }
 
+
+
     @Override
     public String toString() {
         return "Promotion{" + "id=" + id + ", createdDate=" + createdDate + ", endDate=" + endDate + ", Name=" + Name + ", Discount=" + Discount + ", discountPerc=" + discountPerc + ", pointDiscount=" + pointDiscount + '}';
@@ -141,7 +148,6 @@ public class Promotion {
             promotion.setDiscount(rs.getFloat("prom_discount"));
             promotion.setDiscountPerc(rs.getInt("prom_discount_perc"));
             promotion.setPointDiscount(rs.getInt("prom_point_discount"));
-
         } catch (SQLException ex) {
             Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, ex);
             return null;

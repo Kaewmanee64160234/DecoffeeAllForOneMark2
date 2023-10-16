@@ -216,7 +216,6 @@ public class PromotionDialog extends javax.swing.JDialog {
         int pointDiscount = editedPromotion.getPointDiscount();
         String pointDiscountString = Integer.toString(pointDiscount);
         edtPointDiscount.setText(pointDiscountString);
-
     }
 
     private void setFormToObject() {
@@ -237,6 +236,8 @@ public class PromotionDialog extends javax.swing.JDialog {
         String pointDiscountString = edtPointDiscount.getText();
         int pointDiscount = Integer.parseInt(pointDiscountString);
         editedPromotion.setPointDiscount(pointDiscount);
+
+
 
     }
 

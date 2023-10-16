@@ -138,6 +138,7 @@ public class PromotionDao implements Dao<Promotion> {
             stmt.setInt(4, obj.getDiscountPerc());
             stmt.setInt(5, obj.getPointDiscount());
             stmt.setInt(6, obj.getId());
+
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

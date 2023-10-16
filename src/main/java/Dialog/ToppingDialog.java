@@ -39,12 +39,25 @@ public class ToppingDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btgType = new javax.swing.ButtonGroup();
+        btgSize = new javax.swing.ButtonGroup();
+        btgTopping = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblImg = new javax.swing.JLabel();
         lblProductName = new javax.swing.JLabel();
-        rbtHot = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        txtTopping1 = new javax.swing.JLabel();
+        rbtBubble1 = new javax.swing.JRadioButton();
+        rbtTopping3 = new javax.swing.JRadioButton();
+        rbtWhipcream1 = new javax.swing.JRadioButton();
+        rbtBubble2 = new javax.swing.JRadioButton();
+        rbtTopping4 = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
         rbtFrappe = new javax.swing.JRadioButton();
         rbtCold = new javax.swing.JRadioButton();
+        rbtHot = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         txtTopping = new javax.swing.JLabel();
         rbtBubble = new javax.swing.JRadioButton();
         rbtTopping2 = new javax.swing.JRadioButton();
@@ -61,26 +74,159 @@ public class ToppingDialog extends javax.swing.JDialog {
         lblProductName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblProductName.setText("Product Name");
 
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+
+        txtTopping1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        txtTopping1.setText("Topping:");
+
+        rbtBubble1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtBubble1.setText("ไข่มุก  +10");
+
+        rbtTopping3.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtTopping3.setText("Pearl  +10");
+
+        rbtWhipcream1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtWhipcream1.setText("HoneyPearl  +5");
+
+        rbtBubble2.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtBubble2.setText("KonjacJelly  +10");
+
+        rbtTopping4.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtTopping4.setText("FruitSalad  +10");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTopping1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(rbtBubble1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtTopping3)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtWhipcream1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(rbtBubble2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtTopping4)))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtTopping1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtBubble1)
+                    .addComponent(rbtTopping3)
+                    .addComponent(rbtWhipcream1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtBubble2)
+                    .addComponent(rbtTopping4))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+
+        btgType.add(rbtFrappe);
+        rbtFrappe.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtFrappe.setText("Frappe  +10");
+
+        btgType.add(rbtCold);
+        rbtCold.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtCold.setText("Cold +5");
+        rbtCold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtColdActionPerformed(evt);
+            }
+        });
+
+        btgType.add(rbtHot);
         rbtHot.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtHot.setText("Hot  +0");
 
-        rbtFrappe.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        rbtFrappe.setText("ปั่น  +10");
+        jLabel1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        jLabel1.setText("Type:");
 
-        rbtCold.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        rbtCold.setText("เย็น  +5");
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(rbtHot)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtCold)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtFrappe)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtHot)
+                    .addComponent(rbtCold)
+                    .addComponent(rbtFrappe))
+                .addGap(17, 17, 17))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
 
         txtTopping.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        txtTopping.setText("Topping:");
+        txtTopping.setText("Size:");
 
+        btgSize.add(rbtBubble);
         rbtBubble.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtBubble.setText("ไข่มุก  +5");
 
+        btgSize.add(rbtTopping2);
         rbtTopping2.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtTopping2.setText("บุก  +10");
 
+        btgSize.add(rbtWhipcream);
         rbtWhipcream.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtWhipcream.setText("วิปครีม  +5");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTopping)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(rbtBubble)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtTopping2)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtWhipcream)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(txtTopping)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtBubble)
+                    .addComponent(rbtTopping2)
+                    .addComponent(rbtWhipcream))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnConfirm.setText("Confirm");
@@ -90,35 +236,22 @@ public class ToppingDialog extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblProductName)
+                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnConfirm))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(rbtHot)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtCold)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtFrappe))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblProductName)
-                                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtTopping))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(rbtBubble)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rbtTopping2)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtWhipcream)))
-                        .addGap(0, 6, Short.MAX_VALUE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,19 +261,13 @@ public class ToppingDialog extends javax.swing.JDialog {
                 .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblProductName)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtHot)
-                    .addComponent(rbtCold)
-                    .addComponent(rbtFrappe))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTopping)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtBubble)
-                    .addComponent(rbtTopping2)
-                    .addComponent(rbtWhipcream))
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConfirm)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -165,21 +292,38 @@ public class ToppingDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rbtColdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtColdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtColdActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btgSize;
+    private javax.swing.ButtonGroup btgTopping;
+    private javax.swing.ButtonGroup btgType;
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblImg;
     private javax.swing.JLabel lblProductName;
     private javax.swing.JRadioButton rbtBubble;
+    private javax.swing.JRadioButton rbtBubble1;
+    private javax.swing.JRadioButton rbtBubble2;
     private javax.swing.JRadioButton rbtCold;
     private javax.swing.JRadioButton rbtFrappe;
     private javax.swing.JRadioButton rbtHot;
     private javax.swing.JRadioButton rbtTopping2;
+    private javax.swing.JRadioButton rbtTopping3;
+    private javax.swing.JRadioButton rbtTopping4;
     private javax.swing.JRadioButton rbtWhipcream;
+    private javax.swing.JRadioButton rbtWhipcream1;
     private javax.swing.JLabel txtTopping;
+    private javax.swing.JLabel txtTopping1;
     // End of variables declaration//GEN-END:variables
 }

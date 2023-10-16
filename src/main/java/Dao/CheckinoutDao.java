@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
     @Override
     public Checkinout get(int id) {
         Checkinout checkinout = null;
-        String sql = "SELECT * FROM checkinout WHERE cio_id=?";
+        String sql = "SELECT * FROM check_in_out WHERE cio_id=?";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -44,7 +45,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
 
     public List<Checkinout> getAll() {
         ArrayList<Checkinout> list = new ArrayList();
-        String sql = "SELECT * FROM checkinout";
+        String sql = "SELECT * FROM check_in_out";
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -65,7 +66,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
     @Override
     public List<Checkinout> getAll(String where, String order) {
         ArrayList<Checkinout> list = new ArrayList();
-        String sql = "SELECT * FROM checkinout where " + where + " ORDER BY" + order;
+        String sql = "SELECT * FROM check_in_out where " + where + " ORDER BY" + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -86,7 +87,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
 
     public List<Checkinout> getAll(String order) {
         ArrayList<Checkinout> list = new ArrayList();
-        String sql = "SELECT * FROM checkinout  ORDER BY" + order;
+        String sql = "SELECT * FROM check_in_out  ORDER BY" + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -107,7 +108,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
     @Override
     public Checkinout save(Checkinout obj) {
 
-        String sql = "INSERT INTO checkinout (cio_id, cio_time_in, cio_time_out, cio_total_hour, cio_paid_status, employee_id, ss_id)"
+        String sql = "INSERT INTO check_in_out (cio_id, cio_time_in, cio_time_out, cio_total_hour, cio_paid_status, employee_id, ss_id)"
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -128,10 +129,28 @@ public class CheckinoutDao implements Dao<Checkinout> {
         }
         return obj;
     }
+    public Checkinout getByDate(Date date) {
+        Checkinout checkinout = null;
+        String sql = "SELECT * FROM check_in_out WHERE cio_date=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setDate(1, (java.sql.Date) date);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                checkinout = Checkinout.fromRS(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return checkinout;
+    }
 
     @Override
     public Checkinout update(Checkinout obj) {
-        String sql = "UPDATE checkinout"
+        String sql = "UPDATE check_in_out"
                 + " SET  cio_date = ?, cio_time_in = ?, cio_time_out = ?, cio_total_hour = ?, cio_paid_status = ?, employee_id = ?, ss_id = ?"
                 + " WHERE cio_id = ?";
         Connection conn = DatabaseHelper.getConnect();

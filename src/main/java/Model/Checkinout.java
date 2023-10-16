@@ -132,18 +132,20 @@ public class Checkinout {
 
     
     public static Checkinout fromRS(ResultSet rs) {
-        Checkinout material = new Checkinout();
+        Checkinout checkinout = new Checkinout();
         try {
-            material.setId(rs.getInt("cio_id"));
-            material.setCioDate(rs.getDate("cio_date"));
-            material.setCioTimeIn(rs.getTime("cio_time_in"));
-            material.setMatQty(rs.getInt("mat_quantity"));
-            material.setMatUnit(rs.getString("mat_unit"));
-            material.setMatPricePerUnit(rs.getFloat("mat_price_per_unit"));
+            checkinout.setId(rs.getInt("cio_id"));
+            checkinout.setCioDate(rs.getDate("cio_date"));
+            checkinout.setCioTimeIn(rs.getTime("cio_time_in"));
+            checkinout.setCioTimeOut(rs.getTime("cio_time_out"));
+            checkinout.setCioTotalHour(rs.getInt("cio_total_hour"));
+            checkinout.setCioPaidStatus(rs.getString("cio_paid_status"));
+            checkinout.setEmployeeId(rs.getInt("employee_id"));
+            checkinout.setSsId(rs.getInt("ss_id"));
         } catch (SQLException ex) { 
             Logger.getLogger(Checkinout.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        return material;
+        return checkinout;
     }
 }

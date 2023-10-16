@@ -33,7 +33,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
      */
     public ProductItemPanel(Product p) {
         initComponents();
-        product = p;
+        this.product = p;
         lblName.setText(product.getName());
         lblPrice.setText("฿ "+ (product.getPrice()));
         ImageIcon icon = new ImageIcon("./" + product.getName() + ".jpg");
@@ -43,6 +43,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
         Image newImage = image.getScaledInstance((int) ((120.0 * width) / height), 120, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
         lblImage.setIcon(icon);
+        lblName.setText(p.getPrice()+"");
+        if(p.getCategoryId()!=1){
+            btnMore.setEnabled(false);
+        }
     }
 
     public void addOnBuyProduct(BuyProductable subsciber) {
@@ -147,9 +151,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoreActionPerformed
-        editedProduct = new Product();
+        
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        ToppingDialog toppingDialog = new ToppingDialog(frame, editedProduct);
+        ToppingDialog toppingDialog = new ToppingDialog(frame, this.product);
         toppingDialog.setLocationRelativeTo(this);
         toppingDialog.setVisible(true);
     }//GEN-LAST:event_btnMoreActionPerformed

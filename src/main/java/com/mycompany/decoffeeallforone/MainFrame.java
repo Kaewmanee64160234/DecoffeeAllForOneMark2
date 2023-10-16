@@ -6,7 +6,6 @@ package com.mycompany.decoffeeallforone;
 
 import Component.ProductListPanel;
 import Dialog.CustomerDialog;
-import Page.PromotionMainData;
 import Model.Promotion;
 import Page.PosPanel;
 import Page.ProductPanel;

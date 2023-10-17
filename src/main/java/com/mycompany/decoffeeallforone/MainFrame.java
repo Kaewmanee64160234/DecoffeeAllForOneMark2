@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -26,17 +27,15 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
-        initComponents();
+   public MainFrame() {
+    initComponents();
 
-        // scrPanel.setViewportView(new ProductPanel());
-        // scrPanel.setViewportView(new UserPanel());
-        // scrPanel.setViewportView(new EmployeePanel());
-        // scrPanel.setViewportView(new UserPanel());
-        // scrPanel.setViewportView(new MaterialPanel());
-        scrPanel.setViewportView(new PosPanel());//        
-//scrPanel.setViewportView(new PromotionMainData());
-    }
+    ProductPanel productPanel = new ProductPanel();
+    //scrPanel.setViewportView(productPanel);
+//    scrPanel.setViewportView(new UserPanel());
+scrPanel.setViewportView(new PosPanel());
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -219,10 +219,9 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
         txtPoint.setText((editedCustomer.getPoint() + ""));
     }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        lblName.setText("");
-        lblPoint.setText("");
-        lblTel.setText("");
-        dispose();
+        txtName.setText("");
+        txtPoint.setText("");
+        txtTel.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

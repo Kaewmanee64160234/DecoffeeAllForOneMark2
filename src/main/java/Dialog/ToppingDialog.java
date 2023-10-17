@@ -4,25 +4,33 @@
  */
 package Dialog;
 
+import Component.BuyProductable;
 import Model.Product;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import Component.ProductDetailObs;
 import Service.ProductService;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author toey
  */
 public class ToppingDialog extends javax.swing.JDialog implements ProductDetailObs{
+
     private Product product;
     private ArrayList<ProductDetailObs> productDetails;
     private ProductService productService;
+    private ArrayList<BuyProductable> subs;
+
     /**
      * Creates new form ToppingDialog1
      */
-    public ToppingDialog(java.awt.Frame parent,Product product) {
+    public ToppingDialog(java.awt.Frame parent, Product product) {
         super(parent, true);
         initComponents();
         this.productDetails = new ArrayList<ProductDetailObs>();
@@ -153,18 +161,23 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
         txtTopping1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTopping1.setText("Topping:");
 
+        btgTopping.add(rbtBubble1);
         rbtBubble1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtBubble1.setText("ไข่มุก  +10");
 
+        btgTopping.add(rbtTopping3);
         rbtTopping3.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtTopping3.setText("Pearl  +10");
 
+        btgTopping.add(rbtWhipcream1);
         rbtWhipcream1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtWhipcream1.setText("HoneyPearl  +5");
 
+        btgTopping.add(rbtBubble2);
         rbtBubble2.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtBubble2.setText("KonjacJelly  +10");
 
+        btgTopping.add(rbtTopping4);
         rbtTopping4.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtTopping4.setText("FruitSalad  +10");
 
@@ -400,18 +413,44 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
 //        String sizeName = productService.getSizes().get(btgSize.getButtonCount()).getName();
-        System.out.println(btgSize.getElements());       
+//        System.out.println(getSelectedIndex(btgSize));
 //        System.out.println(btgSize.getElements().);
-
-//        float sizePrice = productService.getSizes().get(btgSize.getButtonCount()).getPrice();
-//        String toppingName = productService.getToppings().get(btgTopping.getButtonCount()).getName();
-//        float toppingPrice = productService.getToppings().get(btgTopping.getButtonCount()).getPrice();
-//        String sweetName = productService.getSweets().get(btgSweet.getButtonCount()).getName();
-//        float sweetPrice = productService.getSweets().get(btgSweet.getButtonCount()).getPrice();
-//        String typeName = productService.getTypes().get(btgType.getButtonCount()).getName();
-//        float typePrice = productService.getTypes().get(btgType.getButtonCount()).getPrice();
-//        setDetailProduct(sizePrice, sizeName, toppingPrice, toppingName, sweetPrice, sweetName, typePrice, typeName);
+        int sizeId = getSelectedIndex(btgSize);
+        int toppingId = getSelectedIndex(btgTopping);
+        int sweetId = getSelectedIndex(btgSweet);
+        int typeId = getSelectedIndex(btgType);
+        System.out.println(sizeId);
+        System.out.println(toppingId);
+        System.out.println(sweetId);
+        System.out.println(typeId);
+        if(sizeId <0 || toppingId <0|| sweetId<0|| typeId <0){
+            JOptionPane.showMessageDialog(this, "Form not cpmplele .");
+            return;
+        }
+        String sizeName = productService.getSizes().get(sizeId).getName();
+        float sizePrice = productService.getSizes().get(sizeId).getPrice();
+        String toppingName = productService.getToppings().get(toppingId).getName();
+        float toppingPrice = productService.getToppings().get(toppingId).getPrice();
+        String sweetName = productService.getSweets().get(sizeId).getName();
+        float sweetPrice = productService.getSweets().get(sizeId).getPrice();
+        String typeName = productService.getTypes().get(typeId).getName();
+        float typePrice = productService.getTypes().get(typeId).getPrice();
+        setDetailProduct(sizePrice, sizeName, toppingPrice, toppingName, sweetPrice, sweetName, typePrice, typeName);
+       
+        dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
+    private int getSelectedIndex(ButtonGroup buttonGroup) {
+        Enumeration<AbstractButton> buttons = buttonGroup.getElements();
+        int index = 0;
+        while (buttons.hasMoreElements()) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return index;
+            }
+            index++;
+        }
+        return -1; // No selection
+    }
 
     /**
      * @param args the command line arguments
@@ -453,13 +492,16 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
 
     @Override
     public void setDetailProduct(double sizePrice, String sizeName, double toppingPrice, String toppingName, double sweetPrice, String sweetName, double typePrice, String typeName) {
-       
+        System.out.println("Dialog.ToppingDialog.setDetailProduct()");
         for (ProductDetailObs productDetail : productDetails) {
             productDetail.setDetailProduct(sizePrice, sizeName, toppingPrice, toppingName, sweetPrice, sweetName, typePrice, typeName);
-            
+
         }
     }
-    public void addSubscipber(ProductDetailObs productDetailObs){
+
+    public void addSubscipber(ProductDetailObs productDetailObs) {
         productDetails.add(productDetailObs);
     }
+
+   
 }

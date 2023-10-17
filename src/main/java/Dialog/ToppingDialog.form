@@ -300,6 +300,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtBubble1">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgTopping"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
@@ -308,6 +311,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtTopping3">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgTopping"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
@@ -316,6 +322,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtWhipcream1">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgTopping"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
@@ -324,6 +333,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtBubble2">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgTopping"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
@@ -332,6 +344,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtTopping4">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgTopping"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>

@@ -6,6 +6,7 @@
 package  Component;
 
 import Component.BuyProductable;
+import Dialog.ToppingDialog;
 import Model.Product;
 import Service.ProductService;
 import java.awt.GridLayout;
@@ -21,6 +22,7 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
     private final ProductService productService;
     private ArrayList<Product> products;
     private ArrayList<BuyProductable> subscibers = new ArrayList();
+    
 
 
     /**
@@ -31,6 +33,7 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
         productService = new ProductService();
         products = new ArrayList<Product>();
         products = productService.getProductsByCatId(CatId);
+        
 
         int productSize = products.size();
         for (Product p : products) {

@@ -8,7 +8,6 @@ import Component.BuyProductable;
 import Component.ProductListPanel;
 import Dao.RecieptDao;
 import Dialog.FindMemberDialog;
-import Dialog.PosPromotionDialog;
 import Model.Reciept;
 import Service.ProductService;
 
@@ -52,7 +51,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private RecieptDetail editedRecieptDetail;
     private Promotion editedPromotion;
     private FindMemberDialog findMemberDialog;
-    private PosPromotionDialog posPromotionDialog;
     private Reciept reciept;
     private Promotion promotion;
     private Customer customer;
@@ -844,9 +842,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
-
-        openDialogPromotion();
-    }                              
         openDialog();
     }// GEN-LAST:event_btnPromotionActionPerformed
 
@@ -900,13 +895,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         FindMemberDialog findMemberDialog = new FindMemberDialog(frame, this);
         findMemberDialog.setLocationRelativeTo(this); // set dialog to center
         findMemberDialog.setVisible(true);
-    }
-    
-    private void openDialogPromotion() {
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PosPromotionDialog posPromotionDialog = new PosPromotionDialog(frame, promotion);
-        posPromotionDialog.setLocationRelativeTo(this); //set dialog to center
-        posPromotionDialog.setVisible(true);
     }
 
     private void refreshTable() {
@@ -974,24 +962,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice,
             String sweetName, float sweetPrice, String typeName, float typePrice) {
-
-        System.out.println(qty);
-        System.out.println(sizeName);
-        System.out.println(sizePrice);
-        System.out.println(toppingName);
-        System.out.println(toppingPrice);
-        System.out.println(sweetName);
-        System.out.println(sweetPrice);
-        System.out.println(typeName);
-        System.out.println(typePrice);
+        
+        
         reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice,
                 typeName, typePrice);
         if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
             double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
             lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
         }
-        setTotalNet();
         refreshTable();
+        reciept.calculateTotal();
+        lblTotal.setText(reciept.getTotal()+"");
+
     }
 
     @Override
@@ -1030,7 +1012,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
+        lblTotal.setText(reciept.getTotal()+"");
         lblTotalNet.setText(totalNet + "");
+        System.out.println(reciept.getTotal());
     }
 
     private void validateNotCusUsePromotion(Promotion promotion1) {

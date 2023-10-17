@@ -8,6 +8,7 @@ import Component.CategoryObs;
 import Component.ProductListPanel;
 import Dao.RecieptDao;
 import Dialog.FindMemberDialog;
+import Dialog.PosPromotionDialog;
 import Model.Reciept;
 import Service.ProductService;
 
@@ -35,7 +36,9 @@ public final class PosPanel extends javax.swing.JPanel {
     private Promotion editedPromotion;
     private CategoryObs catObs;
     private FindMemberDialog findMemberDialog;
+    private PosPromotionDialog posPromotionDialog;
     private Reciept reciept;
+    private Promotion promotion;
 
     /**
      * Creates new form PosDialog
@@ -646,7 +649,7 @@ public final class PosPanel extends javax.swing.JPanel {
 
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
-        openDialog();
+        openDialogPromotion();
     }//GEN-LAST:event_btnPromotionActionPerformed
 
     private void btnDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDrinksMouseClicked
@@ -696,6 +699,13 @@ public final class PosPanel extends javax.swing.JPanel {
         FindMemberDialog findMemberDialog = new FindMemberDialog(frame, reciept, this);
         findMemberDialog.setLocationRelativeTo(this); //set dialog to center
         findMemberDialog.setVisible(true);
+    }
+    
+    private void openDialogPromotion() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PosPromotionDialog posPromotionDialog = new PosPromotionDialog(frame, promotion);
+        posPromotionDialog.setLocationRelativeTo(this); //set dialog to center
+        posPromotionDialog.setVisible(true);
     }
 
     public void setFromMemeber(Customer cus) {

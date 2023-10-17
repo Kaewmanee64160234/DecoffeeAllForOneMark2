@@ -71,7 +71,16 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         addMemberDialog = new AddCustomerDialog(frame);
         addMemberDialog.addSubs(this);
+        initTable();
+
+        this.reciept = new Reciept();
+        this.promotion = new Promotion();
+        initFindMemberDialog();
+    }
+
+    private void initTable() {
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total"};
 
@@ -89,6 +98,31 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             public int getColumnCount() {
                 return 8;
             }
+              @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                if (columnIndex == 2) {
+                    int qty = Integer.parseInt((String) aValue);
+                    if (qty < 1)return;
+
+                    recieptDetail.setQty(qty);
+                    reciept.calculateTotal();
+                    refreshTable();
+
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
@@ -116,10 +150,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 }
             }
         });
-
-        this.reciept = new Reciept();
-        this.promotion = new Promotion();
-        initFindMemberDialog();
+        tblRecieptDetail.setCellSelectionEnabled(true);
+        tblRecieptDetail.setColumnSelectionAllowed(true);
+        tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
     }
 
     private void initFindMemberDialog() {
@@ -902,7 +935,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.revalidate();
         tblRecieptDetail.repaint();
         lblTotal.setText(reciept.getTotal() + "");
-        lblTotalNet.setText(reciept.getTotal()-Float.parseFloat(lblDiscount.getText())+"");
+        lblTotalNet.setText(reciept.getTotal() - Float.parseFloat(lblDiscount.getText()) + "");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -963,8 +996,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice,
             String sweetName, float sweetPrice, String typeName, float typePrice) {
-        
-        
+
         reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice,
                 typeName, typePrice);
         if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
@@ -973,7 +1005,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         }
         refreshTable();
         reciept.calculateTotal();
-        lblTotal.setText(reciept.getTotal()+"");
+        lblTotal.setText(reciept.getTotal() + "");
 
     }
 
@@ -1013,8 +1045,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
-        lblTotal.setText(reciept.getTotal()+"");
-        lblTotalNet.setText(totalNet+"");
+        lblTotal.setText(reciept.getTotal() + "");
+        lblTotalNet.setText(totalNet + "");
         System.out.println(reciept.getTotal());
     }
 

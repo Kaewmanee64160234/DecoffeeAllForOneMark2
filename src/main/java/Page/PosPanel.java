@@ -25,7 +25,12 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import Component.CusObs;
+
+import Component.PromotionObs;
+import Dialog.PosPromotionDialog;
+import javax.swing.JOptionPane;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -33,8 +38,8 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author toey
  */
+public final class PosPanel extends javax.swing.JPanel implements BuyProductable, CusObs, PromotionObs {
 
-public final class PosPanel extends javax.swing.JPanel implements BuyProductable, CusObs {
     private ProductListPanel productListPanel;
     private final RecieptService recieptService;
     private List<RecieptDetail> list;
@@ -42,6 +47,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private Promotion editedPromotion;
     private FindMemberDialog findMemberDialog;
     private Reciept reciept;
+    private Promotion promotion;
+    private Customer customer;
 
     /**
      * Creates new form PosDialog
@@ -91,8 +98,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 }
             }
         });
-        
+
         this.reciept = new Reciept();
+        this.promotion = new Promotion();
         initFindMemberDialog();
     }
 
@@ -110,7 +118,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jpnlHeader = new javax.swing.JPanel();
@@ -124,18 +132,17 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         txtPhoneNumber = new javax.swing.JLabel();
         txtMemberPoint = new javax.swing.JLabel();
         txtPointEarn = new javax.swing.JLabel();
-        txtMemberDiscount = new javax.swing.JLabel();
         txtTotalPoint = new javax.swing.JLabel();
         lblMemberName = new javax.swing.JLabel();
         lblPhoneNumber = new javax.swing.JLabel();
         lblMemberPoint = new javax.swing.JLabel();
         lblPointEarn = new javax.swing.JLabel();
-        lblMemberDiscount = new javax.swing.JLabel();
         lblTotalPoint = new javax.swing.JLabel();
         txtPoint = new javax.swing.JLabel();
         txtPoint1 = new javax.swing.JLabel();
         txtPoint2 = new javax.swing.JLabel();
-        txtBaht = new javax.swing.JLabel();
+        lblPromotionName = new javax.swing.JLabel();
+        lblPromotionNameShow = new javax.swing.JLabel();
         jpnlCaculator = new javax.swing.JPanel();
         txtTotal = new javax.swing.JLabel();
         txtDiscount = new javax.swing.JLabel();
@@ -179,42 +186,40 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jpnlHeaderLayout = new javax.swing.GroupLayout(jpnlHeader);
         jpnlHeader.setLayout(jpnlHeaderLayout);
         jpnlHeaderLayout.setHorizontalGroup(
-                jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlHeaderLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtDcoffee, javax.swing.GroupLayout.PREFERRED_SIZE, 256,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 241,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap()));
+            jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtDcoffee, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
         jpnlHeaderLayout.setVerticalGroup(
-                jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlHeaderLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(
-                                        jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(jpnlHeaderLayout.createSequentialGroup()
-                                                        .addGap(0, 0, Short.MAX_VALUE)
-                                                        .addComponent(lblUserName))
-                                                .addComponent(txtDcoffee, javax.swing.GroupLayout.DEFAULT_SIZE, 58,
-                                                        Short.MAX_VALUE))
-                                .addContainerGap()));
+            jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnlHeaderLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblUserName))
+                    .addComponent(txtDcoffee, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         jpnlDetail.setBackground(new java.awt.Color(170, 183, 173));
 
         tblRecieptDetail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null }
-                },
-                new String[] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane2.setViewportView(tblRecieptDetail);
 
         jpnlMember.setBackground(new java.awt.Color(199, 195, 188));
@@ -230,9 +235,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         txtPointEarn.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         txtPointEarn.setText("Point Earn:");
-
-        txtMemberDiscount.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtMemberDiscount.setText("Member Discount:");
 
         txtTotalPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         txtTotalPoint.setText("Total Point");
@@ -253,10 +255,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblPointEarn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPointEarn.setText("-");
 
-        lblMemberDiscount.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        lblMemberDiscount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMemberDiscount.setText("-");
-
         lblTotalPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblTotalPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotalPoint.setText("-");
@@ -270,121 +268,86 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         txtPoint2.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         txtPoint2.setText("Point");
 
-        txtBaht.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        txtBaht.setText("Baht");
+        lblPromotionName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPromotionName.setText("Promotion:");
+
+        lblPromotionNameShow.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPromotionNameShow.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPromotionNameShow.setText("-");
 
         javax.swing.GroupLayout jpnlMemberLayout = new javax.swing.GroupLayout(jpnlMember);
         jpnlMember.setLayout(jpnlMemberLayout);
         jpnlMemberLayout.setHorizontalGroup(
-                jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlMemberLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                .addComponent(txtmemberName)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblMemberName, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                .addComponent(txtPhoneNumber)
-                                                .addGap(2, 2, 2)
-                                                .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout
-                                                .createSequentialGroup()
-                                                .addGroup(jpnlMemberLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                                .addComponent(txtTotalPoint)
-                                                                .addGap(45, 45, 45)
-                                                                .addComponent(lblTotalPoint,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                jpnlMemberLayout.createSequentialGroup()
-                                                                        .addComponent(txtMemberDiscount)
-                                                                        .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(lblMemberDiscount,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                jpnlMemberLayout.createSequentialGroup()
-                                                                        .addComponent(txtPointEarn)
-                                                                        .addGap(32, 32, 32)
-                                                                        .addComponent(lblPointEarn,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                jpnlMemberLayout.createSequentialGroup()
-                                                                        .addComponent(txtMemberPoint)
-                                                                        .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                                44, Short.MAX_VALUE)
-                                                                        .addComponent(lblMemberPoint,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                75,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGroup(jpnlMemberLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                                .addGap(10, 10, 10)
-                                                                .addComponent(txtPoint))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                jpnlMemberLayout.createSequentialGroup()
-                                                                        .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addGroup(jpnlMemberLayout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(txtPoint1,
-                                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                                .addComponent(txtPoint2,
-                                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                                .addComponent(txtBaht,
-                                                                                        javax.swing.GroupLayout.Alignment.TRAILING))))))
-                                .addContainerGap()));
+            jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlMemberLayout.createSequentialGroup()
+                        .addComponent(txtmemberName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMemberName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpnlMemberLayout.createSequentialGroup()
+                        .addComponent(txtPhoneNumber)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout.createSequentialGroup()
+                        .addComponent(txtMemberPoint)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(lblMemberPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPoint))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout.createSequentialGroup()
+                        .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(txtPointEarn)
+                                .addGap(32, 32, 32)
+                                .addComponent(lblPointEarn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(lblPromotionName)
+                                .addGap(32, 32, 32)
+                                .addComponent(lblPromotionNameShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(txtTotalPoint)
+                                .addGap(45, 45, 45)
+                                .addComponent(lblTotalPoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPoint2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPoint1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap())
+        );
         jpnlMemberLayout.setVerticalGroup(
-                jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtmemberName)
-                                                .addComponent(lblMemberName))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtPhoneNumber)
-                                                .addComponent(lblPhoneNumber))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtMemberPoint)
-                                                .addComponent(lblMemberPoint)
-                                                .addComponent(txtPoint))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtPointEarn)
-                                                .addComponent(lblPointEarn)
-                                                .addComponent(txtPoint1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtMemberDiscount)
-                                                .addComponent(lblMemberDiscount)
-                                                .addComponent(txtBaht))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtTotalPoint)
-                                                .addComponent(lblTotalPoint)
-                                                .addComponent(txtPoint2))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtmemberName)
+                    .addComponent(lblMemberName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhoneNumber)
+                    .addComponent(lblPhoneNumber))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMemberPoint)
+                    .addComponent(lblMemberPoint)
+                    .addComponent(txtPoint))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPointEarn)
+                    .addComponent(lblPointEarn)
+                    .addComponent(txtPoint1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPromotionName)
+                    .addComponent(lblPromotionNameShow))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalPoint)
+                    .addComponent(lblTotalPoint)
+                    .addComponent(txtPoint2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jpnlCaculator.setBackground(new java.awt.Color(199, 195, 188));
 
@@ -444,87 +407,75 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jpnlCaculatorLayout = new javax.swing.GroupLayout(jpnlCaculator);
         jpnlCaculator.setLayout(jpnlCaculatorLayout);
         jpnlCaculatorLayout.setHorizontalGroup(
-                jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtTotal)
-                                                .addGap(19, 19, 19)
-                                                .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht1))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtCange)
-                                                .addGap(13, 13, 13)
-                                                .addComponent(lblCange, javax.swing.GroupLayout.DEFAULT_SIZE, 145,
-                                                        Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht5))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtDiscount)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblDiscount, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht2))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtTotalNet)
-                                                .addGap(3, 3, 3)
-                                                .addComponent(lblTotalNet, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht3))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtCash)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht4)))
-                                .addContainerGap()));
+            jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtTotal)
+                        .addGap(19, 19, 19)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht1))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtCange)
+                        .addGap(13, 13, 13)
+                        .addComponent(lblCange, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht5))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtDiscount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht2))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtTotalNet)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblTotalNet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht3))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtCash)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht4)))
+                .addContainerGap())
+        );
         jpnlCaculatorLayout.setVerticalGroup(
-                jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtTotal)
-                                        .addComponent(txtBaht1)
-                                        .addComponent(lblTotal))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtDiscount)
-                                        .addComponent(txtBaht2)
-                                        .addComponent(lblDiscount))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtTotalNet)
-                                        .addComponent(txtBaht3)
-                                        .addComponent(lblTotalNet))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtCash)
-                                        .addComponent(txtBaht4)
-                                        .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtCange)
-                                        .addComponent(txtBaht5)
-                                        .addComponent(lblCange))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPromtpay)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal)
+                    .addComponent(txtBaht1)
+                    .addComponent(lblTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDiscount)
+                    .addComponent(txtBaht2)
+                    .addComponent(lblDiscount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalNet)
+                    .addComponent(txtBaht3)
+                    .addComponent(lblTotalNet))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCash)
+                    .addComponent(txtBaht4)
+                    .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCange)
+                    .addComponent(txtBaht5)
+                    .addComponent(lblCange))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPromtpay)
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
 
         jPanel5.setBackground(new java.awt.Color(170, 183, 173));
 
@@ -565,30 +516,26 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
-                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDessert, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnFood, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDessert, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnFood, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         jPanel5Layout.setVerticalGroup(
-                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnDrinks, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnDessert, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnFood, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap()));
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDrinks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDessert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         txtItemList.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         txtItemList.setText("Item List");
@@ -604,11 +551,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 502, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 502, Short.MAX_VALUE)
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 478, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 478, Short.MAX_VALUE)
+        );
 
         scrProductList.setViewportView(jPanel1);
 
@@ -617,6 +566,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         btnFindMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnFindMember.setText("Find Member");
+        btnFindMember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFindMemberMouseClicked(evt);
+            }
+        });
         btnFindMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFindMemberActionPerformed(evt);
@@ -625,6 +579,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         btnAddMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAddMember.setText("Add Member");
+        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                // btnAddMemberActionPerformed(evt);
+            }
+        });
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -640,146 +599,93 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jpnlDetailLayout = new javax.swing.GroupLayout(jpnlDetail);
         jpnlDetail.setLayout(jpnlDetailLayout);
         jpnlDetailLayout.setHorizontalGroup(
-                jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlDetailLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(scrProductList)
-                                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jpnlDetailLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 255,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                .addComponent(jpnlMember, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jpnlCaculator, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(btnPromotion,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 161,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnMainMenu,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 161,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(btnAddMember,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 161,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnFindMember,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 161,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(btnPosConfirm,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 161,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                161, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 14, Short.MAX_VALUE)));
+            jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlDetailLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrProductList)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addComponent(jpnlMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpnlCaculator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
         jpnlDetailLayout.setVerticalGroup(
-                jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(
-                                        jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+            jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlDetailLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpnlMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jpnlDetailLayout.createSequentialGroup()
+                                    .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jpnlDetailLayout.createSequentialGroup()
+                                    .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpnlDetailLayout.createSequentialGroup()
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlDetailLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                false)
-                                                        .addComponent(jpnlMember, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jpnlCaculator,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jpnlDetailLayout
-                                                                .createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                                        .addComponent(btnMainMenu,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                43,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(btnPromotion,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                43,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                                        .addComponent(btnFindMember,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                43,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(btnAddMember,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                43,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                                .addComponent(btnCancel,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(btnPosConfirm,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 472,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                                .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jpnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFindMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFindMemberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFindMemberMouseClicked
 
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed
         RecieptService recieptService = new RecieptService();
@@ -839,10 +745,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PromotionDialog PromotionDialog = new PromotionDialog(frame, editedPromotion);
-        PromotionDialog.setLocationRelativeTo(this); // set dialog to center
-        PromotionDialog.setVisible(true);
-        PromotionDialog.addWindowListener(new WindowAdapter() {
+        PosPromotionDialog posPromotionDailog = new PosPromotionDialog(frame, this);
+        posPromotionDailog.setLocationRelativeTo(this); // set dialog to center
+        posPromotionDailog.setVisible(true);
+        posPromotionDailog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
@@ -863,6 +769,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         // list = recieptService.getReciepts();
         tblRecieptDetail.revalidate();
         tblRecieptDetail.repaint();
+        lblTotal.setText(reciept.getTotal() + "");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -886,18 +793,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private javax.swing.JLabel lblCange;
     private javax.swing.JTextField lblCash;
     private javax.swing.JLabel lblDiscount;
-    private javax.swing.JLabel lblMemberDiscount;
     private javax.swing.JLabel lblMemberName;
     private javax.swing.JLabel lblMemberPoint;
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPointEarn;
+    private javax.swing.JLabel lblPromotionName;
+    private javax.swing.JLabel lblPromotionNameShow;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblTotalNet;
     private javax.swing.JLabel lblTotalPoint;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JScrollPane scrProductList;
     private javax.swing.JTable tblRecieptDetail;
-    private javax.swing.JLabel txtBaht;
     private javax.swing.JLabel txtBaht1;
     private javax.swing.JLabel txtBaht2;
     private javax.swing.JLabel txtBaht3;
@@ -908,7 +815,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private javax.swing.JLabel txtDcoffee;
     private javax.swing.JLabel txtDiscount;
     private javax.swing.JLabel txtItemList;
-    private javax.swing.JLabel txtMemberDiscount;
     private javax.swing.JLabel txtMemberPoint;
     private javax.swing.JLabel txtPhoneNumber;
     private javax.swing.JLabel txtPoint;
@@ -924,6 +830,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty) {
         reciept.addReceiptDetail(product, qty, "M", "H", "Chese", 10, 0, 0);
+        if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc()>0) {
+            double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+            System.out.println("--------IN--------------");
+        }
+        setTotalNet();
         refreshTable();
     }
 
@@ -935,12 +847,91 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     @Override
     public void updateCustomer(Customer customer) {
-        System.out.println("Page.PosPanel" + customer.toString());
+       this.customer = customer;
         reciept.setCustomer(customer);
         reciept.setCustomerId(customer.getId());
+        System.out.println("Page.PosPanel" + reciept.getCustomer().toString());
         lblMemberName.setText(customer.getName());
         lblMemberPoint.setText(customer.getPoint() + "");
         lblPhoneNumber.setText(customer.getTel());
+        lblTotalPoint.setText(customer.getPoint() + "");
+    }
+
+    @Override
+    public void setInfoPromotion(Promotion promotion) {
+        this.promotion = promotion;
+        
+        if (promotion.getPointDiscount() == 0) {
+            validateNotCusUsePromotion(promotion);
+            setTotalNet();
+            return;
+        }
+
+        validateCusUsePromotion(promotion);
+        
+
+    }
+
+    private void setTotalNet() throws NumberFormatException {
+        double totalNet = reciept.getTotal()-Double.parseDouble(lblDiscount.getText());
+        lblTotalNet.setText(totalNet+"");
+    }
+
+    private void validateNotCusUsePromotion(Promotion promotion1) {
+        // not cus
+
+        System.out.println("Page.PosPanel.validateNotCusUsePromotion()");
+        reciept.setPromotion(promotion1);
+        reciept.setPromotionId(promotion1.getId());
+        System.out.println(promotion1.toString());
+        if (promotion1.getDiscountPerc() > 0) {
+
+            lblDiscount.setText(((promotion1.getDiscountPerc() / 100)) * reciept.getTotal() + "");
+        } else {
+            lblDiscount.setText(promotion1.getDiscount() + "");
+        }
+        lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        lblPromotionNameShow.setText(promotion1.getName());
+        lblTotalPoint.setText(0 + "");
+        if (promotion1.getDiscountPerc() != 0) {
+            double presentForCal = (Double.parseDouble(promotion1.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+        }
+        if (promotion1.getDiscount() != 0) {
+            lblDiscount.setText(promotion1.getDiscount() + "");
+        }
+        lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        lblPromotionNameShow.setText(promotion1.getName());
+        lblTotalPoint.setText(0 + "");
+
+    }
+
+    private boolean validateCusUsePromotion(Promotion promotion1){
+        //cus
+        
+        if (reciept.getCustomerId()< 0 && promotion1.getPointDiscount() > 0) {
+            JOptionPane.showMessageDialog(this, "This Promotion for Member");
+            return true;
+        }
+        int totalPoint = reciept.getCustomer().getPoint() - promotion1.getPointDiscount();
+        if (totalPoint < 0) {
+            JOptionPane.showMessageDialog(this, "Point Not Enogh");
+            return true;
+        }
+        reciept.setPromotion(promotion1);
+        reciept.setPromotionId(promotion1.getId());
+        if (promotion1.getDiscountPerc() != 0) {
+            double presentForCal = (Double.parseDouble(promotion1.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+
+        } else {
+            lblDiscount.setText(promotion1.getDiscount() + "");
+        }
+        lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        lblPromotionNameShow.setText(promotion1.getName());
+        lblTotalPoint.setText(totalPoint + "");
+        setTotalNet();
+        return false;
     }
 
 }

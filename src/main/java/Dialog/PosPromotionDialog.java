@@ -1,19 +1,101 @@
 package Dialog;
 
+import Component.PromotionObs;
+import Model.Customer;
 import Model.Promotion;
+import Page.PosPanel;
 import Service.PromotionService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
-public class PosPromotionDialog extends javax.swing.JDialog {
+public class PosPromotionDialog extends javax.swing.JDialog implements PromotionObs {
 
-    private final PromotionService promotionService;
+    private PromotionService promotionService;
     private Promotion editedPromotion;
+    private ArrayList<Promotion> promotions;
+    private ArrayList<PromotionObs> subscripts;
+    private PosPanel pospanel;
 
-    public PosPromotionDialog(java.awt.Frame parent, Promotion editedPromotion) {
+    public PosPromotionDialog(java.awt.Frame parent, PosPanel pospanel) {
         super(parent, true);
         initComponents();
-        this.editedPromotion = editedPromotion;
-        promotionService = new PromotionService();
-        lblPromotionId.setText("" + editedPromotion.getId());
+        initPromotion();
+        initDateLable();
+        this.pospanel = pospanel;
+        this.subscripts = new ArrayList<PromotionObs>();
+        addPromotionSub(pospanel);
+        initTable();
+
+    }
+
+    private void initTable() {
+        tblPosPromotion.setModel(new AbstractTableModel() {
+            String[] columnNames = {"ID", "Created Date", "End Date", "Name", "Discount", "Discount Perc", "Point Discount"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return promotions.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 7;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return String.class;
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Promotion promotion = promotions.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return promotion.getId();
+                    case 1:
+                        return promotion.getCreatedDate();
+                    case 2:
+                        return promotion.getEndDate();
+                    case 3:
+                        return promotion.getName();
+                    case 4:
+                        return promotion.getDiscount();
+                    case 5:
+                        return promotion.getDiscountPerc();
+                    case 6:
+                        return promotion.getPointDiscount();
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
+    }
+
+    private void initPromotion() {
+        this.promotions = new ArrayList<Promotion>();
+        this.promotionService = new PromotionService();
+        promotions = (ArrayList<Promotion>) promotionService.getPromotions();
+    }
+
+    private void initDateLable() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String formattedDate = sdf.format(new Date());
+        lblDate.setText("Date: " + formattedDate);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +120,7 @@ public class PosPromotionDialog extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
-        lblDate.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblDate.setText("Date:");
 
         lblPromotion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -50,8 +132,8 @@ public class PosPromotionDialog extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -62,7 +144,7 @@ public class PosPromotionDialog extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -148,8 +230,7 @@ public class PosPromotionDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(624, Short.MAX_VALUE)
-                .addComponent(lblPromotionId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(lblPromotionId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -185,20 +266,27 @@ public class PosPromotionDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        Promotion promotion;
-        if (editedPromotion.getId() < 0) {//Add New
-            promotion = promotionService.addNew(editedPromotion);
-        } else {
-            promotion = promotionService.update(editedPromotion);
+
+        int row = tblPosPromotion.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Pase Select Index In Table");
+            return;
         }
+        TableModel model = tblPosPromotion.getModel();
+        int index = Integer.parseInt(model.getValueAt(row, 0) + "");
+        
+        Promotion pro = promotionService.getById(index);
+        System.out.println(pro.toString());
+        setInfoPromotion(pro);
         this.dispose();
+
+
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -213,4 +301,16 @@ public class PosPromotionDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblPromotionId;
     private javax.swing.JTable tblPosPromotion;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setInfoPromotion(Promotion promotion) {
+        for (PromotionObs sub : subscripts) {
+            sub.setInfoPromotion(promotion);
+        }
+    }
+
+    public void addPromotionSub(PromotionObs sub) {
+        subscripts.add(sub);
+    }
+
 }

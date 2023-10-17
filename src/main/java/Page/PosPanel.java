@@ -131,6 +131,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -264,15 +265,15 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         lblMemberPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblMemberPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMemberPoint.setText("-");
+        lblMemberPoint.setText("0");
 
         lblPointEarn.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblPointEarn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblPointEarn.setText("-");
+        lblPointEarn.setText("0");
 
         lblTotalPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblTotalPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTotalPoint.setText("-");
+        lblTotalPoint.setText("0");
 
         txtPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         txtPoint.setText("Point");
@@ -598,6 +599,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         btnPromotion.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPromotion.setText("Promotion");
+        btnPromotion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPromotionMouseClicked(evt);
+            }
+        });
         btnPromotion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPromotionActionPerformed(evt);
@@ -799,7 +805,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
+        // TODO add your handling code here:
+        openDialog();
+    }// GEN-LAST:event_btnPromotionMouseClicked
+
     private void btnFindMemberMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnFindMemberMouseClicked
+        openDialogFindMember();
         // TODO add your handling code here:
     }// GEN-LAST:event_btnFindMemberMouseClicked
 
@@ -822,7 +834,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblPhoneNumber.setText("-");
         lblMemberPoint.setText("0");
         lblPointEarn.setText("0");
-        lblPromotionNameShow.setText("-");
+        lblPromotionNameShow.setText("0");
         lblTotalPoint.setText("0");
         lblTotal.setText("0 ");
         lblDiscount.setText("0");
@@ -1010,7 +1022,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblMemberName.setText(customer.getName());
         lblMemberPoint.setText(customer.getPoint() + "");
         lblPhoneNumber.setText(customer.getTel());
-        lblTotalPoint.setText(customer.getPoint() + "");
+        lblTotalPoint.setText((customer.getPoint()- Integer.parseInt(lblPointEarn.getText()))+"");
     }
 
     @Override

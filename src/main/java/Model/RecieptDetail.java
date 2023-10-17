@@ -6,8 +6,6 @@ package Model;
 
 import java.sql.ResultSet;
 
-
-
 /**
  *
  * @author USER
@@ -29,8 +27,11 @@ public class RecieptDetail {
     private int productId;
     private Product product;
     private Reciept reciept;
+    private String sweet;
+    private float sweetPrice;
+    private float  productPrice;
 
-    public RecieptDetail(int id, String name, int qty, float price, String size, float typePrice, String type, float sizePrice, String topping, float toppingPrice, float total, int recieptId, int productId) {
+    public RecieptDetail(String name, int id, float price, String size, double typePrice1, String type, double sizePrice1, String topping, double toppingPrice1, float typePrice, int qty, int recieptId, String sweet, float sweetPrice,float  productPrice) {
         this.id = id;
         this.name = name;
         this.qty = qty;
@@ -44,9 +45,12 @@ public class RecieptDetail {
         this.total = total;
         this.recieptId = recieptId;
         this.productId = productId;
+        this.sweet = sweet;
+        this.sweetPrice = sweetPrice;
+        this.productPrice = productPrice;
     }
 
-    public RecieptDetail(String name, int qty, float price, String size, float typePrice, String type, float sizePrice, String topping, float toppingPrice, float total, int recieptId, int productId) {
+    public RecieptDetail(String name, int qty, float price, String size, float typePrice, String type, float sizePrice, String topping, float toppingPrice, float total, int recieptId, int productId, String sweet, float sweetPrice,float  productPrice) {
         this.id = -1;
         this.name = name;
         this.qty = qty;
@@ -60,6 +64,9 @@ public class RecieptDetail {
         this.total = total;
         this.recieptId = recieptId;
         this.productId = productId;
+        this.sweet = sweet;
+        this.sweetPrice = sweetPrice;
+        this.productPrice = productPrice;
     }
 
     public RecieptDetail() {
@@ -67,15 +74,18 @@ public class RecieptDetail {
         this.name = "";
         this.qty = 0;
         this.price = 0;
-        this.size = "";
+        this.size = "-";
         this.typePrice = 0;
-        this.type = "";
+        this.type = "-";
         this.sizePrice = 0;
-        this.topping = "";
+        this.topping = "-";
         this.toppingPrice = 0;
         this.total = 0;
         this.recieptId = -1;
         this.productId = -1;
+        this.sweet = "-";
+        this.sweetPrice = 0;
+        this.productPrice = productPrice;
     }
 
     public int getId() {
@@ -100,7 +110,7 @@ public class RecieptDetail {
 
     public void setQty(int qty) {
         this.qty = qty;
-        total = qty*price;
+        total = qty * price;
     }
 
     public float getPrice() {
@@ -119,8 +129,32 @@ public class RecieptDetail {
         this.size = size;
     }
 
+    public float getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(float productPrice) {
+        this.productPrice = productPrice;
+    }
+
     public float getTypePrice() {
         return typePrice;
+    }
+
+    public String getSweet() {
+        return sweet;
+    }
+
+    public void setSweet(String sweet) {
+        this.sweet = sweet;
+    }
+
+    public float getSweetPrice() {
+        return sweetPrice;
+    }
+
+    public void setSweetPrice(float sweetPrice) {
+        this.sweetPrice = sweetPrice;
     }
 
     public void setTypePrice(float typePrice) {
@@ -165,6 +199,7 @@ public class RecieptDetail {
 
     public void setTotal(float total) {
         this.total = total;
+        this.total = total+toppingPrice  + sweetPrice + typePrice + sizePrice;
     }
 
     public int getRecieptId() {
@@ -201,13 +236,12 @@ public class RecieptDetail {
 
     @Override
     public String toString() {
-        return "RecieptDetail{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", price=" + price + ", size=" + size + ", typePrice=" + typePrice + ", type=" + type + ", sizePrice=" + sizePrice + ", topping=" + topping + ", toppingPrice=" + toppingPrice + ", total=" + total + ", recieptId=" + recieptId + ", productId=" + productId + ", product=" + product + ", reciept=" + reciept + '}';
+        return "RecieptDetail{" + "id=" + id + ", name=" + name + ", qty=" + qty + ", price=" + price + ", size=" + size + ", typePrice=" + typePrice + ", type=" + type + ", sizePrice=" + sizePrice + ", topping=" + topping + ", toppingPrice=" + toppingPrice + ", total=" + total + ", recieptId=" + recieptId + ", productId=" + productId + ", product=" + product + ", reciept=" + reciept + ", sweet=" + sweet + ", sweetPrice=" + sweetPrice + '}';
     }
-    
 
-    public static RecieptDetail fromRS(ResultSet rs){
+    public static RecieptDetail fromRS(ResultSet rs) {
         RecieptDetail recieptDetail = new RecieptDetail();
-        try{
+        try {
             recieptDetail.setId(rs.getInt("reciept_detail_id"));
             recieptDetail.setName(rs.getString("reciept_detail_name"));
             recieptDetail.setQty(rs.getInt("reciept_detail_qty"));
@@ -221,15 +255,14 @@ public class RecieptDetail {
             recieptDetail.setTotal(rs.getFloat("reciept_detail_total_price"));
             recieptDetail.setRecieptId(rs.getInt("reciept_id"));
             recieptDetail.setProductId(rs.getInt("product_id"));
-        }catch(Exception e){
-            System.out.println("Error on RecieptDetail.java FromRS: "+e);
-        return null;
+            recieptDetail.setSweet(rs.getString("sweet"));
+            recieptDetail.setSweetPrice(rs.getFloat("sweet_price"));
+
+        } catch (Exception e) {
+            System.out.println("Error on RecieptDetail.java FromRS: " + e);
+            return null;
         }
         return recieptDetail;
     }
-    
-    
-
-    
 
 }

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -23,6 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Chaiwat
  */
 public class ProductDialog extends javax.swing.JDialog {
+
     private final ProductService productService;
     private Product editedProduct;
     private String path;
@@ -39,7 +41,6 @@ public class ProductDialog extends javax.swing.JDialog {
         loadImage();
         lblProductId.setText("" + editedProduct.getId());
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,7 +68,7 @@ public class ProductDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(183, 202, 219));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("ID:");
@@ -89,7 +90,7 @@ public class ProductDialog extends javax.swing.JDialog {
         edtPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         cmbCatId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cmbCatId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cmbCatId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drink", "Cake", "Candy" }));
         cmbCatId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCatIdActionPerformed(evt);
@@ -245,22 +246,23 @@ public class ProductDialog extends javax.swing.JDialog {
             setFormToObject();
             try {
                 product = productService.addNew(editedProduct);
-                 saveImage(product);
+                saveImage(product);
             } catch (ValidateException ex) {
                 Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex.getMessage());
             }
 
         } else {
             setFormToObject();
             try {
                 product = productService.update(editedProduct);
-                 saveImage(product);
+                saveImage(product);
             } catch (ValidateException ex) {
                 Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex.getMessage());
             }
 
         }
-       
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -273,83 +275,92 @@ public class ProductDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_lblPhotoMouseClicked
 
     private void cmbCatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatIdActionPerformed
-        
+
     }//GEN-LAST:event_cmbCatIdActionPerformed
 
     private void loadImage() {
-        if(editedProduct.getId()>0){
-            ImageIcon icon = new ImageIcon("./product"+ editedProduct.getName()+ ".png");
+        if (editedProduct.getId() > 0) {
+            ImageIcon icon = new ImageIcon("./product" + editedProduct.getName() + ".png");
             Image image = icon.getImage();
-            Image newImage = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
-            icon.setImage(newImage);
-            lblPhoto.setIcon(icon);
-        }
-    }
-    private void loadImage(String path) {
-        if(editedProduct.getId()>0){
-            ImageIcon icon = new ImageIcon(path);
-            Image image = icon.getImage();
-            Image newImage = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             icon.setImage(newImage);
             lblPhoto.setIcon(icon);
         }
     }
 
-    
-    public void chooseImage(){
+    private void loadImage(String path) {
+        if (editedProduct.getId() > 0) {
+            ImageIcon icon = new ImageIcon(path);
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            lblPhoto.setIcon(icon);
+        }
+    }
+
+    public void chooseImage() {
         JFileChooser fileChooser = new JFileChooser();
-        
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("image files","png","jpg");
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("image files", "png", "jpg");
         fileChooser.setFileFilter(filter);
-        
+
         int returnVal = fileChooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION){
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             System.out.println("Selected file: " + file.getAbsolutePath());
             loadImage(file.getAbsolutePath());
             path = file.getAbsolutePath();
         }
     }
-    
+
     private void setObjectToForm() {
         edtName.setText(editedProduct.getName());
-        
+
         float price = editedProduct.getPrice();
         String priceString = Float.toString(price);
         edtPrice.setText(priceString);
-        
+
         cmbSweetlv.setSelectedItem(editedProduct.getSweetLevel());
 
-        cmbCatId.setSelectedIndex(editedProduct.getCategoryId() - 1);
+        int categoryId = editedProduct.getCategoryId();
+        if (categoryId == 0) {
+            cmbCatId.setSelectedIndex(0);
+        } else {
+            cmbCatId.setSelectedIndex(categoryId - 1);
+        }
         cmbSize.setSelectedItem(editedProduct.getSize());
         cmbType.setSelectedItem(editedProduct.getType());
     }
-    
+
     private void setFormToObject() {
         editedProduct.setName(edtName.getText());
-        
+
         String priceText = edtPrice.getText();
         float price = Float.parseFloat(priceText);
         editedProduct.setPrice(price);
-        
+
         editedProduct.setSweetLevel((String) cmbSweetlv.getSelectedItem());
+
+        int selectedIndex = cmbCatId.getSelectedIndex();
         
-        editedProduct.setCategoryId(cmbCatId.getSelectedIndex() + 1);
+
+            editedProduct.setCategoryId(selectedIndex + 1);
+
         editedProduct.setSize((String) cmbSize.getSelectedItem());
         editedProduct.setType((String) cmbType.getSelectedItem());
     }
-    
-     private void saveImage(Product product) {
-        if(path == null || path.isEmpty()) return;
+
+    private void saveImage(Product product) {
+        if (path == null || path.isEmpty()) {
+            return;
+        }
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            ImageIO.write(image, "png", new File("./Product" + product.getName()+ ".png"));
+            ImageIO.write(image, "png", new File("./Product" + product.getName() + ".png"));
         } catch (IOException ex) {
             Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

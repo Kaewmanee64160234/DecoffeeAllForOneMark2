@@ -8,6 +8,6 @@ package Component;
  *
  * @author USER
  */
-public interface CategoryObs {
-     void updateCategory(int categoryId);
+public interface ProductDetailObs {
+    void setDetailProduct(double sizePrice,String sizeName,double toppingPrice,String toppingName,double sweetPrice,String sweetName,double typePrice,String typeName);
 }

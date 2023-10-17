@@ -4,7 +4,6 @@
  */
 package Component;
 
-
 import Component.BuyProductable;
 
 import Dialog.ToppingDialog;
@@ -23,35 +22,50 @@ import javax.swing.SwingUtilities;
  *
  * @author toey
  */
-public class ProductItemPanel extends javax.swing.JPanel {
+public class ProductItemPanel extends javax.swing.JPanel implements ProductDetailObs {
 
     private final Product product;
     private ArrayList<BuyProductable> subscibers = new ArrayList();
     private Product editedProduct;
+    private ToppingDialog toppingDialog;
+    private ArrayList<ProductDetailObs> productDetails;
+    private double sizePric;
+    private String sizeName;
+    private double toppingPrice;
+    private String toppingName;
+    private double sweetPrice;
+    private String sweetName;
+    private double typePrice;
+    private String typeName;
 
     /**
      * Creates new form ProductItemPanel
      */
     public ProductItemPanel(Product p) {
         initComponents();
-        product = p;
+
+        this.product = p;
         lblName.setText(product.getName());
+        lblPrice.setText("฿ " + (product.getPrice()));
         ImageIcon icon = new ImageIcon("./" + product.getName() + ".jpg");
         Image image = icon.getImage();
         int width = image.getWidth(null);
         int height = image.getHeight(null);
+
         Image newImage = image.getScaledInstance((int) ((120.0 * width) / height), 120, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
         lblImage.setIcon(icon);
-        btnBuy.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                for (BuyProductable s : subscibers) {
-                    s.buy(product, 1);
-                }
-            }
+        lblName.setText(p.getPrice() + "");
+        if (p.getCategoryId() != 1) {
+            btnMore.setEnabled(false);
+        }
+        initToppiingDialog();
+    }
 
-        });
+    private void initToppiingDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        toppingDialog = new ToppingDialog(frame, this.product);
+        toppingDialog.addSubscipber(this);
     }
 
     public void addOnBuyProduct(BuyProductable subsciber) {
@@ -96,6 +110,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
         btnBuy.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnBuy.setText("Buy");
+        btnBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,12 +170,30 @@ public class ProductItemPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoreActionPerformed
-        editedProduct = new Product();
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        ToppingDialog toppingDialog = new ToppingDialog(frame, editedProduct);
+
         toppingDialog.setLocationRelativeTo(this);
         toppingDialog.setVisible(true);
+
     }//GEN-LAST:event_btnMoreActionPerformed
+
+    private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
+        for (BuyProductable s : subscibers) {
+            //setDetail here
+            sizeName = "-";
+            sizePric = 0;
+
+            toppingName = "-";
+            toppingPrice = 0;
+
+            sweetName = "-";
+            sweetPrice = 0;
+
+            typeName = "-";
+            typePrice = 0;
+            s.buy(product, 1, sizeName, (float) sizePric, toppingName, (float) toppingPrice, sweetName, (float) sweetPrice, typeName, (float) typePrice);
+    
+        }
+    }//GEN-LAST:event_btnBuyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuy;
@@ -166,5 +203,23 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setDetailProduct(double sizePrice, String sizeName, double toppingPrice, String toppingName, double sweetPrice, String sweetName, double typePrice, String typeName) {
+        System.out.println("Component.ProductItemPanel.setDetailProduct()");
+
+        this.sizePric = sizePrice;
+        this.sizeName = sizeName;
+        this.toppingPrice = toppingPrice;
+        this.toppingName = toppingName;
+        this.sweetPrice = sweetPrice;
+        this.sweetName = sweetName;
+        this.typePrice = typePrice;
+        this.typeName = typeName;
+
+        for (BuyProductable subsciber : subscibers) {
+            subsciber.buy(product, 1, sizeName, (float) sizePrice, toppingName, (float) toppingPrice, sweetName, (float) sweetPrice, typeName, (float) typePrice);
+        }
+    }
 
 }

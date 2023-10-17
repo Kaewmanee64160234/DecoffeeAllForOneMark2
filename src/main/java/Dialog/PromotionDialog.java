@@ -34,8 +34,6 @@ public class PromotionDialog extends javax.swing.JDialog {
         edtDiscountPerc = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         edtPointDiscount = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        edtUsedPoint = new javax.swing.JTextField();
         edtEnddate = new javax.swing.JTextField();
         edtDiscount = new javax.swing.JTextField();
 
@@ -88,12 +86,6 @@ public class PromotionDialog extends javax.swing.JDialog {
 
         edtPointDiscount.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Used Point :");
-
-        edtUsedPoint.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         edtEnddate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         edtDiscount.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -112,19 +104,14 @@ public class PromotionDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(edtPointDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(edtPointDiscount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(edtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12)
                                         .addComponent(jLabel6)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(edtDiscountPerc, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edtUsedPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(edtDiscountPerc, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnCancel))
                         .addGap(18, 18, 18))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -168,9 +155,7 @@ public class PromotionDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(edtPointDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(edtUsedPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtPointDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -231,10 +216,6 @@ public class PromotionDialog extends javax.swing.JDialog {
         int pointDiscount = editedPromotion.getPointDiscount();
         String pointDiscountString = Integer.toString(pointDiscount);
         edtPointDiscount.setText(pointDiscountString);
-
-        int usedPoint = editedPromotion.getUsedPoint();
-        String usedPointString = Integer.toString(usedPoint);
-        edtUsedPoint.setText(usedPointString);
     }
 
     private void setFormToObject() {
@@ -245,7 +226,7 @@ public class PromotionDialog extends javax.swing.JDialog {
 
         String discountString = edtDiscount.getText();
         float discount = Float.parseFloat(discountString);
-     
+
         editedPromotion.setDiscount(discount);
 
         String discountPercString = edtDiscountPerc.getText();
@@ -256,9 +237,8 @@ public class PromotionDialog extends javax.swing.JDialog {
         int pointDiscount = Integer.parseInt(pointDiscountString);
         editedPromotion.setPointDiscount(pointDiscount);
 
-        String usedPointString = edtUsedPoint.getText();
-        int usedPoint = Integer.parseInt(usedPointString);
-        editedPromotion.setUsedPoint(usedPoint);
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -269,14 +249,12 @@ public class PromotionDialog extends javax.swing.JDialog {
     private javax.swing.JTextField edtEnddate;
     private javax.swing.JTextField edtName;
     private javax.swing.JTextField edtPointDiscount;
-    private javax.swing.JTextField edtUsedPoint;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblPromotionId;
     // End of variables declaration//GEN-END:variables

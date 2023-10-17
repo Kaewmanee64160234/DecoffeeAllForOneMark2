@@ -970,8 +970,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
             lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
         }
-        setTotalNet();
         refreshTable();
+        reciept.calculateTotal();
+        lblTotal.setText(reciept.getTotal()+"");
+
     }
 
     @Override
@@ -1010,7 +1012,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
+        lblTotal.setText(reciept.getTotal()+"");
         lblTotalNet.setText(totalNet + "");
+        System.out.println(reciept.getTotal());
     }
 
     private void validateNotCusUsePromotion(Promotion promotion1) {

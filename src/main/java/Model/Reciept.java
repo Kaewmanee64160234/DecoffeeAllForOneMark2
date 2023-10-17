@@ -155,21 +155,24 @@ public class Reciept {
             String existingDetailStr = detailToString(recieptDetail);
             if (newDetailStr.equals(existingDetailStr)) {
                 isDuplicate = true;
-               recieptDetail.setQty(qty+recieptDetail.getQty());
+                recieptDetail.setQty(qty + recieptDetail.getQty());
 
                 break;
             }
         }
-        
+
         if (isDuplicate == false) {
             int idProduct = product.getId();
             rd.setProductId(idProduct);
             rd.setTotal(product.getPrice() * qty);
             rd.setProductPrice(product.getPrice());
             recieptDetails.add(rd);
+            System.out.println("Model.Reciept.addReceiptDetail()");
             System.out.println(rd.toString());
         }
         calculateTotal();
+        System.out.println("-----------------------------------");
+        System.out.println(total);
     }
 
     public void setId(int id) {
@@ -314,6 +317,7 @@ public class Reciept {
             total += rd.getTypePrice();
             total += rd.getSizePrice();
             total += rd.getSweetPrice();
+            total  = total*rd.getQty();
 
             total_qty += rd.getQty();
         }

@@ -64,6 +64,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         reciept = new Reciept();
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         addMemberDialog = new AddCustomerDialog(frame);
+        addMemberDialog.addSubs(this);
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total"};

@@ -4,6 +4,7 @@
  */
 package Dialog;
 
+import Component.CusObs;
 import Model.Customer;
 import Model.User;
 import Service.CustomerService;
@@ -27,12 +28,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author toey
  */
-public class AddCustomerDialog extends javax.swing.JDialog {
+public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
 
     private final CustomerService customerService;
     private ArrayList<Customer> lists;
     private Customer editedCustomer;
     private String path;
+    private ArrayList<CusObs> listCusObses;
 
     public AddCustomerDialog(java.awt.Frame parent) {
         super(parent, true);
@@ -40,6 +42,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         this.editedCustomer = new Customer();
         setObjectToForm();
         customerService = new CustomerService();
+        listCusObses = new ArrayList<CusObs>();
     }
 
     /**
@@ -197,6 +200,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             editedCustomer.setTel(tel);
             editedCustomer.setPoint(point);
             customerService.addNew(editedCustomer);
+            updateCustomer(editedCustomer);
         } catch (ValidateException ex) {
             Logger.getLogger(AddCustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -234,4 +238,18 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtPoint;
     private javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        for (CusObs ob : listCusObses) {
+            ob.updateCustomer(customer);
+            
+        }
+        
+    }
+     public void addSubs(CusObs cusObs) {
+        listCusObses.add(cusObs);
+        
+    }
+    
 }

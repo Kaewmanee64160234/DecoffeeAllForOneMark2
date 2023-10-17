@@ -587,6 +587,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnPosConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPosConfirm.setText("Confirm");
@@ -686,6 +691,26 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private void btnFindMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFindMemberMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFindMemberMouseClicked
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        reciept = new Reciept();
+        resetPOSLable();
+        refreshTable();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void resetPOSLable() {
+        lblMemberName.setText("-");
+        lblPhoneNumber.setText("-");
+        lblMemberPoint.setText("0");
+        lblPointEarn.setText("0");
+        lblPromotionNameShow.setText("-");
+        lblTotalPoint.setText("0");
+        lblTotal.setText("0 ");
+        lblDiscount.setText("0");
+        lblTotalNet.setText("0");
+        lblCash.setText("0");
+    }
 
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed
         RecieptService recieptService = new RecieptService();
@@ -830,7 +855,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
         reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
-        if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc()>0) {
+        if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
             double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
             lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
             System.out.println("--------IN--------------");
@@ -842,12 +867,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void chageCat(int catId) {
         productListPanel = new ProductListPanel(catId);
+        productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
+
     }
 
     @Override
     public void updateCustomer(Customer customer) {
-       this.customer = customer;
+        this.customer = customer;
         reciept.setCustomer(customer);
         reciept.setCustomerId(customer.getId());
         System.out.println("Page.PosPanel" + reciept.getCustomer().toString());
@@ -860,7 +887,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void setInfoPromotion(Promotion promotion) {
         this.promotion = promotion;
-        
+
         if (promotion.getPointDiscount() == 0) {
             validateNotCusUsePromotion(promotion);
             setTotalNet();
@@ -868,13 +895,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         }
 
         validateCusUsePromotion(promotion);
-        
 
     }
 
     private void setTotalNet() throws NumberFormatException {
-        double totalNet = reciept.getTotal()-Double.parseDouble(lblDiscount.getText());
-        lblTotalNet.setText(totalNet+"");
+        double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
+        lblTotalNet.setText(totalNet + "");
     }
 
     private void validateNotCusUsePromotion(Promotion promotion1) {
@@ -906,10 +932,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     }
 
-    private boolean validateCusUsePromotion(Promotion promotion1){
+    private boolean validateCusUsePromotion(Promotion promotion1) {
         //cus
-        
-        if (reciept.getCustomerId()< 0 && promotion1.getPointDiscount() > 0) {
+
+        if (reciept.getCustomerId() < 0 && promotion1.getPointDiscount() > 0) {
             JOptionPane.showMessageDialog(this, "This Promotion for Member");
             return true;
         }

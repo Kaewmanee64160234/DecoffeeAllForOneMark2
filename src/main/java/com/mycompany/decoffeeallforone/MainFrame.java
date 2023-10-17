@@ -29,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
    public MainFrame() {
     initComponents();
-
+    setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
     ProductPanel productPanel = new ProductPanel();
     //scrPanel.setViewportView(productPanel);
 //    scrPanel.setViewportView(new UserPanel());

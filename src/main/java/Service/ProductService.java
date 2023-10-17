@@ -46,6 +46,7 @@ public class ProductService {
     public ArrayList<Topping> getToppings() {
         return toppings;
     }
+    
 
     public void setToppings(ArrayList<Topping> toppings) {
         this.toppings = toppings;
@@ -70,6 +71,10 @@ public class ProductService {
     
     public ArrayList<Product> getProductsOrderByName() {
         return (ArrayList<Product>) productDao.getAll("product_name ASC");
+    }
+    
+    public ArrayList<Product> getProductsByCatId(int id) {
+        return (ArrayList<Product>) productDao.getByCatId(id);
     }
 
     public Product getById(int id) {

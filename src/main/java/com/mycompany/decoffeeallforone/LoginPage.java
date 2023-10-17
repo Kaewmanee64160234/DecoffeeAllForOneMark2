@@ -5,6 +5,7 @@
 package com.mycompany.decoffeeallforone;
 
 import Model.User;
+import Service.EmployeeService;
 import Service.UserService;
 import java.awt.Color;
 import java.awt.Image;
@@ -284,6 +285,7 @@ public class LoginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "Your password or Login is wrong. Please check again", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
+         
             LoginPage loginPage = new LoginPage();
             
             MainFrame mainFrame = new MainFrame();

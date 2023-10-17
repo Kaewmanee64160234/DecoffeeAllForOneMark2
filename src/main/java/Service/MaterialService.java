@@ -14,6 +14,11 @@ import java.util.List;
  * @author werapan
  */
 public class MaterialService {
+    static Material currentMaterial;
+
+    public static Material getCurrenMaterial() {
+        return currentMaterial;
+    } 
     public Material getById(int id) {
         MaterialDao materialDao = new MaterialDao();
         return materialDao.get(id);

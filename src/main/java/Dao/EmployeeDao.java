@@ -39,6 +39,25 @@ public class EmployeeDao implements Dao<Employee> {
         }
         return employee;
     }
+    
+    public Employee getById(int id) {
+        Employee employee = null;
+        String sql = "SELECT * FROM employee WHERE employee_id=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                employee = Employee.fromRS(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return employee;
+    }
 
     public Employee getByTel(String tel) {
         Employee employee = null;

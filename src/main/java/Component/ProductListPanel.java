@@ -2,35 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Component;
 
+package  Component;
+
+import Component.BuyProductable;
 import Model.Product;
 import Service.ProductService;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+
 /**
  *
  * @author toey
  */
-public class ProductListPanel extends javax.swing.JPanel {
+public class ProductListPanel extends javax.swing.JPanel implements BuyProductable{
 
     private final ProductService productService;
-    private final ArrayList<Product> products;
+    private ArrayList<Product> products;
+    private ArrayList<BuyProductable> subscibers = new ArrayList();
 
 
     /**
      * Creates new form ProductListPanel
      */
-    public ProductListPanel() {
+    public ProductListPanel(int CatId) {
         initComponents();
         productService = new ProductService();
-        products = productService.getProductsOrderByName();
+        products = new ArrayList<Product>();
+        products = productService.getProductsByCatId(CatId);
+
         int productSize = products.size();
         for (Product p : products) {
-            pnlProductList.add(new ProductItemPanel(p));
+            ProductItemPanel pnlProductItem = new ProductItemPanel(p);
+            pnlProductItem.addOnBuyProduct(this);
+            pnlProductList.add(pnlProductItem);
         }
         pnlProductList.setLayout(new GridLayout((productSize / 3) + ((productSize % 3 != 0) ? 1 : 0), 3, 0, 0));
+    }
+    
+    public void addOnBuyProduct(BuyProductable subsciber) {
+        subscibers.add(subsciber);
     }
 
     /**
@@ -77,4 +89,26 @@ public class ProductListPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel pnlProductList;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public void buy(Product product, int qty) {
+        System.out.println("" + product.getName() + " " + qty);
+        for(BuyProductable s: subscibers) {
+                    s.buy(product, qty);
+                }
+    }
+
+    @Override
+    public void chageCat(int catId) {
+
+        int productSize = products.size();
+        for (Product p : products) {
+            ProductItemPanel pnlProductItem = new ProductItemPanel(p);
+            pnlProductItem.addOnBuyProduct(this);
+            pnlProductList.add(pnlProductItem);
+        }
+        pnlProductList.setLayout(new GridLayout((productSize / 3) + ((productSize % 3 != 0) ? 1 : 0), 3, 0, 0));
+    }
+
 }

@@ -4,8 +4,11 @@
  */
 package Page;
 
+import Dialog.EmployeeDialog;
 import Dialog.UserDialog;
+import Model.Employee;
 import Model.User;
+import Service.EmployeeService;
 import Service.UserService;
 import java.awt.Font;
 import java.awt.Image;
@@ -20,26 +23,24 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author toey
+ * @author ASUS
  */
-public class UserPanel extends javax.swing.JPanel {
-
-    private final UserService userService;
-    private List<User> list;
-    private User editedUser;
+public class EmployeePanel extends javax.swing.JPanel {
+    private final EmployeeService employeeService;
+    private List<Employee> list;
+    private Employee editedEmployee;
     /**
-     * Creates new form UserPanel
+     * Creates new form Employee
      */
-    public UserPanel() {
+    public EmployeePanel() {
         initComponents();
-        userService = new UserService();
+        employeeService = new EmployeeService();
 
-        list = userService.getUsers();
-        tblUser.setRowHeight(50); 
-        tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
-        tblUser.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Profile", "Id", "Login", "Name", "Password", "Role"};
-
+        list = employeeService.getEmployees();
+        tblEmployee.setRowHeight(50); 
+        tblEmployee.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblEmployee.setModel(new AbstractTableModel() {
+            String[] columnNames = {"ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage"};
             @Override
             public String getColumnName(int column) {
                 return columnNames[column];
@@ -67,10 +68,10 @@ public class UserPanel extends javax.swing.JPanel {
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                User user = list.get(rowIndex);
+                Employee employee = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./user"+user.getId()+".png");
+                        ImageIcon icon = new ImageIcon("./employee"+employee.getId()+".png");
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);
@@ -78,21 +79,24 @@ public class UserPanel extends javax.swing.JPanel {
                         icon.setImage(newImage);
                         return icon;
                     case 1:
-                        return user.getId();
+                        return employee.getId();
                     case 2:
-                        return user.getLogin();
+                        return employee.getName();
                     case 3:
-                        return user.getUsername();
+                        return employee.getAddress();
                     case 4:
-                        return user.getPassword();
+                        return employee.getTelephone();
                     case 5:
-                        return user.getRole();
+                        return employee.getEmail();
+                    case 6:
+                        return employee.getPosition();
+                    case 7:
+                        return employee.getHourlyWage();
                     default:
                         return "Unknown";
                 }
             }
         });
-
     }
 
     /**
@@ -104,19 +108,20 @@ public class UserPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGender = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
         pnlNavigation = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblUser = new javax.swing.JTable();
+        tblEmployee = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
 
         pnlNavigation.setBackground(new java.awt.Color(213, 208, 189));
 
-        tblUser.setModel(new javax.swing.table.DefaultTableModel(
+        tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -127,10 +132,10 @@ public class UserPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblUser);
+        jScrollPane1.setViewportView(tblEmployee);
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        jLabel1.setText("User");
+        jLabel1.setText("Employee");
 
         javax.swing.GroupLayout pnlNavigationLayout = new javax.swing.GroupLayout(pnlNavigation);
         pnlNavigation.setLayout(pnlNavigationLayout);
@@ -139,11 +144,9 @@ public class UserPanel extends javax.swing.JPanel {
             .addGroup(pnlNavigationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlNavigationLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlNavigationLayout.setVerticalGroup(
             pnlNavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +154,7 @@ public class UserPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -205,39 +208,76 @@ public class UserPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 196, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(542, 542, 542))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlNavigation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlNavigation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 744, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlNavigation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 389, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        editedUser = new User();
+        editedEmployee = new Employee();
         openDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        UserDialog userDialog = new UserDialog(frame, editedUser);
-        userDialog.setLocationRelativeTo(this); //set dialog to center
-        userDialog.setVisible(true);
-        userDialog.addWindowListener(new WindowAdapter() {
+        EmployeeDialog EmployeeDialog = new EmployeeDialog(frame, editedEmployee);
+        EmployeeDialog.setLocationRelativeTo(this); //set dialog to center
+        EmployeeDialog.setVisible(true);
+        EmployeeDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
@@ -245,45 +285,43 @@ public class UserPanel extends javax.swing.JPanel {
 
         });
     }
-
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectIndex = tblUser.getSelectedRow();
+        int selectIndex = tblEmployee.getSelectedRow();
         if (selectIndex >= 0) {
-            editedUser = list.get(selectIndex);
+            editedEmployee = list.get(selectIndex);
             openDialog();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int selectIndex = tblUser.getSelectedRow();
+        int selectIndex = tblEmployee.getSelectedRow();
         if (selectIndex >= 0) {
-            editedUser = list.get(selectIndex);
+            editedEmployee = list.get(selectIndex);
             int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (input == 0) {
-                userService.delete(editedUser);
+                employeeService.delete(editedEmployee);
             }
             refreshTable();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void refreshTable() {
-        list = userService.getUsers();
-        tblUser.revalidate();
-        tblUser.repaint();
+        list = employeeService.getEmployees();
+        tblEmployee.revalidate();
+        tblEmployee.repaint();
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.ButtonGroup btnGender;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlNavigation;
-    private javax.swing.JTable tblUser;
+    private javax.swing.JTable tblEmployee;
     // End of variables declaration//GEN-END:variables
-
 }

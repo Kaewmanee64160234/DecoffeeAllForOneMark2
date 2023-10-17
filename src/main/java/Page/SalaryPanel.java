@@ -179,16 +179,7 @@ public class SalaryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        int selectIndex = tblTopEmployee.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedEmployee = list.get(selectIndex);
-            int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
-                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (input == 0) {
-                employeeService.delete(editedEmployee);
-            }
-            refreshTable();
-        }
+        
     }//GEN-LAST:event_btnHistoryActionPerformed
 
 

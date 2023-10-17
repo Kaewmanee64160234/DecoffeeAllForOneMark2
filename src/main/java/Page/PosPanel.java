@@ -55,12 +55,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private PosPromotionDialog posPromotionDialog;
     private Reciept reciept;
     private Promotion promotion;
-<<<<<<< HEAD
-=======
     private Customer customer;
     private AddCustomerDialog addMemberDialog;
     private CustomerService customerService;
->>>>>>> 69ffdb81fbd46e750cceb1bc1a14f3fd3b368fe5
 
     /**
      * Creates new form PosDialog
@@ -847,13 +844,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPromotionActionPerformed
         editedPromotion = new Promotion();
-<<<<<<< HEAD
+
         openDialogPromotion();
-    }//GEN-LAST:event_btnPromotionActionPerformed
-=======
+    }                              
         openDialog();
     }// GEN-LAST:event_btnPromotionActionPerformed
->>>>>>> 69ffdb81fbd46e750cceb1bc1a14f3fd3b368fe5
 
     private void btnDrinksMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnDrinksMouseClicked
         // TODO add your handling code here:

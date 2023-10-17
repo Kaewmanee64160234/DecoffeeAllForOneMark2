@@ -27,17 +27,14 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
-        initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
-        // scrPanel.setViewportView(new ProductPanel());
-        // scrPanel.setViewportView(new UserPanel());
-        // scrPanel.setViewportView(new EmployeePanel());
-        // scrPanel.setViewportView(new UserPanel());
-        // scrPanel.setViewportView(new MaterialPanel());
-        scrPanel.setViewportView(new PosPanel());//        
-        //scrPanel.setViewportView(new PromotionMainData());
-    }
+   public MainFrame() {
+    initComponents();
+
+    ProductPanel productPanel = new ProductPanel();
+    //scrPanel.setViewportView(productPanel);
+    scrPanel.setViewportView(new UserPanel());
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

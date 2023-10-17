@@ -205,6 +205,9 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         txtPoint.setText((editedCustomer.getPoint() + ""));
     }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        lblName.setText("");
+        lblPoint.setText("");
+        lblTel.setText("");
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
 

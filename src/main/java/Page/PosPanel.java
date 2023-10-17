@@ -63,7 +63,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty", "Toatal"};
+            String[] headers = {"Name", "Price", "Qty", "Price","Sizes","Type","Topping","Sweet","Total"};
 
             @Override
             public String getColumnName(int column) {
@@ -77,7 +77,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 8;
             }
 
             @Override
@@ -92,6 +92,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     case 2:
                         return recieptDetail.getQty();
                     case 3:
+                        return recieptDetail.getSize();
+                    case 4:
+                        return recieptDetail.getType();
+                    case 5:
+                        return recieptDetail.getTopping();
+                    case 6:
+                        return recieptDetail.getSweet();
+                    case 7:
                         return recieptDetail.getTotal();
                     default:
                         return "";

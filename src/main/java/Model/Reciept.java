@@ -119,6 +119,7 @@ public class Reciept {
         this.change = 0;
 
     }
+    
 
     public Reciept(int queue, String payment, int storeId, int promotionId, int employeeId, float receive) {
         this.queue = queue;
@@ -134,9 +135,10 @@ public class Reciept {
     public int getId() {
         return id;
     }
+    
 
     public void addReceiptDetail(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
-        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName, sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId());
+        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName, sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId(),sweetName,sweetPrice);
         int idProduct = product.getId();
         System.out.println("Model.Reciept.addReceiptDetail()");
 

@@ -512,6 +512,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
+        btnFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFoodActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -581,7 +586,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnAddMember.setText("Add Member");
         btnAddMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // btnAddMemberActionPerformed(evt);
+                btnAddMemberActionPerformed(evt);
             }
         });
 
@@ -686,6 +691,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private void btnFindMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFindMemberMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFindMemberMouseClicked
+
+    private void btnFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFoodActionPerformed
 
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed
         RecieptService recieptService = new RecieptService();

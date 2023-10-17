@@ -63,7 +63,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty", "Price","Sizes","Type","Topping","Sweet","Total"};
+            String[] headers = {"Name", "Price", "Qty","Sizes","Type","Topping","Sweet","Total"};
 
             @Override
             public String getColumnName(int column) {

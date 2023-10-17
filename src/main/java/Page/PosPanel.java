@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 import Component.CusObs;
 
 import Component.PromotionObs;
+import Dialog.AddCustomerDialog;
 import Dialog.PosPromotionDialog;
 import javax.swing.JOptionPane;
 import java.awt.Font;
@@ -49,6 +50,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private Reciept reciept;
     private Promotion promotion;
     private Customer customer;
+    private AddCustomerDialog addMemberDialog;
 
     /**
      * Creates new form PosDialog
@@ -60,7 +62,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         scrProductList.setViewportView(productListPanel);
         recieptService = new RecieptService();
         reciept = new Reciept();
-
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        addMemberDialog = new AddCustomerDialog(frame);
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total"};
@@ -587,6 +590,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         btnAddMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAddMember.setText("Add Member");
+        btnAddMember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddMemberMouseClicked(evt);
+            }
+        });
         btnAddMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 // btnAddMemberActionPerformed(evt);
@@ -706,6 +714,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         resetPOSLable();
         refreshTable();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAddMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMemberMouseClicked
+        // TODO add your handling code here:
+        addMemberDialog.setLocationRelativeTo(this); // set dialog to center
+        addMemberDialog.setVisible(true);
+
+
+    }//GEN-LAST:event_btnAddMemberMouseClicked
 
     private void resetPOSLable() {
         lblMemberName.setText("-");
@@ -862,7 +878,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
-        
+
         System.out.println(qty);
         System.out.println(sizeName);
         System.out.println(sizePrice);
@@ -871,14 +887,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         System.out.println(sweetName);
         System.out.println(sweetPrice);
         System.out.println(typeName);
-        System.out.println(typePrice);  
-       reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
-       if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
-           double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
-           lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
-       }
-       setTotalNet();
-       refreshTable();
+        System.out.println(typePrice);
+        reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
+        if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
+            double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
+            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+        }
+        setTotalNet();
+        refreshTable();
     }
 
     @Override

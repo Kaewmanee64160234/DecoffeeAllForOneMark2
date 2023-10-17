@@ -34,14 +34,13 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     private Customer editedCustomer;
     private String path;
 
-    public AddCustomerDialog(java.awt.Frame parent, Customer editedCustomer) {
+    public AddCustomerDialog(java.awt.Frame parent) {
         super(parent, true);
         initComponents();
-        this.editedCustomer = editedCustomer;
+        this.editedCustomer = new Customer();
         setObjectToForm();
         customerService = new CustomerService();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -176,19 +175,30 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Customer customer;
-        try {
-            if (editedCustomer.getId() < 0) {
-                customer = customerService.addNew(editedCustomer);
-                setFormToObject();
-            } else {
-                setFormToObject();
-                customer = customerService.update(editedCustomer);
-            }
+        String name = txtName.getText();
+        String tel = txtTel.getText();
+        int point = Integer.parseInt(txtPoint.getText());
+        if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            return;
+        }
+        if (tel.length() != 10) {
+            JOptionPane.showMessageDialog(this, "Plase Insert teleplhon number 10 character");
+            return;
 
-            } catch (ValidateException ex) {
-            Logger.getLogger(CustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        if (point < 0) {
+            JOptionPane.showMessageDialog(this, "Insert point is must more than 0");
+            return;
+
+        }
+        try {
+            editedCustomer.setName(name);
+            editedCustomer.setTel(tel);
+            editedCustomer.setPoint(point);
+            customerService.addNew(editedCustomer);
+        } catch (ValidateException ex) {
+            Logger.getLogger(AddCustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed

@@ -101,7 +101,7 @@ public class Reciept {
         this.receive = 0;
         this.change = 0;
         this.totalQTY = 0;
-        this.payment = "Prompay";
+        this.payment = "cash";
         this.storeId = -1;
         this.customerId = -1;
         this.promotionId = -1;

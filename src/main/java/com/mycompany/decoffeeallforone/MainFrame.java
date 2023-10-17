@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -28,14 +29,14 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         // scrPanel.setViewportView(new ProductPanel());
         // scrPanel.setViewportView(new UserPanel());
         // scrPanel.setViewportView(new EmployeePanel());
         // scrPanel.setViewportView(new UserPanel());
         // scrPanel.setViewportView(new MaterialPanel());
         scrPanel.setViewportView(new PosPanel());//        
-//scrPanel.setViewportView(new PromotionMainData());
+        //scrPanel.setViewportView(new PromotionMainData());
     }
 
     /**

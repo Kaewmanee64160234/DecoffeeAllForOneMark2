@@ -177,6 +177,7 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
     }//GEN-LAST:event_btnMoreActionPerformed
 
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
+        
         for (BuyProductable s : subscibers) {
             //setDetail here
             if (product.getCategoryId() == 1) {
@@ -189,7 +190,7 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
                 sweetName = "Normal";
                 sweetPrice = 0;
 
-                typeName = "H";
+                typeName = "Hot";
                 typePrice = 0;
             } else {
                 sizeName = "-";

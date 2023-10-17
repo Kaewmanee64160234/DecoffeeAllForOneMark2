@@ -962,16 +962,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice,
             String sweetName, float sweetPrice, String typeName, float typePrice) {
-
-        System.out.println(qty);
-        System.out.println(sizeName);
-        System.out.println(sizePrice);
-        System.out.println(toppingName);
-        System.out.println(toppingPrice);
-        System.out.println(sweetName);
-        System.out.println(sweetPrice);
-        System.out.println(typeName);
-        System.out.println(typePrice);
+        
+        
         reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice,
                 typeName, typePrice);
         if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {

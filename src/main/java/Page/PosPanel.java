@@ -902,6 +902,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.revalidate();
         tblRecieptDetail.repaint();
         lblTotal.setText(reciept.getTotal() + "");
+        lblTotalNet.setText(reciept.getTotal()-Float.parseFloat(lblDiscount.getText())+"");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1013,7 +1014,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
         lblTotal.setText(reciept.getTotal()+"");
-        lblTotalNet.setText(totalNet + "");
+        lblTotalNet.setText(totalNet+"");
         System.out.println(reciept.getTotal());
     }
 

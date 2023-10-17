@@ -179,7 +179,19 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
         for (BuyProductable s : subscibers) {
             //setDetail here
+            sizeName = "-";
+            sizePric = 0;
+
+            toppingName = "-";
+            toppingPrice = 0;
+
+            sweetName = "-";
+            sweetPrice = 0;
+
+            typeName = "-";
+            typePrice = 0;
             s.buy(product, 1, sizeName, (float) sizePric, toppingName, (float) toppingPrice, sweetName, (float) sweetPrice, typeName, (float) typePrice);
+    
         }
     }//GEN-LAST:event_btnBuyActionPerformed
 

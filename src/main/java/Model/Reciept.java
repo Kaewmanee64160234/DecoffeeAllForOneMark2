@@ -138,13 +138,14 @@ public class Reciept {
     
 
     public void addReceiptDetail(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
-        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName, sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId(),sweetName,sweetPrice);
+        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName, sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId(),sweetName,sweetPrice,product.getPrice());
         int idProduct = product.getId();
         System.out.println("Model.Reciept.addReceiptDetail()");
-
         rd.setProductId(idProduct);
-        System.out.println(rd.toString());
+        rd.setTotal(product.getPrice() * qty);
+        rd.setProductPrice(product.getPrice());
         recieptDetails.add(rd);
+        System.out.println(rd.toString());
         calculateTotal();
     }
 
@@ -285,10 +286,12 @@ public class Reciept {
         float total = 0.0f;
         for (RecieptDetail rd : recieptDetails) {
 
-            total += rd.getTotal();
+            total += rd.getProductPrice();
             total += rd.getToppingPrice();
             total += rd.getTypePrice();
             total += rd.getSizePrice();
+            total += rd.getSweetPrice();
+            
             total_qty += rd.getQty();
         }
         this.total = total;

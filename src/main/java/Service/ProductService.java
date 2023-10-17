@@ -40,18 +40,17 @@ public class ProductService {
         types.add(new Type("Hot", 0));
         types.add(new Type("Cold", 10));
         types.add(new Type("Frappe", 10));
-        
+
         sizes.add(new Size("S", 0));
         sizes.add(new Size("M", 10));
         sizes.add(new Size("L", 15));
 
-        sweets.add(new Sweet("Normal", 0));
+        sweets.add(new Sweet("No", 0));
         sweets.add(new Sweet("Less", 0));
         sweets.add(new Sweet("Half", 0));
+        sweets.add(new Sweet("Normal", 0));
         sweets.add(new Sweet("More", 10));
-        sweets.add(new Sweet("No", 0));
-        
-       
+
     }
 
     public ArrayList<Topping> getToppings() {
@@ -65,7 +64,6 @@ public class ProductService {
     public void setSweets(ArrayList<Sweet> sweets) {
         this.sweets = sweets;
     }
-    
 
     public void setToppings(ArrayList<Topping> toppings) {
         this.toppings = toppings;
@@ -87,11 +85,10 @@ public class ProductService {
         this.sizes = sizes;
     }
 
-    
     public ArrayList<Product> getProductsOrderByName() {
         return (ArrayList<Product>) productDao.getAll("product_name ASC");
     }
-    
+
     public ArrayList<Product> getProductsByCatId(int id) {
         return (ArrayList<Product>) productDao.getByCatId(id);
     }

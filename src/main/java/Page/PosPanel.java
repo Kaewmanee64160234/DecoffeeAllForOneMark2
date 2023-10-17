@@ -63,7 +63,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty","Sizes","Type","Topping","Sweet","Total"};
+            String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total"};
 
             @Override
             public String getColumnName(int column) {
@@ -862,14 +862,23 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
-        reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
-        if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
-            double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
-            lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
-            System.out.println("--------IN--------------");
-        }
-        setTotalNet();
-        refreshTable();
+        
+        System.out.println(qty);
+        System.out.println(sizeName);
+        System.out.println(sizePrice);
+        System.out.println(toppingName);
+        System.out.println(toppingPrice);
+        System.out.println(sweetName);
+        System.out.println(sweetPrice);
+        System.out.println(typeName);
+        System.out.println(typePrice);  
+       reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
+       if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
+           double presentForCal = (Double.parseDouble(promotion.getDiscountPerc() + "") / 100);
+           lblDiscount.setText((presentForCal * reciept.getTotal()) + "");
+       }
+       setTotalNet();
+       refreshTable();
     }
 
     @Override
@@ -906,7 +915,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     }
 
-    private void setTotalNet() throws NumberFormatException {
+    private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
         lblTotalNet.setText(totalNet + "");
     }

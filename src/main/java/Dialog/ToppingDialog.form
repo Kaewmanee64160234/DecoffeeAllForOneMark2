@@ -183,6 +183,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtBubble3">
               <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btgSweet"/>
                 </Property>
@@ -197,6 +200,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtTopping5">
               <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btgSweet"/>
                 </Property>
@@ -208,6 +214,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtWhipcream2">
               <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btgSweet"/>
                 </Property>
@@ -219,6 +228,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtWhipcream3">
               <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btgSweet"/>
                 </Property>
@@ -306,7 +318,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#xe44;&#xe02;&#xe48;&#xe21;&#xe38;&#xe01;  +10"/>
+                <Property name="text" type="java.lang.String" value="Cheese  +10"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtTopping3">
@@ -328,7 +340,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="HoneyPearl  +5"/>
+                <Property name="text" type="java.lang.String" value="HoneyPearl  +10"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtBubble2">
@@ -401,33 +413,11 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JRadioButton" name="rbtFrappe">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="btgType"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Frappe  +10"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="rbtCold">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="btgType"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Cold +5"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtColdActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JRadioButton" name="rbtHot">
               <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btgType"/>
                 </Property>
@@ -435,6 +425,37 @@
                   <Font name="Kanit" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hot  +0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rbtCold">
+              <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgType"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Kanit" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cold +10"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtColdActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rbtFrappe">
+              <Properties>
+                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="default"/>
+                </Property>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btgType"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Kanit" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Frappe  +10"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">

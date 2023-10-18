@@ -6,7 +6,6 @@ package TestService;
 
 import Model.Bill;
 import Service.BillService;
-import Service.BillService;
 import Service.ValidateException;
 
 /**

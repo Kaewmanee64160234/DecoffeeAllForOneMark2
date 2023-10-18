@@ -18,27 +18,27 @@ import java.util.List;
 public class BillService {
 
     public Bill getById(int id) {
-        BillDao materialDao = new BillDao();
-        return materialDao.get(id);
+        BillDao billDao = new BillDao();
+        return billDao.get(id);
     }
 
     public List<Bill> getBills(){
-        BillDao materialDao = new BillDao();
-        return materialDao.getAll(" bill_id asc");
+        BillDao billDao = new BillDao();
+        return billDao.getAll(" bill_id asc");
     }
 
     public Bill addNew(Bill editedBill) {
-        BillDao materialDao = new BillDao();
-        return materialDao.save(editedBill);
+        BillDao billDao = new BillDao();
+        return billDao.save(editedBill);
     }
 
     public Bill update(Bill editedBill) {
-        BillDao materialDao = new BillDao();
-        return materialDao.update(editedBill);
+        BillDao billDao = new BillDao();
+        return billDao.update(editedBill);
     } 
 
     public int delete(Bill editedBill) {
-        BillDao materialDao = new BillDao();
-        return materialDao.delete(editedBill);
+        BillDao billDao = new BillDao();
+        return billDao.delete(editedBill);
     }
 }

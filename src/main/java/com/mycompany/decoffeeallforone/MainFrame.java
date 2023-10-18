@@ -7,9 +7,11 @@ package com.mycompany.decoffeeallforone;
 import Component.ProductListPanel;
 import Dialog.CustomerDialog;
 import Model.Promotion;
+import Page.DatePickerPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
 import Service.PromotionService;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,10 +32,11 @@ public class MainFrame extends javax.swing.JFrame {
    public MainFrame() {
     initComponents();
     setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
-    ProductPanel productPanel = new ProductPanel();
+//    ProductPanel productPanel = new ProductPanel();
     //scrPanel.setViewportView(productPanel);
 //    scrPanel.setViewportView(new UserPanel());
-scrPanel.setViewportView(new PosPanel());
+//scrPanel.setViewportView(new PosPanel());
+    DatePickerPanel datePickerPanel = new DatePickerPanel();
 }
 
 
@@ -136,4 +139,5 @@ scrPanel.setViewportView(new PosPanel());
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
+
 }

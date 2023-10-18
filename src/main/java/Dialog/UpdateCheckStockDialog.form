@@ -103,11 +103,13 @@
                       <Component id="jComboBox1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="edtAmount" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnIncrease" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnDecrease" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnIncrease" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnDecrease" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">

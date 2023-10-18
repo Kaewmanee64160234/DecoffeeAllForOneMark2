@@ -69,6 +69,7 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
         rbtTopping5 = new javax.swing.JRadioButton();
         rbtWhipcream2 = new javax.swing.JRadioButton();
         rbtWhipcream3 = new javax.swing.JRadioButton();
+        rbtWhipcream4 = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         txtTopping1 = new javax.swing.JLabel();
         rbtBubble1 = new javax.swing.JRadioButton();
@@ -87,6 +88,7 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
         rbtTopping2 = new javax.swing.JRadioButton();
         rbtWhipcream = new javax.swing.JRadioButton();
         btnConfirm = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,6 +126,10 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
         rbtWhipcream3.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         rbtWhipcream3.setText("100%");
 
+        btgSweet.add(rbtWhipcream4);
+        rbtWhipcream4.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        rbtWhipcream4.setText("125%");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -141,8 +147,10 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtWhipcream2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtWhipcream3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(rbtWhipcream3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtWhipcream4)))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +162,8 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
                     .addComponent(rbtBubble3)
                     .addComponent(rbtTopping5)
                     .addComponent(rbtWhipcream2)
-                    .addComponent(rbtWhipcream3))
+                    .addComponent(rbtWhipcream3)
+                    .addComponent(rbtWhipcream4))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -338,6 +347,14 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -346,9 +363,6 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnConfirm))
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -359,6 +373,12 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
                     .addComponent(lblProductName)
                     .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConfirm)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,9 +395,11 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnConfirm)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -399,6 +421,18 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        clearButtonRadioGroup();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void clearButtonRadioGroup() {
+        // TODO add your handling code here:
+        btgSize.clearSelection();
+        btgSweet.clearSelection();
+        btgType.clearSelection();
+        btgTopping.clearSelection();
+    }
 
     private void rbtColdActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_rbtColdActionPerformed
         // TODO add your handling code here:
@@ -432,31 +466,18 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
         }
         String sizeName = productService.getSizes().get(sizeId).getName();
         float sizePrice = productService.getSizes().get(sizeId).getPrice();
-        String sweetName = productService.getSweets().get(sizeId).getName();
-        float sweetPrice = productService.getSweets().get(sizeId).getPrice();
+        String sweetName = productService.getSweets().get(sweetId).getName();
+        float sweetPrice = productService.getSweets().get(sweetId).getPrice();
         String typeName = productService.getTypes().get(typeId).getName();
         float typePrice = productService.getTypes().get(typeId).getPrice();
-        String toppingName = "";
+        String toppingName = "-";
         float toppingPrice = 0;
         if (toppingId >= 0) {
             toppingName = productService.getToppings().get(toppingId).getName();
             toppingPrice = productService.getToppings().get(toppingId).getPrice();
         }
-        System.out.println("----------------------");
-
-        System.out.println(sizeId);
-        System.out.println(toppingId);
-        System.out.println(sweetId);
-        System.out.println(typeId);
-        System.out.println("----------------------");
-        System.out.println(sizeName);
-        System.out.println(typeName);
-        System.out.println(sweetName);
-        System.out.println(toppingName);
-        System.out.println("----------------------");
-
         setDetailProduct(sizePrice, sizeName, toppingPrice, toppingName, sweetPrice, sweetName, typePrice, typeName);
-
+        clearButtonRadioGroup();
         dispose();
     }// GEN-LAST:event_btnConfirmActionPerformed
 
@@ -483,6 +504,7 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
     private javax.swing.ButtonGroup btgTopping;
     private javax.swing.ButtonGroup btgType;
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -506,6 +528,7 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
     private javax.swing.JRadioButton rbtWhipcream1;
     private javax.swing.JRadioButton rbtWhipcream2;
     private javax.swing.JRadioButton rbtWhipcream3;
+    private javax.swing.JRadioButton rbtWhipcream4;
     private javax.swing.JLabel txtTopping;
     private javax.swing.JLabel txtTopping1;
     private javax.swing.JLabel txtTopping2;

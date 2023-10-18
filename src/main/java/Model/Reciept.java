@@ -5,6 +5,8 @@
 package Model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -32,7 +34,7 @@ public class Reciept {
     private Employee employee;
     private Store store;
     private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
-// all
+    // all
 
     public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change,
             int totalQTY, String payment, int storeId, int customerId, int promotionId) {
@@ -57,7 +59,7 @@ public class Reciept {
     public void setRecieptDetails(ArrayList recieptDetails) {
         this.recieptDetails = recieptDetails;
     }
-//not id
+    // not id
 
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId, int promotionId) {
@@ -74,7 +76,7 @@ public class Reciept {
         this.customerId = customerId;
         this.promotionId = promotionId;
     }
-// no Promotion
+    // no Promotion
 
     public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId) {
@@ -107,8 +109,9 @@ public class Reciept {
         this.promotionId = -1;
     }
 
-    //have customer promotion
-    public Reciept(int queue, String payment, int storeId, int customerId, int promotionId, int employeeId, float receive) {
+    // have customer promotion
+    public Reciept(int queue, String payment, int storeId, int customerId, int promotionId, int employeeId,
+            float receive) {
         this.queue = queue;
         this.payment = payment;
         this.storeId = storeId;
@@ -119,7 +122,6 @@ public class Reciept {
         this.change = 0;
 
     }
-    
 
     public Reciept(int queue, String payment, int storeId, int promotionId, int employeeId, float receive) {
         this.queue = queue;
@@ -135,18 +137,42 @@ public class Reciept {
     public int getId() {
         return id;
     }
-    
 
-    public void addReceiptDetail(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
-        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName, sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId(),sweetName,sweetPrice,product.getPrice());
-        int idProduct = product.getId();
-        System.out.println("Model.Reciept.addReceiptDetail()");
-        rd.setProductId(idProduct);
-        rd.setTotal(product.getPrice() * qty);
-        rd.setProductPrice(product.getPrice());
-        recieptDetails.add(rd);
-        System.out.println(rd.toString());
+    public String detailToString(RecieptDetail rd) {
+        return rd.getName() + " " + rd.getSize() + " " + rd.getSweet() + " " + rd.getTopping() + " " + rd.getType();
+    }
+
+    public void addReceiptDetail(Product product, int qty, String sizeName, float sizePrice, String toppingName,
+            float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
+        RecieptDetail rd = new RecieptDetail(product.getName(), qty, product.getPrice(), sizeName, typePrice, typeName,
+                sizePrice, toppingName, toppingPrice, product.getPrice() * qty, -1, product.getId(), sweetName,
+                sweetPrice, product.getPrice());
+
+        boolean isDuplicate = false;
+        String newDetailStr = detailToString(rd);
+        System.out.println(newDetailStr);
+        for (RecieptDetail recieptDetail : recieptDetails) {
+            String existingDetailStr = detailToString(recieptDetail);
+            if (newDetailStr.equals(existingDetailStr)) {
+                isDuplicate = true;
+                recieptDetail.setQty(qty + recieptDetail.getQty());
+
+                break;
+            }
+        }
+
+        if (isDuplicate == false) {
+            int idProduct = product.getId();
+            rd.setProductId(idProduct);
+            rd.setTotal(product.getPrice() * qty);
+            rd.setProductPrice(product.getPrice());
+            recieptDetails.add(rd);
+            System.out.println("Model.Reciept.addReceiptDetail()");
+            System.out.println(rd.toString());
+        }
         calculateTotal();
+        System.out.println("-----------------------------------");
+        System.out.println(total);
     }
 
     public void setId(int id) {
@@ -291,7 +317,8 @@ public class Reciept {
             total += rd.getTypePrice();
             total += rd.getSizePrice();
             total += rd.getSweetPrice();
-            
+            total  = total*rd.getQty();
+
             total_qty += rd.getQty();
         }
         this.total = total;
@@ -309,7 +336,8 @@ public class Reciept {
                 + discount + ", total=" + total + ", receive=" + receive + ", change=" + change + ", totalQTY="
                 + totalQTY + ", payment=" + payment + ", storeId=" + storeId + ", customerId=" + customerId
                 + ", promotionId=" + promotionId + ", employeeId=" + employeeId + ", customer=" + customer
-                + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}' + " recieptdetail " + recieptDetails;
+                + ", promotion=" + promotion + ", employee=" + employee + ", store=" + store + '}' + " recieptdetail "
+                + recieptDetails;
     }
 
     public static Reciept fromRS(ResultSet rs) {

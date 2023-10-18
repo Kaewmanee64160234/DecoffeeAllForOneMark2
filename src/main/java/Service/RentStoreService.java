@@ -6,9 +6,8 @@ package Service;
 
 
 
-import Dao.MaterialDao;
-import Model.Material;
-import Model.MaterialReport;
+import Dao.RentStoreDao;
+import Model.RentStore;
 import java.util.List;
 
 /**
@@ -16,39 +15,34 @@ import java.util.List;
  * @author werapan
  */
 public class RentStoreService {
-    static Material currentMaterial;
+    static RentStore currentRentStore;
 
-    public static Material getCurrenMaterial() {
-        return currentMaterial;
+    public static RentStore getCurrenRentStore() {
+        return currentRentStore;
     } 
-    public Material getById(int id) {
-        MaterialDao materialDao = new MaterialDao();
-        return materialDao.get(id);
-    }
-    
-    public List<MaterialReport> getMaterialByMinQty() {
-        MaterialDao materialDao = new MaterialDao();
-        return materialDao.getMaterialByMinQty();
+    public RentStore getByStore(int store) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getByStore(store);
     }
     
     
-    public List<Material> getMaterials(){
-        MaterialDao materialDao = new MaterialDao();
-        return materialDao.getAll(" mat_id asc");
+    public List<RentStore> getRentStores(){
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getAll(" rent_store_id asc");
     }
 
-    public Material addNew(Material editedMaterial) {
-        MaterialDao materialDao = new MaterialDao();
-        return materialDao.save(editedMaterial);
+    public RentStore addNew(RentStore editedRentStore) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.save(editedRentStore);
     }
 
-    public Material update(Material editedMaterial) {
-        MaterialDao materialDao = new MaterialDao();
-        return materialDao.update(editedMaterial);
+    public RentStore update(RentStore editedRentStore) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.update(editedRentStore);
     } 
 
-    public int delete(Material editedMaterial) {
-        MaterialDao materialDao = new MaterialDao();
-        return materialDao.delete(editedMaterial);
+    public int delete(RentStore editedRentStore) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.delete(editedRentStore);
     }
 }

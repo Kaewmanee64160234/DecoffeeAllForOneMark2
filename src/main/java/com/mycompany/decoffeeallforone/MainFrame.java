@@ -4,12 +4,18 @@
  */
 package com.mycompany.decoffeeallforone;
 
+import Component.ChagePage;
 import Component.NavigationBar;
 import Component.ProductListPanel;
 import Dialog.CustomerDialog;
+import Model.Employee;
 import Model.Promotion;
+import Page.ChecekinCheckoutPanel;
+import Page.EmployeePanel;
+import Page.MaterialPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,18 +29,27 @@ import javax.swing.JScrollPane;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
     /**
      * Creates new form MainFrame
      */
+    private NavigationBar navigationBar;
+    private PosPanel posPanel;
+    private ProductPanel productPanel;
+    private UserPanel userPannel;
+    private EmployeePanel employeePannel;
+    private MaterialPanel materialPanel;
+    private ChecekinCheckoutPanel checkInOutPannel;
+    
+
     public MainFrame() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         ProductPanel productPanel = new ProductPanel();
-        //scrPanel.setViewportView(productPanel);
-//    scrPanel.setViewportView(new UserPanel());
-        jScrollPane1.setViewportView(new NavigationBar());
+        navigationBar = new NavigationBar();
+        jScrollPane1.setViewportView(navigationBar);
+        navigationBar.addInSubs(this);
         scrPanel.setViewportView(new PosPanel());
     }
 
@@ -157,4 +172,27 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelFornavigation;
     private javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void chagePage(String pageName) {
+        if(pageName.equals("POS")){
+            scrPanel.setViewportView(new PosPanel());
+        }
+        if(pageName.equals("Product")){
+            scrPanel.setViewportView(new ProductPanel());
+        }
+        if(pageName.equals("User")){
+            scrPanel.setViewportView(new UserPanel());
+        }
+        if(pageName.equals("Employee")){
+            scrPanel.setViewportView(new EmployeePanel());
+        }
+        if(pageName.equals("Material")){
+            scrPanel.setViewportView(new MaterialPanel());
+        }
+        if(pageName.equals("Check In-Out")){
+            scrPanel.setViewportView(new ChecekinCheckoutPanel());
+        }
+        
+    }
 }

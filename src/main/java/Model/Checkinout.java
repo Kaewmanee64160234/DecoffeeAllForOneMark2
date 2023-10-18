@@ -8,6 +8,7 @@ import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class Checkinout {
     private String cioPaidStatus;
     private int employeeId;
     private int ssId;
+    private ArrayList<Employee> employees = new ArrayList();
 
 
 
@@ -127,6 +129,13 @@ public class Checkinout {
     @Override
     public String toString() {
         return "Checkinout{" + "id=" + id + ", cioDate=" + cioDate + ", cioTimeIn=" + cioTimeIn + ", cioTimeOut=" + cioTimeOut + ", cioTotalHour=" + cioTotalHour + ", cioPaidStatus=" + cioPaidStatus + ", employeeId=" + employeeId + ", ssId=" + ssId + '}';
+    }
+    public void calculateTotalHour() {
+        int Total_Hour = 0;
+        for (Employee ey : employees) {
+            Total_Hour = ey.getHourlyWage()*Total_Hour;
+        }
+        this.cioTotalHour = Total_Hour;
     }
 
    

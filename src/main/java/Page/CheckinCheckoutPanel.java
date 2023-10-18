@@ -4,21 +4,91 @@
  */
 package Page;
 
+import Model.Checkinout;
+import Model.Employee;
+import Service.CheckinoutService;
 import java.awt.Font;
+import java.awt.Image;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author toey
  */
-public class ChecekinCheckoutPanel extends javax.swing.JPanel {
+public class CheckinCheckoutPanel extends javax.swing.JPanel {
+
+    private final CheckinoutService checkinoutService;
+    private List<Checkinout> list;
+    private Checkinout editedCheckinout;
 
     /**
      * Creates new form ChecekinCheckoutPanel
      */
-    public ChecekinCheckoutPanel() {
+    public CheckinCheckoutPanel() {
         initComponents();
-        
+        checkinoutService = new CheckinoutService();
+
+        list = checkinoutService.getCheckinouts();
+        tblCheckInCheckOut.setRowHeight(50);
+        tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblCheckInCheckOut.setModel(new AbstractTableModel() {
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Money"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return list.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return ImageIcon.class;
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Checkinout checkinout = list.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        ImageIcon icon = new ImageIcon("./employee" + checkinout.getEmployeeId()+ ".png");
+                        Image image = icon.getImage();
+                        int width = image.getWidth(null);
+                        int height = image.getHeight(null);
+                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
+                        icon.setImage(newImage);
+                        return icon;
+                    case 1:
+                        return checkinout.getId();
+                    case 2:
+                        return checkinout.getCioDate();
+                    case 3:
+                        return checkinout.getCioTimeIn();
+                    case 4:
+                        return checkinout.getCioTimeOut();
+                    case 5:
+                        return checkinout.getCioTotalHour();
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
+
     }
 
     /**

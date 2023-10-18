@@ -6,6 +6,7 @@ package Service;
 
 import Dao.CheckinoutDao;
 import Model.Checkinout;
+import Model.Employee;
 import java.util.Date;
 import java.util.List;
 
@@ -45,11 +46,6 @@ public class CheckinoutService {
     public int delete(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.delete(editedCheckinout);
-    }
-    public Checkinout getByEmployee(int employeeId){
-        CheckinoutDao checkinoutDao =  new CheckinoutDao();
-        Checkinout checkinout = checkinoutDao.getByEmployeeId(employeeId);
-        return checkinout;
     }
 }
 

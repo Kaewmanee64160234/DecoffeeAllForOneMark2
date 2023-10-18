@@ -4,8 +4,12 @@
  */
 package Service;
 
+import Dao.CustomerDao;
 import Dao.EmployeeDao;
+import Dao.UserDao;
+import Model.Customer;
 import Model.Employee;
+import Model.User;
 import java.util.List;
 
 /**
@@ -21,7 +25,7 @@ public class EmployeeService {
         Employee employee = employeeDao.getById(id);
         return employee;
     }
-    
+ 
     public Employee getByTel(String tel) {
         EmployeeDao employeeDao = new EmployeeDao();
         Employee employee = employeeDao.getByTel(tel);

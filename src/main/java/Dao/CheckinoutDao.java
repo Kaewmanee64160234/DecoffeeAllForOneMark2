@@ -148,24 +148,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
         }
         return checkinout;
     }
-    public Checkinout getByEmployeeId(int employee) {
-        Checkinout checkinout = null;
-        String sql = "SELECT * FROM check_in_out WHERE employee_id=?";
-        Connection conn = DatabaseHelper.getConnect();
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, employee);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                checkinout = Checkinout.fromRS(rs);
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return checkinout;
-    }
+    
     
     public Checkinout getByDate(Date date) {
         Checkinout checkinout = null;

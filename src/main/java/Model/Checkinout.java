@@ -144,15 +144,7 @@ public class Checkinout {
     public String toString() {
         return "Checkinout{" + "id=" + id + ", cioDate=" + cioDate + ", cioTimeIn=" + cioTimeIn + ", cioTimeOut=" + cioTimeOut + ", cioTotalHour=" + cioTotalHour + ", cioPaidStatus=" + cioPaidStatus + ", employeeId=" + employeeId + ", ssId=" + ssId + '}';
     }
-    public void calculateTotalHour() {
-        int Total_Hour = 0;
-        int Total_Price = 0;
-        for (Employee ey : employees) {
-            Total_Price = ey.getHourlyWage()*Total_Hour;
-        }
-        this.cioTotalHour = Total_Hour;
-        this.totalPrice = Total_Price;
-    }
+    
 
 //    
 //    public static Checkinout fromRS(ResultSet rs) {

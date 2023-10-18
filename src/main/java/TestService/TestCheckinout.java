@@ -24,17 +24,11 @@ public class TestCheckinout {
 
         Checkinout cnk = ck.get(1);
         System.out.println(cnk.toString());
-        // Create a SimpleDateFormat with the desired time format
+        
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
-        // Get the current time
         Date currentTime = new Date();
-
-        // Format the time using the SimpleDateFormat
         String formattedTime = timeFormat.format(currentTime);
 
-        // Create a Time object from the formatted time string
-        Time sqlTime = Time.valueOf(formattedTime);
 
         Checkinout cc = new Checkinout(formattedTime, formattedTime, 0, "Y", 1, 1);
         ck.save(cc);

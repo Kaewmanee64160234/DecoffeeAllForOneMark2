@@ -4,7 +4,21 @@
  */
 package Page;
 
+import Model.Checkinout;
+import Model.Customer;
+import Model.Employee;
+import Model.User;
+import Service.CustomerService;
+import Service.EmployeeService;
+import Service.UserService;
 import java.awt.Font;
+import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -13,12 +27,41 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ChecekinCheckoutPanel extends javax.swing.JPanel {
 
+    private Checkinout checkinout;
+    private ArrayList<Checkinout> checkinouts;
+    private Customer customer;
+    private CustomerService customerService;
+    private UserService userService;
+    private Employee employee;
+    private EmployeeService employeeService;
+
     /**
      * Creates new form ChecekinCheckoutPanel
      */
     public ChecekinCheckoutPanel() {
         initComponents();
-        
+        checkinout = new Checkinout();
+        customer = new Customer();
+        customerService = new CustomerService();
+        userService = new UserService();
+        employee = new Employee();
+        employeeService = new EmployeeService();
+        setTimeInLblDate();
+ 
+
+    }
+
+    private void setTimeInLblDate() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Date now = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+                String formattedTime = dateFormat.format(now);
+                txtDateTime.setText(formattedTime);
+            }
+        }, 0, 1000); // Update every 1 second
     }
 
     /**
@@ -147,6 +190,11 @@ public class ChecekinCheckoutPanel extends javax.swing.JPanel {
 
         btnCheckOut.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnCheckOut.setText("Check Out");
+        btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckOutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -166,12 +214,13 @@ public class ChecekinCheckoutPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtLogin)
-                            .addComponent(pfdPassword)
-                            .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                                .addComponent(pfdPassword))
+                            .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,10 +311,80 @@ public class ChecekinCheckoutPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
-        // TODO add your handling code here:
+        String name = txtLogin.getText();
+        String pass = new String(pfdPassword.getPassword());
+        User user = userService.login(name, pass);
+        int empID = user.getEmployee_id();
+        String formattedTime = cretaeFormatDate();
+        employee = employeeService.getById(empID);
+        setImage(user);
+        checkinout.setCioTimeIn(formattedTime);
+        checkinout.setCioTimeOut("");
+        checkinout.setCioPaidStatus("N");
+        checkinout.setEmployeeId(empID);
+        checkinout.setCioTotalHour(0);
+        checkinout.setSsId(1);
+        refreshForm();
+
     }//GEN-LAST:event_btnCheckInActionPerformed
 
+    private void refreshForm() {
+        txtLogin.setText("");
+        pfdPassword.setText("");
+    }
 
+    private void setImage(User user) {
+        ImageIcon icon = new ImageIcon("./user" + user.getId() + ".png");
+        Image image = icon.getImage();
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
+        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
+        icon.setImage(newImage);
+    }
+
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        // TODO add your handling code here:
+        String formattedTime = cretaeFormatDate();
+        checkinout.setCioTimeOut(formattedTime);
+        String[] time = new String[2];
+        time[0] = checkinout.getCioTimeIn();
+        time[1] = formattedTime;
+        int total = calculateTotalHours(time);
+
+        checkinout.setCioTotalHour(total);
+        //wating for after
+        //setCalulate Total hour
+        //update checkIn out
+        
+        //logout Emplouyy
+        User user = new User();
+        employee = new Employee();
+        setImage(user);
+
+
+    }//GEN-LAST:event_btnCheckOutActionPerformed
+
+    private String cretaeFormatDate() {
+        // TODO add your handling code here:
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Date currentTime = new Date();
+        String formattedTime = timeFormat.format(currentTime);
+        return formattedTime;
+    }
+
+    public static int calculateTotalHours(String[] timeStrings) {
+        int totalHours = 0;
+
+        for (String timeString : timeStrings) {
+            String[] parts = timeString.split(":");
+            if (parts.length == 3) {
+                int hours = Integer.parseInt(parts[0]);
+                totalHours += hours;
+            }
+        }
+
+        return totalHours;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheckIn;
     private javax.swing.JButton btnCheckOut;

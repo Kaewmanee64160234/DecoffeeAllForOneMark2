@@ -1,10 +1,9 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Dialog;
+package Page;
 
-import BuyStock.TableActionCellRender;
 import Model.Material;
 import Service.MaterialService;
 import java.util.List;
@@ -14,20 +13,19 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Chaiwat
  */
-public class BuyStockDialog extends javax.swing.JDialog {
-
+public class BuyStockPanel extends javax.swing.JPanel {
+    
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
 
-    public BuyStockDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public BuyStockPanel() {
         initComponents();
         materialService = new MaterialService();
         list = materialService.getMaterials();
         tblMeterial.setRowHeight(30);
         tblMeterial.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Name", "Minimum", "Action"};
+            String[] columnNames = {"ID", "Name", "Minimum"};
 
             @Override
             public String getColumnName(int column) {
@@ -41,7 +39,7 @@ public class BuyStockDialog extends javax.swing.JDialog {
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 3;
             }
 
             @Override
@@ -54,16 +52,14 @@ public class BuyStockDialog extends javax.swing.JDialog {
                         return meterial.getName();
                     case 2:
                         return meterial.getMatMinQty();
-                    case 3:
-                        return new TableActionCellRender();
+                        
                     default:
                         return "Unknown";
                 }
             }
         });
-
-        tblMeterial.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,8 +87,6 @@ public class BuyStockDialog extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -220,13 +214,13 @@ public class BuyStockDialog extends javax.swing.JDialog {
         tblMeterial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblMeterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Name", "Minimum", "Action"
+                "ID", "Name", "Minimum"
             }
         ));
         tblMeterial.setFocusable(false);
@@ -322,8 +316,8 @@ public class BuyStockDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,8 +326,6 @@ public class BuyStockDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void edtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDateActionPerformed
@@ -352,21 +344,6 @@ public class BuyStockDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                BuyStockDialog dialog = new BuyStockDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

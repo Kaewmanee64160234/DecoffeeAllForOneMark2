@@ -56,8 +56,6 @@ public class MaterialPanel extends javax.swing.JPanel {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch(columnIndex) {
-                    case 0:
-                        return ImageIcon.class;
                     default:
                         return String.class;
                 }
@@ -68,17 +66,16 @@ public class MaterialPanel extends javax.swing.JPanel {
                 Material material = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                    case 1:
                         return material.getId();
-                    case 2:
+                    case 1:
                         return material.getName();
-                    case 3:
+                    case 2:
                         return material.getMatMinQty();
-                    case 4:
+                    case 3:
                         return material.getMatQty();
-                    case 5:
+                    case 4:
                         return material.getMatUnit();
-                    case 6:
+                    case 5:
                         return material.getMatPricePerUnit();
                     default:
                         return "Unknown";

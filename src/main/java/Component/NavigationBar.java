@@ -4,17 +4,20 @@
  */
 package Component;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author toey
  */
-public class NavigationBar extends javax.swing.JPanel {
-
+public class NavigationBar extends javax.swing.JPanel implements ChagePage{
+private ArrayList<ChagePage> subscobers;
     /**
      * Creates new form NavigationBar
      */
     public NavigationBar() {
         initComponents();
+        subscobers = new ArrayList<ChagePage>();
     }
 
     /**
@@ -156,4 +159,12 @@ public class NavigationBar extends javax.swing.JPanel {
     private javax.swing.JPanel lblLogo;
     private javax.swing.JLabel txt;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage subscober : subscobers) {
+            subscober.chagePage(pageName);
+            
+        }
+    }
 }

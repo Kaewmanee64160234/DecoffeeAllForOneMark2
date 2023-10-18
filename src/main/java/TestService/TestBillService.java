@@ -37,8 +37,8 @@ public class TestBillService {
         
 //        Bill deleteBill = bs.getById(6);
 //        bs.delete(deleteBill);
-        for (Bill bill : bs.getBills()) {
-            System.out.println(bill);
-        }
+//        for (Bill bill : bs.getBills()) {
+//            System.out.println(bill);
+//        }
     }
 }

@@ -9,6 +9,7 @@ import Dialog.CustomerDialog;
 import Model.Promotion;
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.ReportPanel;
 import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
@@ -34,10 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
     ProductPanel productPanel = new ProductPanel();
     //scrPanel.setViewportView(productPanel);
 
-    scrPanel.setViewportView(new LoginPage());
+    scrPanel.setViewportView(new ReportPanel());
 
 //    scrPanel.setViewportView(new UserPanel());
-scrPanel.setViewportView(new PosPanel());
+//    scrPanel.setViewportView(new PosPanel());
 
 }
 

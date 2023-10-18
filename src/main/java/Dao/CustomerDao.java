@@ -63,12 +63,12 @@ public class CustomerDao implements Dao<Customer> {
     public List<CustomerReport> getCustomerByTotalPrice(int limit) {
         ArrayList<CustomerReport> list = new ArrayList();
         String sql = """
-            SELECT customer_id,customer_name,sum(rec.reciept_total)AS TotalSpend
+            SELECT cus.customer_id,cus.customer_name,sum(rec.reciept_total)AS TotalSpend
             FROM reciept rec
             INNER JOIN customer cus ON cus.customer_id = rec.customer_id
             GROUP BY cus.customer_id
             ORDER BY TotalSpend DESC
-            LIMIT ?;
+            LIMIT ?
                      """;
         
         

@@ -121,31 +121,31 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblStartDate" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ftdEndDate1" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="txtStartDate" min="-2" pref="85" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblEndDate" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ftdEndDate" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="txtEndDate" min="-2" pref="85" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnComfirm" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSaleSumGraph" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jScrollPane1" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="lblTopCustomer" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jScrollPane2" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="lblTopSeller" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jScrollPane3" min="-2" pref="400" max="-2" attributes="0"/>
-                                      <Component id="jLabel7" min="-2" pref="235" max="-2" attributes="0"/>
+                                      <Component id="lblProductOutstock" min="-2" pref="235" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -162,30 +162,30 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel4" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="lblSaleSumGraph" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ftdEndDate1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtStartDate" alignment="1" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ftdEndDate" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnComfirm" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtEndDate" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="lblEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblStartDate" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="lblTopCustomer" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="lblTopSeller" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" min="-2" pref="250" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jLabel7" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="lblProductOutstock" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" pref="250" max="-2" attributes="0"/>
                       </Group>
@@ -196,7 +196,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnComfirm">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="18" style="0"/>
@@ -204,7 +204,7 @@
             <Property name="text" type="java.lang.String" value="Confirm"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ftdEndDate">
+        <Component class="javax.swing.JFormattedTextField" name="txtEndDate">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -214,7 +214,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="lblEndDate">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="18" style="0"/>
@@ -222,7 +222,7 @@
             <Property name="text" type="java.lang.String" value="End Date:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lblStartDate">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="18" style="0"/>
@@ -230,7 +230,7 @@
             <Property name="text" type="java.lang.String" value="Start Date:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ftdEndDate1">
+        <Component class="javax.swing.JFormattedTextField" name="txtStartDate">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -255,7 +255,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="lblSaleSumGraph">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="24" style="0"/>
@@ -270,7 +270,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tblTopCustomer">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -291,7 +291,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="tblTopSeller">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -312,7 +312,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable3">
+            <Component class="javax.swing.JTable" name="tblProductOutStock">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -326,7 +326,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="lblTopCustomer">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="24" style="0"/>
@@ -334,7 +334,7 @@
             <Property name="text" type="java.lang.String" value="Top 5 Customer"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
+        <Component class="javax.swing.JLabel" name="lblTopSeller">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="24" style="0"/>
@@ -342,7 +342,7 @@
             <Property name="text" type="java.lang.String" value="Top 5 Best Seller"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="lblProductOutstock">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="24" style="0"/>

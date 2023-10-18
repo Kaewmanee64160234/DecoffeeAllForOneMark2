@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -389,18 +390,30 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         String name = txtLogin.getText();
         String pass = new String(pfdPassword.getPassword());
+        System.out.println(pass);
+        userService = new UserService();
+        employeeService = new EmployeeService();
+        checkinout = new Checkinout();
         User user = userService.login(name, pass);
-        int empID = user.getEmployee_id();
-        String formattedTime = cretaeFormatDate();
-        employee = employeeService.getById(empID);
-        setImage(user);
-        checkinout.setCioTimeIn(formattedTime);
-        checkinout.setCioTimeOut("");
-        checkinout.setCioPaidStatus("N");
-        checkinout.setEmployeeId(empID);
-        checkinout.setCioTotalHour(0);
-        checkinout.setSsId(1);
-        refreshForm();
+        if (user != null) {
+            int empID = user.getEmployee_id();
+            String formattedTime = cretaeFormatDate();
+            employee = employeeService.getById(empID);
+            setImage(user);
+            checkinout.setCioTimeIn(formattedTime);
+            checkinout.setCioTimeOut("");
+            checkinout.setCioPaidStatus("N");
+            checkinout.setEmployeeId(empID);
+            checkinout.setCioTotalHour(0);
+            checkinout.setSsId(1);
+            txtUserName.setText(user.getUsername());
+            txtRole.setText(user.getRole());
+            refreshForm();
+            refreshTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usernot Found");
+        }
+
 
     }//GEN-LAST:event_btnCheckInActionPerformed
     private void refreshTable() {
@@ -412,6 +425,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private void refreshForm() {
         txtLogin.setText("");
         pfdPassword.setText("");
+        txtLogin.setEditable(false);
+        pfdPassword.setEditable(false);
+
     }
 
     private void setImage(User user) {

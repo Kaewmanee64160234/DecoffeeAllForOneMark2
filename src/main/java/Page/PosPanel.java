@@ -586,7 +586,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnAddMember.setText("Add Member");
         btnAddMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMemberActionPerformed(evt);
+                // btnAddMemberActionPerformed(evt);
             }
         });
 

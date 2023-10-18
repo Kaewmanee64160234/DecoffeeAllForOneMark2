@@ -177,8 +177,8 @@ public class CheckinoutDao implements Dao<Checkinout> {
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setTime(1, obj.getCioTimeIn());
-            stmt.setTime(2, obj.getCioTimeOut());
+            stmt.setString(1, obj.getCioTimeIn());
+            stmt.setString(2, obj.getCioTimeOut());
             stmt.setInt(3, obj.getCioTotalHour());
             stmt.setString(4, obj.getCioPaidStatus());
             stmt.setInt(5, obj.getEmployeeId());

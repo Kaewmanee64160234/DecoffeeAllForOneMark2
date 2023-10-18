@@ -15,7 +15,6 @@ import Page.EmployeePanel;
 import Page.MaterialPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
-import Page.ReportPanel;
 import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
@@ -35,7 +34,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     /**
      * Creates new form MainFrame
      */
-
     private NavigationBar navigationBar;
     private PosPanel posPanel;
     private ProductPanel productPanel;
@@ -43,10 +41,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private EmployeePanel employeePannel;
     private MaterialPanel materialPanel;
     private ChecekinCheckoutPanel checkInOutPannel;
+    
 
     public MainFrame() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set full Screen
+        setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
         jScrollPane1.setViewportView(navigationBar);
@@ -61,8 +60,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         scrPanel = new javax.swing.JScrollPane();
@@ -75,11 +73,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1318, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1318, Short.MAX_VALUE)
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 785, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 785, Short.MAX_VALUE)
+        );
 
         scrPanel.setViewportView(jPanel1);
 
@@ -88,43 +88,41 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         javax.swing.GroupLayout panelFornavigationLayout = new javax.swing.GroupLayout(panelFornavigation);
         panelFornavigation.setLayout(panelFornavigationLayout);
         panelFornavigationLayout.setHorizontalGroup(
-                panelFornavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelFornavigationLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(15, Short.MAX_VALUE)));
+            panelFornavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFornavigationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
         panelFornavigationLayout.setVerticalGroup(
-                panelFornavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelFornavigationLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            panelFornavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFornavigationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelFornavigation, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1320,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelFornavigation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelFornavigation, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 787,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelFornavigation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -177,24 +175,24 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
     @Override
     public void chagePage(String pageName) {
-        if (pageName.equals("POS")) {
+        if(pageName.equals("POS")){
             scrPanel.setViewportView(new PosPanel());
         }
-        if (pageName.equals("Product")) {
+        if(pageName.equals("Product")){
             scrPanel.setViewportView(new ProductPanel());
         }
-        if (pageName.equals("User")) {
+        if(pageName.equals("User")){
             scrPanel.setViewportView(new UserPanel());
         }
-        if (pageName.equals("Employee")) {
+        if(pageName.equals("Employee")){
             scrPanel.setViewportView(new EmployeePanel());
         }
-        if (pageName.equals("Material")) {
+        if(pageName.equals("Material")){
             scrPanel.setViewportView(new MaterialPanel());
         }
-        if (pageName.equals("Check In-Out")) {
+        if(pageName.equals("Check In-Out")){
             scrPanel.setViewportView(new ChecekinCheckoutPanel());
         }
-
+        
     }
 }

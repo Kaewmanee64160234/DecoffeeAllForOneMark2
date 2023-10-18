@@ -86,9 +86,9 @@ public class MaterialDao implements Dao<Material> {
     public List<MaterialReport> getMaterialByMinQty() {
         ArrayList<MaterialReport> list = new ArrayList();
         String sql = """
-                SELECT mat.mat_id,mat.mat_name, mat.mat_quantity
-                FROM material mat
-                WHERE mat.mat_quantity < mat.mat_min_quantity
+            SELECT mat_id,mat_name, mat_quantity
+            FROM material
+            ORDER by (mat_quantity - mat_min_quantity) asc
                                      """;
 
         Connection conn = DatabaseHelper.getConnect();

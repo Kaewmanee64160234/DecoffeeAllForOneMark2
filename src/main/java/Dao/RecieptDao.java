@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Reciept;
+import Model.RecieptReport;
 import helper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -103,6 +104,34 @@ public class RecieptDao implements Dao<Reciept> {
         return list;
     }
 
+    public List<RecieptReport> getRecieptByTotalSale(String being, String end) {
+        ArrayList<RecieptReport> list = new ArrayList();
+        String sql = """
+            SELECT sum(reciept_total) AS TotalSale
+            FROM reciept
+            WHERE  create_date BETWEEN ? AND ?
+            GROUP BY create_date
+                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, being);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RecieptReport obj = RecieptReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
+    
     @Override
     public Reciept save(Reciept obj) {
 

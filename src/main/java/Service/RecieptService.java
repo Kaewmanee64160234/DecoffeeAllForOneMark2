@@ -12,6 +12,7 @@ import Dao.RecieptDetailDao;
 import Model.Reciept;
 import Model.RecieptDetail;
 import Model.RecieptDetailReport;
+import Model.RecieptReport;
 import Model.Topping;
 
 /**
@@ -68,6 +69,11 @@ public class RecieptService{
         return recieptDetailDao.getTopTenProductSale(10);
     }
     
+         public List<RecieptReport> getTopTenArtistByTotalPrice(String begin, String end) {
+        RecieptDao recieptDao = new RecieptDao();
+        return recieptDao.getRecieptByTotalSale(begin,end);
+    }
+     
     public Reciept addNew(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();

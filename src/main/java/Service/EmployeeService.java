@@ -6,6 +6,7 @@ package Service;
 
 import Dao.EmployeeDao;
 import Model.Employee;
+import Model.EmployeeReport;
 import java.util.List;
 
 /**
@@ -35,6 +36,11 @@ public class EmployeeService {
 
     public Employee getEditedEmployee() {
         return editedEmployee;
+    }
+    
+     public List<EmployeeReport> getTopFiveCustomerByTotalPrice() {
+        EmployeeDao employeeDao = new EmployeeDao();
+        return employeeDao.getEmployeeByTotalHour(5);
     }
 
     public void setEditedEmployee(Employee editedEmployee) {

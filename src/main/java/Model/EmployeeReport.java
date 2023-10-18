@@ -69,8 +69,8 @@ public class EmployeeReport {
     public static EmployeeReport fromRS(ResultSet rs) {
         EmployeeReport obj = new EmployeeReport();
         try {
-            obj.setId(rs.getInt("mat_id"));
-            obj.setName(rs.getString("mat_name"));
+            obj.setId(rs.getInt("employee_id"));
+            obj.setName(rs.getString("employee_name"));
            obj.setTopEmployee(rs.getInt("TopEmployee"));
            
         } catch (SQLException ex) {

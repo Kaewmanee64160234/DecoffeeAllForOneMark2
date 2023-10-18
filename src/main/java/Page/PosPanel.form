@@ -18,11 +18,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jpnlHeader" max="32767" attributes="0"/>
                   <Component id="jpnlDetail" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -32,8 +32,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jpnlHeader" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jpnlDetail" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jpnlDetail" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,33 +110,30 @@
                       <Component id="scrProductList" max="32767" attributes="0"/>
                       <Component id="jPanel5" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtItemList" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="495" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtItemList" min="-2" pref="255" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnMainMenu" min="-2" pref="149" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnFindMember" min="-2" pref="149" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnPromotion" min="-2" pref="149" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnAddMember" min="-2" pref="149" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnCancel" min="-2" pref="149" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnPosConfirm" min="-2" pref="161" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jpnlMember" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jpnlCaculator" min="-2" max="-2" attributes="0"/>
+                          <Component id="jpnlCaculator" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnPromotion" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                              <Component id="btnMainMenu" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnAddMember" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                              <Component id="btnFindMember" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnPosConfirm" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                              <Component id="btnCancel" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -149,38 +146,27 @@
                       <Component id="txtItemList" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jScrollPane2" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="261" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jpnlMember" max="32767" attributes="0"/>
                               <Component id="jpnlCaculator" max="32767" attributes="0"/>
+                              <Component id="jpnlMember" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="btnMainMenu" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnPromotion" min="-2" pref="43" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="btnFindMember" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnAddMember" min="-2" pref="43" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnCancel" min="-2" pref="43" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnPosConfirm" min="-2" pref="43" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnFindMember" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="btnMainMenu" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="btnCancel" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="btnPosConfirm" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="btnAddMember" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="btnPromotion" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="scrProductList" min="-2" pref="472" max="-2" attributes="0"/>
+                      <Component id="scrProductList" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -235,7 +221,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="txtMemberPoint" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="44" max="32767" attributes="0"/>
+                              <EmptySpace pref="201" max="32767" attributes="0"/>
                               <Component id="lblMemberPoint" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtPoint" min="-2" max="-2" attributes="0"/>
@@ -314,7 +300,7 @@
             <Component class="javax.swing.JLabel" name="txtmemberName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Member Name:"/>
               </Properties>
@@ -322,7 +308,7 @@
             <Component class="javax.swing.JLabel" name="txtPhoneNumber">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Phone Number:"/>
               </Properties>
@@ -330,7 +316,7 @@
             <Component class="javax.swing.JLabel" name="txtMemberPoint">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Member Point:"/>
               </Properties>
@@ -338,7 +324,7 @@
             <Component class="javax.swing.JLabel" name="txtPointEarn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Point Earn:"/>
               </Properties>
@@ -346,7 +332,7 @@
             <Component class="javax.swing.JLabel" name="txtTotalPoint">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Total Point"/>
               </Properties>
@@ -354,7 +340,7 @@
             <Component class="javax.swing.JLabel" name="lblMemberName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="-"/>
@@ -363,7 +349,7 @@
             <Component class="javax.swing.JLabel" name="lblPhoneNumber">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="-"/>
@@ -372,7 +358,7 @@
             <Component class="javax.swing.JLabel" name="lblMemberPoint">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -381,7 +367,7 @@
             <Component class="javax.swing.JLabel" name="lblPointEarn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -390,7 +376,7 @@
             <Component class="javax.swing.JLabel" name="lblTotalPoint">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -399,7 +385,7 @@
             <Component class="javax.swing.JLabel" name="txtPoint">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Point"/>
               </Properties>
@@ -407,7 +393,7 @@
             <Component class="javax.swing.JLabel" name="txtPoint1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Point"/>
               </Properties>
@@ -415,7 +401,7 @@
             <Component class="javax.swing.JLabel" name="txtPoint2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Point"/>
               </Properties>
@@ -423,7 +409,7 @@
             <Component class="javax.swing.JLabel" name="lblPromotionName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Promotion:"/>
               </Properties>
@@ -431,7 +417,7 @@
             <Component class="javax.swing.JLabel" name="lblPromotionNameShow">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="-"/>
@@ -452,6 +438,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnCalculator" max="32767" attributes="0"/>
                           <Component id="btnPromtpay" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtTotal" min="-2" max="-2" attributes="0"/>
@@ -463,7 +450,7 @@
                           <Group type="102" attributes="0">
                               <Component id="txtCange" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="lblCange" pref="145" max="32767" attributes="0"/>
+                              <Component id="lblCange" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtBaht5" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -483,7 +470,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtCash" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="304" max="32767" attributes="0"/>
                               <Component id="lblCash" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtBaht4" min="-2" max="-2" attributes="0"/>
@@ -526,9 +513,11 @@
                           <Component id="txtBaht5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCange" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnCalculator" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnPromtpay" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -537,7 +526,7 @@
             <Component class="javax.swing.JLabel" name="txtTotal">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Total:"/>
               </Properties>
@@ -545,7 +534,7 @@
             <Component class="javax.swing.JLabel" name="txtDiscount">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Discount:"/>
               </Properties>
@@ -553,7 +542,7 @@
             <Component class="javax.swing.JLabel" name="txtTotalNet">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Total Net:"/>
               </Properties>
@@ -561,7 +550,7 @@
             <Component class="javax.swing.JLabel" name="txtCash">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cash:"/>
               </Properties>
@@ -569,7 +558,7 @@
             <Component class="javax.swing.JLabel" name="txtCange">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Change:"/>
               </Properties>
@@ -577,7 +566,7 @@
             <Component class="javax.swing.JLabel" name="txtBaht1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Baht"/>
               </Properties>
@@ -585,7 +574,7 @@
             <Component class="javax.swing.JLabel" name="txtBaht2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Baht"/>
               </Properties>
@@ -593,7 +582,7 @@
             <Component class="javax.swing.JLabel" name="txtBaht3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Baht"/>
               </Properties>
@@ -601,7 +590,7 @@
             <Component class="javax.swing.JLabel" name="txtBaht4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Baht"/>
               </Properties>
@@ -609,7 +598,7 @@
             <Component class="javax.swing.JLabel" name="txtBaht5">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Baht"/>
               </Properties>
@@ -617,7 +606,7 @@
             <Component class="javax.swing.JLabel" name="lblTotal">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -626,7 +615,7 @@
             <Component class="javax.swing.JLabel" name="lblDiscount">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -635,7 +624,7 @@
             <Component class="javax.swing.JLabel" name="lblTotalNet">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -644,7 +633,7 @@
             <Component class="javax.swing.JLabel" name="lblCange">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -653,7 +642,7 @@
             <Component class="javax.swing.JTextField" name="lblCash">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="0"/>
@@ -662,13 +651,21 @@
             <Component class="javax.swing.JButton" name="btnPromtpay">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Kanit" size="12" style="0"/>
+                  <Font name="Kanit" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Promtpay"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPromtpayActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnCalculator">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Kanit" size="18" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Calculator"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -780,7 +777,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="478" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="634" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

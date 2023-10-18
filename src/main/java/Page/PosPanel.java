@@ -213,6 +213,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblCange = new javax.swing.JLabel();
         lblCash = new javax.swing.JTextField();
         btnPromtpay = new javax.swing.JButton();
+        btnCalculator = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnDrinks = new javax.swing.JButton();
         btnDessert = new javax.swing.JButton();
@@ -277,54 +278,54 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         jpnlMember.setBackground(new java.awt.Color(199, 195, 188));
 
-        txtmemberName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtmemberName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtmemberName.setText("Member Name:");
 
-        txtPhoneNumber.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPhoneNumber.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtPhoneNumber.setText("Phone Number:");
 
-        txtMemberPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtMemberPoint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtMemberPoint.setText("Member Point:");
 
-        txtPointEarn.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPointEarn.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtPointEarn.setText("Point Earn:");
 
-        txtTotalPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtTotalPoint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotalPoint.setText("Total Point");
 
-        lblMemberName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblMemberName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblMemberName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMemberName.setText("-");
 
-        lblPhoneNumber.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPhoneNumber.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblPhoneNumber.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPhoneNumber.setText("-");
 
-        lblMemberPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblMemberPoint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblMemberPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMemberPoint.setText("0");
 
-        lblPointEarn.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPointEarn.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblPointEarn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPointEarn.setText("0");
 
-        lblTotalPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTotalPoint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblTotalPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotalPoint.setText("0");
 
-        txtPoint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPoint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtPoint.setText("Point");
 
-        txtPoint1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPoint1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtPoint1.setText("Point");
 
-        txtPoint2.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPoint2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtPoint2.setText("Point");
 
-        lblPromotionName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPromotionName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblPromotionName.setText("Promotion:");
 
-        lblPromotionNameShow.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblPromotionNameShow.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblPromotionNameShow.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPromotionNameShow.setText("-");
 
@@ -345,7 +346,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout.createSequentialGroup()
                         .addComponent(txtMemberPoint)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
                         .addComponent(lblMemberPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPoint))
@@ -404,63 +405,66 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         jpnlCaculator.setBackground(new java.awt.Color(199, 195, 188));
 
-        txtTotal.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotal.setText("Total:");
 
-        txtDiscount.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtDiscount.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtDiscount.setText("Discount:");
 
-        txtTotalNet.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtTotalNet.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotalNet.setText("Total Net:");
 
-        txtCash.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtCash.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtCash.setText("Cash:");
 
-        txtCange.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtCange.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtCange.setText("Change:");
 
-        txtBaht1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtBaht1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtBaht1.setText("Baht");
 
-        txtBaht2.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtBaht2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtBaht2.setText("Baht");
 
-        txtBaht3.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtBaht3.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtBaht3.setText("Baht");
 
-        txtBaht4.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtBaht4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtBaht4.setText("Baht");
 
-        txtBaht5.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtBaht5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtBaht5.setText("Baht");
 
-        lblTotal.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotal.setText("0");
 
-        lblDiscount.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblDiscount.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblDiscount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblDiscount.setText("0");
 
-        lblTotalNet.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblTotalNet.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblTotalNet.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotalNet.setText("0");
 
-        lblCange.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblCange.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblCange.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCange.setText("0");
 
-        lblCash.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        lblCash.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         lblCash.setText("0");
 
-        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPromtpay.setText("Promtpay");
         btnPromtpay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPromtpayActionPerformed(evt);
             }
         });
+
+        btnCalculator.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCalculator.setText("Calculator");
 
         javax.swing.GroupLayout jpnlCaculatorLayout = new javax.swing.GroupLayout(jpnlCaculator);
         jpnlCaculator.setLayout(jpnlCaculatorLayout);
@@ -469,6 +473,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtTotal)
@@ -479,7 +484,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtCange)
                         .addGap(13, 13, 13)
-                        .addComponent(lblCange, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                        .addComponent(lblCange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBaht5))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
@@ -496,7 +501,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         .addComponent(txtBaht3))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtCash)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
                         .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBaht4)))
@@ -530,9 +535,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addComponent(txtCange)
                     .addComponent(txtBaht5)
                     .addComponent(lblCange))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCalculator)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPromtpay)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(170, 183, 173));
@@ -570,6 +577,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -618,7 +626,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGap(0, 634, Short.MAX_VALUE)
         );
 
         scrProductList.setViewportView(jPanel1);
@@ -677,27 +685,27 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrProductList)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(30, 30, 30)
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnlDetailLayout.createSequentialGroup()
                         .addComponent(jpnlMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpnlCaculator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpnlDetailLayout.createSequentialGroup()
-                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 14, Short.MAX_VALUE))
+                        .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnlDetailLayout.setVerticalGroup(
             jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -707,30 +715,23 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpnlDetailLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jpnlMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                    .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                    .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpnlMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -739,10 +740,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -750,8 +751,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap()
                 .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpnlDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -940,6 +941,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddMember;
+    private javax.swing.JButton btnCalculator;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDessert;
     private javax.swing.JButton btnDrinks;

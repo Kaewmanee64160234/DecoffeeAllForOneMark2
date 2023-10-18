@@ -1031,7 +1031,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice,
             String sweetName, float sweetPrice, String typeName, float typePrice) {
-
         reciept.addReceiptDetail(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice,
                 typeName, typePrice);
         if (reciept.getPromotion() != null && reciept.getPromotion().getDiscountPerc() > 0) {
@@ -1040,7 +1039,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         }
         refreshTable();
         reciept.calculateTotal();
-        lblTotal.setText(reciept.getTotal() + "");
+        lblTotal.setText(reciept.getTotal()+"");
 
     }
 
@@ -1080,7 +1079,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
-        lblTotal.setText(reciept.getTotal() + "");
+        lblTotal.setText(reciept.getTotal()+"");
         lblTotalNet.setText(totalNet + "");
         System.out.println(reciept.getTotal());
     }

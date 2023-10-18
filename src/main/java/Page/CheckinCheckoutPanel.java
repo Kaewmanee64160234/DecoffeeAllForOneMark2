@@ -18,12 +18,14 @@ import Service.EmployeeService;
 import Service.UserService;
 import java.awt.Font;
 import java.awt.Image;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -34,7 +36,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
 
     private final CheckinoutService checkinoutService;
     private List<Checkinout> list;
-    private Checkinout editedCheckinout;
 
     private Checkinout checkinout;
     private ArrayList<Checkinout> checkinouts;
@@ -50,8 +51,14 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     public CheckinCheckoutPanel() {
         initComponents();
         checkinoutService = new CheckinoutService();
-
-        list = checkinoutService.getCheckinouts();
+        checkinout = new Checkinout();
+        customer = new Customer();
+        customerService = new CustomerService();
+        userService = new UserService();
+        employee = new Employee();
+        employeeService = new EmployeeService();
+        list = new ArrayList<Checkinout>();
+        tblCheckInCheckOut.setEnabled(false);
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblCheckInCheckOut.setModel(new AbstractTableModel() {
@@ -117,12 +124,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
             icon.setImage(newImage);
             lblImage.setIcon(icon);
         }
-        checkinout = new Checkinout();
-        customer = new Customer();
-        customerService = new CustomerService();
-        userService = new UserService();
-        employee = new Employee();
-        employeeService = new EmployeeService();
+
         setTimeInLblDate();
 
     }
@@ -389,22 +391,42 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         String name = txtLogin.getText();
         String pass = new String(pfdPassword.getPassword());
+        System.out.println(pass);
+        userService = new UserService();
+        employeeService = new EmployeeService();
+        checkinout = new Checkinout();
         User user = userService.login(name, pass);
-        int empID = user.getEmployee_id();
-        String formattedTime = cretaeFormatDate();
-        employee = employeeService.getById(empID);
-        setImage(user);
-        checkinout.setCioTimeIn(formattedTime);
-        checkinout.setCioTimeOut("");
-        checkinout.setCioPaidStatus("N");
-        checkinout.setEmployeeId(empID);
-        checkinout.setCioTotalHour(0);
-        checkinout.setSsId(1);
-        refreshForm();
+        if (user != null) {
+            int empID = user.getEmployee_id();
+            String formattedTime = cretaeFormatDate();
+            employee = employeeService.getById(empID);
+            setImage(user);
+            checkinout.setCioTimeIn(formattedTime);
+            checkinout.setCioTimeOut("");
+            checkinout.setCioPaidStatus("N");
+            checkinout.setEmployeeId(empID);
+            checkinout.setCioTotalHour(0);
+            checkinout.setSsId(1);
+            checkinoutService.addNew(checkinout);
+            txtUserName.setText(user.getUsername());
+            txtRole.setText(user.getRole());
+
+            list = checkinoutService.getCheckinoutsByIdEmployee(empID);
+
+            tblCheckInCheckOut.setEnabled(true);
+            refreshForm();
+            refreshTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usernot Found");
+            return;
+        }
+     
+        btnCheckIn.setEnabled(false);
+        btnCheckOut.setEnabled(true);
 
     }//GEN-LAST:event_btnCheckInActionPerformed
     private void refreshTable() {
-        list = checkinoutService.getCheckinouts();
+
         tblCheckInCheckOut.revalidate();
         tblCheckInCheckOut.repaint();
     }
@@ -412,6 +434,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private void refreshForm() {
         txtLogin.setText("");
         pfdPassword.setText("");
+
     }
 
     private void setImage(User user) {
@@ -425,23 +448,30 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
+        System.out.println("-----------------------------------");
         String formattedTime = cretaeFormatDate();
-        checkinout.setCioTimeOut(formattedTime);
         String[] time = new String[2];
-        time[0] = checkinout.getCioTimeIn();
-        time[1] = formattedTime;
-        int total = calculateTotalHours(time);
-
-        checkinout.setCioTotalHour(total);
-        //wating for after
-        //setCalulate Total hour
-        //update checkIn out
-
+        System.out.println(formattedTime);
+        double total = calculateTotalHours(checkinout.getCioTimeIn(), formattedTime);
+        checkinout.setCioTimeOut(formattedTime);
+        checkinout.setCioTotalHour((int) total);
+        System.out.println(total);
+        System.out.println(checkinout.toString());
+        checkinoutService.update(checkinout);
         //logout Emplouyy
-        User user = new User();
-        employee = new Employee();
-        setImage(user);
 
+        tblCheckInCheckOut.setEnabled(false);
+        list.clear();
+        refreshTable();
+        User user = new User();
+        setImage(user);
+        employee = new Employee();
+        txtUserName.setText("");
+        txtRole.setText("");
+        System.out.println("-----------------------------------");
+        btnCheckIn.setEnabled(true);
+        btnCheckOut.setEnabled(false);
+     
 
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
@@ -453,18 +483,21 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         return formattedTime;
     }
 
-    public static int calculateTotalHours(String[] timeStrings) {
-        int totalHours = 0;
+    public static double calculateTotalHours(String startTime, String endTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
-        for (String timeString : timeStrings) {
-            String[] parts = timeString.split(":");
-            if (parts.length == 3) {
-                int hours = Integer.parseInt(parts[0]);
-                totalHours += hours;
-            }
+        try {
+            Date start = sdf.parse(startTime);
+            Date end = sdf.parse(endTime);
+
+            long timeDifference = end.getTime() - start.getTime();
+            double hoursDifference = timeDifference / (double) 3600000;
+
+            return hoursDifference;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1; // Return a negative value to indicate an error
         }
-
-        return totalHours;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheckIn;

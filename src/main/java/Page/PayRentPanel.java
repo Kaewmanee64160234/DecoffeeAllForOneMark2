@@ -4,19 +4,82 @@
  */
 package Page;
 
+import Model.RentStore;
+import Service.RentStoreService;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author ASUS
  */
 public class PayRentPanel extends javax.swing.JPanel {
+
+    private final RentStoreService rentStoreService;
+    private RentStore rentStore;
+    private ArrayList<RentStore> rentStores;
+    private List<RentStore> list;
     
     /**
      * Creates new form PayRentPanel
      */
     public PayRentPanel() {
         initComponents();
+        rentStoreService = new RentStoreService();
+        rentStore = new RentStore();
+         list = rentStoreService.getRentStores();
+        tblPayRent.setEnabled(false);
+        tblPayRent.setRowHeight(50);
+        tblPayRent.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblPayRent.setModel(new AbstractTableModel() {
+            String[] columnNames = {"Water Payment", "Electic Payment", "Total Payment", "Paid Status"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return list.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 4;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                RentStore rentStore = list.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return rentStore.getRentWater();
+                    case 1:
+                        return rentStore.getRentElectic();
+                    case 2:
+                        return rentStore.getRentTotal();
+                    case 3:
+                        return rentStore.getRentPaidStatus();
+          
+
+                    default:
+                        return "Unknown";
+                }
+            }
+
+        });
         
     }
 
@@ -40,7 +103,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         pnlDatePicker2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPayRent = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -82,7 +145,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel7.setText("Status:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPayRent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -93,7 +156,7 @@ public class PayRentPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPayRent);
 
         jButton5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jButton5.setText("Add a rent bill");
@@ -138,7 +201,6 @@ public class PayRentPanel extends javax.swing.JPanel {
                         .addGap(31, 31, 31)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,10 +231,11 @@ public class PayRentPanel extends javax.swing.JPanel {
                         .addGap(68, 68, 68)
                         .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
@@ -189,7 +252,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 546, Short.MAX_VALUE)
+            .addGap(0, 539, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,7 +268,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,22 +283,16 @@ public class PayRentPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
+    private javax.swing.JTable tblPayRent;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Employee;
+import Model.EmployeeReport;
 import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +40,7 @@ public class EmployeeDao implements Dao<Employee> {
         }
         return employee;
     }
-    
+
     public Employee getById(int id) {
         Employee employee = null;
         String sql = "SELECT * FROM employee WHERE employee_id=?";
@@ -131,6 +132,34 @@ public class EmployeeDao implements Dao<Employee> {
             while (rs.next()) {
                 Employee employee = Employee.fromRS(rs);
                 list.add(employee);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<EmployeeReport> getEmployeeByTotalHour(int limit) {
+        ArrayList<EmployeeReport> list = new ArrayList();
+        String sql = """
+                SELECT emp.employee_id, emp.employee_name ,sum(cio.cio_total_hour) AS TopEmployee
+                FROM employee emp NATURAL JOIN check_in_out cio
+                GROUP BY emp.employee_id
+                ORDER BY TopEmployee DESC
+                LIMIT ?
+                                         """;
+
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                EmployeeReport obj = EmployeeReport.fromRS(rs);
+                list.add(obj);
 
             }
 

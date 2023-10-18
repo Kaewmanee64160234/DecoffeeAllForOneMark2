@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Customer;
+import Model.CustomerReport;
 import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,6 +60,36 @@ public class CustomerDao implements Dao<Customer> {
         return customer;
     }
 
+    public List<CustomerReport> getCustomerByTotalPrice(int limit) {
+        ArrayList<CustomerReport> list = new ArrayList();
+        String sql = """
+            SELECT cus.customer_id,cus.customer_name,sum(rec.reciept_total)AS TotalSpend
+            FROM reciept rec
+            INNER JOIN customer cus ON cus.customer_id = rec.customer_id
+            GROUP BY cus.customer_id
+            ORDER BY TotalSpend DESC
+            LIMIT ?
+                     """;
+        
+        
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CustomerReport obj = CustomerReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
     @Override
     public List<Customer> getAll() {
         ArrayList<Customer> list = new ArrayList();

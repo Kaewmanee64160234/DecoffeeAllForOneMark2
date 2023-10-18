@@ -6,6 +6,7 @@ package Service;
 
 import Dao.CustomerDao;
 import Model.Customer;
+import Model.CustomerReport;
 import java.util.List;
 
 /**
@@ -19,7 +20,12 @@ public class CustomerService {
         Customer customer = customerDao.getByTel(tel);
         return customer;
     }
-
+    
+    public List<CustomerReport> getTopTenCustomerByTotalPrice() {
+        CustomerDao customerDao = new CustomerDao();
+        return customerDao.getCustomerByTotalPrice(10);
+    }
+    
     public List<Customer> getCustomers() {
         CustomerDao customerDao = new CustomerDao();
         return customerDao.getAll(" customer_id asc");

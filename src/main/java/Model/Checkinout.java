@@ -21,44 +21,53 @@ public class Checkinout {
 
     private int id;
     private Date cioDate;
-    private Time cioTimeIn;
-    private Time cioTimeOut;
+    private String cioTimeIn;
+    private String cioTimeOut;
     private int cioTotalHour;
     private String cioPaidStatus;
     private int employeeId;
     private int ssId;
     private ArrayList<Employee> employees = new ArrayList();
 
-
-
-    public Checkinout(int id, Date cioDate, Time cioTimeIn, Time cioTimeOut, int cioTotalHour, String cioPaidStatus, int employeeId, int ssId) {
+    public Checkinout(int id, Date cioDate, String cioTimeIn, String cioTimeOut, int cioTotalHour, String cioPaidStatus, int employeeId, int ssId) {
         this.id = id;
         this.cioDate = cioDate;
         this.cioTimeIn = cioTimeIn;
         this.cioTimeOut = cioTimeOut;
         this.cioTotalHour = cioTotalHour;
-        this.cioPaidStatus= cioPaidStatus;
-        this.employeeId= employeeId;
+        this.cioPaidStatus = cioPaidStatus;
+        this.employeeId = employeeId;
         this.ssId = ssId;
     }
-     public Checkinout(Date cioDate, Time cioTimeIn, Time cioTimeOut, int cioTotalHour, String cioPaidStatus, int employeeId, int ssId) {
+
+    public Checkinout(Date cioDate, String cioTimeIn, String cioTimeOut, int cioTotalHour, String cioPaidStatus, int employeeId, int ssId) {
         this.id = -1;
         this.cioDate = cioDate;
         this.cioTimeIn = cioTimeIn;
         this.cioTimeOut = cioTimeOut;
         this.cioTotalHour = cioTotalHour;
-        this.cioPaidStatus= cioPaidStatus;
-        this.employeeId= employeeId;
+        this.cioPaidStatus = cioPaidStatus;
+        this.employeeId = employeeId;
         this.ssId = ssId;
     }
-    public Checkinout( ) {
+
+    public Checkinout(String cioTimeIn, String cioTimeOut, int cioTotalHour, String cioPaidStatus, int employeeId, int ssId) {
+        this.cioTimeIn = cioTimeIn;
+        this.cioTimeOut = cioTimeOut;
+        this.cioTotalHour = cioTotalHour;
+        this.cioPaidStatus = cioPaidStatus;
+        this.employeeId = employeeId;
+        this.ssId = ssId;
+    }
+
+    public Checkinout() {
         this.id = -1;
         this.cioDate = null;
         this.cioTimeIn = null;
         this.cioTimeOut = null;
         this.cioTotalHour = 0;
-        this.cioPaidStatus= "";
-        this.employeeId= -1;
+        this.cioPaidStatus = "";
+        this.employeeId = -1;
         this.ssId = -1;
     }
 
@@ -78,19 +87,19 @@ public class Checkinout {
         this.cioDate = cioDate;
     }
 
-    public Time getCioTimeIn() {
+    public String getCioTimeIn() {
         return cioTimeIn;
     }
 
-    public void setCioTimeIn(Time cioTimeIn) {
+    public void setCioTimeIn(String cioTimeIn) {
         this.cioTimeIn = cioTimeIn;
     }
 
-    public Time getCioTimeOut() {
+    public String getCioTimeOut() {
         return cioTimeOut;
     }
 
-    public void setCioTimeOut(Time cioTimeOut) {
+    public void setCioTimeOut(String cioTimeOut) {
         this.cioTimeOut = cioTimeOut;
     }
 
@@ -138,26 +147,55 @@ public class Checkinout {
         this.cioTotalHour = Total_Hour;
     }
 
-   
-
-    
+//    
+//    public static Checkinout fromRS(ResultSet rs) {
+//        Checkinout checkinout = new Checkinout();
+//        try {
+//            checkinout.setId(rs.getInt("cio_id"));
+//            checkinout.setCioDate(rs.getTimestamp("cio_date"));
+//            
+////            checkinout.setCioTimeIn(rs.getTime("cio_time_in"));
+////            checkinout.setCioTimeOut(rs.getTime("cio_time_out"));
+// // Retrieve time values as strings
+//        String timeInStr = rs.getString("cio_time_in");
+//        String timeOutStr = rs.getString("cio_time_out");
+//
+//        // Split the time strings and construct Time objects
+//        String[] timeInParts = timeInStr.split(":");
+//        Time timeIn = new Time(Integer.parseInt(timeInParts[0]), Integer.parseInt(timeInParts[1]), Integer.parseInt(timeInParts[2]));
+//
+//        String[] timeOutParts = timeOutStr.split(":");
+//        Time timeOut = new Time(Integer.parseInt(timeOutParts[0]), Integer.parseInt(timeOutParts[1]), Integer.parseInt(timeOutParts[2]));
+//
+//        checkinout.setCioTimeIn(timeIn);
+//        checkinout.setCioTimeOut(timeOut);
+//        
+//            checkinout.setCioTotalHour(rs.getInt("cio_total_hour"));
+//            checkinout.setCioPaidStatus(rs.getString("cio_paid_status"));
+//            checkinout.setEmployeeId(rs.getInt("employee_id"));
+//            checkinout.setSsId(rs.getInt("ss_id"));
+//        } catch (SQLException ex) { 
+//            Logger.getLogger(Checkinout.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        }
+//        return checkinout;
+//    }
     public static Checkinout fromRS(ResultSet rs) {
         Checkinout checkinout = new Checkinout();
         try {
             checkinout.setId(rs.getInt("cio_id"));
             checkinout.setCioDate(rs.getTimestamp("cio_date"));
-//                        obj.setCreaetedDate(rs.getTimestamp("create_date"));
-
-            checkinout.setCioTimeIn(rs.getTime("cio_time_in"));
-            checkinout.setCioTimeOut(rs.getTime("cio_time_out"));
+            checkinout.setCioTimeIn(rs.getString("cio_time_in"));
+            checkinout.setCioTimeOut(rs.getString("cio_time_out"));
             checkinout.setCioTotalHour(rs.getInt("cio_total_hour"));
             checkinout.setCioPaidStatus(rs.getString("cio_paid_status"));
             checkinout.setEmployeeId(rs.getInt("employee_id"));
             checkinout.setSsId(rs.getInt("ss_id"));
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(Checkinout.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         return checkinout;
     }
+
 }

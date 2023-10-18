@@ -42,4 +42,8 @@ public class CheckinoutService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.update(editedCheckinout);
     }
+    public int delete(Checkinout editedCheckinout) {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        return checkinoutDao.delete(editedCheckinout);
+    }
 }

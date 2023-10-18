@@ -35,7 +35,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblCheckInCheckOut.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Money"};
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour"};
 
             @Override
             public String getColumnName(int column) {
@@ -49,7 +49,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 5;
+                return 4;
             }
 
             @Override

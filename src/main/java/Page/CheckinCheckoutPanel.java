@@ -22,6 +22,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private final CheckinoutService checkinoutService;
     private List<Checkinout> list;
     private Checkinout editedCheckinout;
+     private Employee editedEmployee;
 
     /**
      * Creates new form ChecekinCheckoutPanel
@@ -66,29 +67,32 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
                 Checkinout checkinout = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./employee" + checkinout.getEmployeeId()+ ".png");
-                        Image image = icon.getImage();
-                        int width = image.getWidth(null);
-                        int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
-                        icon.setImage(newImage);
-                        return icon;
-                    case 1:
                         return checkinout.getId();
-                    case 2:
+                    case 1:
                         return checkinout.getCioDate();
-                    case 3:
+                    case 2:
                         return checkinout.getCioTimeIn();
-                    case 4:
+                    case 3:
                         return checkinout.getCioTimeOut();
-                    case 5:
+                    case 4:
                         return checkinout.getCioTotalHour();
                     default:
                         return "Unknown";
                 }
             }
+
         });
 
+    }
+
+    private void loadImage() {
+        if (editedEmployee.getId() > 0) {
+            ImageIcon icon = new ImageIcon("./user" + editedEmployee.getId() + ".png");
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            icon.setImage(newImage);
+            lblImage.setIcon(icon);
+        }
     }
 
     /**

@@ -36,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
     //scrPanel.setViewportView(productPanel);
 //    scrPanel.setViewportView(new UserPanel());
 //scrPanel.setViewportView(new PosPanel());
-scrPanel.setViewportView(new EmployeePanel());
+scrPanel.setViewportView(new CheckinCheckoutPanel());
 }
 
 

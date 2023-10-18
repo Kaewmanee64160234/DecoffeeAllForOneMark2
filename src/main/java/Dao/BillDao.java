@@ -106,8 +106,8 @@ public class BillDao implements Dao<Bill> {
     @Override
     public Bill save(Bill obj) {
 
-        String sql = "INSERT INTO bill (bill_shop_name, bill_buy, bill_total_discount, bill_total, bill_change, bill_total_qty)"
-                + "VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bill (bill_shop_name, bill_buy, bill_total_discount, bill_total, bill_change, bill_total_qty, employee_id)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -117,6 +117,7 @@ public class BillDao implements Dao<Bill> {
             stmt.setFloat(4, obj.getBillTotal());
             stmt.setFloat(5, obj.getChange());
             stmt.setInt(6, obj.getTotalQty());
+            stmt.setInt(7, obj.getEmployeeId());
             // System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);

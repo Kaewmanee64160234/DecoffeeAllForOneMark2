@@ -47,6 +47,17 @@ public class Bill {
         this.totalQty = totalQty;
         this.employeeId = employeeId;
     }
+    public Bill(String shopname,float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
+        this.id = -1;
+        this.shopname = shopname;
+        this.creatdDate = null;
+        this.buy = buy;
+        this.totalDiscount = totalDiscount;
+        this.billTotal = billTotal;
+        this.change = change;
+        this.totalQty = totalQty;
+        this.employeeId = employeeId;
+    }
     public Bill() {
         this.id = -1;
         this.shopname = "";

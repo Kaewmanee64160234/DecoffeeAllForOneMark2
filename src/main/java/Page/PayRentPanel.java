@@ -273,7 +273,7 @@ public class PayRentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmbPositionActionPerformed
 
 

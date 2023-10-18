@@ -30,7 +30,7 @@ public class CheckinoutService {
 
     public List<Checkinout> getCheckinouts() {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
-        return checkinoutDao.getAll(" checkinout_id asc");
+        return checkinoutDao.getAll(" cio_id asc");
     }
     
     public Checkinout addNew(Checkinout editedCheckinout) {
@@ -46,4 +46,10 @@ public class CheckinoutService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.delete(editedCheckinout);
     }
+    public Checkinout getByEmployee(int employeeId){
+        CheckinoutDao checkinoutDao =  new CheckinoutDao();
+        Checkinout checkinout = checkinoutDao.getByEmployeeId(employeeId);
+        return checkinout;
+    }
 }
+

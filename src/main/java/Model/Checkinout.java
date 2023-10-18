@@ -24,6 +24,7 @@ public class Checkinout {
     private String cioTimeIn;
     private String cioTimeOut;
     private int cioTotalHour;
+    private int totalPrice;
     private String cioPaidStatus;
     private int employeeId;
     private int ssId;
@@ -106,6 +107,10 @@ public class Checkinout {
     public int getCioTotalHour() {
         return cioTotalHour;
     }
+    
+    public int getTotalPrice(){
+        return totalPrice;
+    }
 
     public void setCioTotalHour(int cioTotalHour) {
         this.cioTotalHour = cioTotalHour;
@@ -141,10 +146,12 @@ public class Checkinout {
     }
     public void calculateTotalHour() {
         int Total_Hour = 0;
+        int Total_Price = 0;
         for (Employee ey : employees) {
-            Total_Hour = ey.getHourlyWage()*Total_Hour;
+            Total_Price = ey.getHourlyWage()*Total_Hour;
         }
         this.cioTotalHour = Total_Hour;
+        this.totalPrice = Total_Price;
     }
 
 //    

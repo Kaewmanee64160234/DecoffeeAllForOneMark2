@@ -35,7 +35,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblCheckInCheckOut.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour"};
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
             @Override
             public String getColumnName(int column) {
@@ -49,14 +49,13 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 5;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
-                    case 0:
-                        return ImageIcon.class;
+
                     default:
                         return String.class;
                 }
@@ -67,14 +66,12 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
                 Checkinout checkinout = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return checkinout.getId();
-                    case 1:
                         return checkinout.getCioDate();
-                    case 2:
+                    case 1:
                         return checkinout.getCioTimeIn();
-                    case 3:
+                    case 2:
                         return checkinout.getCioTimeOut();
-                    case 4:
+                    case 3:
                         return checkinout.getCioTotalHour();
                     default:
                         return "Unknown";
@@ -338,7 +335,11 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCheckInActionPerformed
-
+  private void refreshTable() {
+        list = checkinoutService.getCheckinouts();
+        tblCheckInCheckOut.revalidate();
+        tblCheckInCheckOut.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheckIn;

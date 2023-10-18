@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Material;
+import Model.MaterialReport;
 import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,8 +41,6 @@ public class MaterialDao implements Dao<Material> {
         return material;
     }
 
-   
-
     public List<Material> getAll() {
         ArrayList<Material> list = new ArrayList();
         String sql = "SELECT * FROM material";
@@ -62,6 +61,7 @@ public class MaterialDao implements Dao<Material> {
         return list;
     }
     
+
     @Override
     public List<Material> getAll(String where, String order) {
         ArrayList<Material> list = new ArrayList();
@@ -82,7 +82,31 @@ public class MaterialDao implements Dao<Material> {
         }
         return list;
     }
-    
+
+    public List<MaterialReport> getMaterialByMinQty() {
+        ArrayList<MaterialReport> list = new ArrayList();
+        String sql = """
+            SELECT mat_id,mat_name, mat_quantity
+            FROM material
+            ORDER by (mat_quantity - mat_min_quantity) asc
+                                     """;
+
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+           while (rs.next()) {
+                MaterialReport obj = MaterialReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
 
     public List<Material> getAll(String order) {
         ArrayList<Material> list = new ArrayList();
@@ -117,7 +141,7 @@ public class MaterialDao implements Dao<Material> {
             stmt.setInt(3, obj.getMatQty());
             stmt.setString(4, obj.getMatUnit());
             stmt.setFloat(5, obj.getMatPricePerUnit());
-//            System.out.println(stmt);
+            // System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);
@@ -142,7 +166,7 @@ public class MaterialDao implements Dao<Material> {
             stmt.setString(4, obj.getMatUnit());
             stmt.setFloat(5, obj.getMatPricePerUnit());
             stmt.setInt(6, obj.getId());
-//            System.out.println(stmt);
+            // System.out.println(stmt);
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;
@@ -164,7 +188,7 @@ public class MaterialDao implements Dao<Material> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return -1;        
+        return -1;
     }
 
 }

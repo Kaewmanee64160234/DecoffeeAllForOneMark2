@@ -5,7 +5,11 @@
 package Page;
 
 import Model.CustomerReport;
+import Model.MaterialReport;
+import Model.RecieptDetailReport;
 import Service.CustomerService;
+import Service.MaterialService;
+import Service.RecieptService;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -18,6 +22,12 @@ public class ReportPanel extends javax.swing.JPanel {
     private final CustomerService customerService;
     private final List<CustomerReport> customerList;
     private final AbstractTableModel model;
+    private final MaterialService materialService;
+    private final List<MaterialReport> materialList;
+    private AbstractTableModel model2;
+    private final RecieptService recieptDetailService;
+    private final List<RecieptDetailReport> recieptDetailList;
+    private  AbstractTableModel model3;
 
     /**
      * Creates new form ReportPanel
@@ -25,14 +35,19 @@ public class ReportPanel extends javax.swing.JPanel {
     public ReportPanel() {
         initComponents();
         customerService = new CustomerService();
-        customerList = customerService.getTopTenCustomerByTotalPrice();
+        customerList = customerService.getTopFiveCustomerByTotalPrice();
+        materialService = new MaterialService();
+        materialList = materialService.getMaterialByMinQty();
+        recieptDetailService = new RecieptService();
+        recieptDetailList = recieptDetailService.getTopFiveCustomerByTotalPrice();
         model = new AbstractTableModel() {
-            String[] colNames = {"ID","Name","TotalSpend"};
+            String[] colNames = {"ID", "Name", "TotalSpend"};
+
             @Override
             public String getColumnName(int column) {
                 return colNames[column];
             }
-            
+
             @Override
             public int getRowCount() {
                 return customerList.size();
@@ -58,7 +73,80 @@ public class ReportPanel extends javax.swing.JPanel {
                         return "";
                 }
             }
-        };     
+        };
+
+        model2 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "Quantity"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return materialList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                MaterialReport material = materialList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return material.getId();
+                    case 1:
+                        return material.getName();
+                    case 2:
+                        return material.getQuantity();
+
+                    default:
+                        return "";
+                }
+            }
+        };
+
+        model3 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "TotalQty"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return recieptDetailList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                RecieptDetailReport recieptDetail = recieptDetailList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail.getId();
+                    case 1:
+                        return recieptDetail.getName();
+                    case 2:
+                        return recieptDetail.getTotalQty();
+
+                    default:
+                        return "";
+                }
+            }
+        };
+        
+        tblTopSeller.setModel(model3);
+        tblProductOutStock.setModel(model2);
         tblTopCustomer.setModel(model);
     }
 
@@ -201,7 +289,7 @@ public class ReportPanel extends javax.swing.JPanel {
         lblTopCustomer.setText("Top 5 Customer");
 
         lblTopSeller.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        lblTopSeller.setText("Top 5 Best Seller");
+        lblTopSeller.setText("Top 10 Best Seller");
 
         lblProductOutstock.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblProductOutstock.setText("Product Out Of Stock");

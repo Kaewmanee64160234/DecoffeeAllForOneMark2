@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.RecieptDetail;
+import Model.RecieptDetailReport;
 import helper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -102,36 +103,63 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         return list;
     }
 
-    @Override
-public RecieptDetail save(RecieptDetail obj) {
-    String sql = "INSERT INTO reciept_detail(reciept_detail_name, reciept_detail_qty, reciept_detail_price, size, type_price, type, size_price, topping, topping_price, reciept_detail_total_price, reciept_id, product_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    Connection conn = DatabaseHelper.getConnect();
-    try {
-        PreparedStatement stmt = conn.prepareStatement(sql);
+    public List<RecieptDetailReport> getTopTenProductSale(int limit) {
+        ArrayList<RecieptDetailReport> list = new ArrayList();
+        String sql = """
+                SELECT product_id,reciept_detail_name, sum(reciept_detail_qty) AS TotalQty
+                FROM reciept_detail
+                GROUP BY product_id
+                ORDER BY TotalQty DESC
+                LIMIT ?
+                                     """;
 
-        stmt.setString(1, obj.getName());
-        stmt.setInt(2, obj.getQty());
-        stmt.setFloat(3, obj.getPrice());
-        stmt.setString(4, obj.getSize());
-        stmt.setFloat(5, obj.getTypePrice());
-        stmt.setString(6, obj.getType());
-        stmt.setFloat(7, obj.getSizePrice());
-        stmt.setString(8, obj.getTopping());
-        stmt.setFloat(9, obj.getToppingPrice());
-        stmt.setFloat(10, obj.getTotal());
-        stmt.setInt(11, obj.getRecieptId());
-        stmt.setInt(12, obj.getProductId()); // Set the product_id
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
 
-        stmt.executeUpdate();
-        int id = DatabaseHelper.getInsertedId(stmt);
-        obj.setId(id);
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-        return null;
+            while (rs.next()) {
+                RecieptDetailReport obj = RecieptDetailReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
     }
-    return obj;
-}
 
+    @Override
+    public RecieptDetail save(RecieptDetail obj) {
+        String sql = "INSERT INTO reciept_detail(reciept_detail_name, reciept_detail_qty, reciept_detail_price, size, type_price, type, size_price, topping, topping_price, reciept_detail_total_price, reciept_id, product_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, obj.getName());
+            stmt.setInt(2, obj.getQty());
+            stmt.setFloat(3, obj.getPrice());
+            stmt.setString(4, obj.getSize());
+            stmt.setFloat(5, obj.getTypePrice());
+            stmt.setString(6, obj.getType());
+            stmt.setFloat(7, obj.getSizePrice());
+            stmt.setString(8, obj.getTopping());
+            stmt.setFloat(9, obj.getToppingPrice());
+            stmt.setFloat(10, obj.getTotal());
+            stmt.setInt(11, obj.getRecieptId());
+            stmt.setInt(12, obj.getProductId()); // Set the product_id
+
+            stmt.executeUpdate();
+            int id = DatabaseHelper.getInsertedId(stmt);
+            obj.setId(id);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return obj;
+    }
 
     @Override
     public RecieptDetail update(RecieptDetail obj) {

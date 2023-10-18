@@ -6,8 +6,10 @@ package Page;
 
 import Model.CustomerReport;
 import Model.MaterialReport;
+import Model.RecieptDetailReport;
 import Service.CustomerService;
 import Service.MaterialService;
+import Service.RecieptService;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -23,6 +25,9 @@ public class ReportPanel extends javax.swing.JPanel {
     private final MaterialService materialService;
     private final List<MaterialReport> materialList;
     private AbstractTableModel model2;
+    private final RecieptService recieptDetailService;
+    private final List<RecieptDetailReport> recieptDetailList;
+    private  AbstractTableModel model3;
 
     /**
      * Creates new form ReportPanel
@@ -33,13 +38,16 @@ public class ReportPanel extends javax.swing.JPanel {
         customerList = customerService.getTopFiveCustomerByTotalPrice();
         materialService = new MaterialService();
         materialList = materialService.getMaterialByMinQty();
+        recieptDetailService = new RecieptService();
+        recieptDetailList = recieptDetailService.getTopFiveCustomerByTotalPrice();
         model = new AbstractTableModel() {
-            String[] colNames = {"ID","Name","TotalSpend"};
+            String[] colNames = {"ID", "Name", "TotalSpend"};
+
             @Override
             public String getColumnName(int column) {
                 return colNames[column];
             }
-            
+
             @Override
             public int getRowCount() {
                 return customerList.size();
@@ -65,15 +73,16 @@ public class ReportPanel extends javax.swing.JPanel {
                         return "";
                 }
             }
-        };   
-        
-         model2 = new AbstractTableModel() {
-            String[] colNames = {"ID","Name","Quantity"};
+        };
+
+        model2 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "Quantity"};
+
             @Override
             public String getColumnName(int column) {
                 return colNames[column];
             }
-            
+
             @Override
             public int getRowCount() {
                 return materialList.size();
@@ -99,8 +108,44 @@ public class ReportPanel extends javax.swing.JPanel {
                         return "";
                 }
             }
-        };   
+        };
+
+        model3 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "TotalQty"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return recieptDetailList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                RecieptDetailReport recieptDetail = recieptDetailList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail.getId();
+                    case 1:
+                        return recieptDetail.getName();
+                    case 2:
+                        return recieptDetail.getTotalQty();
+
+                    default:
+                        return "";
+                }
+            }
+        };
         
+        tblTopSeller.setModel(model3);
         tblProductOutStock.setModel(model2);
         tblTopCustomer.setModel(model);
     }

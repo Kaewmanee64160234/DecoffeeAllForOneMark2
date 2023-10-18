@@ -11,6 +11,7 @@ import Dao.RecieptDao;
 import Dao.RecieptDetailDao;
 import Model.Reciept;
 import Model.RecieptDetail;
+import Model.RecieptDetailReport;
 import Model.Topping;
 
 /**
@@ -62,6 +63,11 @@ public class RecieptService{
         return recieptDao.getAll(" receipt_id asc");
     }
 
+     public List<RecieptDetailReport> getTopFiveCustomerByTotalPrice() {
+        RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
+        return recieptDetailDao.getTopTenProductSale(10);
+    }
+    
     public Reciept addNew(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();

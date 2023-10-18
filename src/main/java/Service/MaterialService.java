@@ -5,8 +5,10 @@
 package Service;
 
 
+
 import Dao.MaterialDao;
 import Model.Material;
+import Model.MaterialReport;
 import java.util.List;
 
 /**
@@ -23,6 +25,12 @@ public class MaterialService {
         MaterialDao materialDao = new MaterialDao();
         return materialDao.get(id);
     }
+    
+    public List<MaterialReport> getMaterialByMinQty() {
+        MaterialDao materialDao = new MaterialDao();
+        return materialDao.getMaterialByMinQty();
+    }
+    
     
     public List<Material> getMaterials(){
         MaterialDao materialDao = new MaterialDao();

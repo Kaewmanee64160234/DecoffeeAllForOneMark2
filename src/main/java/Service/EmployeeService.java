@@ -9,7 +9,11 @@ import Dao.EmployeeDao;
 import Dao.UserDao;
 import Model.Customer;
 import Model.Employee;
+
+import Model.EmployeeReport;
+
 import Model.User;
+
 import java.util.List;
 
 /**
@@ -39,6 +43,11 @@ public class EmployeeService {
 
     public Employee getEditedEmployee() {
         return editedEmployee;
+    }
+    
+     public List<EmployeeReport> getTopFiveCustomerByTotalPrice() {
+        EmployeeDao employeeDao = new EmployeeDao();
+        return employeeDao.getEmployeeByTotalHour(5);
     }
 
     public void setEditedEmployee(Employee editedEmployee) {

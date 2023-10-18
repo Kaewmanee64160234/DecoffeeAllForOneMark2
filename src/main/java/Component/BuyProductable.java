@@ -11,6 +11,6 @@ import Model.Product;
  * @author toey
  */
 public interface BuyProductable {
-    public void buy(Product product, int qty);
+    public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice);
     public void chageCat(int catId);
 }

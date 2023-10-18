@@ -23,7 +23,7 @@ public class CustomerService {
     
     public List<CustomerReport> getTopTenCustomerByTotalPrice() {
         CustomerDao customerDao = new CustomerDao();
-        return customerDao.getCustomerByTotalPrice(10);
+        return customerDao.getCustomerByTotalPrice(5);
     }
     
     public List<Customer> getCustomers() {

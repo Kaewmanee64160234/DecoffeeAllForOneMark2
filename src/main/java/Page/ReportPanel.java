@@ -201,7 +201,7 @@ public class ReportPanel extends javax.swing.JPanel {
         lblTopCustomer.setText("Top 5 Customer");
 
         lblTopSeller.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        lblTopSeller.setText("Top 5 Best Seller");
+        lblTopSeller.setText("Top 10 Best Seller");
 
         lblProductOutstock.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblProductOutstock.setText("Product Out Of Stock");

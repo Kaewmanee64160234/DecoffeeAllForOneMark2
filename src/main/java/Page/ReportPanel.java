@@ -5,7 +5,9 @@
 package Page;
 
 import Model.CustomerReport;
+import Model.MaterialReport;
 import Service.CustomerService;
+import Service.MaterialService;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -18,6 +20,9 @@ public class ReportPanel extends javax.swing.JPanel {
     private final CustomerService customerService;
     private final List<CustomerReport> customerList;
     private final AbstractTableModel model;
+    private final MaterialService materialService;
+    private final List<MaterialReport> materialList;
+    private AbstractTableModel model2;
 
     /**
      * Creates new form ReportPanel
@@ -25,7 +30,9 @@ public class ReportPanel extends javax.swing.JPanel {
     public ReportPanel() {
         initComponents();
         customerService = new CustomerService();
-        customerList = customerService.getTopTenCustomerByTotalPrice();
+        customerList = customerService.getTopFiveCustomerByTotalPrice();
+        materialService = new MaterialService();
+        materialList = materialService.getMaterialByMinQty();
         model = new AbstractTableModel() {
             String[] colNames = {"ID","Name","TotalSpend"};
             @Override
@@ -58,7 +65,43 @@ public class ReportPanel extends javax.swing.JPanel {
                         return "";
                 }
             }
-        };     
+        };   
+        
+         model2 = new AbstractTableModel() {
+            String[] colNames = {"ID","Name","Quantity"};
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+            
+            @Override
+            public int getRowCount() {
+                return materialList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                MaterialReport material = materialList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return material.getId();
+                    case 1:
+                        return material.getName();
+                    case 2:
+                        return material.getQuantity();
+
+                    default:
+                        return "";
+                }
+            }
+        };   
+        
+        tblProductOutStock.setModel(model2);
         tblTopCustomer.setModel(model);
     }
 

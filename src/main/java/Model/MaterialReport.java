@@ -69,9 +69,9 @@ public class MaterialReport {
     public static MaterialReport fromRS(ResultSet rs) {
         MaterialReport obj = new MaterialReport();
         try {
-            obj.setId(rs.getInt("customer_id"));
-            obj.setName(rs.getString("customer_name"));
-           obj.setQuantity(rs.getInt("Quantity"));
+            obj.setId(rs.getInt("mat_id"));
+            obj.setName(rs.getString("mat_name"));
+           obj.setQuantity(rs.getInt("mat_quantity"));
            
         } catch (SQLException ex) {
             Logger.getLogger(MaterialReport.class.getName()).log(Level.SEVERE, null, ex);

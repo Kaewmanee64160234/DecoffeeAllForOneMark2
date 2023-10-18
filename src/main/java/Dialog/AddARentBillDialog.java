@@ -5,7 +5,9 @@
 package Dialog;
 
 import Model.DateLabelFormatter;
+import Model.RentStore;
 import java.util.Properties;
+import javax.swing.JFrame;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -21,12 +23,15 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     /**
      * Creates new form AddARentBillDialog1
      */
-    public AddARentBillDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public AddARentBillDialog(java.awt.Frame parent) {
+
         initComponents();
         initDatePicker();
     }
 
+
+
+  
     private void initDatePicker() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
@@ -137,7 +142,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(lblName1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -156,7 +161,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtWaterBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +297,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddARentBillDialog dialog = new AddARentBillDialog(new javax.swing.JFrame(), true);
+                AddARentBillDialog dialog = new AddARentBillDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

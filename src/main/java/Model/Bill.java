@@ -165,13 +165,16 @@ public class Bill {
         return bill;
     }
 
-//    public boolean isValid() {
-//        // Business Rule
-//        // Name >= 3
-//        // Tel = 10
-//        return this.name.length() >= 3
-//                && this.tel.length() == 10;
-//    }
+    public boolean isValid() {
+
+        return this.shopname.length() >= 3
+                && this.buy >= 0
+                && this.totalDiscount >= 0
+                && this.billTotal >=0
+                && this.change >= 0
+                && this.totalQty >= 0
+                ;
+    }
     
     
 }

@@ -170,8 +170,7 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoreActionPerformed
-
-        toppingDialog.setLocationRelativeTo(this);
+        //toppingDialog.setLocationRelativeTo(this);
         toppingDialog.setVisible(true);
 
     }//GEN-LAST:event_btnMoreActionPerformed

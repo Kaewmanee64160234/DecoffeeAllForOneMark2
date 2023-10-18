@@ -172,7 +172,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
     @Override
     public Checkinout update(Checkinout obj) {
         String sql = "UPDATE check_in_out"
-                + " SET  cio_date = ?, cio_time_in = ?, cio_time_out = ?, cio_total_hour = ?, cio_paid_status = ?, employee_id = ?, ss_id = ?"
+                + " SET cio_time_in = ?, cio_time_out = ?, cio_total_hour = ?, cio_paid_status = ?, employee_id = ?, ss_id = ?"
                 + " WHERE cio_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -207,6 +207,53 @@ public class CheckinoutDao implements Dao<Checkinout> {
             System.out.println(ex.getMessage());
         }
         return -1;     
+    }
+
+
+
+    public List<Checkinout> getAllByIdEmployee(int id) {
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out where employee_id = ? ORDER BY cio_date ASC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return list;
+    }
+
+    public List<Checkinout> gCheckinoutsByMount(int mount){
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out where MONTH(cio_date) = ? ORDER BY cio_date ASC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, mount);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return list;
+
     }
 
 }

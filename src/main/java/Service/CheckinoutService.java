@@ -33,6 +33,11 @@ public class CheckinoutService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.getAll(" cio_id asc");
     }
+    public  List<Checkinout> getCheckinoutsByIdEmployee(int id){
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        return checkinoutDao.getAllByIdEmployee(id);
+        
+    }
     
     public Checkinout addNew(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();

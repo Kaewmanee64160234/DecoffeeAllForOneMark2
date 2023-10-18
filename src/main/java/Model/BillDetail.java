@@ -14,8 +14,9 @@ import java.util.logging.Logger;
  * @author Chaiwat
  */
 public class BillDetail {
+
     private int id;
-    private String  name;
+    private String name;
     private int amount;
     private float discount;
     private float price;
@@ -33,7 +34,7 @@ public class BillDetail {
         this.bill_id = bill_id;
         this.mat_id = mat_id;
     }
-    
+
     public BillDetail(String name, int amount, float discount, float price, float total, int bill_id, int mat_id) {
         this.id = -1;
         this.name = name;
@@ -44,7 +45,7 @@ public class BillDetail {
         this.bill_id = bill_id;
         this.mat_id = mat_id;
     }
-    
+
     public BillDetail() {
         this.id = -1;
         this.name = "";
@@ -124,7 +125,7 @@ public class BillDetail {
     public String toString() {
         return "BillDetail{" + "id=" + id + ", name=" + name + ", amount=" + amount + ", discount=" + discount + ", price=" + price + ", total=" + total + ", bill_id=" + bill_id + ", mat_id=" + mat_id + '}';
     }
-    
+
     public static BillDetail fromRS(ResultSet rs) {
         BillDetail billDetail = new BillDetail();
         try {
@@ -141,5 +142,15 @@ public class BillDetail {
             return null;
         }
         return billDetail;
+    }
+
+    public boolean isValid() {
+
+        return this.name.length() >= 3
+                && this.amount >= 0
+                && this.discount >= 0
+                && this.price >= 0
+                && this.total >= 0
+                ;
     }
 }

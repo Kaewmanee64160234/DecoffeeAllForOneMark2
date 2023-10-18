@@ -108,13 +108,14 @@ public class CheckinoutDao implements Dao<Checkinout> {
     @Override
     public Checkinout save(Checkinout obj) {
 
-        String sql = "INSERT INTO check_in_out (cio_id, cio_time_in, cio_time_out, cio_total_hour, cio_paid_status, employee_id, ss_id)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+       String sql = "INSERT INTO check_in_out (cio_time_in, cio_time_out, cio_total_hour, cio_paid_status, employee_id, ss_id)"
+                + " VALUES (?, ?, ?, ?, ?, ?)";
+
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setTime(1, obj.getCioTimeIn());
-            stmt.setTime(2, obj.getCioTimeOut());
+            stmt.setString(1, obj.getCioTimeIn());
+            stmt.setString(2, obj.getCioTimeOut());
             stmt.setInt(3, obj.getCioTotalHour());
             stmt.setString(4, obj.getCioPaidStatus());
             stmt.setInt(5, obj.getEmployeeId());

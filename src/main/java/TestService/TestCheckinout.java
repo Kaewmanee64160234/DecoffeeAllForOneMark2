@@ -6,23 +6,44 @@ package TestService;
 
 import Dao.CheckinoutDao;
 import Model.Checkinout;
-
+import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author user
  */
 public class TestCheckinout {
+
     public static void main(String[] args) {
         CheckinoutDao ck = new CheckinoutDao();
 
         Checkinout cnk = ck.get(1);
         System.out.println(cnk.toString());
+        // Create a SimpleDateFormat with the desired time format
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        // Get the current time
+        Date currentTime = new Date();
+
+        // Format the time using the SimpleDateFormat
+        String formattedTime = timeFormat.format(currentTime);
+
+        // Create a Time object from the formatted time string
+        Time sqlTime = Time.valueOf(formattedTime);
+
+        Checkinout cc = new Checkinout(formattedTime, formattedTime, 0, "Y", 1, 1);
+        ck.save(cc);
         
-//        Material mat1 = new Material(9, "cake", 7, "Kg", 70);
-//        md.save(mat1);
-//        for(Material material:md.getAll()){
-//            System.out.println(material);
-//        }
+        for (Checkinout arg : ck.getAll()) {
+            System.out.println(arg.toString());
+            
+        }
+      
+
     }
 }

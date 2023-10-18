@@ -52,9 +52,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
+        posPanel = new PosPanel();
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
-        scrPanel.setViewportView(new CheckinCheckoutPanel());
+        scrPanel.setViewportView(new PosPanel());
+
     }
 
     /**

@@ -55,7 +55,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         navigationBar = new NavigationBar();
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
-        scrPanel.setViewportView(new ReportPanel());
+        scrPanel.setViewportView(new PosPanel());
     }
 
     /**

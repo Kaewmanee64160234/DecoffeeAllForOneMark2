@@ -55,7 +55,7 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
         Image newImage = image.getScaledInstance((int) ((120.0 * width) / height), 120, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
         lblImage.setIcon(icon);
-        lblName.setText(p.getPrice() + "");
+        lblName.setText(p.getName());
         if (p.getCategoryId() != 1) {
             btnMore.setEnabled(false);
         }

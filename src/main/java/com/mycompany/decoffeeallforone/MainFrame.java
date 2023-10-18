@@ -18,6 +18,7 @@ import Page.MaterialPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.ReportPanel;
 import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
@@ -54,7 +55,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         navigationBar = new NavigationBar();
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
-        scrPanel.setViewportView(new CheckinCheckoutPanel());
+        scrPanel.setViewportView(new ReportPanel());
     }
 
     /**

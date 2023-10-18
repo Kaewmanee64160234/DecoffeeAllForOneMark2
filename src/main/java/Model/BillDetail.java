@@ -134,7 +134,7 @@ public class BillDetail {
             billDetail.setDiscount(rs.getFloat("bill_detail_discount"));
             billDetail.setPrice(rs.getFloat("bill_detail_price"));
             billDetail.setTotal(rs.getFloat("bill_detail_total"));
-            billDetail.setBill_id(rs.getInt("bil_id"));
+            billDetail.setBill_id(rs.getInt("bill_id"));
             billDetail.setMat_id(rs.getInt("mat_id"));
         } catch (SQLException ex) {
             Logger.getLogger(BillDetail.class.getName()).log(Level.SEVERE, null, ex);

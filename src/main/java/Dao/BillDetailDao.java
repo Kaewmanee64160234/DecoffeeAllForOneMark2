@@ -23,7 +23,7 @@ public class BillDetailDao implements Dao<BillDetail> {
     @Override
     public BillDetail get(int id) {
         BillDetail billDetail = null;
-        String sql = "SELECT * FROM billDetail WHERE bill_detail_id=?";
+        String sql = "SELECT * FROM bill_detail WHERE bill_detail_id=?";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);

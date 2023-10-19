@@ -4,10 +4,15 @@
  */
 package Page;
 
+import Model.DateLabelFormatter;
 import Model.Material;
 import Service.MaterialService;
 import java.util.List;
+import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -18,9 +23,12 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
+    private UtilDateModel model1;
+    
 
     public BuyStockPanel() {
         initComponents();
+        initDatePicker();
         materialService = new MaterialService();
         list = materialService.getMaterials();
         tblMeterial.setRowHeight(30);
@@ -60,6 +68,17 @@ public class BuyStockPanel extends javax.swing.JPanel {
         });
     }
 
+    private void initDatePicker() {
+        model1 = new UtilDateModel();
+        Properties p1 = new Properties();
+        p1.put("text.today", "Today");
+        p1.put("text.month", "Month");
+        p1.put("text.year", "Year");
+        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
+        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+        
+        pnlDatePicker1.add(datePicker1);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -69,9 +88,9 @@ public class BuyStockPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        edtDate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         edtNameStore = new javax.swing.JTextField();
+        pnlDatePicker1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMaterialdetail = new javax.swing.JTable();
@@ -98,12 +117,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         jLabel2.setText("Name Store:");
 
-        edtDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtDateActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         jLabel3.setText("Date:");
 
@@ -128,8 +141,8 @@ public class BuyStockPanel extends javax.swing.JPanel {
                         .addGap(52, 52, 52)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,11 +150,12 @@ public class BuyStockPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(edtNameStore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(edtNameStore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 16, Short.MAX_VALUE))
         );
 
@@ -328,10 +342,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void edtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtDateActionPerformed
-
     private void edtNameStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNameStoreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtNameStoreActionPerformed
@@ -348,7 +358,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
-    private javax.swing.JTextField edtDate;
     private javax.swing.JTextField edtDiscount;
     private javax.swing.JTextField edtNameStore;
     private javax.swing.JTextField edtTotalprice;
@@ -365,6 +374,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JTable tblMaterialdetail;
     private javax.swing.JTable tblMeterial;
     private javax.swing.JLabel txtTotal;

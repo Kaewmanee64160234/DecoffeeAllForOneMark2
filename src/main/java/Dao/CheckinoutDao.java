@@ -257,4 +257,6 @@ public class CheckinoutDao implements Dao<Checkinout> {
         return list;
     }
 
+
+
 }

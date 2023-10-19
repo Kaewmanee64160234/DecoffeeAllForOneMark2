@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Reciept;
+import Model.RecieptReport;
 import helper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -103,6 +104,37 @@ public class RecieptDao implements Dao<Reciept> {
         return list;
     }
 
+    public List<RecieptReport> getRecieptByTotalSale(String being, String end) {
+        ArrayList<RecieptReport> list = new ArrayList();
+        String sql = """
+              SELECT sto.store_name AS StoreName,
+                      sum(reciept_total) AS TotalSale
+                 FROM reciept rec
+                      INNER JOIN
+                      store sto ON sto.store_id = rec.store_id
+                WHERE rec.create_date BETWEEN ? AND ?
+                GROUP BY StoreName
+                ORDER BY TotalSale DESC;
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, being);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RecieptReport obj = RecieptReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
     @Override
     public Reciept save(Reciept obj) {
 
@@ -122,7 +154,7 @@ public class RecieptDao implements Dao<Reciept> {
             stmt.setInt(9, obj.getCustomerId());
             stmt.setInt(10, obj.getPromotionId());
             stmt.setInt(11, obj.getEmployeeId());
-           
+
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);

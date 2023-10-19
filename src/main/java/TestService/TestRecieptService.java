@@ -33,11 +33,11 @@ public class TestRecieptService {
 //        
 //        recieptService.addNew(reciept);
 //        
-//        for (Reciept re : recieptDao.getAll(" reciept_id asc")) {
-//            System.out.println(re.toString());
-//
-//        }
-//        
+        for (Reciept re : recieptDao.getAll(" reciept_id asc")) {
+           System.out.println(re.toString());
+
+       }
+       
 
     }
 

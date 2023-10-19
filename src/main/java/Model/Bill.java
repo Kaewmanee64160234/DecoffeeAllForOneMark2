@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author Chaiwat
  */
 public class Bill {
+
     private int id;
     private String shopname;
     private Date creatdDate;
@@ -38,6 +39,7 @@ public class Bill {
         this.totalQty = totalQty;
         this.employeeId = employeeId;
     }
+
     public Bill(String shopname, Date creatdDate, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
         this.id = -1;
         this.shopname = shopname;
@@ -49,7 +51,8 @@ public class Bill {
         this.totalQty = totalQty;
         this.employeeId = employeeId;
     }
-    public Bill(String shopname,float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
+
+    public Bill(String shopname, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
         this.id = -1;
         this.shopname = shopname;
         this.creatdDate = null;
@@ -60,6 +63,8 @@ public class Bill {
         this.totalQty = totalQty;
         this.employeeId = employeeId;
     }
+    
+
     public Bill() {
         this.id = -1;
         this.shopname = "";
@@ -143,19 +148,27 @@ public class Bill {
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
-    
+
     public ArrayList<BillDetail> getBillDetails() {
         return billDetails;
     }
-    
+
     public void setBillDetails(ArrayList billDetails) {
         this.billDetails = billDetails;
+    }
+
+    public void addBillDetail(BillDetail billDetail) {
+        if (billDetails == null) {
+            billDetails = new ArrayList<>();
+        }
+        billDetails.add(billDetail);
     }
 
     @Override
     public String toString() {
         return "Bill{" + "id=" + id + ", shopname=" + shopname + ", creatdDate=" + creatdDate + ", buy=" + buy + ", totalDiscount=" + totalDiscount + ", billTotal=" + billTotal + ", change=" + change + ", totalQty=" + totalQty + ", employeeId=" + employeeId + '}';
     }
+
     public static Bill fromRS(ResultSet rs) {
         Bill bill = new Bill();
         try {
@@ -180,11 +193,9 @@ public class Bill {
         return this.shopname.length() >= 3
                 && this.buy >= 0
                 && this.totalDiscount >= 0
-                && this.billTotal >=0
+                && this.billTotal >= 0
                 && this.change >= 0
-                && this.totalQty >= 0
-                ;
+                && this.totalQty >= 0;
     }
-    
-    
+
 }

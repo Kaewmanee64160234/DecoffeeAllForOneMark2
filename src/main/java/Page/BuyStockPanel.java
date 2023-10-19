@@ -12,9 +12,12 @@ import Model.RecieptDetail;
 import Service.MaterialService;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -24,17 +27,17 @@ import org.jdatepicker.impl.UtilDateModel;
  * @author Chaiwat
  */
 public class BuyStockPanel extends javax.swing.JPanel {
-    
+
     private final MaterialService materialService;
     private List<Material> list;
-    private Material editedMaterial;
+    private Material material;
     private UtilDateModel model1;
     private Bill bill;
-    
 
     public BuyStockPanel() {
         initComponents();
         initDatePicker();
+        bill = new Bill();
         materialService = new MaterialService();
         list = materialService.getMaterials();
         tblMeterial.setRowHeight(30);
@@ -66,14 +69,15 @@ public class BuyStockPanel extends javax.swing.JPanel {
                         return meterial.getName();
                     case 2:
                         return meterial.getMatMinQty();
-                        
+
                     default:
                         return "Unknown";
                 }
             }
         });
+        initTable();
     }
-    
+
     private void initTable() {
         tblBillDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
 
@@ -92,24 +96,51 @@ public class BuyStockPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 8;
+                return 6;
             }
 
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                ArrayList<BillDetail> billDetails = bill.getBillDetails();
-                BillDetail billDetail = billDetails.get(rowIndex);
-                if (columnIndex == 2) {
-                    int qty = Integer.parseInt((String) aValue);
-                    if (qty < 1) {
-                        return;
-                    }
-                    
-                    billDetail.setQty(qty);
-                    bill.calculateTotal();
-                    refreshTable();
+//                ArrayList<BillDetail> billDetails = bill.getBillDetails();
+//                BillDetail billDetail = billDetails.get(rowIndex);
 
-                }
+                //setValueAt Bill
+//                bill.setShopname(edtShopName.getSelectedText());
+//
+//                float totalDis = 0.0f;
+//
+//                if (columnIndex == 5) {
+//                    int qty = Integer.parseInt((String) aValue);
+//
+//                    if (qty < 1) {
+//                        return;
+//                    }
+//
+//                    for (BillDetail bd : billDetails) {
+//                        totalDis += bd.getDiscount();
+//                    }
+//
+//                    totalDis *= qty;
+//
+//                    bill.setTotalDiscount(totalDis);
+//                }
+//                String totalpice = edtTotalprice.getText();
+//                float biltotalprice = Float.parseFloat(totalpice) - bill.getTotalDiscount();
+//                bill.setBillTotal(biltotalprice);
+//                
+//                String buyText = edtBuy.getText();
+//                float buy = Float.parseFloat(buyText);
+//                bill.setChange(buy - bill.getBillTotal());
+//
+//                if (columnIndex == 2) {
+//                    int qty = Integer.parseInt((String) aValue);
+//                    if (qty < 1) {
+//                        return;
+//                    }
+//
+//                    bill.setTotalQty(qty);
+//                }
+                //setValueAt BillDetail
             }
 
             @Override
@@ -124,33 +155,29 @@ public class BuyStockPanel extends javax.swing.JPanel {
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
-                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                ArrayList<BillDetail> billDetails = bill.getBillDetails();
+                BillDetail billDetail = billDetails.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return recieptDetail.getName();
+                        return billDetail.getMat_id();
                     case 1:
-                        return recieptDetail.getPrice();
+                        return billDetail.getName();
                     case 2:
-                        return recieptDetail.getQty();
+                        return billDetail.getAmount();
                     case 3:
-                        return recieptDetail.getSize();
+                        return billDetail.getPrice();
                     case 4:
-                        return recieptDetail.getType();
+                        return billDetail.getTotal();
                     case 5:
-                        return recieptDetail.getTopping();
-                    case 6:
-                        return recieptDetail.getSweet();
-                    case 7:
-                        return recieptDetail.getTotal();
+                        return billDetail.getDiscount();
                     default:
                         return "";
                 }
             }
         });
-        tblRecieptDetail.setCellSelectionEnabled(true);
-        tblRecieptDetail.setColumnSelectionAllowed(true);
-        tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
+        tblBillDetail.setCellSelectionEnabled(true);
+        tblBillDetail.setColumnSelectionAllowed(true);
+        tblBillDetail.setSurrendersFocusOnKeystroke(true);
     }
 
     private void initDatePicker() {
@@ -161,17 +188,41 @@ public class BuyStockPanel extends javax.swing.JPanel {
         p1.put("text.year", "Year");
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
-        
-        pnlDatePicker1.add(datePicker1);
+
+        pnlDatePicker.add(datePicker1);
+
+        // setDate in Bill
+//        Date selectedDate = (Date) datePicker1.getModel().getValue();
+//        bill.setCreatdDate(selectedDate);
     }
-    
-    private void refreshTable() {
-        // list = recieptService.getReciepts();
-        tblBillDetail.revalidate();
-        tblBillDetail.repaint();
-        txtTotal.setText(bill.getTotal() + "");
-        lblTotalNet.setText(reciept.getTotal() - Float.parseFloat(txtDiscount.getText()) + "");
+
+    private void updateBillDetailTable() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Amount");
+        model.addColumn("Price");
+        model.addColumn("Total");
+        model.addColumn("Discount");
+
+        Bill bill = this.bill;
+        ArrayList<BillDetail> billDetails = bill.getBillDetails();
+
+        for (BillDetail billDetail : billDetails) {
+            Object[] rowData = {
+                billDetail.getMat_id(),
+                billDetail.getName(),
+                billDetail.getAmount(),
+                billDetail.getPrice(),
+                billDetail.getTotal(),
+                billDetail.getDiscount()
+            };
+            model.addRow(rowData);
+        }
+
+        tblBillDetail.setModel(model);
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -183,7 +234,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
         txtShopName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         edtShopName = new javax.swing.JTextField();
-        pnlDatePicker1 = new javax.swing.JPanel();
+        pnlDatePicker = new javax.swing.JPanel();
         txtUserName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -246,7 +297,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pnlDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
@@ -266,7 +317,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
@@ -331,7 +382,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(txtBuy)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(edtBuy, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))))
+                                .addComponent(edtBuy))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(txtChange)
@@ -377,6 +428,11 @@ public class BuyStockPanel extends javax.swing.JPanel {
         tblMeterial.setFocusable(false);
         tblMeterial.setGridColor(new java.awt.Color(255, 255, 255));
         tblMeterial.setSelectionBackground(new java.awt.Color(207, 202, 186));
+        tblMeterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMeterialMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblMeterial);
 
         btnDelete.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
@@ -389,12 +445,13 @@ public class BuyStockPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDelete))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -403,7 +460,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -478,7 +535,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,12 +548,25 @@ public class BuyStockPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_edtShopNameActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void tblMeterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMeterialMouseClicked
+        int selectedRow = tblMeterial.getSelectedRow();
+        if (selectedRow >= 0) {
+            Material selectedMaterial = list.get(selectedRow);
+
+            BillDetail billDetail = new BillDetail(-1, selectedMaterial.getName(), 1, 0.0f, selectedMaterial.getMatPricePerUnit(), selectedMaterial.getMatPricePerUnit(), bill.getId(), selectedMaterial.getId());
+
+            bill.addBillDetail(billDetail);
+
+            updateBillDetailTable();
+        }
+    }//GEN-LAST:event_tblMeterialMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -519,7 +589,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblAddStock;
     private javax.swing.JLabel lblChange;
     private javax.swing.JLabel lblTotal;
-    private javax.swing.JPanel pnlDatePicker1;
+    private javax.swing.JPanel pnlDatePicker;
     private javax.swing.JTable tblBillDetail;
     private javax.swing.JTable tblMeterial;
     private javax.swing.JLabel txtBuy;

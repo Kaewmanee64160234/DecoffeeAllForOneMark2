@@ -56,6 +56,8 @@ public class BillDetail {
         this.bill_id = -1;
         this.mat_id = -1;
     }
+    
+    
 
     public int getId() {
         return id;

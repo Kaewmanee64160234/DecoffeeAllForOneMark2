@@ -79,6 +79,11 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         txtName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
 
         lblTel.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblTel.setText("Telephone:");
@@ -223,6 +228,10 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
         txtPoint.setText("");
         txtTel.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;

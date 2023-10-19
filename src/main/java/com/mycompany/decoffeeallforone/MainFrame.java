@@ -16,6 +16,7 @@ import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.MaterialPanel;
+import Page.PayRentPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
@@ -39,7 +40,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     /**
      * Creates new form MainFrame
      */
-
     private NavigationBar navigationBar;
     private PosPanel posPanel;
     private ProductPanel productPanel;
@@ -47,7 +47,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private EmployeePanel employeePannel;
     private MaterialPanel materialPanel;
     private CheckinCheckoutPanel checkInOutPannel;
-    
 
     public MainFrame() {
         initComponents();
@@ -58,6 +57,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
         scrPanel.setViewportView(new CheckStockPanel());
+
 
     }
 
@@ -183,24 +183,24 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
     @Override
     public void chagePage(String pageName) {
-        if(pageName.equals("POS")){
+        if (pageName.equals("POS")) {
             scrPanel.setViewportView(new PosPanel());
         }
-        if(pageName.equals("Product")){
+        if (pageName.equals("Product")) {
             scrPanel.setViewportView(new ProductPanel());
         }
-        if(pageName.equals("User")){
+        if (pageName.equals("User")) {
             scrPanel.setViewportView(new UserPanel());
         }
-        if(pageName.equals("Employee")){
+        if (pageName.equals("Employee")) {
             scrPanel.setViewportView(new EmployeePanel());
         }
-        if(pageName.equals("Material")){
+        if (pageName.equals("Material")) {
             scrPanel.setViewportView(new MaterialPanel());
         }
         if (pageName.equals("Check In-Out")) {
             scrPanel.setViewportView(new CheckinCheckoutPanel());
         }
-        
+
     }
 }

@@ -54,12 +54,12 @@ public class SummarySalaryService {
         for (Checkinout object : checkinoutDao.getCheckInOutByPaidStatusAndEmpIdForAddInSS(empId, 'N')) {
             object.setSsId(id);
             checkinoutDao.update(object);
-            totalHour+= object.getCioTotalHour();
+            totalHour += object.getCioTotalHour();
         }
         new_sum.setTotalHour(totalHour);
-        new_sum.setSalary(totalHour*employee.getHourlyWage());
+        new_sum.setSalary(totalHour * employee.getHourlyWage());
         summarySalaryDao.update(new_sum);
-        
+
         return new_sum;
 
     }
@@ -67,6 +67,19 @@ public class SummarySalaryService {
     public SummarySalary update(SummarySalary editedSummarySalary) {
         SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
         return SummarySalaryDao.update(editedSummarySalary);
+    }
+
+    public SummarySalary updatePaidSttus(SummarySalary editedSummarySalary) {
+        SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
+        CheckinoutDao CheckinoutDao = new CheckinoutDao();
+        editedSummarySalary.setPaidStatus("Y");
+        for (Checkinout object : CheckinoutDao.getBySSId(editedSummarySalary.getId())) {
+            object.setCioPaidStatus("Y");
+            CheckinoutDao.update(object);
+        }
+        SummarySalaryDao.update(editedSummarySalary);
+        return editedSummarySalary;
+
     }
 
     public int delete(SummarySalary editedSummarySalary) {

@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Checkinout;
+import Model.SummarySalary;
 import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -147,6 +148,27 @@ public class CheckinoutDao implements Dao<Checkinout> {
             System.out.println(ex.getMessage());
         }
         return checkinout;
+    }
+
+    public ArrayList<Checkinout> getBySSId(int ssId){
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out WHERE ss_id=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ssId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+      
     }
     
     

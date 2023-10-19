@@ -10,6 +10,7 @@ import Component.ProductListPanel;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
+import Page.CheckStockPanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
@@ -56,7 +57,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         posPanel = new PosPanel();
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
-        scrPanel.setViewportView(new ReportPanel());
+        scrPanel.setViewportView(new CheckStockPanel());
 
     }
 

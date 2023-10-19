@@ -21,15 +21,8 @@ public class CheckStockPanel extends javax.swing.JPanel {
         materialService = new MaterialService();
 
         list = materialService.getMaterials();
-        tblCheckStock.setRowHeight(50);
-        tblCheckStock.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
         tblCheckStock.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Name", "Minimum", "Number", "Unit"};
-
-            @Override
-            public String getColumnName(int column) {
-                return columnNames[column];
-            }
+            String[] columnNames = {"Id", "Name", "Number", "Minnimum", "Unit"};
 
             @Override
             public int getRowCount() {
@@ -38,15 +31,13 @@ public class CheckStockPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 5;
+                return columnNames.length;
             }
 
             @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                switch (columnIndex) {
-                    default:
-                        return String.class;
-                }
+            public String getColumnName(int column) {
+                return columnNames[column];
+
             }
 
             @Override
@@ -60,43 +51,37 @@ public class CheckStockPanel extends javax.swing.JPanel {
                     case 2:
                         return material.getMatQty();
                     case 3:
-                        return number + material.getMatMinQty();
+                        return material.getMatMinQty();
                     case 4:
                         return material.getMatUnit();
                     default:
-                        return "Unknown";
+                        return null;
                 }
             }
 
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                ArrayList<Material> materials = (ArrayList<Material>) materialService.getMaterials();
-                Material material = materials.get(rowIndex);
-                if (columnIndex == 3) {
-                    int qty = Integer.parseInt((String) aValue);
+
+                Material material = list.get(rowIndex);
+                if (columnIndex == 2) {
+                    int qty = Integer.parseInt(aValue.toString());
                     if (qty < 1) {
                         return;
                     }
 
-                    material.setMatQty(qty);
+                    list.get(rowIndex).setMatQty(qty);
+                    System.out.println(list.get(rowIndex).toString());
                     refreshTable();
                 }
             }
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                switch (columnIndex) {
-                    case 3:
-                        return true;
-                    default:
-                        return false;
-                }
+                return columnIndex == 2;
+
             }
 
         });
-        tblCheckStock.setCellSelectionEnabled(true);
-        tblCheckStock.setColumnSelectionAllowed(true);
-        tblCheckStock.setSurrendersFocusOnKeystroke(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -280,7 +265,7 @@ public class CheckStockPanel extends javax.swing.JPanel {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         for (Material material : list) {
-            materialService.update(editedMaterial);
+            materialService.update(material);
         }
         list = materialService.getMaterials();
         refreshTable();
@@ -328,5 +313,6 @@ public class CheckStockPanel extends javax.swing.JPanel {
     private void refreshTable() {
         tblCheckStock.revalidate();
         tblCheckStock.repaint();
+
     }
 }

@@ -4,10 +4,12 @@
  */
 package Page;
 
-import TableCrud.TableActionCrud;
+import TableCrud.TableActionCellRenderer;
 import Dialog.UserDialog;
 import Model.User;
 import Service.UserService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionEvent;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
@@ -18,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,18 +31,34 @@ public class UserPanel extends javax.swing.JPanel {
     private final UserService userService;
     private List<User> list;
     private User editedUser;
+
     /**
      * Creates new form UserPanel
      */
     public UserPanel() {
         initComponents();
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                System.out.println("Edit row: " + row);
+            }
+
+            @Override
+            public void onDelete(int row) {
+                System.out.println("Delete row: " + row);
+            }
+        };
+        //tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
+        tblUser.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        /////////////
         userService = new UserService();
 
         list = userService.getUsers();
-        tblUser.setRowHeight(60); 
+        tblUser.setRowHeight(60);
         tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+
         tblUser.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Profile", "Id", "Login", "Name", "Password", "Role"};
+            String[] columnNames = {"Profile", "Id", "Login", "Name", "Password", "Role", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -53,12 +72,12 @@ public class UserPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 6;
+                return 7;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                switch(columnIndex) {
+                switch (columnIndex) {
                     case 0:
                         return ImageIcon.class;
                     default:
@@ -71,11 +90,11 @@ public class UserPanel extends javax.swing.JPanel {
                 User user = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./user"+user.getId()+".png");
+                        ImageIcon icon = new ImageIcon("./user" + user.getId() + ".png");
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int)(50*((float)width)/height), 50, Image.SCALE_SMOOTH);
+                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
                         icon.setImage(newImage);
                         return icon;
                     case 1:
@@ -88,12 +107,15 @@ public class UserPanel extends javax.swing.JPanel {
                         return user.getPassword();
                     case 5:
                         return user.getRole();
+                    case 6:
+                        return new TableActionCellRenderer();
                     default:
                         return "Unknown";
                 }
             }
+
         });
-        
+        tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
     }
 
     /**
@@ -125,15 +147,23 @@ public class UserPanel extends javax.swing.JPanel {
         tblUser.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Prpfile", "ID", "Login", "Name", "Password", "Role", "Action"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblUser.setRowHeight(60);
         jScrollPane1.setViewportView(tblUser);
 

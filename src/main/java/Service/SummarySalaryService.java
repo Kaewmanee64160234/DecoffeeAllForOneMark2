@@ -15,6 +15,7 @@ import Model.Employee;
 import Model.Reciept;
 import Model.RecieptDetail;
 import Model.SummarySalary;
+import Page.SalaryPanel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -64,6 +65,15 @@ public class SummarySalaryService {
 
     }
 
+    public SummarySalary getSalaryCheckInOut(int id) {
+        SummarySalaryDao summarySalaryDao = new SummarySalaryDao();
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        SummarySalary summarySalary = summarySalaryDao.get(id);
+        ArrayList<Checkinout> checkinouts = checkinoutDao.getBySSId(id);
+        summarySalary.setCheckins(checkinouts);
+        return summarySalary;
+    }
+
     public SummarySalary update(SummarySalary editedSummarySalary) {
         SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
         return SummarySalaryDao.update(editedSummarySalary);
@@ -87,10 +97,10 @@ public class SummarySalaryService {
         return SummarySalaryDao.delete(editedSummarySalary);
     }
 
-    public ArrayList<Checkinout> getAllCheckinsByEmpIdAndPaidStatus(int id, char paidStatus) {
-        CheckinoutDao checkinoutDao = new CheckinoutDao();
-        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id, paidStatus);
-        return checkins;
+    public SummarySalary getSalaryLastCreated() {
+        SummarySalaryDao summarySalaryDao = new SummarySalaryDao();
+        SummarySalary summ = summarySalaryDao.getSalaryLastCreated();
+        return summ;
     }
 
 }

@@ -5,7 +5,22 @@
 package Dialog;
 
 import Model.DateLabelFormatter;
+import Model.RentStore;
+import Service.RentStoreService;
+import Service.ValidateException;
+import java.awt.Component;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -16,16 +31,33 @@ import org.jdatepicker.impl.UtilDateModel;
  */
 public class AddARentBillDialog extends javax.swing.JDialog {
 
+    private final RentStoreService rentStoreService;
+    private ArrayList<RentStore> lists;
+    private RentStore editedRentStore;
+    private String path;
+    private JDatePanelImpl datePanel1;
     private UtilDateModel model1;
+    private String selectedDate;
 
     /**
      * Creates new form AddARentBillDialog1
      */
-    public AddARentBillDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public AddARentBillDialog(java.awt.Frame parent) {
         initComponents();
         initDatePicker();
+        this.editedRentStore = new RentStore();
+        setObjectToForm();
+        rentStoreService = new RentStoreService();
+
     }
+    private String getSelectedDate(JPanel panel) {
+       Date selectedDate = (Date) datePanel1.getModel().getValue();
+     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = dateFormat.format(selectedDate);
+    System.out.println(formattedDate);
+    return formattedDate;
+}
+
 
     private void initDatePicker() {
         model1 = new UtilDateModel();
@@ -33,7 +65,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         p1.put("text.today", "Today");
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
-        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
+        datePanel1 = new JDatePanelImpl(model1, p1);
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
 
@@ -64,6 +96,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         lblName5 = new javax.swing.JLabel();
         lblName6 = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
+        btnCal = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
 
@@ -98,65 +131,85 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         });
 
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName1.setText("month/year: ");
+        lblName1.setText("Month/Year:");
 
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName2.setText("rent: ");
+        lblName2.setText("Rent: ");
 
         lblName3.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName3.setText("water bill:");
+        lblName3.setText("Water bill:");
 
         lblName4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName4.setText("electricity bill: ");
+        lblName4.setText("Electricity bill: ");
 
         lblName5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName5.setText("other:  ");
+        lblName5.setText("Other:");
 
         lblName6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName6.setText("total: ");
+        lblName6.setText("Total: ");
+
+        btnCal.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnCal.setText("Calculate");
+        btnCal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClear))
+                        .addGap(75, 75, 75)
+                        .addComponent(lblName2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblName3)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblName6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29))
+                        .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtWaterBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(lblName1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName4)
-                            .addComponent(lblName5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(68, 68, 68)
+                        .addComponent(lblName5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtElectricBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOther, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtOther, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName3)
-                            .addComponent(lblName2))
+                        .addGap(12, 12, 12)
+                        .addComponent(lblName4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtWaterBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(239, Short.MAX_VALUE))
+                        .addComponent(txtElectricBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(173, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnClear)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblName6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCal)
+                        .addGap(14, 14, 14))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,15 +234,16 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName5)
                     .addComponent(txtOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblName6))
+                    .addComponent(lblName6)
+                    .addComponent(btnCal))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnClear))
-                .addGap(13, 13, 13))
+                .addGap(30, 30, 30))
         );
 
         jPanel3.setBackground(new java.awt.Color(174, 195, 174));
@@ -238,11 +292,11 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 1, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
+            .addGap(0, 372, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -254,12 +308,50 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        RentStore rentStore;
 
+        if (editedRentStore.getId() < 0) {
+
+            setFormToObject();
+            rentStore = rentStoreService.addNew(editedRentStore);
+
+        } else {
+            setFormToObject();
+            rentStore = rentStoreService.update(editedRentStore);
+        }
+        this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
+    private void setFormToObject() {
+        editedRentStore.setRentPrice((Float.parseFloat(txtRent.getText())));
+        editedRentStore.setRentWater((Float.parseFloat(txtWaterBill.getText())));
+        editedRentStore.setRentElectic((Float.parseFloat(txtElectricBill.getText())));
+        editedRentStore.setRentOther((Float.parseFloat(txtOther.getText())));
+        editedRentStore.setRentTotal((Float.parseFloat(txtTotal.getText())));
 
+        String selectedDate = getSelectedDate(pnlDatePicker1);
+        if (selectedDate != null) {
+          editedRentStore.setRentDate(selectedDate);
+        }
+        
+    
+}
+
+private void setObjectToForm() {
+
+        txtRent.setText(editedRentStore.getRentPrice() + "");
+        txtWaterBill.setText(editedRentStore.getRentWater() + "");
+        txtElectricBill.setText((editedRentStore.getRentElectic() + ""));
+        txtOther.setText((editedRentStore.getRentOther() + ""));
+        txtTotal.setText((editedRentStore.getRentTotal() + ""));
+    }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalActionPerformed
+        float totalPrice = Float.parseFloat(txtRent.getText()) + Float.parseFloat(txtOther.getText()) + Float.parseFloat(txtElectricBill.getText()) + Float.parseFloat(txtWaterBill.getText());
+        txtTotal.setText("" + totalPrice);
+    }//GEN-LAST:event_btnCalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,16 +367,28 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -292,10 +396,10 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddARentBillDialog dialog = new AddARentBillDialog(new javax.swing.JFrame(), true);
+                AddARentBillDialog dialog = new AddARentBillDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
@@ -305,6 +409,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCal;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
     private javax.swing.JPanel jPanel1;

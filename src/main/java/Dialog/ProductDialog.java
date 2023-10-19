@@ -131,6 +131,11 @@ public class ProductDialog extends javax.swing.JDialog {
 
         cmbSize.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SML", "-" }));
+        cmbSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSizeActionPerformed(evt);
+            }
+        });
 
         cmbType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HCF", "-" }));
@@ -277,6 +282,10 @@ public class ProductDialog extends javax.swing.JDialog {
     private void cmbCatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatIdActionPerformed
 
     }//GEN-LAST:event_cmbCatIdActionPerformed
+
+    private void cmbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSizeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSizeActionPerformed
 
     private void loadImage() {
         if (editedProduct.getId() > 0) {

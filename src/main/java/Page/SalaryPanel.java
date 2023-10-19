@@ -38,6 +38,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnHistory = new javax.swing.JButton();
+        btnHistory1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -110,9 +111,9 @@ public class SalaryPanel extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -127,21 +128,33 @@ public class SalaryPanel extends javax.swing.JPanel {
             }
         });
 
+        btnHistory1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnHistory1.setText("History");
+        btnHistory1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistory1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHistory1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistory)
-                .addGap(35, 35, 35))
+                .addGap(16, 16, 16))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnHistory)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHistory)
+                    .addComponent(btnHistory1))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -182,9 +195,15 @@ public class SalaryPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnHistoryActionPerformed
 
+    private void btnHistory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistory1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHistory1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
+
+    private javax.swing.JButton btnHistory1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

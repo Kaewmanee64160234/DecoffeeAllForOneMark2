@@ -24,6 +24,8 @@ public class SummarySalary {
     private String paidStatus;
     private ArrayList<Checkinout> checkins;
     private Employee employee;
+    private String startDate;
+    private String endDate;
 
     public SummarySalary(int id, String date, int totalHour, double salary, String paidStatus) {
         this.id = id;
@@ -90,10 +92,41 @@ public class SummarySalary {
         this.paidStatus = string;
     }
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "SummarySalary{" + "id=" + id + ", date=" + date + ", totalHour=" + totalHour + ", salary=" + salary
                 + ", paidStatus=" + paidStatus + ", checkins=" + checkins + ", employee=" + employee + '}';
+    }
+    
+     public String printSummaryReciept() {
+        return "SummarySalary{" + startDate + " - " + endDate + ", totalHour=" + totalHour + ", salary=" + salary
+                + '}';
+    }
+    
+    
+
+    public ArrayList<Checkinout> getCheckins() {
+        return checkins;
+    }
+
+    public void setCheckins(ArrayList<Checkinout> checkins) {
+        this.checkins = checkins;
     }
 
     public static SummarySalary fromRS(ResultSet rs) {
@@ -104,11 +137,33 @@ public class SummarySalary {
             summarySalary.setTotalHour(rs.getInt("ss_work_hour"));
             summarySalary.setSalary(rs.getDouble("ss_salary"));
             summarySalary.setPaidStatus(rs.getString("ss_paid_status"));
+            // summarySalary.setCheckins(rs.get);
             return summarySalary;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return null;
+    }
+
+    public static SummarySalary fromRSToPrintSummarySalary(ResultSet rs){
+        try {
+            SummarySalary summarySalary = new SummarySalary();
+            summarySalary.setId(rs.getInt("ss_id"));
+            summarySalary.setStartDate(rs.getString("startDate"));
+            summarySalary.setEndDate(rs.getString("endDate"));
+            summarySalary.setTotalHour(rs.getInt("totalHour"));
+            summarySalary.setSalary(rs.getDouble("salary"));
+
+
+            return summarySalary;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+
+    public SummarySalary get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 

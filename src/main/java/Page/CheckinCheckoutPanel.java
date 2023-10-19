@@ -43,6 +43,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private CustomerService customerService;
     private UserService userService;
     private Employee employee;
+    private User user;
     private EmployeeService employeeService;
 
     /**
@@ -116,18 +117,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         setTimeInLblDate();
     }
 
-    private void loadImage() {
-        if (employee.getId() > 0) {
-            ImageIcon icon = new ImageIcon("./user" + employee.getId() + ".png");
-            Image image = icon.getImage();
-            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            icon.setImage(newImage);
-            lblImage.setIcon(icon);
-        }
-
-        setTimeInLblDate();
-
-    }
+   
 
     private void setTimeInLblDate() {
         Timer timer = new Timer();
@@ -441,8 +431,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         Image image = icon.getImage();
         int width = image.getWidth(null);
         int height = image.getHeight(null);
-        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
+        Image newImage = image.getScaledInstance((int) (100 * ((float) width) / height), 100, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
+        lblImage.setIcon(icon);
     }
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
@@ -470,6 +461,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         System.out.println("-----------------------------------");
         btnCheckIn.setEnabled(true);
         btnCheckOut.setEnabled(false);
+        setImage(user);
      
 
     }//GEN-LAST:event_btnCheckOutActionPerformed

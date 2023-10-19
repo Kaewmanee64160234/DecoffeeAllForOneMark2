@@ -9,17 +9,19 @@ public class TestSummarySalaryService {
         SummarySalaryService summarySalaryService = new SummarySalaryService();
 //        System.out.println(summarySalaryService.getById(3));
 //        SummarySalary summarySalary = new SummarySalary();
-//        summarySalaryService.addNewSalary(2, summarySalary);
+//        summarySalaryService.addNewSalary(3, summarySalary);
 //        for (SummarySalary ss : summarySalaryService.getAll()) {
 //            System.out.println(ss.toString());
 //
 //        }
-        SummarySalary summarySalary = summarySalaryService.getById(7);
-        summarySalaryService.updatePaidSttus(summarySalary);
-        for (SummarySalary summarySalary1 : summarySalaryService.getAll()) {
-            System.out.println(summarySalary1.toString());
-            
-        }
+//        summarySalary.printSummaryReciept();
+        System.out.println(summarySalaryService.getSalaryLastCreated().printSummaryReciept());
+//        SummarySalary summarySalary = summarySalaryService.getById(7);
+//        summarySalaryService.updatePaidSttus(summarySalary);
+//        for (SummarySalary summarySalary1 : summarySalaryService.getAll()) {
+//            System.out.println(summarySalary1.toString());
+//            
+//        }
     }
 
 }

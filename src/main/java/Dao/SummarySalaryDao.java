@@ -71,7 +71,7 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
             stmt.setString(4, obj.getPaidStatus());
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
-                        System.out.println(id);
+            System.out.println(id);
 
             obj.setId(id);
         } catch (Exception ex) {
@@ -137,7 +137,7 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
         return summaryList;
     }
 
-    public SummarySalary getSalaryLastCreated(){
+    public SummarySalary getSalaryLastCreated() {
         SummarySalary summary = new SummarySalary();
         String sql = "SELECT summary_salary.ss_id, MIN(check_in_out.cio_date) as startDate ,MAX(check_in_out.cio_date) as endDate ,ss_work_hour as totalHour,ss_salary as Salary  FROM summary_salary JOIN check_in_out ON summary_salary.ss_id = check_in_out.ss_id ORDER BY summary_salary.ss_id DESC LIMIT 1;";
         Connection conn = DatabaseHelper.getConnect();
@@ -145,7 +145,7 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                summary = SummarySalary.fromRS(rs);
+                summary = SummarySalary.fromRSToPrintSummarySalary(rs);
             }
 
         } catch (Exception ex) {

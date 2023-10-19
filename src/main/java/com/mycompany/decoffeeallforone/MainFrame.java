@@ -20,6 +20,8 @@ import Page.PayRentPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
 import Page.ReportPanel;
+import Page.TablePaymentStatusPanel;
+import Page.TableSalaryPanel;
 import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
@@ -56,10 +58,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
 
-        scrPanel.setViewportView(new PosPanel());
+//        scrPanel.setViewportView(new PosPanel());
 
         //scrPanel.setViewportView(new PosPanel());
-        scrPanel.setViewportView(new PayRentPanel());
+//        scrPanel.setViewportView(new PayRentPanel());
+        scrPanel.setViewportView(new TableSalaryPanel());
 
 
 

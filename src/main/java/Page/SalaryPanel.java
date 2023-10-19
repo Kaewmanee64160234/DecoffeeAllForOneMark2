@@ -4,12 +4,20 @@
  */
 package Page;
 
+import Dialog.PrintSlipDialog;
+import Dialog.ProductDialog;
+import Model.Product;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author ASUS
  */
 public class SalaryPanel extends javax.swing.JPanel {
-
+    private Product editedProduct;
     /**
      * Creates new form SalaryPanel
      */
@@ -38,7 +46,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnHistory = new javax.swing.JButton();
-        btnHistory1 = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -128,11 +136,11 @@ public class SalaryPanel extends javax.swing.JPanel {
             }
         });
 
-        btnHistory1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnHistory1.setText("Print");
-        btnHistory1.addActionListener(new java.awt.event.ActionListener() {
+        btnPrint.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistory1ActionPerformed(evt);
+                btnPrintActionPerformed(evt);
             }
         });
 
@@ -142,7 +150,7 @@ public class SalaryPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnHistory1)
+                .addComponent(btnPrint)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistory)
                 .addGap(16, 16, 16))
@@ -153,7 +161,7 @@ public class SalaryPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHistory)
-                    .addComponent(btnHistory1))
+                    .addComponent(btnPrint))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -195,14 +203,15 @@ public class SalaryPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnHistoryActionPerformed
 
-    private void btnHistory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistory1ActionPerformed
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnHistory1ActionPerformed
+    }//GEN-LAST:event_btnPrintActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
-    private javax.swing.JButton btnHistory1;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

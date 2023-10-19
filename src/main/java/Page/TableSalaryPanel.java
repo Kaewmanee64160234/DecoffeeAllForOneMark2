@@ -4,11 +4,22 @@
  */
 package Page;
 
+import Dialog.PaymentStatus;
+import Dialog.PrintSlipDialog;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author ASUS
  */
 public class TableSalaryPanel extends javax.swing.JPanel {
+
+    static void setVisible() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     /**
      * Creates new form TableSalaryPanel
@@ -36,11 +47,13 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         btnPrintSlip = new javax.swing.JButton();
         btnPayMentStatus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPaidDate = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
         btnCancel = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
+        btnCancel1 = new javax.swing.JButton();
+        btnConfirm1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(213, 208, 189));
 
@@ -79,7 +92,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPaidDate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -90,7 +103,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPaidDate);
 
         jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel6.setText("Status :");
@@ -116,6 +129,22 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
+            }
+        });
+
+        btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCancel1.setText("Cancel");
+        btnCancel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancel1ActionPerformed(evt);
+            }
+        });
+
+        btnConfirm1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnConfirm1.setText("Confirm");
+        btnConfirm1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirm1ActionPerformed(evt);
             }
         });
 
@@ -154,6 +183,12 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                     .addComponent(btnPayMentStatus)
                     .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnConfirm1)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(238, 238, 238)
@@ -190,7 +225,11 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel1)
+                    .addComponent(btnConfirm1))
+                .addContainerGap(7, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(171, 171, 171)
@@ -217,11 +256,11 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPaymentHistoryActionPerformed
 
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
-        // TODO add your handling code here:
+        openPrintSlipDialog();
     }//GEN-LAST:event_btnPrintSlipActionPerformed
 
     private void btnPayMentStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayMentStatusActionPerformed
-        // TODO add your handling code here:
+        openPaymentStatusDialog();
     }//GEN-LAST:event_btnPayMentStatusActionPerformed
 
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
@@ -236,10 +275,51 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
+
+    }//GEN-LAST:event_btnCancel1ActionPerformed
+
+    private void btnConfirm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirm1ActionPerformed
+
+    }//GEN-LAST:event_btnConfirm1ActionPerformed
+
+    private void openPrintSlipDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame);
+        printSlipDialog.setLocationRelativeTo(this);
+        printSlipDialog.setVisible(true);
+        printSlipDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+            }
+        });
+    }
+    
+    private void openPaymentStatusDialog() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PaymentStatus paymentStatus = new PaymentStatus(frame);
+        paymentStatus.setLocationRelativeTo(this);
+        paymentStatus.setVisible(true);
+        paymentStatus.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+            }
+        });
+    }
+    
+    private void refreshTable() {
+        tblPaidDate.revalidate();
+        tblPaidDate.repaint();
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnCancel1;
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnPayMentStatus;
     private javax.swing.JButton btnPaymentHistory;
     private javax.swing.JButton btnPrintSlip;
@@ -250,8 +330,8 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlDatePicker1;
+    private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;
     // End of variables declaration//GEN-END:variables
 }

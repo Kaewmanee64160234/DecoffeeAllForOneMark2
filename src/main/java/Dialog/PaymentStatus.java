@@ -13,8 +13,8 @@ public class PaymentStatus extends javax.swing.JDialog {
     /**
      * Creates new form PaymentStatus
      */
-    public PaymentStatus(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public PaymentStatus(java.awt.Frame parent) {
+        super(parent);
         initComponents();
     }
 
@@ -32,7 +32,7 @@ public class PaymentStatus extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         lblName1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPatmentStatus = new javax.swing.JTable();
         btnCancel = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
 
@@ -65,7 +65,7 @@ public class PaymentStatus extends javax.swing.JDialog {
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName1.setText("Update installment payment status.");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPatmentStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,7 +76,7 @@ public class PaymentStatus extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPatmentStatus);
 
         btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCancel.setText("Cancel");
@@ -180,7 +180,7 @@ public class PaymentStatus extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PaymentStatus dialog = new PaymentStatus(new javax.swing.JFrame(), true);
+                PaymentStatus dialog = new PaymentStatus(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -198,8 +198,8 @@ public class PaymentStatus extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblName1;
+    private javax.swing.JTable tblPatmentStatus;
     // End of variables declaration//GEN-END:variables
 }

@@ -396,7 +396,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
             checkinout.setCioPaidStatus("N");
             checkinout.setEmployeeId(empID);
             checkinout.setCioTotalHour(0);
-            checkinout.setSsId(1);
             checkinoutService.addNew(checkinout);
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());

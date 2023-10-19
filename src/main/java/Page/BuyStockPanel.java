@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -223,7 +224,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
         tblBillDetail.setModel(model);
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -335,7 +335,24 @@ public class BuyStockPanel extends javax.swing.JPanel {
             new String [] {
                 "ID", "Name", "Amount", "Price", "Total", "Discount"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblBillDetail.setGridColor(new java.awt.Color(255, 255, 255));
+        tblBillDetail.setRequestFocusEnabled(false);
+        tblBillDetail.setRowHeight(30);
+        tblBillDetail.setShowHorizontalLines(true);
+        tblBillDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBillDetailMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblBillDetail);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -437,6 +454,11 @@ public class BuyStockPanel extends javax.swing.JPanel {
 
         btnDelete.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -567,6 +589,38 @@ public class BuyStockPanel extends javax.swing.JPanel {
             updateBillDetailTable();
         }
     }//GEN-LAST:event_tblMeterialMouseClicked
+
+    private void tblBillDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillDetailMouseClicked
+        int selectedRow = tblBillDetail.getSelectedRow();
+        if (selectedRow >= 0) {
+            DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+            int itemId = (int) model.getValueAt(selectedRow, 0);
+            String itemName = (String) model.getValueAt(selectedRow, 1);
+            int amount = (int) model.getValueAt(selectedRow, 2);
+        }
+    }//GEN-LAST:event_tblBillDetailMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblBillDetail.getSelectedRow();
+
+        if (selectedRow >= 0) {
+            DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+            int selectedMaterialId = (int) model.getValueAt(selectedRow, 0);
+            BillDetail detailToRemove = null;
+            for (BillDetail detail : bill.getBillDetails()) {
+                if (detail.getMat_id() == selectedMaterialId) {
+                    detailToRemove = detail;
+                    break;
+                }
+            }
+            if (detailToRemove != null) {
+                bill.getBillDetails().remove(detailToRemove);
+            }
+            model.removeRow(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an item to delete first", "Alert", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

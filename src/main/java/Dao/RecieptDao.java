@@ -107,11 +107,15 @@ public class RecieptDao implements Dao<Reciept> {
     public List<RecieptReport> getRecieptByTotalSale(String being, String end) {
         ArrayList<RecieptReport> list = new ArrayList();
         String sql = """
-            SELECT sum(reciept_total) AS TotalSale
-            FROM reciept
-            WHERE  create_date BETWEEN ? AND ?
-            GROUP BY create_date
-                     """;
+              SELECT sto.store_name AS StoreName,
+                      sum(reciept_total) AS TotalSale
+                 FROM reciept rec
+                      INNER JOIN
+                      store sto ON sto.store_id = rec.store_id
+                WHERE rec.create_date BETWEEN ? AND ?
+                GROUP BY StoreName
+                ORDER BY TotalSale DESC;
+                                     """;
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -130,8 +134,7 @@ public class RecieptDao implements Dao<Reciept> {
         }
         return list;
     }
-    
-    
+
     @Override
     public Reciept save(Reciept obj) {
 
@@ -151,7 +154,7 @@ public class RecieptDao implements Dao<Reciept> {
             stmt.setInt(9, obj.getCustomerId());
             stmt.setInt(10, obj.getPromotionId());
             stmt.setInt(11, obj.getEmployeeId());
-           
+
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);

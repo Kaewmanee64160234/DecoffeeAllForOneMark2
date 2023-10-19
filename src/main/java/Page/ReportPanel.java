@@ -7,15 +7,23 @@ package Page;
 import Model.CustomerReport;
 import Model.MaterialReport;
 import Model.RecieptDetailReport;
+import Model.RecieptReport;
 import Service.CustomerService;
 import Service.MaterialService;
 import Service.RecieptService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -32,8 +40,10 @@ public class ReportPanel extends javax.swing.JPanel {
     private final RecieptService recieptDetailService;
     private final List<RecieptDetailReport> recieptDetailList;
     private AbstractTableModel model3;
-    private final UtilDateModel model4;
-    private final UtilDateModel model5;
+    private UtilDateModel model4;
+    private UtilDateModel model5;
+    private DefaultCategoryDataset barDataset;
+    private List<RecieptReport> reciept;
 
     /**
      * Creates new form ReportPanel
@@ -45,11 +55,38 @@ public class ReportPanel extends javax.swing.JPanel {
         materialService = new MaterialService();
         materialList = materialService.getMaterialByMinQty();
         recieptDetailService = new RecieptService();
-        recieptDetailList = recieptDetailService.getTopFiveCustomerByTotalPrice();
+        recieptDetailList = recieptDetailService.getTopTenProductSale();
+
+        reciept = new ArrayList<>();
         initTableCustomer();
         initTableMaterial();
         initTableTopSeller();
+        initDatePicker();
+        initBarChart();
+        loadBarDataset();
+    }
 
+    private void initBarChart() {
+        barDataset = new DefaultCategoryDataset();
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Total Sale",
+                "Store Name",
+                "Total Income",
+                barDataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        pnlBarGraph.add(chartPanel);
+    }
+
+    private void loadBarDataset() {
+        barDataset.clear();
+            for (RecieptReport r : reciept) {
+                barDataset.setValue(r.getTotalSale(), "Income", r.getStoreName());
+            }
+    }
+
+    private void initDatePicker() {
         model4 = new UtilDateModel();
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
@@ -59,7 +96,7 @@ public class ReportPanel extends javax.swing.JPanel {
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
         model4.setSelected(true);
-        
+
         model5 = new UtilDateModel();
         Properties p2 = new Properties();
         p2.put("text.today", "Today");
@@ -201,7 +238,7 @@ public class ReportPanel extends javax.swing.JPanel {
         btnComfirm = new javax.swing.JButton();
         lblEndDate = new javax.swing.JLabel();
         lblStartDate = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        pnlBarGraph = new javax.swing.JPanel();
         lblSaleSumGraph = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTopCustomer = new javax.swing.JTable();
@@ -254,23 +291,17 @@ public class ReportPanel extends javax.swing.JPanel {
 
         btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnComfirm.setText("Confirm");
+        btnComfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComfirmActionPerformed(evt);
+            }
+        });
 
         lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblEndDate.setText("End Date:");
 
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate.setText("Start Date:");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
-        );
 
         lblSaleSumGraph.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblSaleSumGraph.setText("Sales summary graph");
@@ -330,7 +361,7 @@ public class ReportPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -357,7 +388,7 @@ public class ReportPanel extends javax.swing.JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblProductOutstock, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 202, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -368,13 +399,12 @@ public class ReportPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnComfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblStartDate)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEndDate)))
+                    .addComponent(btnComfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStartDate)
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEndDate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -418,6 +448,18 @@ public class ReportPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnComfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComfirmActionPerformed
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model4.getValue()) + " " + formater.format(model5.getValue()));
+        String begin = formater.format(model4.getValue());
+        String end = formater.format(model5.getValue());
+        reciept = recieptDetailService.getRecieptByTotalSale(begin, end);
+        model.fireTableDataChanged();
+        loadBarDataset();
+
+    }//GEN-LAST:event_btnComfirmActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComfirm;
@@ -425,7 +467,6 @@ public class ReportPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -435,6 +476,7 @@ public class ReportPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblTopCustomer;
     private javax.swing.JLabel lblTopSeller;
+    private javax.swing.JPanel pnlBarGraph;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblProductOutStock;

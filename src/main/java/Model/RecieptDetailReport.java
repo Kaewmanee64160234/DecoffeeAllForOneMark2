@@ -74,7 +74,7 @@ public class RecieptDetailReport {
             obj.setTotalQty(rs.getInt("TotalQty"));
 
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerReport.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecieptDetailReport.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         return obj;

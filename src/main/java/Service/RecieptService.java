@@ -19,10 +19,8 @@ import Model.Topping;
  *
  * @author USER
  */
- 
-    
+public class RecieptService {
 
-public class RecieptService{
     private ArrayList<Topping> toppings;
     private Reciept editedReciept;
 
@@ -53,31 +51,31 @@ public class RecieptService{
         this.editedReciept = editedReciept;
     }
 
-    public Reciept getById(int id){
+    public Reciept getById(int id) {
         RecieptDao recieptDao = new RecieptDao();
         Reciept reciept = recieptDao.get(id);
         return reciept;
     }
-    
+
     public List<Reciept> getReciepts() {
         RecieptDao recieptDao = new RecieptDao();
         return recieptDao.getAll(" receipt_id asc");
     }
 
-     public List<RecieptDetailReport> getTopFiveCustomerByTotalPrice() {
+    public List<RecieptDetailReport> getTopTenProductSale() {
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
         return recieptDetailDao.getTopTenProductSale(10);
     }
-    
-         public List<RecieptReport> getTopTenArtistByTotalPrice(String begin, String end) {
+
+    public List<RecieptReport> getRecieptByTotalSale(String begin, String end) {
         RecieptDao recieptDao = new RecieptDao();
-        return recieptDao.getRecieptByTotalSale(begin,end);
+        return recieptDao.getRecieptByTotalSale(begin, end);
     }
-     
+
     public Reciept addNew(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
-        
+
         Reciept receipt = recieptDao.save(editedReciept);
         int id = receipt.getId();
         for (RecieptDetail object : receipt.getRecieptDetails()) {
@@ -87,14 +85,15 @@ public class RecieptService{
         }
         return receipt;
     }
+
     public Reciept update(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();
         return recieptDao.update(editedReciept);
     }
+
     public int delete(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();
         return recieptDao.delete(editedReciept);
     }
-   
-    
+
 }

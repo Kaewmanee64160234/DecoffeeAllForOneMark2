@@ -7,6 +7,7 @@ package Service;
 import Dao.CheckinoutDao;
 import Model.Checkinout;
 import Model.Employee;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +52,11 @@ public class CheckinoutService {
     public int delete(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.delete(editedCheckinout);
+    }
+      public ArrayList<Checkinout> getAllCheckinsByEmpIdAndPaidStatus(int id, char paidStatus) {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id, paidStatus);
+        return checkins;
     }
 }
 

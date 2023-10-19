@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author USER
  */
-public class SummarySalaryDao implements Dao<SummarySalary>{
+public class SummarySalaryDao implements Dao<SummarySalary> {
 
     @Override
     public SummarySalary get(int id) {
@@ -70,6 +70,10 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
             stmt.setDouble(3, obj.getSalary());
             stmt.setString(4, obj.getPaidStatus());
             stmt.executeUpdate();
+            int id = DatabaseHelper.getInsertedId(stmt);
+            System.out.println(id);
+
+            obj.setId(id);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
@@ -79,7 +83,7 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
 
     @Override
     public SummarySalary update(SummarySalary obj) {
-    String sql = "UPDATE summary_salary SET ss_date = ?, ss_work_hour = ?, ss_salary = ?, ss_paid_status = ? WHERE ss_id = ?";
+        String sql = "UPDATE summary_salary SET ss_date = ?, ss_work_hour = ?, ss_salary = ?, ss_paid_status = ? WHERE ss_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -89,6 +93,8 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
             stmt.setString(4, obj.getPaidStatus());
             stmt.setInt(5, obj.getId());
             stmt.executeUpdate();
+            int id = DatabaseHelper.getInsertedId(stmt);
+            obj.setId(id);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
@@ -131,6 +137,22 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
         return summaryList;
     }
 
-   
-    
+    public SummarySalary getSalaryLastCreated() {
+        SummarySalary summary = new SummarySalary();
+        String sql = "SELECT summary_salary.ss_id, MIN(check_in_out.cio_date) as startDate ,MAX(check_in_out.cio_date) as endDate ,ss_work_hour as totalHour,ss_salary as Salary  FROM summary_salary JOIN check_in_out ON summary_salary.ss_id = check_in_out.ss_id ORDER BY summary_salary.ss_id DESC LIMIT 1;";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                summary = SummarySalary.fromRSToPrintSummarySalary(rs);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return summary;
+    }
+
 }

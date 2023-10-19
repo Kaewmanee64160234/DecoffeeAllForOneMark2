@@ -44,7 +44,7 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
     @Override
     public List<RecieptDetail> getAll() {
         ArrayList<RecieptDetail> list = new ArrayList();
-        String sql = "SELECT * FROM recipt_detail";
+        String sql = "SELECT * FROM reciept_detail";
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -65,7 +65,7 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
     @Override
     public List<RecieptDetail> getAll(String where, String order) {
         ArrayList<RecieptDetail> list = new ArrayList();
-        String sql = "SELECT * FROM recipt_detail where " + where + " ORDER BY" + order;
+        String sql = "SELECT * FROM reciept_detail where " + where + " ORDER BY" + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -85,7 +85,7 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
 
     public List<RecieptDetail> getAll(String order) {
         ArrayList<RecieptDetail> list = new ArrayList();
-        String sql = "SELECT * FROM recipt_detail  ORDER BY" + order;
+        String sql = "SELECT * FROM reciept_detail  ORDER BY" + order;
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
@@ -106,11 +106,11 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
     public List<RecieptDetailReport> getTopTenProductSale(int limit) {
         ArrayList<RecieptDetailReport> list = new ArrayList();
         String sql = """
-                SELECT product_id,reciept_detail_name, sum(reciept_detail_qty) AS TotalQty
-                FROM reciept_detail
-                GROUP BY product_id
-                ORDER BY TotalQty DESC
-                LIMIT ?
+               SELECT product_id,reciept_detail_name, sum(reciept_detail_qty ) AS TotalQty
+               FROM reciept_detail
+               GROUP BY product_id
+               ORDER BY TotalQty DESC, reciept_detail_name ASC
+               LIMIT ?
                                      """;
 
         Connection conn = DatabaseHelper.getConnect();

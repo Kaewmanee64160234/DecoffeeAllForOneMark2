@@ -7,11 +7,23 @@ package Page;
 import Model.CustomerReport;
 import Model.MaterialReport;
 import Model.RecieptDetailReport;
+import Model.RecieptReport;
 import Service.CustomerService;
 import Service.MaterialService;
 import Service.RecieptService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -21,13 +33,17 @@ public class ReportPanel extends javax.swing.JPanel {
 
     private final CustomerService customerService;
     private final List<CustomerReport> customerList;
-    private final AbstractTableModel model;
+    private AbstractTableModel model;
     private final MaterialService materialService;
     private final List<MaterialReport> materialList;
     private AbstractTableModel model2;
     private final RecieptService recieptDetailService;
     private final List<RecieptDetailReport> recieptDetailList;
-    private  AbstractTableModel model3;
+    private AbstractTableModel model3;
+    private UtilDateModel model4;
+    private UtilDateModel model5;
+    private DefaultCategoryDataset barDataset;
+    private List<RecieptReport> reciept;
 
     /**
      * Creates new form ReportPanel
@@ -39,77 +55,60 @@ public class ReportPanel extends javax.swing.JPanel {
         materialService = new MaterialService();
         materialList = materialService.getMaterialByMinQty();
         recieptDetailService = new RecieptService();
-        recieptDetailList = recieptDetailService.getTopFiveCustomerByTotalPrice();
-        model = new AbstractTableModel() {
-            String[] colNames = {"ID", "Name", "TotalSpend"};
+        recieptDetailList = recieptDetailService.getTopTenProductSale();
 
-            @Override
-            public String getColumnName(int column) {
-                return colNames[column];
+        reciept = new ArrayList<>();
+        initTableCustomer();
+        initTableMaterial();
+        initTableTopSeller();
+        initDatePicker();
+        initBarChart();
+        loadBarDataset();
+    }
+
+    private void initBarChart() {
+        barDataset = new DefaultCategoryDataset();
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Total Sale",
+                "Store Name",
+                "Total Income",
+                barDataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        pnlBarGraph.add(chartPanel);
+    }
+
+    private void loadBarDataset() {
+        barDataset.clear();
+            for (RecieptReport r : reciept) {
+                barDataset.setValue(r.getTotalSale(), "Income", r.getStoreName());
             }
+    }
 
-            @Override
-            public int getRowCount() {
-                return customerList.size();
-            }
+    private void initDatePicker() {
+        model4 = new UtilDateModel();
+        Properties p1 = new Properties();
+        p1.put("text.today", "Today");
+        p1.put("text.month", "Month");
+        p1.put("text.year", "Year");
+        JDatePanelImpl datePanel1 = new JDatePanelImpl(model4, p1);
+        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+        pnlDatePicker1.add(datePicker1);
+        model4.setSelected(true);
 
-            @Override
-            public int getColumnCount() {
-                return 3;
-            }
+        model5 = new UtilDateModel();
+        Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
+        JDatePanelImpl datePanel2 = new JDatePanelImpl(model5, p2);
+        JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+        pnlDatePicker2.add(datePicker2);
+        model5.setSelected(true);
+    }
 
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                CustomerReport customer = customerList.get(rowIndex);
-                switch (columnIndex) {
-                    case 0:
-                        return customer.getId();
-                    case 1:
-                        return customer.getName();
-                    case 2:
-                        return customer.getTotalSpend();
-
-                    default:
-                        return "";
-                }
-            }
-        };
-
-        model2 = new AbstractTableModel() {
-            String[] colNames = {"ID", "Name", "Quantity"};
-
-            @Override
-            public String getColumnName(int column) {
-                return colNames[column];
-            }
-
-            @Override
-            public int getRowCount() {
-                return materialList.size();
-            }
-
-            @Override
-            public int getColumnCount() {
-                return 3;
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                MaterialReport material = materialList.get(rowIndex);
-                switch (columnIndex) {
-                    case 0:
-                        return material.getId();
-                    case 1:
-                        return material.getName();
-                    case 2:
-                        return material.getQuantity();
-
-                    default:
-                        return "";
-                }
-            }
-        };
-
+    private void initTableTopSeller() {
         model3 = new AbstractTableModel() {
             String[] colNames = {"ID", "Name", "TotalQty"};
 
@@ -144,9 +143,82 @@ public class ReportPanel extends javax.swing.JPanel {
                 }
             }
         };
-        
         tblTopSeller.setModel(model3);
+    }
+
+    private void initTableMaterial() {
+        model2 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "Quantity"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return materialList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                MaterialReport material = materialList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return material.getId();
+                    case 1:
+                        return material.getName();
+                    case 2:
+                        return material.getQuantity();
+
+                    default:
+                        return "";
+                }
+            }
+        };
         tblProductOutStock.setModel(model2);
+    }
+
+    private void initTableCustomer() {
+        model = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "TotalSpend"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return customerList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                CustomerReport customer = customerList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return customer.getId();
+                    case 1:
+                        return customer.getName();
+                    case 2:
+                        return customer.getTotalSpend();
+
+                    default:
+                        return "";
+                }
+            }
+        };
         tblTopCustomer.setModel(model);
     }
 
@@ -164,11 +236,9 @@ public class ReportPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnComfirm = new javax.swing.JButton();
-        txtEndDate = new javax.swing.JFormattedTextField();
         lblEndDate = new javax.swing.JLabel();
         lblStartDate = new javax.swing.JLabel();
-        txtStartDate = new javax.swing.JFormattedTextField();
-        jPanel4 = new javax.swing.JPanel();
+        pnlBarGraph = new javax.swing.JPanel();
         lblSaleSumGraph = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTopCustomer = new javax.swing.JTable();
@@ -179,6 +249,8 @@ public class ReportPanel extends javax.swing.JPanel {
         lblTopCustomer = new javax.swing.JLabel();
         lblTopSeller = new javax.swing.JLabel();
         lblProductOutstock = new javax.swing.JLabel();
+        pnlDatePicker1 = new javax.swing.JPanel();
+        pnlDatePicker2 = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(213, 208, 189));
 
@@ -219,29 +291,17 @@ public class ReportPanel extends javax.swing.JPanel {
 
         btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnComfirm.setText("Confirm");
-
-        txtEndDate.setBorder(null);
-        txtEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        btnComfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComfirmActionPerformed(evt);
+            }
+        });
 
         lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblEndDate.setText("End Date:");
 
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate.setText("Start Date:");
-
-        txtStartDate.setBorder(null);
-        txtStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
-        );
 
         lblSaleSumGraph.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblSaleSumGraph.setText("Sales summary graph");
@@ -301,18 +361,19 @@ public class ReportPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
                                 .addComponent(lblStartDate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
                                 .addComponent(lblEndDate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
                                 .addComponent(btnComfirm))
                             .addComponent(lblSaleSumGraph)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -327,34 +388,33 @@ public class ReportPanel extends javax.swing.JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblProductOutstock, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 202, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblSaleSumGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtStartDate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnComfirm)
-                                .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblEndDate)
-                                .addComponent(lblStartDate)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                .addComponent(lblSaleSumGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnComfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStartDate)
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEndDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTopCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTopSeller, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lblProductOutstock, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -388,6 +448,18 @@ public class ReportPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnComfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComfirmActionPerformed
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model4.getValue()) + " " + formater.format(model5.getValue()));
+        String begin = formater.format(model4.getValue());
+        String end = formater.format(model5.getValue());
+        reciept = recieptDetailService.getRecieptByTotalSale(begin, end);
+        model.fireTableDataChanged();
+        loadBarDataset();
+
+    }//GEN-LAST:event_btnComfirmActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComfirm;
@@ -395,7 +467,6 @@ public class ReportPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -405,10 +476,11 @@ public class ReportPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblTopCustomer;
     private javax.swing.JLabel lblTopSeller;
+    private javax.swing.JPanel pnlBarGraph;
+    private javax.swing.JPanel pnlDatePicker1;
+    private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblProductOutStock;
     private javax.swing.JTable tblTopCustomer;
     private javax.swing.JTable tblTopSeller;
-    private javax.swing.JFormattedTextField txtEndDate;
-    private javax.swing.JFormattedTextField txtStartDate;
     // End of variables declaration//GEN-END:variables
 }

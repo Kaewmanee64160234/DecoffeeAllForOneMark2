@@ -19,12 +19,13 @@ import Model.SummarySalary;
  * @author USER
  */
 public class SummarySalaryService {
+
     ArrayList<Checkinout> checkins;
     SummarySalary summarySalary;
 
     public SummarySalary getById(int id) {
-        SummarySalaryService summarySalaryService = new SummarySalaryService();
-        SummarySalary summarySalary = summarySalaryService.getById(id);
+        SummarySalaryDao summarySalaryDao = new SummarySalaryDao();
+        SummarySalary summarySalary = summarySalaryDao.get(id);
         return summarySalary;
     }
 
@@ -57,7 +58,7 @@ public class SummarySalaryService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getAllByIdEmployee(id);
         return checkins;
-       
+
     }
 
     public ArrayList<Checkinout> getAllCheckinsByEmpIdAndPaidStatus(int id, char paidStatus) {

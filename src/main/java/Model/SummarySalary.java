@@ -7,6 +7,8 @@ package Model;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -16,14 +18,14 @@ import java.util.ArrayList;
 public class SummarySalary {
 
     private int id;
-    private Date date;
+    private String date;
     private int totalHour;
     private double salary;
-    private char paidStatus;
+    private String paidStatus;
     private ArrayList<Checkinout> checkins;
     private Employee employee;
 
-    public SummarySalary(int id, Date date, int totalHour, double salary, char paidStatus) {
+    public SummarySalary(int id, String date, int totalHour, double salary, String paidStatus) {
         this.id = id;
         this.date = date;
         this.totalHour = totalHour;
@@ -31,7 +33,7 @@ public class SummarySalary {
         this.paidStatus = paidStatus;
     }
 
-    public SummarySalary(Date date, int totalHour, double salary, char paidStatus) {
+    public SummarySalary(String date, int totalHour, double salary, String paidStatus) {
         this.id = -1;
 
         this.date = date;
@@ -45,7 +47,7 @@ public class SummarySalary {
         this.date = null;
         this.totalHour = 0;
         this.salary = 0;
-        this.paidStatus = 'N';
+        this.paidStatus = "N";
     }
 
     public int getId() {
@@ -56,11 +58,11 @@ public class SummarySalary {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -80,33 +82,35 @@ public class SummarySalary {
         this.salary = salary;
     }
 
-    public char getPaidStatus() {
+    public String getPaidStatus() {
         return paidStatus;
     }
 
-    public void setPaidStatus(char paidStatus) {
-        this.paidStatus = paidStatus;
+    public void setPaidStatus(String string) {
+        this.paidStatus = string;
     }
 
     @Override
     public String toString() {
-        return "SummarySalary{" + "id=" + id + ", date=" + date + ", totalHour=" + totalHour + ", salary=" + salary + ", paidStatus=" + paidStatus + ", checkins=" + checkins + ", employee=" + employee + '}';
+        return "SummarySalary{" + "id=" + id + ", date=" + date + ", totalHour=" + totalHour + ", salary=" + salary
+                + ", paidStatus=" + paidStatus + ", checkins=" + checkins + ", employee=" + employee + '}';
     }
 
-      public static SummarySalary fromRS(ResultSet rs) {
-        SummarySalary obj = new SummarySalary();
+    public static SummarySalary fromRS(ResultSet rs) {
         try {
-            obj.setId(rs.getInt("ss_id"));
-            obj.setDate(rs.getDate("ss_date"));
-            obj.setTotalHour(rs.getInt("ss_work_hour"));
-            obj.setSalary(rs.getDouble("ss_salary"));
-            obj.setPaidStatus(rs.getString("ss_paid_status").charAt(0));
+            SummarySalary summarySalary = new SummarySalary();
+            summarySalary.setId(rs.getInt("ss_id"));
+            summarySalary.setDate(rs.getString("ss_date"));
+            summarySalary.setTotalHour(rs.getInt("ss_work_hour"));
+            summarySalary.setSalary(rs.getDouble("ss_salary"));
+            summarySalary.setPaidStatus(rs.getString("ss_paid_status"));
+            return summarySalary;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            return null;
         }
-        return obj;
-      }
-    
+        return null;
+    }
 
+
+  
 }

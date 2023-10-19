@@ -65,10 +65,10 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, obj.getDate());
+            stmt.setString(1, obj.getDate());
             stmt.setInt(2, obj.getTotalHour());
             stmt.setDouble(3, obj.getSalary());
-            stmt.setDouble(4, obj.getPaidStatus());
+            stmt.setString(4, obj.getPaidStatus());
             stmt.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -83,10 +83,10 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, obj.getDate());
+            stmt.setString(1, obj.getDate());
             stmt.setInt(2, obj.getTotalHour());
             stmt.setDouble(3, obj.getSalary());
-            stmt.setDouble(4, obj.getPaidStatus());
+            stmt.setString(4, obj.getPaidStatus());
             stmt.setInt(5, obj.getId());
             stmt.executeUpdate();
         } catch (Exception ex) {
@@ -130,5 +130,7 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
         }
         return summaryList;
     }
+
+   
     
 }

@@ -19,6 +19,7 @@ import Page.PayRentPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.ReportPanel;
 import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;

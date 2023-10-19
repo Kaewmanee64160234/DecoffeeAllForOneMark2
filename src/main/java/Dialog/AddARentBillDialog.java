@@ -8,12 +8,19 @@ import Model.DateLabelFormatter;
 import Model.RentStore;
 import Service.RentStoreService;
 import Service.ValidateException;
+import java.awt.Component;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -28,8 +35,9 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     private ArrayList<RentStore> lists;
     private RentStore editedRentStore;
     private String path;
-
+    private JDatePanelImpl datePanel1;
     private UtilDateModel model1;
+    private String selectedDate;
 
     /**
      * Creates new form AddARentBillDialog1
@@ -40,7 +48,16 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         this.editedRentStore = new RentStore();
         setObjectToForm();
         rentStoreService = new RentStoreService();
+
     }
+    private String getSelectedDate(JPanel panel) {
+       Date selectedDate = (Date) datePanel1.getModel().getValue();
+     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = dateFormat.format(selectedDate);
+    System.out.println(formattedDate);
+    return formattedDate;
+}
+
 
     private void initDatePicker() {
         model1 = new UtilDateModel();
@@ -48,7 +65,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         p1.put("text.today", "Today");
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
-        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
+        datePanel1 = new JDatePanelImpl(model1, p1);
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
 
@@ -292,6 +309,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         RentStore rentStore;
+
         if (editedRentStore.getId() < 0) {
 
             setFormToObject();
@@ -307,14 +325,23 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         editedRentStore.setRentPrice((Float.parseFloat(txtRent.getText())));
         editedRentStore.setRentWater((Float.parseFloat(txtWaterBill.getText())));
         editedRentStore.setRentElectic((Float.parseFloat(txtElectricBill.getText())));
+        editedRentStore.setRentOther((Float.parseFloat(txtOther.getText())));
         editedRentStore.setRentTotal((Float.parseFloat(txtTotal.getText())));
 
-    }
+        String selectedDate = getSelectedDate(pnlDatePicker1);
+        if (selectedDate != null) {
+          editedRentStore.setRentDate(selectedDate);
+        }
+        
+    
+}
 
-    private void setObjectToForm() {
+private void setObjectToForm() {
+
         txtRent.setText(editedRentStore.getRentPrice() + "");
         txtWaterBill.setText(editedRentStore.getRentWater() + "");
         txtElectricBill.setText((editedRentStore.getRentElectic() + ""));
+        txtOther.setText((editedRentStore.getRentOther() + ""));
         txtTotal.setText((editedRentStore.getRentTotal() + ""));
     }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -322,7 +349,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalActionPerformed
-        float totalPrice = Float.parseFloat(txtRent.getText()) + Float.parseFloat(txtElectricBill.getText())+ Float.parseFloat(txtWaterBill.getText());   
+        float totalPrice = Float.parseFloat(txtRent.getText()) + Float.parseFloat(txtOther.getText()) + Float.parseFloat(txtElectricBill.getText()) + Float.parseFloat(txtWaterBill.getText());
         txtTotal.setText("" + totalPrice);
     }//GEN-LAST:event_btnCalActionPerformed
 
@@ -340,16 +367,28 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -360,7 +399,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 AddARentBillDialog dialog = new AddARentBillDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });

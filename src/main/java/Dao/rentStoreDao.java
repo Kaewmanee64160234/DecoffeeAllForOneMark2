@@ -103,8 +103,8 @@ public class RentStoreDao implements Dao<RentStore> {
 
     @Override
     public RentStore save(RentStore obj) {
-        String sql = "INSERT INTO rent_store (rent_water, rent_electric, rent_total, rent_paid_status, store_id, rent_price)"
-                + " VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO rent_store (rent_water, rent_electric, rent_total, rent_paid_status, store_id, rent_price, rent_date, rent_other )"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -115,6 +115,8 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setString(4, obj.getRentPaidStatus());
             stmt.setInt(5, obj.getStoreId());
             stmt.setFloat(6, obj.getRentPrice());
+            stmt.setString(7, obj.getRentDate());
+            stmt.setFloat(8, obj.getRentOther());
 
 //            System.out.println(stmt);
             stmt.executeUpdate();
@@ -149,7 +151,7 @@ public class RentStoreDao implements Dao<RentStore> {
     @Override
     public RentStore update(RentStore obj) {
         String sql = "UPDATE rent_store"
-                + " SET  rent_water = ?, rent_electric = ?, rent_total = ?, rent_paid_status = ?, store_id = ?, rent_price = ?"
+                + " SET  rent_water = ?, rent_electric = ?, rent_total = ?, rent_paid_status = ?, store_id = ?, rent_price = ?, rent_other = ?, rent_date = ?"
                 + " WHERE rent_store_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -160,7 +162,10 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setString(4, obj.getRentPaidStatus());
             stmt.setInt(5, obj.getStoreId());
             stmt.setFloat(6, obj.getRentPrice());
-            stmt.setInt(7, obj.getId());
+            stmt.setString(7, obj.getRentDate());
+            stmt.setFloat(8, obj.getRentOther());
+            stmt.setInt(9, obj.getId());
+            
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

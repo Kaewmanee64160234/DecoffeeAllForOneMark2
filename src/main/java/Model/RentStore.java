@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class RentStore {
 
     private int id;
-    private Date rentDate;
+    private String rentDate;
     private float rentWater;
     private float rentElectic;
     private float rentTotal;
@@ -26,7 +26,7 @@ public class RentStore {
     private float rentOther;
     private int storeId;
 
-    public RentStore(int id, Date rentDate, float rentOther, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+    public RentStore(int id, String rentDate, float rentOther, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
         this.id = id;
         this.rentDate = rentDate;
         this.rentWater = rentWater;
@@ -38,7 +38,7 @@ public class RentStore {
         this.rentOther = rentOther;
     }
 
-    public RentStore(Date rentDate, float rentOther, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+    public RentStore(String rentDate, float rentOther, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
         this.id = -1;
         this.rentDate = rentDate;
         this.rentWater = rentWater;
@@ -61,7 +61,7 @@ public class RentStore {
 
     public RentStore() {
         this.id = -1;
-        this.rentDate = null;
+        this.rentDate = "";
         this.rentWater = 0;
         this.rentElectic = 0;
         this.rentTotal = 0;
@@ -127,11 +127,29 @@ public class RentStore {
         this.storeId = storeId;
     }
 
-    @Override
-    public String toString() {
-        return "RentStore{" + "id=" + id + ", rentWater=" + rentWater + ", rentElectic=" + rentElectic + ", rentTotal=" + rentTotal + ", rentPaidStatus=" + rentPaidStatus + ", rentPrice=" + rentPrice + ", storeId=" + storeId + '}';
+    public String getRentDate() {
+        return rentDate;
     }
 
+    public void setRentDate(String rentDate) {
+        this.rentDate = rentDate;
+    }
+
+    public float getRentOther() {
+        return rentOther;
+    }
+
+    public void setRentOther(float rentOther) {
+        this.rentOther = rentOther;
+    }
+
+    @Override
+    public String toString() {
+        return "RentStore{" + "id=" + id + ", rentDate=" + rentDate + ", rentWater=" + rentWater + ", rentElectic=" + rentElectic + ", rentTotal=" + rentTotal + ", rentPaidStatus=" + rentPaidStatus + ", rentPrice=" + rentPrice + ", rentOther=" + rentOther + ", storeId=" + storeId + '}';
+    }
+    
+
+   
     
 
     public static RentStore fromRS(ResultSet rs) {
@@ -139,15 +157,18 @@ public class RentStore {
         try {
             rentStore.setId(rs.getInt("rent_store_id"));
             rentStore.setRentWater(rs.getFloat("rent_water"));
+            rentStore.setRentDate(rs.getString("rent_date"));
             rentStore.setRentElectic(rs.getFloat("rent_electric"));
             rentStore.setRentTotal(rs.getFloat("rent_total"));
             rentStore.setRentPaidStatus(rs.getString("rent_paid_status"));
             rentStore.setStoreId(rs.getInt("store_id"));
             rentStore.setRentPrice(rs.getFloat("rent_price"));
+            rentStore.setRentOther(rs.getFloat("rent_other"));
         } catch (SQLException ex) {
             Logger.getLogger(RentStore.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         return rentStore;
     }
+
 }

@@ -5,6 +5,7 @@
 package Page;
 
 import Model.Bill;
+import Model.BillDetail;
 import Model.DateLabelFormatter;
 import Model.Material;
 import Model.RecieptDetail;
@@ -96,16 +97,16 @@ public class BuyStockPanel extends javax.swing.JPanel {
 
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
-                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                ArrayList<BillDetail> billDetails = bill.getBillDetails();
+                BillDetail billDetail = billDetails.get(rowIndex);
                 if (columnIndex == 2) {
                     int qty = Integer.parseInt((String) aValue);
                     if (qty < 1) {
                         return;
                     }
-
-                    recieptDetail.setQty(qty);
-                    reciept.calculateTotal();
+                    
+                    billDetail.setQty(qty);
+                    bill.calculateTotal();
                     refreshTable();
 
                 }
@@ -163,6 +164,14 @@ public class BuyStockPanel extends javax.swing.JPanel {
         
         pnlDatePicker1.add(datePicker1);
     }
+    
+    private void refreshTable() {
+        // list = recieptService.getReciepts();
+        tblBillDetail.revalidate();
+        tblBillDetail.repaint();
+        txtTotal.setText(bill.getTotal() + "");
+        lblTotalNet.setText(reciept.getTotal() - Float.parseFloat(txtDiscount.getText()) + "");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -171,24 +180,26 @@ public class BuyStockPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblAddStock = new javax.swing.JLabel();
-        lblShopName = new javax.swing.JLabel();
+        txtShopName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         edtShopName = new javax.swing.JTextField();
         pnlDatePicker1 = new javax.swing.JPanel();
-        lblUserName = new javax.swing.JLabel();
+        txtUserName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBillDetail = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        lblTotalPrice = new javax.swing.JLabel();
+        txtTotalPrice = new javax.swing.JLabel();
         edtDiscount = new javax.swing.JTextField();
-        lblDiscount = new javax.swing.JLabel();
+        txtDiscount = new javax.swing.JLabel();
         edtTotalprice = new javax.swing.JTextField();
-        lblTotal = new javax.swing.JLabel();
-        lblBuy = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JLabel();
+        txtBuy = new javax.swing.JLabel();
         edtBuy = new javax.swing.JTextField();
-        lblChange = new javax.swing.JLabel();
+        txtChange = new javax.swing.JLabel();
         btnCalculate = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
+        lblChange = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMeterial = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
@@ -203,8 +214,8 @@ public class BuyStockPanel extends javax.swing.JPanel {
         lblAddStock.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblAddStock.setText("เพิ่ม Stock");
 
-        lblShopName.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
-        lblShopName.setText("Shop Name:");
+        txtShopName.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        txtShopName.setText("Shop Name:");
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         jLabel3.setText("Date:");
@@ -215,8 +226,8 @@ public class BuyStockPanel extends javax.swing.JPanel {
             }
         });
 
-        lblUserName.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
-        lblUserName.setText("UserName:");
+        txtUserName.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        txtUserName.setText("UserName:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -229,7 +240,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
                         .addComponent(lblAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(lblShopName)
+                        .addComponent(txtShopName)
                         .addGap(18, 18, 18)
                         .addComponent(edtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -237,7 +248,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,14 +260,14 @@ public class BuyStockPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblShopName)
+                            .addComponent(txtShopName)
                             .addComponent(edtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
@@ -279,20 +290,20 @@ public class BuyStockPanel extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        lblTotalPrice.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lblTotalPrice.setText("Total price:");
+        txtTotalPrice.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        txtTotalPrice.setText("Total price:");
 
-        lblDiscount.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lblDiscount.setText("Discount:");
+        txtDiscount.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        txtDiscount.setText("Discount:");
 
-        lblTotal.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lblTotal.setText("Total:");
+        txtTotal.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        txtTotal.setText("Total:");
 
-        lblBuy.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lblBuy.setText("Buy:");
+        txtBuy.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        txtBuy.setText("Buy:");
 
-        lblChange.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lblChange.setText("Change:");
+        txtChange.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        txtChange.setText("Change:");
 
         btnCalculate.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         btnCalculate.setText("Calculate");
@@ -304,46 +315,51 @@ public class BuyStockPanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTotal)
-                    .addComponent(lblDiscount)
-                    .addComponent(lblTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotal)
+                    .addComponent(txtDiscount)
+                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(edtTotalprice, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(edtDiscount))
-                .addGap(55, 55, 55)
+                    .addComponent(edtDiscount)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblChange)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnCalculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(lblBuy)
+                                .addComponent(txtBuy)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(edtBuy, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
-                        .addGap(16, 16, 16))))
+                                .addComponent(edtBuy, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(txtChange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(16, 16, 16))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTotalPrice)
+                    .addComponent(txtTotalPrice)
                     .addComponent(edtTotalprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtBuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBuy))
+                    .addComponent(txtBuy))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDiscount)
+                    .addComponent(txtDiscount)
                     .addComponent(edtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblChange))
+                    .addComponent(txtChange)
+                    .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTotal)
-                    .addComponent(btnCalculate))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(txtTotal)
+                    .addComponent(btnCalculate)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         tblMeterial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -501,15 +517,17 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAddStock;
-    private javax.swing.JLabel lblBuy;
     private javax.swing.JLabel lblChange;
-    private javax.swing.JLabel lblDiscount;
-    private javax.swing.JLabel lblShopName;
     private javax.swing.JLabel lblTotal;
-    private javax.swing.JLabel lblTotalPrice;
-    private javax.swing.JLabel lblUserName;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JTable tblBillDetail;
     private javax.swing.JTable tblMeterial;
+    private javax.swing.JLabel txtBuy;
+    private javax.swing.JLabel txtChange;
+    private javax.swing.JLabel txtDiscount;
+    private javax.swing.JLabel txtShopName;
+    private javax.swing.JLabel txtTotal;
+    private javax.swing.JLabel txtTotalPrice;
+    private javax.swing.JLabel txtUserName;
     // End of variables declaration//GEN-END:variables
 }

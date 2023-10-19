@@ -7,9 +7,13 @@ package Dialog;
 import Model.DateLabelFormatter;
 import Model.RentStore;
 import Service.RentStoreService;
+import Service.ValidateException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -33,6 +37,9 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     public AddARentBillDialog(java.awt.Frame parent) {
         initComponents();
         initDatePicker();
+        this.editedRentStore = new RentStore();
+        setObjectToForm();
+        rentStoreService = new RentStoreService();
     }
 
     private void initDatePicker() {
@@ -72,6 +79,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         lblName5 = new javax.swing.JLabel();
         lblName6 = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
+        btnCal = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
 
@@ -123,6 +131,14 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         lblName6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName6.setText("Total: ");
 
+        btnCal.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnCal.setText("Calculate");
+        btnCal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -142,7 +158,8 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtWaterBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(178, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -163,16 +180,19 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addContainerGap(173, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClear))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnClear)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(lblName6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCal)
+                        .addGap(14, 14, 14))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +220,8 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblName6))
+                    .addComponent(lblName6)
+                    .addComponent(btnCal))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -254,11 +275,11 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 1, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 371, Short.MAX_VALUE)
+            .addGap(0, 372, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -270,24 +291,40 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        RentStore rentStore;
+        if (editedRentStore.getId() < 0) {
 
+            setFormToObject();
+            rentStore = rentStoreService.addNew(editedRentStore);
+
+        } else {
+            setFormToObject();
+            rentStore = rentStoreService.update(editedRentStore);
+        }
+        this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
     private void setFormToObject() {
         editedRentStore.setRentPrice((Float.parseFloat(txtRent.getText())));
         editedRentStore.setRentWater((Float.parseFloat(txtWaterBill.getText())));
         editedRentStore.setRentElectic((Float.parseFloat(txtElectricBill.getText())));
         editedRentStore.setRentTotal((Float.parseFloat(txtTotal.getText())));
-        editedRentStore.setRentTotal((Float.parseFloat(txtTotal.getText())));
+
     }
 
     private void setObjectToForm() {
-        txtName.setText(editedCustomer.getName());
-        txtTel.setText(editedCustomer.getTel());
-        txtPoint.setText((editedCustomer.getPoint() + ""));
+        txtRent.setText(editedRentStore.getRentPrice() + "");
+        txtWaterBill.setText(editedRentStore.getRentWater() + "");
+        txtElectricBill.setText((editedRentStore.getRentElectic() + ""));
+        txtTotal.setText((editedRentStore.getRentTotal() + ""));
     }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalActionPerformed
+        float totalPrice = Float.parseFloat(txtRent.getText()) + Float.parseFloat(txtElectricBill.getText())+ Float.parseFloat(txtWaterBill.getText());   
+        txtTotal.setText("" + totalPrice);
+    }//GEN-LAST:event_btnCalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,6 +370,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCal;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
     private javax.swing.JPanel jPanel1;

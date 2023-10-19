@@ -6,6 +6,7 @@ package Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ public class Bill {
     private float change;
     private int totalQty;
     private int employeeId;
+    private ArrayList<BillDetail> billDetails = new ArrayList();
 
     public Bill(int id, String shopname, Date creatdDate, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
         this.id = id;
@@ -140,6 +142,14 @@ public class Bill {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+    
+    public ArrayList<BillDetail> getBillDetails() {
+        return billDetails;
+    }
+    
+    public void setBillDetails(ArrayList billDetails) {
+        this.billDetails = billDetails;
     }
 
     @Override

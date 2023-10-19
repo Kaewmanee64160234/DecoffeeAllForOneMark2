@@ -4,9 +4,13 @@
  */
 package Page;
 
+import Model.Bill;
 import Model.DateLabelFormatter;
 import Model.Material;
+import Model.RecieptDetail;
 import Service.MaterialService;
+import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
@@ -24,6 +28,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private List<Material> list;
     private Material editedMaterial;
     private UtilDateModel model1;
+    private Bill bill;
     
 
     public BuyStockPanel() {
@@ -67,6 +72,85 @@ public class BuyStockPanel extends javax.swing.JPanel {
             }
         });
     }
+    
+    private void initTable() {
+        tblBillDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+
+        tblBillDetail.setModel(new AbstractTableModel() {
+            String[] headers = {"ID", "Name", "Amount", "Price", "Total", "Discount"};
+
+            @Override
+            public String getColumnName(int column) {
+                return headers[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return bill.getBillDetails().size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 8;
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                if (columnIndex == 2) {
+                    int qty = Integer.parseInt((String) aValue);
+                    if (qty < 1) {
+                        return;
+                    }
+
+                    recieptDetail.setQty(qty);
+                    reciept.calculateTotal();
+                    refreshTable();
+
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
+                RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail.getName();
+                    case 1:
+                        return recieptDetail.getPrice();
+                    case 2:
+                        return recieptDetail.getQty();
+                    case 3:
+                        return recieptDetail.getSize();
+                    case 4:
+                        return recieptDetail.getType();
+                    case 5:
+                        return recieptDetail.getTopping();
+                    case 6:
+                        return recieptDetail.getSweet();
+                    case 7:
+                        return recieptDetail.getTotal();
+                    default:
+                        return "";
+                }
+            }
+        });
+        tblRecieptDetail.setCellSelectionEnabled(true);
+        tblRecieptDetail.setColumnSelectionAllowed(true);
+        tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
+    }
 
     private void initDatePicker() {
         model1 = new UtilDateModel();
@@ -94,7 +178,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
         lblUserName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMaterialdetail = new javax.swing.JTable();
+        tblBillDetail = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         lblTotalPrice = new javax.swing.JLabel();
         edtDiscount = new javax.swing.JTextField();
@@ -139,43 +223,47 @@ public class BuyStockPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(792, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(lblAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
                         .addComponent(lblShopName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(edtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAddStock)
-                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(edtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblShopName))
-                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 16, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblShopName)
+                            .addComponent(edtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblMaterialdetail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblMaterialdetail.setModel(new javax.swing.table.DefaultTableModel(
+        tblBillDetail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblBillDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -183,10 +271,10 @@ public class BuyStockPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Num", "Price", "Total", "Discount"
+                "ID", "Name", "Amount", "Price", "Total", "Discount"
             }
         ));
-        jScrollPane1.setViewportView(tblMaterialdetail);
+        jScrollPane1.setViewportView(tblBillDetail);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -285,7 +373,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +509,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTotalPrice;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JPanel pnlDatePicker1;
-    private javax.swing.JTable tblMaterialdetail;
+    private javax.swing.JTable tblBillDetail;
     private javax.swing.JTable tblMeterial;
     // End of variables declaration//GEN-END:variables
 }

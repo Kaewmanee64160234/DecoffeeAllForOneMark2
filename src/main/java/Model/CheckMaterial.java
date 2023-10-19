@@ -11,6 +11,7 @@ public class CheckMaterial {
     private int id;
     private Date cmDate;
     private int employeeId;
+    private CheckMaterialDetail details;
 
     public CheckMaterial(int id, Date cmDate, int employeeId) {
         this.id = id;
@@ -35,6 +36,15 @@ public class CheckMaterial {
         this.cmDate = null;
         this.employeeId = -1;
     }
+
+    public CheckMaterialDetail getDetails() {
+        return details;
+    }
+
+    public void setDetails(CheckMaterialDetail details) {
+        this.details = details;
+    }
+    
 
     public int getId() {
         return id;

@@ -42,6 +42,10 @@ public class CheckinoutService {
     
     public Checkinout addNew(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
+        CheckMaterialDetailService checkMaterialDetailService = new CheckMaterialDetailService();
+
+        
+
         return checkinoutDao.save(editedCheckinout);
     }
 

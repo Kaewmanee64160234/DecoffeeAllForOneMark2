@@ -67,7 +67,7 @@ public class RentStore {
         this.rentTotal = 0;
         this.rentPrice = 0;
         this.rentOther = 0;
-        this.rentPaidStatus = "";
+        this.rentPaidStatus = "N";
         this.storeId = -1;
     }
 

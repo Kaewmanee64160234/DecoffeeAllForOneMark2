@@ -233,13 +233,15 @@ public class CheckinoutDao implements Dao<Checkinout> {
         return list;
     }
 
-    public List<Checkinout> gCheckinoutsByMount(int mount){
+    
+    public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,char paidStatus){
         ArrayList<Checkinout> list = new ArrayList();
-        String sql = "SELECT * FROM check_in_out where MONTH(cio_date) = ? ORDER BY cio_date ASC";
+        String sql = "SELECT * FROM check_in_out where employee_id = ? and cio_paid_status = ? ORDER BY cio_date DESC";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, mount);
+            stmt.setInt(1, id);
+            stmt.setString(2, String.valueOf(paidStatus));
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -253,7 +255,8 @@ public class CheckinoutDao implements Dao<Checkinout> {
             return null;
         }
         return list;
-
     }
+
+
 
 }

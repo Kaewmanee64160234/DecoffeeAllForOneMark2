@@ -22,6 +22,7 @@ public class Employee {
     private String position;
     private int hourlyWage;
     private int user_id;
+    private Employee currentEmployee;
 
     public Employee(int id, String name, String address, String telephone, String email, String position, int hourlyWage, int user_id) {
         this.id = id;
@@ -55,6 +56,15 @@ public class Employee {
         this.hourlyWage = 0;
         this.user_id = -1;
     }
+
+    public Employee getCurrentEmployee() {
+        return currentEmployee;
+    }
+
+    public void setCurrentEmployee(Employee currentEmployee) {
+        this.currentEmployee = currentEmployee;
+    }
+    
 
     public int getId() {
         return id;

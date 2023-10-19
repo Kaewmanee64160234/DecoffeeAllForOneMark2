@@ -1,7 +1,12 @@
 package Page;
 
+import Model.CheckMaterial;
 import Model.Material;
+import Service.CheckMaterialService;
+import Service.CheckinoutService;
+import Service.EmployeeService;
 import Service.MaterialService;
+import Service.UserService;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -264,10 +269,17 @@ public class CheckStockPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        CheckMaterialService checkMatService = new CheckMaterialService();
+        CheckMaterial checkMaterial = new CheckMaterial();
+        EmployeeService empService = new EmployeeService();
+        checkMaterial.setEmployeeId(empService.getEditedEmployee().getId());
+        
+       checkMatService.addNew(checkMaterial);
         for (Material material : list) {
             materialService.update(material);
         }
         list = materialService.getMaterials();
+        
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
 

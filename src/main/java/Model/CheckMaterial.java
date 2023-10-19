@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +12,7 @@ public class CheckMaterial {
     private int id;
     private Date cmDate;
     private int employeeId;
-    private CheckMaterialDetail details;
+    private ArrayList<CheckMaterialDetail> details;
 
     public CheckMaterial(int id, Date cmDate, int employeeId) {
         this.id = id;
@@ -37,14 +38,15 @@ public class CheckMaterial {
         this.employeeId = -1;
     }
 
-    public CheckMaterialDetail getDetails() {
+    public ArrayList<CheckMaterialDetail> getDetails() {
         return details;
     }
 
-    public void setDetails(CheckMaterialDetail details) {
+    public void setDetails(ArrayList<CheckMaterialDetail> details) {
         this.details = details;
     }
-    
+
+ 
 
     public int getId() {
         return id;

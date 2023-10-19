@@ -3,6 +3,7 @@ package Service;
 
 import Dao.CheckMaterialDao;
 import Model.CheckMaterial;
+import Model.CheckMaterialDetail;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,13 @@ public class CheckMaterialService {
     
     public CheckMaterial addNew(CheckMaterial editedCheckMaterial) {
         CheckMaterialDao checkMaterialDao = new CheckMaterialDao();
+        CheckMaterialDetailService checkMaterialDetailService = new CheckMaterialDetailService();
+        CheckMaterial new_cm = checkMaterialDao.save(editedCheckMaterial);
+        for (CheckMaterialDetail object : editedCheckMaterial.getDetails()) {
+            object.setCheckMaterialId(new_cm.getId());
+            checkMaterialDetailService.addNew(object);
+            
+        }
         return checkMaterialDao.save(editedCheckMaterial);
     }
 

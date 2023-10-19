@@ -1,6 +1,7 @@
 package Page;
 
 import Model.CheckMaterial;
+import Model.CheckMaterialDetail;
 import Model.Material;
 import Service.CheckMaterialService;
 import Service.CheckinoutService;
@@ -272,14 +273,27 @@ public class CheckStockPanel extends javax.swing.JPanel {
         CheckMaterialService checkMatService = new CheckMaterialService();
         CheckMaterial checkMaterial = new CheckMaterial();
         EmployeeService empService = new EmployeeService();
-        checkMaterial.setEmployeeId(empService.getEditedEmployee().getId());
+        checkMaterial.setEmployeeId(2);
+        ArrayList<CheckMaterialDetail> checkMaterialDetails = checkMaterial.getDetails();
+        //set last mat in matdetail
+        for (Material material : materialService.getMaterials()) {
+            CheckMaterialDetail checkMaterialDetail = new CheckMaterialDetail(material.getName(), material.getMatQty(), 1, material.getId());
+            checkMaterialDetails.add(checkMaterialDetail);
+        }
+        //set current qty
+        checkMaterial.setDetails(checkMaterialDetails);
+        for (int i = 0; i < list.size(); i++) {
+            checkMaterial.getDetails().get(i).setLastQty(list.get(i).getMatQty());
+        }
         
-       checkMatService.addNew(checkMaterial);
+        //create chekStock
+        checkMatService.addNew(checkMaterial);
+        //update Mat
         for (Material material : list) {
             materialService.update(material);
         }
         list = materialService.getMaterials();
-        
+
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
 

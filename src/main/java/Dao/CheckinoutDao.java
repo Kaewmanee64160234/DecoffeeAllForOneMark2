@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Checkinout;
+import Model.SummarySalary;
 import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -148,6 +149,27 @@ public class CheckinoutDao implements Dao<Checkinout> {
         }
         return checkinout;
     }
+
+    public ArrayList<Checkinout> getBySSId(int ssId){
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out WHERE ss_id=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ssId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+      
+    }
     
     
     public Checkinout getByDate(Date date) {
@@ -237,6 +259,29 @@ public class CheckinoutDao implements Dao<Checkinout> {
     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,char paidStatus){
         ArrayList<Checkinout> list = new ArrayList();
         String sql = "SELECT * FROM check_in_out where employee_id = ? and cio_paid_status = ? ORDER BY cio_date DESC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setString(2, String.valueOf(paidStatus));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return list;
+    }
+    
+    public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpIdForAddInSS(int id,char paidStatus){
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out where employee_id = ? and ss_id=-1 and cio_paid_status = ? ORDER BY cio_date DESC";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);

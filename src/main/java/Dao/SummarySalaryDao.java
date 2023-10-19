@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author USER
  */
-public class SummarySalaryDao implements Dao<SummarySalary>{
+public class SummarySalaryDao implements Dao<SummarySalary> {
 
     @Override
     public SummarySalary get(int id) {
@@ -65,11 +65,15 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, obj.getDate());
+            stmt.setString(1, obj.getDate());
             stmt.setInt(2, obj.getTotalHour());
             stmt.setDouble(3, obj.getSalary());
-            stmt.setDouble(4, obj.getPaidStatus());
+            stmt.setString(4, obj.getPaidStatus());
             stmt.executeUpdate();
+            int id = DatabaseHelper.getInsertedId(stmt);
+                        System.out.println(id);
+
+            obj.setId(id);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
@@ -79,16 +83,18 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
 
     @Override
     public SummarySalary update(SummarySalary obj) {
-    String sql = "UPDATE summary_salary SET ss_date = ?, ss_work_hour = ?, ss_salary = ?, ss_paid_status = ? WHERE ss_id = ?";
+        String sql = "UPDATE summary_salary SET ss_date = ?, ss_work_hour = ?, ss_salary = ?, ss_paid_status = ? WHERE ss_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setDate(1, obj.getDate());
+            stmt.setString(1, obj.getDate());
             stmt.setInt(2, obj.getTotalHour());
             stmt.setDouble(3, obj.getSalary());
-            stmt.setDouble(4, obj.getPaidStatus());
+            stmt.setString(4, obj.getPaidStatus());
             stmt.setInt(5, obj.getId());
             stmt.executeUpdate();
+            int id = DatabaseHelper.getInsertedId(stmt);
+            obj.setId(id);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
@@ -130,5 +136,5 @@ public class SummarySalaryDao implements Dao<SummarySalary>{
         }
         return summaryList;
     }
-    
+
 }

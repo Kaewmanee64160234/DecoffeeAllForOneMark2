@@ -202,10 +202,8 @@ public class SalaryPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
-<<<<<<< HEAD
+
     private javax.swing.JButton btnHistory1;
-=======
->>>>>>> aea9f0783829d1317d6edfc085d16a16024c5aa3
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

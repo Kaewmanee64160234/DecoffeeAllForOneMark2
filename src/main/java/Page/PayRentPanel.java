@@ -320,6 +320,7 @@ public class PayRentPanel extends javax.swing.JPanel {
 
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
 
+  
     }//GEN-LAST:event_cmbPositionActionPerformed
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);

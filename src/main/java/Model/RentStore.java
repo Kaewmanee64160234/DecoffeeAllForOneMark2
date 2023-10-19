@@ -6,6 +6,7 @@ package Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,39 +17,56 @@ import java.util.logging.Logger;
 public class RentStore {
 
     private int id;
+    private Date rentDate;
     private float rentWater;
     private float rentElectic;
     private float rentTotal;
     private String rentPaidStatus;
     private float rentPrice;
+    private float rentOther;
     private int storeId;
 
-    public RentStore(int id, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+    public RentStore(int id, Date rentDate, float rentOther, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
         this.id = id;
+        this.rentDate = rentDate;
         this.rentWater = rentWater;
         this.rentElectic = rentElectic;
         this.rentTotal = rentTotal;
         this.rentPaidStatus = rentPaidStatus;
         this.storeId = storeId;
         this.rentPrice = rentPrice;
+        this.rentOther = rentOther;
     }
 
-    public RentStore(float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+    public RentStore(Date rentDate, float rentOther, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
         this.id = -1;
+        this.rentDate = rentDate;
         this.rentWater = rentWater;
         this.rentElectic = rentElectic;
         this.rentTotal = rentTotal;
         this.rentPaidStatus = rentPaidStatus;
         this.storeId = storeId;
         this.rentPrice = rentPrice;
+        this.rentOther = rentOther;
+    }
+    public RentStore(float rentWater, float rentOther, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+        this.rentWater = rentWater;
+        this.rentElectic = rentElectic;
+        this.rentTotal = rentTotal;
+        this.rentPaidStatus = rentPaidStatus;
+        this.storeId = storeId;
+        this.rentPrice = rentPrice;
+        this.rentOther = rentOther;
     }
 
     public RentStore() {
         this.id = -1;
+        this.rentDate = null;
         this.rentWater = 0;
         this.rentElectic = 0;
         this.rentTotal = 0;
         this.rentPrice = 0;
+        this.rentOther = 0;
         this.rentPaidStatus = "";
         this.storeId = -1;
     }
@@ -125,6 +143,7 @@ public class RentStore {
             rentStore.setRentTotal(rs.getFloat("rent_total"));
             rentStore.setRentPaidStatus(rs.getString("rent_paid_status"));
             rentStore.setStoreId(rs.getInt("store_id"));
+            rentStore.setRentPrice(rs.getFloat("rent_price"));
         } catch (SQLException ex) {
             Logger.getLogger(RentStore.class.getName()).log(Level.SEVERE, null, ex);
             return null;

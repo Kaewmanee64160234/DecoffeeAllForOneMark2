@@ -40,8 +40,6 @@ public class RentStoreDao implements Dao<RentStore> {
         return rentStore;
     }
 
-   
-
     public ArrayList<RentStore> getAll() {
         ArrayList<RentStore> list = new ArrayList();
         String sql = "SELECT * FROM rent_store";
@@ -61,7 +59,7 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return list;
     }
-    
+
     @Override
     public List<RentStore> getAll(String where, String order) {
         ArrayList<RentStore> list = new ArrayList();
@@ -82,7 +80,6 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return list;
     }
-    
 
     public List<RentStore> getAll(String order) {
         ArrayList<RentStore> list = new ArrayList();
@@ -106,8 +103,8 @@ public class RentStoreDao implements Dao<RentStore> {
 
     @Override
     public RentStore save(RentStore obj) {
-       String sql = "INSERT INTO rent_store (rent_water, rent_electric, rent_total, rent_paid_status, store_id)"
-                + " VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO rent_store (rent_water, rent_electric, rent_total, rent_paid_status, store_id, rent_price)"
+                + " VALUES (?, ?, ?, ?, ?, ?)";
 
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -117,6 +114,8 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setFloat(3, obj.getRentTotal());
             stmt.setString(4, obj.getRentPaidStatus());
             stmt.setInt(5, obj.getStoreId());
+            stmt.setFloat(6, obj.getRentPrice());
+
 //            System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
@@ -127,7 +126,7 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return obj;
     }
-    
+
     public RentStore getByStore(int store) {
         RentStore rentStore = null;
         String sql = "SELECT * FROM rent_store WHERE store_id=?";
@@ -147,11 +146,10 @@ public class RentStoreDao implements Dao<RentStore> {
         return rentStore;
     }
 
-
     @Override
     public RentStore update(RentStore obj) {
         String sql = "UPDATE rent_store"
-                + " SET  rent_water = ?, rent_electric = ?, rent_total = ?, rent_paid_status = ?, store_id = ?"
+                + " SET  rent_water = ?, rent_electric = ?, rent_total = ?, rent_paid_status = ?, store_id = ?, rent_price = ?"
                 + " WHERE rent_store_id = ?";
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -161,8 +159,8 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setFloat(3, obj.getRentTotal());
             stmt.setString(4, obj.getRentPaidStatus());
             stmt.setInt(5, obj.getStoreId());
-            stmt.setInt(6, obj.getId());
-//            System.out.println(stmt);
+            stmt.setFloat(6, obj.getRentPrice());
+            stmt.setInt(7, obj.getId());
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;
@@ -174,7 +172,7 @@ public class RentStoreDao implements Dao<RentStore> {
 
     @Override
     public int delete(RentStore obj) {
-         String sql = "DELETE FROM rent_store WHERE rent_store_id=?";
+        String sql = "DELETE FROM rent_store WHERE rent_store_id=?";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -184,7 +182,7 @@ public class RentStoreDao implements Dao<RentStore> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return -1;     
+        return -1;
     }
 
 }

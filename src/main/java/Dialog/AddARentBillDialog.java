@@ -6,6 +6,8 @@ package Dialog;
 
 import Model.DateLabelFormatter;
 import Model.RentStore;
+import Service.RentStoreService;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.swing.JFrame;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -18,20 +20,21 @@ import org.jdatepicker.impl.UtilDateModel;
  */
 public class AddARentBillDialog extends javax.swing.JDialog {
 
+    private final RentStoreService rentStoreService;
+    private ArrayList<RentStore> lists;
+    private RentStore editedRentStore;
+    private String path;
+
     private UtilDateModel model1;
 
     /**
      * Creates new form AddARentBillDialog1
      */
     public AddARentBillDialog(java.awt.Frame parent) {
-
         initComponents();
         initDatePicker();
     }
 
-
-
-  
     private void initDatePicker() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
@@ -103,27 +106,61 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         });
 
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName1.setText("month/year: ");
+        lblName1.setText("Month/Year:");
 
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName2.setText("rent: ");
+        lblName2.setText("Rent: ");
 
         lblName3.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName3.setText("water bill:");
+        lblName3.setText("Water bill:");
 
         lblName4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName4.setText("electricity bill: ");
+        lblName4.setText("Electricity bill: ");
 
         lblName5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName5.setText("other:  ");
+        lblName5.setText("Other:");
 
         lblName6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName6.setText("total: ");
+        lblName6.setText("Total: ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(lblName2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblName3)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtWaterBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(178, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblName1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(lblName5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtOther, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lblName4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtElectricBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(173, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -135,33 +172,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                         .addComponent(lblName6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblName1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName4)
-                            .addComponent(lblName5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtElectricBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOther, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName3)
-                            .addComponent(lblName2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtWaterBill, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +197,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName5)
                     .addComponent(txtOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblName6))
@@ -194,7 +205,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnClear))
-                .addGap(13, 13, 13))
+                .addGap(30, 30, 30))
         );
 
         jPanel3.setBackground(new java.awt.Color(174, 195, 174));
@@ -261,7 +272,19 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
     }//GEN-LAST:event_btnSaveActionPerformed
+    private void setFormToObject() {
+        editedRentStore.setRentPrice((Float.parseFloat(txtRent.getText())));
+        editedRentStore.setRentWater((Float.parseFloat(txtWaterBill.getText())));
+        editedRentStore.setRentElectic((Float.parseFloat(txtElectricBill.getText())));
+        editedRentStore.setRentTotal((Float.parseFloat(txtTotal.getText())));
+        editedRentStore.setRentTotal((Float.parseFloat(txtTotal.getText())));
+    }
 
+    private void setObjectToForm() {
+        txtName.setText(editedCustomer.getName());
+        txtTel.setText(editedCustomer.getTel());
+        txtPoint.setText((editedCustomer.getPoint() + ""));
+    }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed

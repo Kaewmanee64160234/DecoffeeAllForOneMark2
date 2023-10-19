@@ -36,7 +36,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         tblPayRent.setRowHeight(50);
         tblPayRent.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblPayRent.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Water Payment", "Electic Payment", "Total Payment", "Paid Status"};
+            String[] columnNames = {"Rent Price", "Water Payment", "Electic Payment", "Total Payment", "Paid Status"};
 
             @Override
             public String getColumnName(int column) {
@@ -50,7 +50,7 @@ public class PayRentPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 5;
             }
 
             @Override
@@ -67,12 +67,14 @@ public class PayRentPanel extends javax.swing.JPanel {
                 RentStore rentStore = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return rentStore.getRentWater();
+                        return rentStore.getRentPrice();
                     case 1:
-                        return rentStore.getRentElectic();
+                        return rentStore.getRentWater();
                     case 2:
-                        return rentStore.getRentTotal();
+                        return rentStore.getRentElectic();
                     case 3:
+                        return rentStore.getRentTotal();
+                    case 4:
                         return rentStore.getRentPaidStatus();
 
                     default:

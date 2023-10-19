@@ -20,31 +20,37 @@ public class RentStore {
     private float rentElectic;
     private float rentTotal;
     private String rentPaidStatus;
+    private float rentPrice;
     private int storeId;
 
-    public RentStore(int id, float rentWater, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+    public RentStore(int id, float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
         this.id = id;
         this.rentWater = rentWater;
         this.rentElectic = rentElectic;
         this.rentTotal = rentTotal;
         this.rentPaidStatus = rentPaidStatus;
-        this.storeId= storeId;
+        this.storeId = storeId;
+        this.rentPrice = rentPrice;
     }
-     public RentStore(float rentWater, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
+
+    public RentStore(float rentWater, float rentPrice, float rentElectic, float rentTotal, String rentPaidStatus, int storeId) {
         this.id = -1;
         this.rentWater = rentWater;
         this.rentElectic = rentElectic;
         this.rentTotal = rentTotal;
         this.rentPaidStatus = rentPaidStatus;
-        this.storeId= storeId;
+        this.storeId = storeId;
+        this.rentPrice = rentPrice;
     }
-     public RentStore() {
+
+    public RentStore() {
         this.id = -1;
         this.rentWater = 0;
         this.rentElectic = 0;
         this.rentTotal = 0;
+        this.rentPrice = 0;
         this.rentPaidStatus = "";
-        this.storeId= -1;
+        this.storeId = -1;
     }
 
     public int getId() {
@@ -87,6 +93,14 @@ public class RentStore {
         this.rentPaidStatus = rentPaidStatus;
     }
 
+    public float getRentPrice() {
+        return rentPrice;
+    }
+
+    public void setRentPrice(float rentPrice) {
+        this.rentPrice = rentPrice;
+    }
+
     public int getStoreId() {
         return storeId;
     }
@@ -97,11 +111,11 @@ public class RentStore {
 
     @Override
     public String toString() {
-        return "RentStore{" + "id=" + id + ", rentWater=" + rentWater + ", rentElectic=" + rentElectic + ", rentTotal=" + rentTotal + ", rentPaidStatus=" + rentPaidStatus + ", storeId=" + storeId + '}';
+        return "RentStore{" + "id=" + id + ", rentWater=" + rentWater + ", rentElectic=" + rentElectic + ", rentTotal=" + rentTotal + ", rentPaidStatus=" + rentPaidStatus + ", rentPrice=" + rentPrice + ", storeId=" + storeId + '}';
     }
 
     
-    
+
     public static RentStore fromRS(ResultSet rs) {
         RentStore rentStore = new RentStore();
         try {
@@ -111,7 +125,7 @@ public class RentStore {
             rentStore.setRentTotal(rs.getFloat("rent_total"));
             rentStore.setRentPaidStatus(rs.getString("rent_paid_status"));
             rentStore.setStoreId(rs.getInt("store_id"));
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(RentStore.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }

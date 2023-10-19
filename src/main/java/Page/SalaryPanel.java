@@ -129,7 +129,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         });
 
         btnHistory1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnHistory1.setText("History");
+        btnHistory1.setText("Print");
         btnHistory1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHistory1ActionPerformed(evt);
@@ -202,7 +202,6 @@ public class SalaryPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
-
     private javax.swing.JButton btnHistory1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

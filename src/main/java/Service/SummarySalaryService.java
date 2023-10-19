@@ -65,6 +65,15 @@ public class SummarySalaryService {
 
     }
 
+    public SummarySalary getSalaryCheckInOut(int id) {
+        SummarySalaryDao summarySalaryDao = new SummarySalaryDao();
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        SummarySalary summarySalary = summarySalaryDao.get(id);
+        ArrayList<Checkinout> checkinouts = checkinoutDao.getBySSId(id);
+        summarySalary.setCheckins(checkinouts);
+        return summarySalary;
+    }
+
     public SummarySalary update(SummarySalary editedSummarySalary) {
         SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
         return SummarySalaryDao.update(editedSummarySalary);

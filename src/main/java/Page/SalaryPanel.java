@@ -62,7 +62,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
             @Override
             public void onSelect(int row) {
-                System.out.println(list.get(row).toString());
+                chagePageEmp(list.get(row), "SS Emp");
             }
         };
 

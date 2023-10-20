@@ -6,11 +6,16 @@ package Page;
 
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
+import Model.Checkinout;
 import Model.Employee;
+import Service.CheckinoutService;
+import Service.SummarySalaryService;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -18,7 +23,7 @@ import scrollbar.ScrollBarCustom;
  * @author ASUS
  */
 public class TableSalaryPanel extends javax.swing.JPanel {
-private Employee employee;
+
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -26,12 +31,71 @@ private Employee employee;
     /**
      * Creates new form TableSalaryPanel
      */
+    private Employee employee;
+    private CheckinoutService checkinoutService;
+    private SummarySalaryService summarySalaryService;
+    private ArrayList<Checkinout>cioList;
+
     public TableSalaryPanel(Employee employee) {
         initComponents();
         this.employee = employee;
+        this.cioList = new ArrayList<>();
+        checkinoutService = new CheckinoutService();
+        summarySalaryService = new SummarySalaryService();
         lblNameEmp.setText(employee.getName());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-    
+        tblPaidDate.setModel(new AbstractTableModel() {
+          String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return cioList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Checkinout checkinout = cioList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return checkinout.getCioDate();
+                    case 1:
+                        return checkinout.getCioTimeIn();
+                    case 2:
+                        return checkinout.getCioTimeOut();
+                    case 3:
+                        return checkinout.getCioTotalHour();
+                    case 4:
+                        if (employee == null) {
+                            return "-";
+                        } else {
+                            return checkinout.getCioTotalHour() * employee.getHourlyWage();
+                        }
+
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
+
     }
 
     /**
@@ -226,7 +290,7 @@ private Employee employee;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed
-        
+
     }//GEN-LAST:event_btnPaymentHistoryActionPerformed
 
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
@@ -261,7 +325,7 @@ private Employee employee;
             }
         });
     }
-    
+
     private void openPaymentStatusDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         PaymentStatus paymentStatus = new PaymentStatus(frame);
@@ -274,12 +338,12 @@ private Employee employee;
             }
         });
     }
-    
+
     private void refreshTable() {
         tblPaidDate.revalidate();
         tblPaidDate.repaint();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel1;

@@ -63,7 +63,6 @@ public class Bill {
         this.totalQty = totalQty;
         this.employeeId = employeeId;
     }
-    
 
     public Bill() {
         this.id = -1;
@@ -162,6 +161,49 @@ public class Bill {
             billDetails = new ArrayList<>();
         }
         billDetails.add(billDetail);
+    }
+
+    public void updateBillDetail(Material selectedMaterial) {
+        int selectedMaterialId = selectedMaterial.getId();
+
+        boolean itemExists = false;
+
+        for (BillDetail billDetail : billDetails) {
+            if (billDetail.getMat_id() == selectedMaterialId) {
+                itemExists = true;
+
+                int currentQuantity = billDetail.getAmount();
+                float pricePerUnit = selectedMaterial.getMatPricePerUnit();
+
+                currentQuantity++;
+                float totalPrice = pricePerUnit * currentQuantity;
+
+                billDetail.setAmount(currentQuantity);
+                billDetail.setTotal(totalPrice);
+
+                break;
+            }
+        }
+
+        if (!itemExists) {
+            // If the material doesn't exist, create a new BillDetail and add it to billDetails
+            BillDetail newBillDetail = new BillDetail(-1, selectedMaterial.getName(), 1, 0.0f, selectedMaterial.getMatPricePerUnit(), selectedMaterial.getMatPricePerUnit(), id, selectedMaterialId);
+            billDetails.add(newBillDetail);
+        }
+    }
+
+    public void addMaterialToBill(Material selectedMaterial) {
+
+        Material materialForBillDetail = new Material(
+                selectedMaterial.getMatMinQty(),
+                selectedMaterial.getName(),
+                1,
+                selectedMaterial.getMatUnit(),
+                selectedMaterial.getMatPricePerUnit()
+        );
+
+        BillDetail billDetail = new BillDetail(-1, materialForBillDetail.getName(), 1, 0.0f, materialForBillDetail.getMatPricePerUnit(), materialForBillDetail.getMatPricePerUnit(), this.getId(), materialForBillDetail.getId());
+        this.addBillDetail(billDetail);
     }
 
     @Override

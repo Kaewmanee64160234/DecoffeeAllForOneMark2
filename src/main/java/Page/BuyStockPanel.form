@@ -301,35 +301,38 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="txtTotal" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtDiscount" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTotalPrice" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="edtTotalprice" alignment="0" pref="110" max="32767" attributes="0"/>
-                              <Component id="edtDiscount" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblTotal" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="txtTotalPrice" min="-2" pref="92" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="lblTotalPrice" min="-2" pref="135" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="btnCalculate" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="txtBuy" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="edtBuy" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="txtDiscount" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTotal" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="edtDiscount" pref="135" max="32767" attributes="0"/>
+                                      <Component id="lblTotal" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                  <Component id="txtChange" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="lblChange" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnCalculate" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtBuy" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtChange" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblChange" max="32767" attributes="0"/>
+                                      <Component id="edtBuy" pref="179" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -340,11 +343,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtTotalPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="edtTotalprice" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="edtBuy" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtBuy" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtTotalPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="edtBuy" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtBuy" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblTotalPrice" pref="27" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -361,6 +366,12 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnCalculate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnCalculate" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTotal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -386,8 +397,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Discount:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="edtTotalprice">
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtTotal">
                   <Properties>
@@ -422,10 +431,15 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Calculate"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCalculateActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblTotal">
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblChange">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblTotalPrice">
                 </Component>
               </SubComponents>
             </Container>

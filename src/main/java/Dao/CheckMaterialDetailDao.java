@@ -8,6 +8,8 @@ import java.util.List;
 
 import Model.CheckMaterialDetail;
 import helper.DatabaseHelper;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CheckMaterialDetailDao implements Dao<CheckMaterialDetail> {
 
@@ -31,24 +33,65 @@ public class CheckMaterialDetailDao implements Dao<CheckMaterialDetail> {
         }
     }
 
-    @Override
     public List<CheckMaterialDetail> getAll() {
-        // TODO Auto-generated method stub
-        ArrayList<CheckMaterialDetail> list = new ArrayList<CheckMaterialDetail>();
+        ArrayList<CheckMaterialDetail> list = new ArrayList();
         String sql = "SELECT * FROM check_material_detail";
         Connection conn = DatabaseHelper.getConnect();
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
             while (rs.next()) {
                 CheckMaterialDetail checkMaterialDetail = CheckMaterialDetail.fromRS(rs);
                 list.add(checkMaterialDetail);
+
             }
-            return list;
-        } catch (Exception ex) {
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            return null;
         }
+        return list;
+    }
+
+    @Override
+    public List<CheckMaterialDetail> getAll(String where, String order) {
+        ArrayList<CheckMaterialDetail> list = new ArrayList();
+        String sql = "SELECT * FROM check_material_detail where " + where + " ORDER BY" + order;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                CheckMaterialDetail checkMaterialDetail = CheckMaterialDetail.fromRS(rs);
+                list.add(checkMaterialDetail);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<CheckMaterialDetail> getAll(String order) {
+        ArrayList<CheckMaterialDetail> list = new ArrayList();
+        String sql = "SELECT * FROM check_material_detail  ORDER BY " + order;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                CheckMaterialDetail checkMaterialDetail = CheckMaterialDetail.fromRS(rs);
+                list.add(checkMaterialDetail);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
     }
 
     @Override
@@ -115,27 +158,6 @@ public class CheckMaterialDetailDao implements Dao<CheckMaterialDetail> {
             System.out.println(ex.getMessage());
         }
         return -1;
-    }
-
-    @Override
-    public List<CheckMaterialDetail> getAll(String where, String order) {
-        // TODO Auto-generated method stub
-        ArrayList<CheckMaterialDetail> list = new ArrayList<CheckMaterialDetail>();
-        String sql = "SELECT * FROM check_material_detail " + where + " " + order;
-        Connection conn = DatabaseHelper.getConnect();
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                CheckMaterialDetail checkMaterialDetail = CheckMaterialDetail.fromRS(rs);
-                list.add(checkMaterialDetail);
-            }
-            return list;
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return null;
-        }
-
     }
 
 }

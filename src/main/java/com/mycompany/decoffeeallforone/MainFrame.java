@@ -10,6 +10,7 @@ import Component.ProductListPanel;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
+import Page.BuyStockPanel;
 import Page.CheckStockPanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
@@ -25,6 +26,7 @@ import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
 import Service.PromotionService;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -50,16 +52,30 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private EmployeePanel employeePannel;
     private MaterialPanel materialPanel;
     private CheckinCheckoutPanel checkInOutPannel;
+    private CheckStockPanel checkStockPanel;
+    private BuyStockPanel buystockPanel;
+    private ReportPanel reportPanel;
 
     public MainFrame() {
         initComponents();
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
+        productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
 //        posPanel = new PosPanel();
+        buystockPanel = new BuyStockPanel();
+        posPanel = new PosPanel();
+        userPannel = new UserPanel();
+        employeePannel = new EmployeePanel();
+        materialPanel = new MaterialPanel();
+        checkInOutPannel = new CheckinCheckoutPanel();
+        navigationBar = new NavigationBar();
+        checkStockPanel = new CheckStockPanel();
+        reportPanel = new ReportPanel();
         jScrollPane1.setViewportView(navigationBar);
+        buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
 
 
@@ -75,6 +91,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 //        scrPanel.setViewportView(new PosPanel());
         //scrPanel.setViewportView(new PosPanel());
 //        scrPanel.setViewportView(new PayRentPanel());
+        checkStockPanel.addInSubs(this);
+       scrPanel.setViewportView(reportPanel);
 
     }
 
@@ -178,27 +196,32 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
     @Override
     public void chagePage(String pageName) {
+        if(pageName.equals("Main menu")){
+            scrPanel.setViewportView(reportPanel);
+        }
+
         if (pageName.equals("POS")) {
-            scrPanel.setViewportView(new PosPanel());
+            scrPanel.setViewportView(posPanel);
         }
         if (pageName.equals("Product")) {
-            scrPanel.setViewportView(new ProductPanel());
+            scrPanel.setViewportView(productPanel);
         }
         if (pageName.equals("User")) {
-            scrPanel.setViewportView(new UserPanel());
+            scrPanel.setViewportView(userPannel);
         }
         if (pageName.equals("Employee")) {
-            scrPanel.setViewportView(new EmployeePanel());
+            scrPanel.setViewportView(employeePannel);
         }
         if (pageName.equals("Material")) {
-            scrPanel.setViewportView(new MaterialPanel());
+            scrPanel.setViewportView(materialPanel);
         }
         if (pageName.equals("Check In-Out")) {
-            scrPanel.setViewportView(new CheckinCheckoutPanel());
+            scrPanel.setViewportView(checkInOutPannel);
         }
-        if(pageName.equals("Check Stock")){
-            scrPanel.setViewportView(new CheckStockPanel());
+        if (pageName.equals("Check Stock")) {
+            scrPanel.setViewportView(checkStockPanel);
         }
 
     }
+
 }

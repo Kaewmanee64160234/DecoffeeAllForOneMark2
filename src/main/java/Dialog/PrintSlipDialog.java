@@ -13,8 +13,8 @@ public class PrintSlipDialog extends javax.swing.JDialog {
     /**
      * Creates new form PrintSlipDialog
      */
-    public PrintSlipDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public PrintSlipDialog(java.awt.Frame parent) {
+        super(parent);
         initComponents();
     }
 
@@ -174,7 +174,7 @@ public class PrintSlipDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PrintSlipDialog dialog = new PrintSlipDialog(new javax.swing.JFrame(), true);
+                PrintSlipDialog dialog = new PrintSlipDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

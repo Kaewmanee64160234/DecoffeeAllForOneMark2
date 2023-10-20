@@ -236,6 +236,7 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
         for (BuyProductable subsciber : subscibers) {
             subsciber.buy(product, 1, sizeName, (float) sizePrice, toppingName, (float) toppingPrice, sweetName, (float) sweetPrice, typeName, (float) typePrice);
         }
+        
     }
 
 }

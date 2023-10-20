@@ -403,6 +403,8 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
             list = checkinoutService.getCheckinoutsByIdEmployee(empID);
 
             tblCheckInCheckOut.setEnabled(true);
+            EmployeeService empServoce = new EmployeeService();
+            empServoce.setEditedEmployee(employee);
             refreshForm();
             refreshTable();
         } else {

@@ -10,6 +10,7 @@ import Component.ProductListPanel;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
+import Page.CheckStockPanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
@@ -20,6 +21,8 @@ import Page.PayRentPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
 import Page.ReportPanel;
+import Page.TablePaymentStatusPanel;
+import Page.TableSalaryPanel;
 import Page.UserPanel;
 import Service.PromotionService;
 import java.awt.event.ActionEvent;
@@ -56,12 +59,19 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
 
+
         //scrPanel.setViewportView(new PosPanel());
 
        // scrPanel.setViewportView(new PosPanel());
        scrPanel.setViewportView(new UserPanel());
 
 
+
+
+        scrPanel.setViewportView(new CheckStockPanel());
+//        scrPanel.setViewportView(new PosPanel());
+        //scrPanel.setViewportView(new PosPanel());
+//        scrPanel.setViewportView(new PayRentPanel());
 
     }
 
@@ -204,6 +214,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         }
         if (pageName.equals("Check In-Out")) {
             scrPanel.setViewportView(new CheckinCheckoutPanel());
+        }
+        if(pageName.equals("Check Stock")){
+            scrPanel.setViewportView(new CheckStockPanel());
         }
 
     }

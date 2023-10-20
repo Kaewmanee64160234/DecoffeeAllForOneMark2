@@ -28,9 +28,9 @@ public class BillService {
     }
 
     public Bill addNew(Bill editedBill) throws ValidateException {
-        if(!editedBill.isValid()){
-            throw new ValidateException("Bill is invalid!!!");
-        }
+//        if(!editedBill.isValid()){
+//            throw new ValidateException("Bill is invalid!!!");
+//        }
         BillDao billDao = new BillDao();
         return billDao.save(editedBill);
     }

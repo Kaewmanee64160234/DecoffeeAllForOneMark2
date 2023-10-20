@@ -63,25 +63,15 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
 
+        //scrPanel.setViewportView(new PosPanel());
+        // scrPanel.setViewportView(new PosPanel());
+        scrPanel.setViewportView(buystockPanel);
 
         //scrPanel.setViewportView(new PosPanel());
-
-
-       // scrPanel.setViewportView(new PosPanel());
-       scrPanel.setViewportView(buystockPanel);
-
-  //scrPanel.setViewportView(new PosPanel());
-
-
-
-
-
-
         //scrPanel.setViewportView(new CheckStockPanel());
 //        scrPanel.setViewportView(new PosPanel());
         //scrPanel.setViewportView(new PosPanel());
 //        scrPanel.setViewportView(new PayRentPanel());
-
     }
 
     /**
@@ -202,8 +192,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         if (pageName.equals("Check In-Out")) {
             scrPanel.setViewportView(new CheckinCheckoutPanel());
         }
-        if(pageName.equals("Check Stock")){
+        if (pageName.equals("Check Stock")) {
             scrPanel.setViewportView(new CheckStockPanel());
+        }
+        if (pageName.equals("BuyStock")) {
+            scrPanel.setViewportView(new BuyStockPanel());
         }
 
     }

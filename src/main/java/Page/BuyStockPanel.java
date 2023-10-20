@@ -5,15 +5,30 @@
 package Page;
 
 import Component.ChagePage;
+import Dao.BillDao;
+import Dao.BillDetailDao;
+import Dao.MaterialDao;
 import Model.Bill;
 import Model.BillDetail;
 import Model.DateLabelFormatter;
 import Model.Material;
+import Service.BillDetailService;
+import Service.EmployeeService;
 import Service.MaterialService;
+import Service.RecieptService;
+import Service.ValidateException;
+import helper.DatabaseHelper;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -25,14 +40,15 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author Chaiwat
  */
-public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
+public class BuyStockPanel extends javax.swing.JPanel implements ChagePage {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material material;
     private UtilDateModel model1;
     private Bill bill;
-    private ArrayList<ChagePage> chagpages ;
+    private ArrayList<ChagePage> chagpages;
+    private int selectedRowIndex;
 
     public BuyStockPanel() {
         initComponents();
@@ -148,10 +164,10 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
 
         pnlDatePicker.add(datePicker1);
 
-        // setDate in Bill
+    }
+    // setDate in Bill
 //        Date selectedDate = (Date) datePicker1.getModel().getValue();
 //        bill.setCreatdDate(selectedDate);
-    }
 
     private void updateBillDetailTable() {
         DefaultTableModel model = new DefaultTableModel();
@@ -536,9 +552,100 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
         // TODO add your handling code here:
     }//GEN-LAST:event_edtShopNameActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+        BillDetailDao billDetailDao = new BillDetailDao();
+        BillDao billDao = new BillDao();
+        boolean saved = true;
+        Bill bill = new Bill();
 
-    }//GEN-LAST:event_btnSaveActionPerformed
+        // add bill
+        bill.setShopname(edtShopName.getText());
+        Date selectedDate = model1.getValue();
+        bill.setCreatdDate(selectedDate);
+        if (selectedDate != null) {
+            bill.setCreatdDate(selectedDate);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a date.");
+            return;
+        }
+        String buyText = edtBuy.getText();
+        float buyValue = Float.parseFloat(buyText);
+        bill.setBuy(buyValue);
+        String totaldiscountText = edtDiscount.getText();
+        float totaldiscountValue = Float.parseFloat(totaldiscountText);
+        bill.setTotalDiscount(totaldiscountValue);
+        String billtotalText = lblTotal.getText();
+        float billtotalValue = Float.parseFloat(billtotalText);
+        bill.setBillTotal(billtotalValue);
+        String billchangText = lblChange.getText();
+        float billchangValue = Float.parseFloat(billchangText);
+        bill.setChange(billchangValue);
+        
+        EmployeeService employeeService = new EmployeeService();
+        bill.setEmployeeId(employeeService.getEditedEmployee().getId());
+
+        int billtotalQty = 0;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
+            billtotalQty += amount;
+        }
+        bill.setTotalQty(billtotalQty);
+        Bill savedBill = billDao.save(bill);
+        if (savedBill == null) {
+            saved = false;
+        }
+
+        //add bill_detail
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String name = model.getValueAt(i, 1).toString();
+            int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
+            float price = Float.parseFloat(model.getValueAt(i, 3).toString());
+            float total = Float.parseFloat(model.getValueAt(i, 4).toString());
+            float discount = Float.parseFloat(model.getValueAt(i, 5).toString());
+            int mat_id = Integer.parseInt(model.getValueAt(i, 0).toString());
+
+            BillDetail billDetail = new BillDetail();
+            billDetail.setName(name);
+            billDetail.setAmount(amount);
+            billDetail.setDiscount(discount);
+            billDetail.setPrice(price);
+            billDetail.setTotal(total - discount);
+            billDetail.setMat_id(mat_id);
+            billDetail.setBill_id(bill.getId());
+
+            BillDetail savedBillDetail = billDetailDao.save(billDetail);
+
+            if (savedBillDetail == null) {
+                saved = false;
+                break;
+            }
+        }
+
+        //updater materail
+        MaterialDao materialDao = new MaterialDao();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int mat_id = Integer.parseInt(model.getValueAt(i, 0).toString());
+            int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
+
+            Material material = materialDao.get(mat_id);
+
+            if (material != null) {
+                material.setMatQty(material.getMatQty() + amount);
+                materialDao.update(material);
+            }
+        }
+
+        if (saved) {
+            JOptionPane.showMessageDialog(this, "Save successful");
+            chagePage("Material");
+        } else {
+            JOptionPane.showMessageDialog(this, "Save unsuccessful");
+        } 
+    }
+
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         chagePage("Material");
@@ -636,7 +743,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
             }
         }
 
-        
+
     }//GEN-LAST:event_btnCalculateActionPerformed
 
 
@@ -674,12 +781,12 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
 
     @Override
     public void chagePage(String pageName) {
-         for (ChagePage subscober : chagpages) {
+        for (ChagePage subscober : chagpages) {
             subscober.chagePage(pageName);
-            
+
         }
     }
-    
+
     public void addInSubs(ChagePage chagePage) {
         chagpages.add(chagePage);
     }

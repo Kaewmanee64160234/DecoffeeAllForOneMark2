@@ -42,6 +42,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         this.cioList = new ArrayList<>();
         checkinoutService = new CheckinoutService();
         summarySalaryService = new SummarySalaryService();
+        cioList = checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId());
         lblNameEmp.setText(employee.getName());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         tblPaidDate.setModel(new AbstractTableModel() {
@@ -178,6 +179,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
         cmbPosition.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not paid" }));
+        cmbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbPosition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPositionActionPerformed(evt);

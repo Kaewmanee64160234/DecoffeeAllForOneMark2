@@ -22,6 +22,7 @@ import Page.PayRentPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
 import Page.ReportPanel;
+import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
@@ -54,6 +55,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private CheckStockPanel checkStockPanel;
     private BuyStockPanel buystockPanel;
     private ReportPanel reportPanel;
+    private SalaryPanel salaryPannel;
 
     public MainFrame() {
         initComponents();
@@ -69,6 +71,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         checkInOutPannel = new CheckinCheckoutPanel();
         navigationBar = new NavigationBar();
         checkStockPanel = new CheckStockPanel();
+        salaryPannel = new SalaryPanel();
         reportPanel = new ReportPanel();
         jScrollPane1.setViewportView(navigationBar);
         buystockPanel.addInSubs(this);
@@ -202,6 +205,10 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         }
         if (pageName.equals("Check Stock")) {
             scrPanel.setViewportView(checkStockPanel);
+        }
+        if(pageName.equals("SS Main")){
+            scrPanel.setViewportView(salaryPannel);
+            
         }
 
     }

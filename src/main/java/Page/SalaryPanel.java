@@ -4,11 +4,13 @@
  */
 package Page;
 
+import Component.ChagePage;
 import Dialog.PrintSlipDialog;
 import Dialog.ProductDialog;
 import Model.Product;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -16,13 +18,15 @@ import javax.swing.SwingUtilities;
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel {
+public class SalaryPanel extends javax.swing.JPanel{
     private Product editedProduct;
+  
     /**
      * Creates new form SalaryPanel
      */
     public SalaryPanel() {
         initComponents();
+      
     }
 
     /**
@@ -224,4 +228,6 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblSalary;
     private javax.swing.JTable tblTopEmployee;
     // End of variables declaration//GEN-END:variables
+
+   
 }

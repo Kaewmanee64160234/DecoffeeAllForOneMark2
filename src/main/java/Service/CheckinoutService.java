@@ -68,5 +68,10 @@ public class CheckinoutService {
         return checkins;
         
      }
+     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,String status){
+          CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id,status.charAt(0));
+        return checkins;
+     }
 }
 

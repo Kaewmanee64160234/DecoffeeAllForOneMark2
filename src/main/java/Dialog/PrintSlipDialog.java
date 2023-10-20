@@ -4,6 +4,13 @@
  */
 package Dialog;
 
+import Model.Checkinout;
+import Model.Employee;
+import Model.SummarySalary;
+import Service.CheckinoutService;
+import Service.SummarySalaryService;
+import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -11,14 +18,77 @@ import scrollbar.ScrollBarCustom;
  * @author ASUS
  */
 public class PrintSlipDialog extends javax.swing.JDialog {
+    
+    private SummarySalary summarySalary;
+    private Employee employee;
+    private CheckinoutService checkinoutService;
+    private SummarySalaryService summarySalaryService;
+    private ArrayList<Checkinout> cioList;
 
     /**
      * Creates new form PrintSlipDialog
      */
-    public PrintSlipDialog(java.awt.Frame parent) {
+    public PrintSlipDialog(java.awt.Frame parent,Employee employee) {
         super(parent);
         initComponents();
+        this.summarySalary = summarySalary;
+        this.employee = employee;
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        checkinoutService = new CheckinoutService();
+        summarySalaryService = new SummarySalaryService();
+        cioList = checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId());
+       
+        tblPayment.setModel(new AbstractTableModel() {
+          String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return cioList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Checkinout checkinout = cioList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return checkinout.getCioDate();
+                    case 1:
+                        return checkinout.getCioTimeIn();
+                    case 2:
+                        return checkinout.getCioTimeOut();
+                    case 3:
+                        return checkinout.getCioTotalHour();
+                    case 4:
+                        if (employee == null) {
+                            return "-";
+                        } else {
+                            return checkinout.getCioTotalHour() * employee.getHourlyWage();
+                        }
+
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
     }
 
     /**
@@ -177,7 +247,7 @@ public class PrintSlipDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PrintSlipDialog dialog = new PrintSlipDialog(new javax.swing.JFrame());
+                PrintSlipDialog dialog = new PrintSlipDialog(new javax.swing.JFrame(),new Employee());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

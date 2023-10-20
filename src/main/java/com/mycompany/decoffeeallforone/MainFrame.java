@@ -89,6 +89,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
               checkStockPanel.addInSubs(this);
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
+        buyStockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
 
 

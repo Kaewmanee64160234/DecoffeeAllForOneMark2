@@ -58,6 +58,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage {
         chagpages = new ArrayList<ChagePage>();
         initDatePicker();
         bill = new Bill();
+      
         materialService = new MaterialService();
         list = materialService.getMaterials();
         tblMeterial.setRowHeight(30);
@@ -648,6 +649,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage {
 
         if (saved) {
             JOptionPane.showMessageDialog(this, "Save successful");
+            //re
             chagePage("Material");
         } else {
             JOptionPane.showMessageDialog(this, "Save unsuccessful");
@@ -790,7 +792,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage {
     @Override
     public void chagePage(String pageName) {
         for (ChagePage subscober : chagpages) {
-            subscober.chagePage("Material");
+            subscober.chagePage(pageName);
 
         }
     }

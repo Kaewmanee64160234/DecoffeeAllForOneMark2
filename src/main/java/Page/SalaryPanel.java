@@ -14,7 +14,6 @@ import Service.EmployeeService;
 import TableCrud.TableActionCellEditor;
 import TableCrud.TableActionCellRenderer;
 import TableCrud.TableActionEvent;
-import TableCrud.TableActionWatch;
 import com.mycompany.decoffeeallforone.MainFrame;
 import java.awt.Font;
 import java.awt.Image;
@@ -26,12 +25,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import selectInTable.TableActionCellRender;
 
 /**
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel implements changePageSummary{
+public class SalaryPanel extends javax.swing.JPanel implements changePageSummary {
 
     private Product editedProduct;
     private EmployeeService employeeService;
@@ -47,25 +47,21 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         employeeService = new EmployeeService();
         editedEmployee = new Employee();
         list = new ArrayList<>();
+        subs = new ArrayList<>();
 
-        TableActionEvent event = new TableActionEvent() {
-            @Override
-            public void onEdit(int row) {
 
-            }
+        employeeService = new EmployeeService();
 
-            @Override
-            public void onDelete(int row) {
-            }
+        list = (ArrayList<Employee>) employeeService.getEmployees();
+       
+        selectInTable.TableActionEvent event = new selectInTable.TableActionEvent() {
 
-        };
-        TableActionWatch tableActionWatch = new TableActionWatch() {
+
             @Override
             public void onSelect(int row) {
-                
+                System.out.println(list.get(row).toString());
             }
         };
-
 
         employeeService = new EmployeeService();
 
@@ -73,7 +69,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         tblSalary.setRowHeight(60);
         tblSalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblSalary.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Profile", "ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
+            String[] columnNames = {"Profile","ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -142,8 +138,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             }
 
         });
-        tblSalary.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRenderer());
-        tblSalary.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditor(event));
+        tblSalary.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRender());
+        tblSalary.getColumnModel().getColumn(8).setCellEditor(new selectInTable.TableActionCellEditor(event));
     }
 
     /**
@@ -354,14 +350,12 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     public void chagePageEmp(Employee emp, String pageName) {
         for (changePageSummary sub : subs) {
             sub.chagePageEmp(emp, pageName);
-            
+
         }
     }
 
-    public void addInSubs(MainFrame aThis) {
-        subs.add(this);
+    public void addInSubs(changePageSummary aThis) {
+        subs.add(aThis);
     }
-
-  
 
 }

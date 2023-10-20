@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="524" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="527" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -137,7 +137,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="month/year: "/>
+                <Property name="text" type="java.lang.String" value="Month/Year: "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblName2">
@@ -145,7 +145,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="date paid: "/>
+                <Property name="text" type="java.lang.String" value="Date Paid: "/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="pnlDatePicker1">

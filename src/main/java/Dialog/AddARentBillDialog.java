@@ -50,14 +50,14 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         rentStoreService = new RentStoreService();
 
     }
-    private String getSelectedDate(JPanel panel) {
-       Date selectedDate = (Date) datePanel1.getModel().getValue();
-     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String formattedDate = dateFormat.format(selectedDate);
-    System.out.println(formattedDate);
-    return formattedDate;
-}
 
+    private String getSelectedDate(JPanel panel) {
+        Date selectedDate = (Date) datePanel1.getModel().getValue();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(selectedDate);
+        System.out.println(formattedDate);
+        return formattedDate;
+    }
 
     private void initDatePicker() {
         model1 = new UtilDateModel();
@@ -330,13 +330,12 @@ public class AddARentBillDialog extends javax.swing.JDialog {
 
         String selectedDate = getSelectedDate(pnlDatePicker1);
         if (selectedDate != null) {
-          editedRentStore.setRentDate(selectedDate);
+            editedRentStore.setRentDate(selectedDate);
         }
-        
-    
-}
 
-private void setObjectToForm() {
+    }
+
+    private void setObjectToForm() {
 
         txtRent.setText(editedRentStore.getRentPrice() + "");
         txtWaterBill.setText(editedRentStore.getRentWater() + "");
@@ -368,27 +367,23 @@ private void setObjectToForm() {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddARentBillDialog.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AddARentBillDialog.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -399,7 +394,7 @@ private void setObjectToForm() {
                 AddARentBillDialog dialog = new AddARentBillDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-public void windowClosing(java.awt.event.WindowEvent e) {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });

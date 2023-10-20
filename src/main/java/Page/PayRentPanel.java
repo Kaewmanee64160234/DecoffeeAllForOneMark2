@@ -72,7 +72,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         rentStoreService = new RentStoreService();
         rentStore = rentStoreService.getByDate("", "");
         list = rentStoreService.getRentStores();
-        tblPayRent.setEnabled(false);
+        tblPayRent.setEnabled(true);
         tblPayRent.setRowHeight(50);
         tblPayRent.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblPayRent.setModel(new AbstractTableModel() {
@@ -206,6 +206,7 @@ public class PayRentPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        
         jScrollPane1.setViewportView(tblPayRent);
 
         btnAddRentBill.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -384,11 +385,15 @@ public class PayRentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnPayRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayRentActionPerformed
-        editedRentStore = new RentStore();
+        int selectedIndex = tblPayRent.getSelectedRow();
+        if (selectedIndex >= 0) {
+            editedRentStore = list.get(selectedIndex);
+        }
         openDialog2();
     }//GEN-LAST:event_btnPayRentActionPerformed
+
     private void refreshTable() {
-        //list = rentStoreService.getRentStores();
+//        list = rentStoreService.getRentStores();
         tblPayRent.revalidate();
         tblPayRent.repaint();
     }

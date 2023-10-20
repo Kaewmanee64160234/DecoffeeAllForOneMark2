@@ -5,6 +5,9 @@
 package Dialog;
 
 import Model.DateLabelFormatter;
+import Model.RentStore;
+import Service.RentStoreService;
+import java.util.ArrayList;
 import java.util.Properties;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -18,11 +21,15 @@ public class PayRentDialog extends javax.swing.JDialog {
 
     private UtilDateModel model1;
     private UtilDateModel model2;
+    private RentStoreService rentStoreService;
+    private ArrayList<RentStore> lists;
+    private RentStore editedRentStore;
 
     /**
      * Creates new form AddARentBillDialog1
      */
     public PayRentDialog(java.awt.Frame parent) {
+        
         initComponents();
         initDatePicker1();
         initDatePicker2();
@@ -49,6 +56,7 @@ public class PayRentDialog extends javax.swing.JDialog {
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
+        model2.setSelected(true);
     }
 
     /**
@@ -83,10 +91,10 @@ public class PayRentDialog extends javax.swing.JDialog {
         });
 
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName1.setText("month/year: ");
+        lblName1.setText("Month/Year: ");
 
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName2.setText("date paid: ");
+        lblName2.setText("Date Paid: ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -165,7 +173,7 @@ public class PayRentDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 524, Short.MAX_VALUE)
+            .addGap(0, 527, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -186,6 +194,7 @@ public class PayRentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        editedRentStore.setRentPaidStatus("Y");
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
 

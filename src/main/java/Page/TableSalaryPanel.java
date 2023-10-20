@@ -50,8 +50,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         tblPaidDate = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
-        btnCancel = new javax.swing.JButton();
-        btnConfirm = new javax.swing.JButton();
         btnCancel1 = new javax.swing.JButton();
         btnConfirm1 = new javax.swing.JButton();
 
@@ -116,22 +114,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-
-        btnConfirm.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnConfirm.setText("Confirm");
-        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmActionPerformed(evt);
-            }
-        });
-
         btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCancel1.setText("Cancel");
         btnCancel1.addActionListener(new java.awt.event.ActionListener() {
@@ -189,13 +171,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConfirm1)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(238, 238, 238)
-                    .addComponent(btnCancel)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(btnConfirm)
-                    .addContainerGap(238, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,13 +205,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                     .addComponent(btnCancel1)
                     .addComponent(btnConfirm1))
                 .addContainerGap(7, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(171, 171, 171)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancel)
-                        .addComponent(btnConfirm))
-                    .addContainerGap(171, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -266,14 +234,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPositionActionPerformed
-
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
-    }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
-    }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
 
@@ -316,9 +276,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCancel1;
-    private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnPayMentStatus;
     private javax.swing.JButton btnPaymentHistory;

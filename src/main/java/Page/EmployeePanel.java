@@ -10,6 +10,9 @@ import Model.Employee;
 import Model.User;
 import Service.EmployeeService;
 import Service.UserService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionCellRenderer;
+import TableCrud.TableActionEvent;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
@@ -26,21 +29,50 @@ import javax.swing.table.AbstractTableModel;
  * @author ASUS
  */
 public class EmployeePanel extends javax.swing.JPanel {
+
     private final EmployeeService employeeService;
     private List<Employee> list;
     private Employee editedEmployee;
+
     /**
      * Creates new form Employee
      */
     public EmployeePanel() {
         initComponents();
+
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                int selectIndex = tblEmployee.getSelectedRow();
+                if (selectIndex >= 0) {
+                    editedEmployee = list.get(selectIndex);
+                    openDialog();
+                }
+            }
+
+            @Override
+            public void onDelete(int row) {
+                int selectIndex = tblEmployee.getSelectedRow();
+                if (selectIndex >= 0) {
+                    editedEmployee = list.get(selectIndex);
+                    int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (input == 0) {
+                        employeeService.delete(editedEmployee);
+                    }
+                    refreshTable();
+                }
+            }
+        };
+
         employeeService = new EmployeeService();
 
         list = employeeService.getEmployees();
-        tblEmployee.setRowHeight(50); 
+        tblEmployee.setRowHeight(60);
         tblEmployee.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblEmployee.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage"};
+            String[] columnNames = {"Profile","ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
+
             @Override
             public String getColumnName(int column) {
                 return columnNames[column];
@@ -53,12 +85,12 @@ public class EmployeePanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 6;
+                return 9;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                switch(columnIndex) {
+                switch (columnIndex) {
                     case 0:
                         return ImageIcon.class;
                     default:
@@ -71,11 +103,11 @@ public class EmployeePanel extends javax.swing.JPanel {
                 Employee employee = list.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        ImageIcon icon = new ImageIcon("./employee"+employee.getId()+".png");
+                        ImageIcon icon = new ImageIcon("./employee" + employee.getId() + ".png");
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int)(50*((float)width)/height), 50, Image.SCALE_SMOOTH);
+                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
                         icon.setImage(newImage);
                         return icon;
                     case 1:
@@ -92,11 +124,24 @@ public class EmployeePanel extends javax.swing.JPanel {
                         return employee.getPosition();
                     case 7:
                         return employee.getHourlyWage();
+                    case 8:
+                        return new TableActionCellRenderer();
                     default:
                         return "Unknown";
                 }
             }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIndex == 8) {
+                    return true;
+                }
+                return false;
+            }
+
         });
+        tblEmployee.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRenderer());
+        tblEmployee.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -111,8 +156,6 @@ public class EmployeePanel extends javax.swing.JPanel {
         jPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
-        btnDelete = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         jPanelHead = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -123,6 +166,7 @@ public class EmployeePanel extends javax.swing.JPanel {
 
         jPanel.setBackground(new java.awt.Color(166, 190, 178));
 
+        tblEmployee.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -134,25 +178,10 @@ public class EmployeePanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblEmployee.setSelectionBackground(new java.awt.Color(164, 196, 203));
         jScrollPane1.setViewportView(tblEmployee);
 
-        btnDelete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnEdit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,26 +196,19 @@ public class EmployeePanel extends javax.swing.JPanel {
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete))
-                    .addComponent(jScrollPane1))
+                        .addComponent(btnAdd)))
                 .addContainerGap())
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnEdit)
-                    .addComponent(btnDelete))
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -283,27 +305,6 @@ public class EmployeePanel extends javax.swing.JPanel {
 
         });
     }
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectIndex = tblEmployee.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedEmployee = list.get(selectIndex);
-            openDialog();
-        }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int selectIndex = tblEmployee.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedEmployee = list.get(selectIndex);
-            int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
-                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (input == 0) {
-                employeeService.delete(editedEmployee);
-            }
-            refreshTable();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void refreshTable() {
         list = employeeService.getEmployees();
         tblEmployee.revalidate();
@@ -312,8 +313,6 @@ public class EmployeePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

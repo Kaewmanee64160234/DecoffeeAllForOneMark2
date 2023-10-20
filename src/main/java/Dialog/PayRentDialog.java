@@ -72,11 +72,11 @@ public class PayRentDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnClear = new javax.swing.JButton();
         lblName1 = new javax.swing.JLabel();
         lblName2 = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
         pnlDatePicker2 = new javax.swing.JPanel();
+        btnConfirm = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
 
@@ -84,19 +84,19 @@ public class PayRentDialog extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(228, 228, 208));
 
-        btnClear.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnClear.setText("Confirm");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
-            }
-        });
-
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName1.setText("Month/Year: ");
 
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName2.setText("Date Paid: ");
+
+        btnConfirm.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnConfirm.setText("Confirm");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,9 +105,6 @@ public class PayRentDialog extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(btnClear))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblName1)
@@ -115,7 +112,10 @@ public class PayRentDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(225, 225, 225)
+                        .addComponent(btnConfirm)))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -129,9 +129,9 @@ public class PayRentDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblName2))
-                .addGap(30, 30, 30)
-                .addComponent(btnClear)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirm)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(174, 195, 174));
@@ -195,12 +195,12 @@ public class PayRentDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         rentStore.getRentDate();
         rentStore.setRentPaidStatus("Y");
         rentStoreService.update(rentStore);
         dispose();
-    }//GEN-LAST:event_btnClearActionPerformed
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,7 +252,7 @@ public class PayRentDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

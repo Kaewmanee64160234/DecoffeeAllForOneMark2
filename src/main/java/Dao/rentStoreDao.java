@@ -119,7 +119,6 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setString(7, obj.getRentDate());
             stmt.setFloat(8, obj.getRentOther());
 
-//            System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);
@@ -148,7 +147,7 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return rentStore;
     }
-    
+
     public ArrayList<RentStore> getByDate(String begin, String end) {
         ArrayList<RentStore> list = new ArrayList();
         String sql = "SELECT * FROM rent_store WHERE rent_date BETWEEN ? AND ? ";
@@ -184,10 +183,10 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setString(4, obj.getRentPaidStatus());
             stmt.setInt(5, obj.getStoreId());
             stmt.setFloat(6, obj.getRentPrice());
-            stmt.setString(7, obj.getRentDate());
-            stmt.setFloat(8, obj.getRentOther());
+            stmt.setFloat(7, obj.getRentOther());
+            stmt.setString(8, obj.getRentDate());
             stmt.setInt(9, obj.getId());
-            
+
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

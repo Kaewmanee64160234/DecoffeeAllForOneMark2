@@ -97,7 +97,6 @@ public class CheckStockPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
-        btnEditNumber = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -107,9 +106,11 @@ public class CheckStockPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCheckStock = new javax.swing.JTable();
+        btnEditNumber = new javax.swing.JButton();
 
         jPanel3.setBackground(new java.awt.Color(213, 208, 189));
 
+        btnBack.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,17 +118,11 @@ public class CheckStockPanel extends javax.swing.JPanel {
             }
         });
 
+        btnConfirm.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
-            }
-        });
-
-        btnEditNumber.setText("Edit Number");
-        btnEditNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditNumberActionPerformed(evt);
             }
         });
 
@@ -139,8 +134,6 @@ public class CheckStockPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditNumber)
-                .addGap(18, 18, 18)
                 .addComponent(btnConfirm)
                 .addContainerGap())
         );
@@ -150,9 +143,8 @@ public class CheckStockPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
-                    .addComponent(btnConfirm)
-                    .addComponent(btnEditNumber))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(btnConfirm))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(213, 208, 189));
@@ -179,9 +171,7 @@ public class CheckStockPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(439, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
@@ -195,21 +185,24 @@ public class CheckStockPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtUserName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtRole))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtUserName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtRole)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(170, 183, 173));
 
-        tblCheckStock.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblCheckStock.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblCheckStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -223,20 +216,34 @@ public class CheckStockPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblCheckStock);
 
+        btnEditNumber.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnEditNumber.setText("Edit Number");
+        btnEditNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditNumberActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditNumber)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnEditNumber)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -258,8 +265,8 @@ public class CheckStockPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -270,32 +277,51 @@ public class CheckStockPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        CheckMaterialService checkMatService = new CheckMaterialService();
-        CheckMaterial checkMaterial = new CheckMaterial();
-        EmployeeService empService = new EmployeeService();
-        checkMaterial.setEmployeeId(2);
-        ArrayList<CheckMaterialDetail> checkMaterialDetails = checkMaterial.getDetails();
-        //set last mat in matdetail
-        for (Material material : materialService.getMaterials()) {
-            CheckMaterialDetail checkMaterialDetail = new CheckMaterialDetail(material.getName(), material.getMatQty(), 1, material.getId());
-            checkMaterialDetails.add(checkMaterialDetail);
+        if( saveCheckStockDetail()){
+            JOptionPane.showMessageDialog(this, "Update Material Complete");
         }
-        //set current qty
-        checkMaterial.setDetails(checkMaterialDetails);
-        for (int i = 0; i < list.size(); i++) {
-            checkMaterial.getDetails().get(i).setLastQty(list.get(i).getMatQty());
-        }
-        
-        //create chekStock
-        checkMatService.addNew(checkMaterial);
-        //update Mat
-        for (Material material : list) {
-            materialService.update(material);
-        }
-        list = materialService.getMaterials();
-
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private boolean saveCheckStockDetail() {
+        try {
+            CheckMaterialService checkMatService = new CheckMaterialService();
+            CheckMaterial checkMaterial = new CheckMaterial();
+            EmployeeService empService = new EmployeeService();
+            checkMaterial.setEmployeeId(2);
+            ArrayList<CheckMaterialDetail> checkMaterialDetails = new ArrayList<>();
+            //set last mat in matdetail
+            for (Material material : materialService.getMaterials()) {
+                System.out.println(material.getMatQty());
+                CheckMaterialDetail checkMaterialDetail = new CheckMaterialDetail(material.getName(), material.getMatQty(), 1, material.getId());
+                checkMaterialDetails.add(checkMaterialDetail);
+            }
+//        //set current qty
+            checkMaterial.setDetails(checkMaterialDetails);
+            ArrayList<CheckMaterialDetail> checkMaterialDetails_ = new ArrayList<>();
+            int count = 0;
+            for (CheckMaterialDetail detail : checkMaterial.getDetails()) {
+                detail.setQty(list.get(count).getMatQty());
+                count++;
+                checkMaterialDetails_.add(detail);
+            }
+            checkMaterial.setDetails(checkMaterialDetails_);
+
+//create chekStock
+            checkMatService.addNew(checkMaterial);
+//update Mat
+            for (Material material : list) {
+                materialService.update(material);
+            }
+            list = materialService.getMaterials();
+            return true;
+
+        } catch (Exception e) {
+            System.err.println("Error");
+            return false;
+        }
+
+    }
 
     private void btnEditNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditNumberActionPerformed
         int selectedIndex = tblCheckStock.getSelectedRow();

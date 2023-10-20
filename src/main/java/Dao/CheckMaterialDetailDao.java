@@ -63,7 +63,6 @@ public class CheckMaterialDetailDao implements Dao<CheckMaterialDetail> {
             stmt.setInt(3, obj.getQty());
             stmt.setInt(4, obj.getMaterialId());
             stmt.setInt(5, obj.getCheckMaterialId());
-            stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             while (rs.next()) {
                 checkMaterialDetail = this.get(rs.getInt(1));

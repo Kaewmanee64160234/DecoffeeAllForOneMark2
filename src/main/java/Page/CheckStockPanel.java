@@ -21,9 +21,11 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
+    private ArrayList<ChagePage> subs;
 
     public CheckStockPanel() {
         initComponents();
+        subs = new ArrayList<>();
         int number = 0;
         materialService = new MaterialService();
 
@@ -90,7 +92,9 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
         });
     }
-
+ public void addInSubs(ChagePage chagePage) {
+        subs.add(chagePage);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -265,6 +269,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if( saveCheckStockDetail()){
             JOptionPane.showMessageDialog(this, "Update Material Complete.");
+            chagePage("Material");
         }
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
@@ -333,6 +338,11 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
     @Override
     public void chagePage(String pageName) {
+        for (ChagePage sub : subs) {
+            sub.chagePage(pageName);
+            
+        }
+        
         
     }
 }

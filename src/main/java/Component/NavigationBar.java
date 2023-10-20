@@ -62,6 +62,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
         btnMainMenu.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnMainMenu.setText("Main Menu");
         btnMainMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
 
         btnPos.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnPos.setText("Point of Sell");
@@ -230,6 +235,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
                 chagePage("Check Stock");
 
     }//GEN-LAST:event_btnCheckStockActionPerformed
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        // TODO add your handling code here:
+        chagePage("Main menu");
+    }//GEN-LAST:event_btnMainMenuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -94,6 +94,8 @@ public class Material {
     public void setMatPricePerUnit(float matPricePerUnit) {
         this.matPricePerUnit = matPricePerUnit;
     }
+    
+    
 
     @Override
     public String toString() {

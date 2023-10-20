@@ -96,7 +96,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
             @Override
             public int getColumnCount() {
-                return 8;
+                return 7;
             }
 
             @Override

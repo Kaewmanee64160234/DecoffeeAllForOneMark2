@@ -16,17 +16,25 @@ import java.util.logging.Logger;
 public class RecieptReport {
 
     private float TotalSale;
-    private int TotalQuantity;
     private String MonthYear;
+    
+//
+//    public RecieptReport(float TotalSale, int TotalQuantity, String MonthYear) {
+//        this.TotalSale = TotalSale;
+//        this.TotalQuantity = TotalQuantity;
+//    }
 
-    public RecieptReport(float TotalSale, int TotalQuantity, String MonthYear) {
+    public RecieptReport(float TotalSale,String MonthYear) {
         this.TotalSale = TotalSale;
-        this.TotalQuantity = TotalQuantity;
+        this.MonthYear = MonthYear;
     }
+    
+    
 
     public RecieptReport() {
         this.TotalSale = 0;
-        this.TotalQuantity = 0;
+         this.MonthYear = "";
+
     }
 
     public String getMonthYear() {
@@ -45,18 +53,7 @@ public class RecieptReport {
         this.TotalSale = TotalSale;
     }
 
-    public int getTotalQuantity() {
-        return TotalQuantity;
-    }
-
-    public void setTotalQuantity(int TotalQuantity) {
-        this.TotalQuantity = TotalQuantity;
-    }
-
-    @Override
-    public String toString() {
-        return "RecieptReport{" + "TotalSale=" + TotalSale + ", TotalQuantity=" + TotalQuantity + ", MonthYear=" + MonthYear + '}';
-    }
+  
 
     
     
@@ -64,7 +61,6 @@ public class RecieptReport {
         RecieptReport obj = new RecieptReport();
         try {
             obj.setTotalSale(rs.getFloat("TotalSale"));
-            obj.setTotalQuantity(rs.getInt("TotalQuantity"));
             obj.setMonthYear(rs.getString("MonthYear"));
 
         } catch (SQLException ex) {

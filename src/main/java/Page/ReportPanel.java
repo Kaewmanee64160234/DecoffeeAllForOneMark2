@@ -96,7 +96,7 @@ public class ReportPanel extends javax.swing.JPanel {
     private void loadBarDataset() {
         barDataset.clear();
         for (RecieptReport r : reciept) {
-            System.out.println("MonthYear: " + r.getMonthYear() + ", TotalSale: " + r.getTotalSale()); // Add this line for debugging
+            System.out.println("MonthYear: " + r.getMonthYear() + ", TotalSale: " + r.getTotalSale()); 
             barDataset.addValue(r.getTotalSale(), "Income", r.getMonthYear());
         }
     }

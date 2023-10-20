@@ -11,6 +11,8 @@ import Service.RentStoreService;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JFrame;
@@ -29,16 +31,16 @@ public class PayRentPanel extends javax.swing.JPanel {
     private final RentStoreService rentStoreService;
     private RentStore editedRentStore;
     private List<RentStore> list;
+    private ArrayList<RentStore> rentStore;
     private UtilDateModel model1;
     private JDatePanelImpl datePanel1;
     private UtilDateModel model2;
     private JDatePanelImpl datePanel2;
-    
 
     /**
      * Creates new form PayRentPanel
      */
-    private void initDatePicker() {
+    private void initDatePicker1() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
@@ -49,23 +51,25 @@ public class PayRentPanel extends javax.swing.JPanel {
         pnlDatePicker1.add(datePicker1);
 
     }
-    private void initDatePicker1() {
-        model1 = new UtilDateModel();
-        Properties p1 = new Properties();
-        p1.put("text.today", "Today");
-        p1.put("text.month", "Month");
-        p1.put("text.year", "Year");
-        datePanel1 = new JDatePanelImpl(model1, p1);
-        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
-        pnlDatePicker2.add(datePicker1);
+
+    private void initDatePicker2() {
+        model2 = new UtilDateModel();
+        Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
+        datePanel2 = new JDatePanelImpl(model2, p2);
+        JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+        pnlDatePicker2.add(datePicker2);
 
     }
-    
+
     public PayRentPanel() {
         initComponents();
-         initDatePicker();
-         initDatePicker1();
+        initDatePicker1();
+        initDatePicker2();
         rentStoreService = new RentStoreService();
+        rentStore = rentStoreService.getByDate("", "");
         list = rentStoreService.getRentStores();
         tblPayRent.setEnabled(false);
         tblPayRent.setRowHeight(50);
@@ -136,7 +140,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnConfirm = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
@@ -173,8 +177,13 @@ public class PayRentPanel extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(170, 183, 173));
 
-        jButton1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        jButton1.setText("Confirm");
+        btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setText("Confirm");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel5.setText("End Date:");
@@ -244,7 +253,7 @@ public class PayRentPanel extends javax.swing.JPanel {
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(btnConfirm))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -272,7 +281,7 @@ public class PayRentPanel extends javax.swing.JPanel {
                         .addGap(19, 19, 19)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
-                            .addComponent(jButton1)))
+                            .addComponent(btnConfirm)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -320,7 +329,7 @@ public class PayRentPanel extends javax.swing.JPanel {
 
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
 
-  
+
     }//GEN-LAST:event_cmbPositionActionPerformed
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
@@ -330,25 +339,39 @@ public class PayRentPanel extends javax.swing.JPanel {
         addRentBillDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
+                        
                 refreshTable();
             }
 
         });
     }
     private void btnAddRentBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRentBillActionPerformed
-     editedRentStore = new RentStore();
+        editedRentStore = new RentStore();
         openDialog();
     }//GEN-LAST:event_btnAddRentBillActionPerformed
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        rentStore = rentStoreService.getByDate(begin, end);
+        list = rentStore;
+        System.out.println(rentStore);
+//        tblPayRent.getModel();
+        refreshTable();
+    }//GEN-LAST:event_btnConfirmActionPerformed
     private void refreshTable() {
-        list = rentStoreService.getRentStores();
+        //list = rentStoreService.getRentStores();
         tblPayRent.revalidate();
         tblPayRent.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRentBill;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel4;

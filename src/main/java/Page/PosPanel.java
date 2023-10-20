@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -76,6 +77,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         this.reciept = new Reciept();
         this.promotion = new Promotion();
         initFindMemberDialog();
+//        scrProductList.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     private void initTable() {

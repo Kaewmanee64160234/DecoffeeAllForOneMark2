@@ -5,6 +5,7 @@
 package Page;
 
 import Dialog.AddARentBillDialog;
+import Dialog.PayRentDialog;
 import Model.DateLabelFormatter;
 import Model.RentStore;
 import Service.RentStoreService;
@@ -149,7 +150,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPayRent = new javax.swing.JTable();
         btnAddRentBill = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnPayRent = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         cmbPosition = new javax.swing.JComboBox<>();
 
@@ -215,8 +216,13 @@ public class PayRentPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        jButton6.setText("Pay rent");
+        btnPayRent.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPayRent.setText("Pay rent");
+        btnPayRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayRentActionPerformed(evt);
+            }
+        });
 
         jButton7.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jButton7.setText("Print payment history");
@@ -241,7 +247,7 @@ public class PayRentPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAddRentBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
+                        .addComponent(btnPayRent)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton7))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
@@ -289,7 +295,7 @@ public class PayRentPanel extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAddRentBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addComponent(btnPayRent, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                         .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,7 +337,7 @@ public class PayRentPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_cmbPositionActionPerformed
-    private void openDialog() {
+    private void openDialog1() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         AddARentBillDialog addRentBillDialog = new AddARentBillDialog(frame);
         addRentBillDialog.setLocationRelativeTo(this); //set dialog to center
@@ -345,9 +351,23 @@ public class PayRentPanel extends javax.swing.JPanel {
 
         });
     }
+    private void openDialog2() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PayRentDialog payRentDialog = new PayRentDialog(frame);
+        payRentDialog.setLocationRelativeTo(this); //set dialog to center
+        payRentDialog.setVisible(true);
+        payRentDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                        
+                refreshTable();
+            }
+
+        });
+    }
     private void btnAddRentBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRentBillActionPerformed
         editedRentStore = new RentStore();
-        openDialog();
+        openDialog1();
     }//GEN-LAST:event_btnAddRentBillActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
@@ -362,6 +382,11 @@ public class PayRentPanel extends javax.swing.JPanel {
 //        tblPayRent.getModel();
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void btnPayRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayRentActionPerformed
+        editedRentStore = new RentStore();
+        openDialog2();
+    }//GEN-LAST:event_btnPayRentActionPerformed
     private void refreshTable() {
         //list = rentStoreService.getRentStores();
         tblPayRent.revalidate();
@@ -371,8 +396,8 @@ public class PayRentPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRentBill;
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnPayRent;
     private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

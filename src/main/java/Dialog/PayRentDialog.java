@@ -22,13 +22,13 @@ public class PayRentDialog extends javax.swing.JDialog {
     /**
      * Creates new form AddARentBillDialog1
      */
-    public PayRentDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public PayRentDialog(java.awt.Frame parent) {
         initComponents();
-        initDatePicker();
+        initDatePicker1();
+        initDatePicker2();
     }
 
-    private void initDatePicker() {
+    private void initDatePicker1() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
@@ -37,14 +37,18 @@ public class PayRentDialog extends javax.swing.JDialog {
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
-        
+
+    }
+
+    private void initDatePicker2() {
         model2 = new UtilDateModel();
         Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
-        model2.setSelected(true);
-
     }
 
     /**
@@ -222,7 +226,7 @@ public class PayRentDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PayRentDialog dialog = new PayRentDialog(new javax.swing.JFrame(), true);
+                PayRentDialog dialog = new PayRentDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

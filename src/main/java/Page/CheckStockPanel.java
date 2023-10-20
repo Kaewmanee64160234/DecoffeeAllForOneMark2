@@ -278,7 +278,7 @@ public class CheckStockPanel extends javax.swing.JPanel {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if( saveCheckStockDetail()){
-            JOptionPane.showMessageDialog(this, "Update Material Complete");
+            JOptionPane.showMessageDialog(this, "Update Material Complete.");
         }
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed

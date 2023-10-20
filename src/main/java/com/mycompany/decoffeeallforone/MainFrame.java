@@ -25,6 +25,7 @@ import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
 import Service.PromotionService;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,30 +50,30 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private EmployeePanel employeePannel;
     private MaterialPanel materialPanel;
     private CheckinCheckoutPanel checkInOutPannel;
+    private CheckStockPanel checkStockPanel;
 
     public MainFrame() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
-        ProductPanel productPanel = new ProductPanel();
-        navigationBar = new NavigationBar();
+        productPanel = new ProductPanel();
         posPanel = new PosPanel();
+        userPannel = new UserPanel();
+        employeePannel = new EmployeePanel();
+        materialPanel = new MaterialPanel();
+        checkInOutPannel = new CheckinCheckoutPanel();
+        navigationBar = new NavigationBar();
+        checkStockPanel = new CheckStockPanel();
         jScrollPane1.setViewportView(navigationBar);
         navigationBar.addInSubs(this);
 
-
         //scrPanel.setViewportView(new PosPanel());
-
-  //scrPanel.setViewportView(new PosPanel());
-      scrPanel.setViewportView(new ReportPanel());
-
-
-
+        //scrPanel.setViewportView(new PosPanel());
+        scrPanel.setViewportView(new ReportPanel());
 
         //scrPanel.setViewportView(new CheckStockPanel());
 //        scrPanel.setViewportView(new PosPanel());
         //scrPanel.setViewportView(new PosPanel());
 //        scrPanel.setViewportView(new PayRentPanel());
-
     }
 
     /**
@@ -176,26 +177,27 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     @Override
     public void chagePage(String pageName) {
         if (pageName.equals("POS")) {
-            scrPanel.setViewportView(new PosPanel());
+            scrPanel.setViewportView(posPanel);
         }
         if (pageName.equals("Product")) {
-            scrPanel.setViewportView(new ProductPanel());
+            scrPanel.setViewportView(productPanel);
         }
         if (pageName.equals("User")) {
-            scrPanel.setViewportView(new UserPanel());
+            scrPanel.setViewportView(userPannel);
         }
         if (pageName.equals("Employee")) {
-            scrPanel.setViewportView(new EmployeePanel());
+            scrPanel.setViewportView(employeePannel);
         }
         if (pageName.equals("Material")) {
-            scrPanel.setViewportView(new MaterialPanel());
+            scrPanel.setViewportView(materialPanel);
         }
         if (pageName.equals("Check In-Out")) {
-            scrPanel.setViewportView(new CheckinCheckoutPanel());
+            scrPanel.setViewportView(checkInOutPannel);
         }
-        if(pageName.equals("Check Stock")){
-            scrPanel.setViewportView(new CheckStockPanel());
+        if (pageName.equals("Check Stock")) {
+            scrPanel.setViewportView(checkStockPanel);
         }
 
     }
+
 }

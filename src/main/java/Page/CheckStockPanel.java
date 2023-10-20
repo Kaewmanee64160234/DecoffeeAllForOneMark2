@@ -1,5 +1,6 @@
 package Page;
 
+import Component.ChagePage;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
 import Model.Material;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
-public class CheckStockPanel extends javax.swing.JPanel {
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
     private final MaterialService materialService;
     private List<Material> list;
@@ -366,5 +367,10 @@ public class CheckStockPanel extends javax.swing.JPanel {
         tblCheckStock.revalidate();
         tblCheckStock.repaint();
 
+    }
+
+    @Override
+    public void chagePage(String pageName) {
+        
     }
 }

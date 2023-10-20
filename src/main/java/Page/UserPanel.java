@@ -40,17 +40,28 @@ public class UserPanel extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
-                System.out.println("Edit row: " + row);
+                int selectIndex = tblUser.getSelectedRow();
+                if (selectIndex >= 0) {
+                    editedUser = list.get(selectIndex);
+                    openDialog();
+                }
             }
 
             @Override
             public void onDelete(int row) {
-                System.out.println("Delete row: " + row);
+                int selectIndex = tblUser.getSelectedRow();
+                if (selectIndex >= 0) {
+                    editedUser = list.get(selectIndex);
+                    int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (input == 0) {
+                        userService.delete(editedUser);
+                    }
+                    refreshTable();
+                }
             }
         };
-        //tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
-        tblUser.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
-        /////////////
+
         userService = new UserService();
 
         list = userService.getUsers();
@@ -114,8 +125,17 @@ public class UserPanel extends javax.swing.JPanel {
                 }
             }
 
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIndex == 6) {
+                    return true;
+                }
+                return false;
+            }
+
         });
         tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
+        tblUser.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -132,8 +152,6 @@ public class UserPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUser = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jPanelHead = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -174,22 +192,6 @@ public class UserPanel extends javax.swing.JPanel {
             }
         });
 
-        btnEdit.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -200,21 +202,14 @@ public class UserPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete)))
+                        .addComponent(btnAdd)))
                 .addContainerGap())
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnEdit)
-                    .addComponent(btnDelete))
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                 .addContainerGap())
@@ -295,11 +290,6 @@ public class UserPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        editedUser = new User();
-        openDialog();
-    }//GEN-LAST:event_btnAddActionPerformed
-
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         UserDialog userDialog = new UserDialog(frame, editedUser);
@@ -314,26 +304,10 @@ public class UserPanel extends javax.swing.JPanel {
         });
     }
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectIndex = tblUser.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedUser = list.get(selectIndex);
-            openDialog();
-        }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int selectIndex = tblUser.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedUser = list.get(selectIndex);
-            int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (input == 0) {
-                userService.delete(editedUser);
-            }
-            refreshTable();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        editedUser = new User();
+        openDialog();
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void refreshTable() {
         list = userService.getUsers();
@@ -344,8 +318,6 @@ public class UserPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup btnGender;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

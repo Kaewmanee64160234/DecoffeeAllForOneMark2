@@ -4,19 +4,17 @@
  */
 package Page;
 
+import Component.ChagePage;
 import Model.Bill;
 import Model.BillDetail;
 import Model.DateLabelFormatter;
 import Model.Material;
-import Model.RecieptDetail;
 import Service.MaterialService;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -27,16 +25,18 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author Chaiwat
  */
-public class BuyStockPanel extends javax.swing.JPanel {
+public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material material;
     private UtilDateModel model1;
     private Bill bill;
+    private ArrayList<ChagePage> chagpages ;
 
     public BuyStockPanel() {
         initComponents();
+        chagpages = new ArrayList<ChagePage>();
         initDatePicker();
         bill = new Bill();
         materialService = new MaterialService();
@@ -98,50 +98,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
             @Override
             public int getColumnCount() {
                 return 6;
-            }
-
-            @Override
-            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-//                ArrayList<BillDetail> billDetails = bill.getBillDetails();
-//                BillDetail billDetail = billDetails.get(rowIndex);
-
-                //setValueAt Bill
-//                bill.setShopname(edtShopName.getSelectedText());
-//
-//                float totalDis = 0.0f;
-//
-//                if (columnIndex == 5) {
-//                    int qty = Integer.parseInt((String) aValue);
-//
-//                    if (qty < 1) {
-//                        return;
-//                    }
-//
-//                    for (BillDetail bd : billDetails) {
-//                        totalDis += bd.getDiscount();
-//                    }
-//
-//                    totalDis *= qty;
-//
-//                    bill.setTotalDiscount(totalDis);
-//                }
-//                String totalpice = edtTotalprice.getText();
-//                float biltotalprice = Float.parseFloat(totalpice) - bill.getTotalDiscount();
-//                bill.setBillTotal(biltotalprice);
-//                
-//                String buyText = edtBuy.getText();
-//                float buy = Float.parseFloat(buyText);
-//                bill.setChange(buy - bill.getBillTotal());
-//
-//                if (columnIndex == 2) {
-//                    int qty = Integer.parseInt((String) aValue);
-//                    if (qty < 1) {
-//                        return;
-//                    }
-//
-//                    bill.setTotalQty(qty);
-//                }
-                //setValueAt BillDetail
             }
 
             @Override
@@ -243,7 +199,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
         txtTotalPrice = new javax.swing.JLabel();
         edtDiscount = new javax.swing.JTextField();
         txtDiscount = new javax.swing.JLabel();
-        edtTotalprice = new javax.swing.JTextField();
         txtTotal = new javax.swing.JLabel();
         txtBuy = new javax.swing.JLabel();
         edtBuy = new javax.swing.JTextField();
@@ -251,6 +206,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
         btnCalculate = new javax.swing.JButton();
         lblTotal = new javax.swing.JLabel();
         lblChange = new javax.swing.JLabel();
+        lblTotalPrice = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMeterial = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
@@ -375,58 +331,69 @@ public class BuyStockPanel extends javax.swing.JPanel {
 
         btnCalculate.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         btnCalculate.setText("Calculate");
+        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(57, 57, 57)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTotal)
-                    .addComponent(txtDiscount)
-                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtTotalprice, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(edtDiscount)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCalculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtBuy)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(edtBuy))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(txtChange)
+                        .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDiscount)
+                            .addComponent(txtTotal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(edtDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCalculate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuy, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtChange, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edtBuy, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))))
                 .addGap(16, 16, 16))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTotalPrice)
-                    .addComponent(edtTotalprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtBuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuy))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTotalPrice)
+                        .addComponent(edtBuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuy))
+                    .addComponent(lblTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDiscount)
-                    .addComponent(edtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtChange)
-                    .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblChange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDiscount)
+                        .addComponent(edtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtChange)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTotal)
-                    .addComponent(btnCalculate)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCalculate)
+                            .addComponent(txtTotal))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
 
@@ -574,7 +541,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
+        chagePage("Material");
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void tblMeterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMeterialMouseClicked
@@ -582,12 +549,27 @@ public class BuyStockPanel extends javax.swing.JPanel {
         if (selectedRow >= 0) {
             Material selectedMaterial = list.get(selectedRow);
 
-            BillDetail billDetail = new BillDetail(-1, selectedMaterial.getName(), 1, 0.0f, selectedMaterial.getMatPricePerUnit(), selectedMaterial.getMatPricePerUnit(), bill.getId(), selectedMaterial.getId());
+            boolean materialExistsInBill = false;
+            for (BillDetail bd : bill.getBillDetails()) {
+                if (bd.getMat_id() == selectedMaterial.getId()) {
+                    int currentAmount = bd.getAmount();
+                    float pricePerUnit = bd.getPrice();
+                    currentAmount++;
+                    bd.setAmount(currentAmount);
+                    bd.setTotal(pricePerUnit * currentAmount);
+                    materialExistsInBill = true;
+                    break;
+                }
+            }
 
-            bill.addBillDetail(billDetail);
-
+            if (!materialExistsInBill) {
+                BillDetail billDetail = new BillDetail(-1, selectedMaterial.getName(), 1, 0.0f, selectedMaterial.getMatPricePerUnit(), selectedMaterial.getMatPricePerUnit(), bill.getId(), selectedMaterial.getId());
+                bill.addBillDetail(billDetail);
+            }
             updateBillDetailTable();
         }
+
+
     }//GEN-LAST:event_tblMeterialMouseClicked
 
     private void tblBillDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillDetailMouseClicked
@@ -622,6 +604,41 @@ public class BuyStockPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+        float totalMaterialPrice = 0.0f;
+
+        for (BillDetail billDetail : bill.getBillDetails()) {
+            totalMaterialPrice += billDetail.getTotal();
+        }
+
+        lblTotalPrice.setText(String.valueOf(totalMaterialPrice));
+
+        String discountText = edtDiscount.getText();
+        String buyText = edtBuy.getText();
+
+        if (discountText.isEmpty() || buyText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            float discount = Float.parseFloat(discountText);
+            float totalAfterDiscount = totalMaterialPrice - discount;
+            float buy = Float.parseFloat(buyText);
+
+            if (buy < totalAfterDiscount) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid purchase amount", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                float change = buy - totalAfterDiscount;
+                if (totalAfterDiscount < 0) {
+                    totalAfterDiscount = 0;
+                    change = buy - totalAfterDiscount;
+                }
+                lblTotal.setText(String.valueOf(totalAfterDiscount));
+                lblChange.setText(String.valueOf(change));
+            }
+        }
+
+        
+    }//GEN-LAST:event_btnCalculateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculate;
@@ -631,7 +648,6 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JTextField edtBuy;
     private javax.swing.JTextField edtDiscount;
     private javax.swing.JTextField edtShopName;
-    private javax.swing.JTextField edtTotalprice;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -643,6 +659,7 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblAddStock;
     private javax.swing.JLabel lblChange;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalPrice;
     private javax.swing.JPanel pnlDatePicker;
     private javax.swing.JTable tblBillDetail;
     private javax.swing.JTable tblMeterial;
@@ -654,4 +671,16 @@ public class BuyStockPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtTotalPrice;
     private javax.swing.JLabel txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void chagePage(String pageName) {
+         for (ChagePage subscober : chagpages) {
+            subscober.chagePage(pageName);
+            
+        }
+    }
+    
+    public void addInSubs(ChagePage chagePage) {
+        chagpages.add(chagePage);
+    }
 }

@@ -5,6 +5,7 @@
 package Page;
 
 import Component.ChagePage;
+import Component.changePageSummary;
 import Dialog.PrintSlipDialog;
 import Dialog.ProductDialog;
 import Model.Employee;
@@ -13,6 +14,8 @@ import Service.EmployeeService;
 import TableCrud.TableActionCellEditor;
 import TableCrud.TableActionCellRenderer;
 import TableCrud.TableActionEvent;
+import TableCrud.TableActionWatch;
+import com.mycompany.decoffeeallforone.MainFrame;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
@@ -28,12 +31,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel{
+public class SalaryPanel extends javax.swing.JPanel implements changePageSummary{
+
     private Product editedProduct;
     private EmployeeService employeeService;
     private Employee editedEmployee;
     private ArrayList<Employee> list;
-  
+    private ArrayList<changePageSummary> subs;
+
     /**
      * Creates new form SalaryPanel
      */
@@ -42,20 +47,25 @@ public class SalaryPanel extends javax.swing.JPanel{
         employeeService = new EmployeeService();
         editedEmployee = new Employee();
         list = new ArrayList<>();
-                
-      
+
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
-                
+
             }
 
             @Override
             public void onDelete(int row) {
             }
 
-            
         };
+        TableActionWatch tableActionWatch = new TableActionWatch() {
+            @Override
+            public void onSelect(int row) {
+                
+            }
+        };
+
 
         employeeService = new EmployeeService();
 
@@ -63,7 +73,7 @@ public class SalaryPanel extends javax.swing.JPanel{
         tblSalary.setRowHeight(60);
         tblSalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblSalary.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Profile","ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
+            String[] columnNames = {"Profile", "ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -316,14 +326,13 @@ public class SalaryPanel extends javax.swing.JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        
+
     }//GEN-LAST:event_btnHistoryActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
@@ -341,5 +350,18 @@ public class SalaryPanel extends javax.swing.JPanel{
     private javax.swing.JTable tblTopEmployee;
     // End of variables declaration//GEN-END:variables
 
-   
+    @Override
+    public void chagePageEmp(Employee emp, String pageName) {
+        for (changePageSummary sub : subs) {
+            sub.chagePageEmp(emp, pageName);
+            
+        }
+    }
+
+    public void addInSubs(MainFrame aThis) {
+        subs.add(this);
+    }
+
+  
+
 }

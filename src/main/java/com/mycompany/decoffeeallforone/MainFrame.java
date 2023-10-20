@@ -7,6 +7,7 @@ package com.mycompany.decoffeeallforone;
 import Component.ChagePage;
 import Component.NavigationBar;
 import Component.ProductListPanel;
+import Component.changePageSummary;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
@@ -40,7 +41,7 @@ import javax.swing.JScrollPane;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage {
+public class MainFrame extends javax.swing.JFrame implements ChagePage,changePageSummary {
 
     /**
      * Creates new form MainFrame
@@ -56,10 +57,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private BuyStockPanel buystockPanel;
     private ReportPanel reportPanel;
     private SalaryPanel salaryPannel;
+    private TableSalaryPanel tableSalaryPannel;
+    private Employee employee;
 
     public MainFrame() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
+        employee = new Employee();         
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
@@ -77,6 +81,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
         checkStockPanel.addInSubs(this);
+        salaryPannel.addInSubs(this);
        scrPanel.setViewportView(reportPanel);
 
     }
@@ -211,6 +216,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
             
         }
 
+    }
+
+    @Override
+    public void chagePageEmp(Employee emp, String pageName) {
+        if(pageName.equals("SS Emp")){
+            scrPanel.setViewportView(new TableSalaryPanel(emp));
+        }
     }
 
 }

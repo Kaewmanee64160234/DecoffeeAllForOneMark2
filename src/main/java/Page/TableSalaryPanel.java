@@ -6,6 +6,7 @@ package Page;
 
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
+import Model.Employee;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -16,7 +17,7 @@ import javax.swing.SwingUtilities;
  * @author ASUS
  */
 public class TableSalaryPanel extends javax.swing.JPanel {
-
+private Employee employee;
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -24,8 +25,10 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     /**
      * Creates new form TableSalaryPanel
      */
-    public TableSalaryPanel() {
+    public TableSalaryPanel(Employee employee) {
         initComponents();
+        this.employee = employee;
+        lblNameEmp.setText(employee.getName());
     }
 
     /**
@@ -38,7 +41,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblNameEmp = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtBathPerHr = new javax.swing.JLabel();
@@ -55,8 +58,8 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(213, 208, 189));
 
-        jLabel3.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        jLabel3.setText("Keawmanee Marasri");
+        lblNameEmp.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
+        lblNameEmp.setText("Keawmanee Marasri");
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("bath/hr :");
@@ -143,7 +146,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNameEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,7 +179,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(lblNameEmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -282,12 +285,12 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnPaymentHistory;
     private javax.swing.JButton btnPrintSlip;
     private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblNameEmp;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;

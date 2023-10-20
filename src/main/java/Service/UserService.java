@@ -5,6 +5,7 @@
 package Service;
 
 import Dao.UserDao;
+import Model.Employee;
 import Model.User;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,8 +23,12 @@ public class UserService {
     
       public User login(String login, String password) {
         UserDao userDao = new UserDao();
+        EmployeeService employeeService = new EmployeeService();
         User user = userDao.getByLogin(login);
         if (user != null && user.getPassword().equals(password)) {
+            Employee employee = employeeService.getById(user.getEmployee_id());
+            employeeService.setEditedEmployee(employee);
+            
             return user;
         }
         return null;

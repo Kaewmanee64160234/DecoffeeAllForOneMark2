@@ -1,5 +1,6 @@
 package Page;
 
+import Component.ChagePage;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
 import Model.Material;
@@ -14,15 +15,19 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
-public class CheckStockPanel extends javax.swing.JPanel {
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
+    private ArrayList<ChagePage> subs;
 
     public CheckStockPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        subs = new ArrayList<>();
         int number = 0;
         materialService = new MaterialService();
 
@@ -89,7 +94,9 @@ public class CheckStockPanel extends javax.swing.JPanel {
 
         });
     }
-
+ public void addInSubs(ChagePage chagePage) {
+        subs.add(chagePage);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -264,6 +271,7 @@ public class CheckStockPanel extends javax.swing.JPanel {
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if( saveCheckStockDetail()){
             JOptionPane.showMessageDialog(this, "Update Material Complete.");
+            chagePage("Material");
         }
         refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
@@ -328,5 +336,15 @@ public class CheckStockPanel extends javax.swing.JPanel {
         tblCheckStock.revalidate();
         tblCheckStock.repaint();
 
+    }
+
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage sub : subs) {
+            sub.chagePage(pageName);
+            
+        }
+        
+        
     }
 }

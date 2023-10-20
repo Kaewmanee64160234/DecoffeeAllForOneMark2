@@ -6,17 +6,19 @@ package Page;
 
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
+import Model.Employee;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
  * @author ASUS
  */
 public class TableSalaryPanel extends javax.swing.JPanel {
-
+private Employee employee;
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -24,8 +26,12 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     /**
      * Creates new form TableSalaryPanel
      */
-    public TableSalaryPanel() {
+    public TableSalaryPanel(Employee employee) {
         initComponents();
+        this.employee = employee;
+        lblNameEmp.setText(employee.getName());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+    
     }
 
     /**
@@ -38,7 +44,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblNameEmp = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtBathPerHr = new javax.swing.JLabel();
@@ -50,15 +56,13 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         tblPaidDate = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
-        btnCancel = new javax.swing.JButton();
-        btnConfirm = new javax.swing.JButton();
         btnCancel1 = new javax.swing.JButton();
         btnConfirm1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(213, 208, 189));
 
-        jLabel3.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        jLabel3.setText("Keawmanee Marasri");
+        lblNameEmp.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
+        lblNameEmp.setText("Keawmanee Marasri");
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("bath/hr :");
@@ -116,22 +120,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-
-        btnConfirm.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnConfirm.setText("Confirm");
-        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmActionPerformed(evt);
-            }
-        });
-
         btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCancel1.setText("Cancel");
         btnCancel1.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +149,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNameEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,19 +177,12 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConfirm1)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(238, 238, 238)
-                    .addComponent(btnCancel)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(btnConfirm)
-                    .addContainerGap(238, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(lblNameEmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -230,13 +211,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                     .addComponent(btnCancel1)
                     .addComponent(btnConfirm1))
                 .addContainerGap(7, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(171, 171, 171)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancel)
-                        .addComponent(btnConfirm))
-                    .addContainerGap(171, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -266,14 +240,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPositionActionPerformed
-
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
-    }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
-    }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
 
@@ -316,20 +282,18 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCancel1;
-    private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnPayMentStatus;
     private javax.swing.JButton btnPaymentHistory;
     private javax.swing.JButton btnPrintSlip;
     private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblNameEmp;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;

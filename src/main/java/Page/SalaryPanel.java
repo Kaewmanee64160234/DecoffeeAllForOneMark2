@@ -4,25 +4,148 @@
  */
 package Page;
 
+import Component.ChagePage;
+import Component.changePageSummary;
 import Dialog.PrintSlipDialog;
 import Dialog.ProductDialog;
+import Model.Employee;
 import Model.Product;
+import Service.EmployeeService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionCellRenderer;
+import TableCrud.TableActionEvent;
+import com.mycompany.decoffeeallforone.MainFrame;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
+import javax.swing.table.AbstractTableModel;
+import selectInTable.TableActionCellRender;
+import scrollbar.ScrollBarCustom;
+
 
 /**
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel {
+public class SalaryPanel extends javax.swing.JPanel implements changePageSummary {
+
     private Product editedProduct;
+    private EmployeeService employeeService;
+    private Employee editedEmployee;
+    private ArrayList<Employee> list;
+    private ArrayList<changePageSummary> subs;
+
     /**
      * Creates new form SalaryPanel
      */
     public SalaryPanel() {
         initComponents();
+        employeeService = new EmployeeService();
+        editedEmployee = new Employee();
+        list = new ArrayList<>();
+        subs = new ArrayList<>();
+
+
+        employeeService = new EmployeeService();
+
+        list = (ArrayList<Employee>) employeeService.getEmployees();
+       
+        selectInTable.TableActionEvent event = new selectInTable.TableActionEvent() {
+
+
+            @Override
+            public void onSelect(int row) {
+                System.out.println(list.get(row).toString());
+            }
+        };
+
+        employeeService = new EmployeeService();
+
+        list = (ArrayList<Employee>) employeeService.getEmployees();
+        tblSalary.setRowHeight(60);
+        tblSalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblSalary.setModel(new AbstractTableModel() {
+            String[] columnNames = {"Profile","ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return list.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 9;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return ImageIcon.class;
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Employee employee = list.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        ImageIcon icon = new ImageIcon("./employee" + employee.getId() + ".png");
+                        Image image = icon.getImage();
+                        int width = image.getWidth(null);
+                        int height = image.getHeight(null);
+                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
+                        icon.setImage(newImage);
+                        return icon;
+                    case 1:
+                        return employee.getId();
+                    case 2:
+                        return employee.getName();
+                    case 3:
+                        return employee.getAddress();
+                    case 4:
+                        return employee.getTelephone();
+                    case 5:
+                        return employee.getEmail();
+                    case 6:
+                        return employee.getPosition();
+                    case 7:
+                        return employee.getHourlyWage();
+                    case 8:
+                        return new TableActionCellRenderer();
+                    default:
+                        return "Unknown";
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIndex == 8) {
+                    return true;
+                }
+                return false;
+            }
+
+        });
+        tblSalary.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRender());
+        tblSalary.getColumnModel().getColumn(8).setCellEditor(new selectInTable.TableActionCellEditor(event));
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
+
     }
 
     /**
@@ -103,12 +226,15 @@ public class SalaryPanel extends javax.swing.JPanel {
             .addGroup(pnlNavigation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
+                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlNavigation2Layout.setVerticalGroup(
             pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,10 +245,10 @@ public class SalaryPanel extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -149,7 +275,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(915, Short.MAX_VALUE)
                 .addComponent(btnPrint)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistory)
@@ -171,8 +297,9 @@ public class SalaryPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(pnlNavigation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlNavigation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +317,8 @@ public class SalaryPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,14 +328,13 @@ public class SalaryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        
+
     }//GEN-LAST:event_btnHistoryActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
@@ -224,4 +351,17 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblSalary;
     private javax.swing.JTable tblTopEmployee;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void chagePageEmp(Employee emp, String pageName) {
+        for (changePageSummary sub : subs) {
+            sub.chagePageEmp(emp, pageName);
+
+        }
+    }
+
+    public void addInSubs(changePageSummary aThis) {
+        subs.add(aThis);
+    }
+
 }

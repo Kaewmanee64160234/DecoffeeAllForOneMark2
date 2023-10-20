@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ProductPanel extends javax.swing.JPanel {
 
     public ProductPanel() {
         initComponents();
-
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {

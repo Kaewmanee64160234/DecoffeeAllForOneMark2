@@ -12,6 +12,7 @@ import javax.swing.text.DateFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -27,6 +28,8 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
      */
     public HistoryMaterialPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
         initDatePicker();
     }
 

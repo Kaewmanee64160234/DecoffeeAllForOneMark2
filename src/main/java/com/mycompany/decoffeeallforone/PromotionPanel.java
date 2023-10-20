@@ -22,7 +22,7 @@ public class PromotionPanel extends javax.swing.JPanel {
         promotionService = new PromotionService();
 
         list = promotionService.getPromotions();
-        tblPromotion.setRowHeight(20);
+        tblPromotion.setRowHeight(30);
         tblPromotion.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount"};
 

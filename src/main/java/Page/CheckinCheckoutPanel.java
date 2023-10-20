@@ -27,6 +27,7 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -51,6 +52,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
      */
     public CheckinCheckoutPanel() {
         initComponents();
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
         checkinoutService = new CheckinoutService();
         checkinout = new Checkinout();
         customer = new Customer();

@@ -4,6 +4,8 @@
  */
 package Dialog;
 
+import scrollbar.ScrollBarCustom;
+
 /**
  *
  * @author ASUS
@@ -15,6 +17,7 @@ public class HistorySalaryDialog extends javax.swing.JPanel {
      */
     public HistorySalaryDialog() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     /**

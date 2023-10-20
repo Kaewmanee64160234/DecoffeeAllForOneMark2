@@ -7,6 +7,7 @@ package com.mycompany.decoffeeallforone;
 import Component.ChagePage;
 import Component.NavigationBar;
 import Component.ProductListPanel;
+import Component.changePageSummary;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
@@ -22,10 +23,12 @@ import Page.PayRentPanel;
 import Page.PosPanel;
 import Page.ProductPanel;
 import Page.ReportPanel;
+import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
 import Service.PromotionService;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,12 +36,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage {
+public class MainFrame extends javax.swing.JFrame implements ChagePage,changePageSummary {
 
     /**
      * Creates new form MainFrame
@@ -50,28 +54,59 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private EmployeePanel employeePannel;
     private MaterialPanel materialPanel;
     private CheckinCheckoutPanel checkInOutPannel;
+    private CheckStockPanel checkStockPanel;
     private BuyStockPanel buystockPanel;
+    private ReportPanel reportPanel;
+    private SalaryPanel salaryPannel;
+    private TableSalaryPanel tableSalaryPannel;
+    private Employee employee;
+    private BuyStockPanel buyStockPanel;
+
 
     public MainFrame() {
         initComponents();
+        scrPanel.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
+        employee = new Employee();         
+        productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
+//        posPanel = new PosPanel();
         buystockPanel = new BuyStockPanel();
         posPanel = new PosPanel();
+        userPannel = new UserPanel();
+        employeePannel = new EmployeePanel();
+        materialPanel = new MaterialPanel();
+        checkInOutPannel = new CheckinCheckoutPanel();
+        navigationBar = new NavigationBar();
+        checkStockPanel = new CheckStockPanel();
+        salaryPannel = new SalaryPanel();
+        reportPanel = new ReportPanel();
+        buyStockPanel = new BuyStockPanel();
+        
         jScrollPane1.setViewportView(navigationBar);
+              checkStockPanel.addInSubs(this);
+        salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
 
-        //scrPanel.setViewportView(new PosPanel());
-        // scrPanel.setViewportView(new PosPanel());
-        scrPanel.setViewportView(buystockPanel);
 
-        //scrPanel.setViewportView(new PosPanel());
+//        scrPanel.setViewportView(new TableSalaryPanel());
+
+//  scrPanel.setViewportView(new PosPanel());
+      scrPanel.setViewportView(new ReportPanel());
+
+
+
+
         //scrPanel.setViewportView(new CheckStockPanel());
 //        scrPanel.setViewportView(new PosPanel());
         //scrPanel.setViewportView(new PosPanel());
 //        scrPanel.setViewportView(new PayRentPanel());
+  
+       scrPanel.setViewportView(reportPanel);
+
     }
 
     /**
@@ -174,30 +209,46 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
     @Override
     public void chagePage(String pageName) {
+        if(pageName.equals("Main menu")){
+            scrPanel.setViewportView(reportPanel);
+        }
+
         if (pageName.equals("POS")) {
-            scrPanel.setViewportView(new PosPanel());
+            scrPanel.setViewportView(posPanel);
         }
         if (pageName.equals("Product")) {
-            scrPanel.setViewportView(new ProductPanel());
+            scrPanel.setViewportView(productPanel);
         }
         if (pageName.equals("User")) {
-            scrPanel.setViewportView(new UserPanel());
+            scrPanel.setViewportView(userPannel);
         }
         if (pageName.equals("Employee")) {
-            scrPanel.setViewportView(new EmployeePanel());
+            scrPanel.setViewportView(employeePannel);
         }
         if (pageName.equals("Material")) {
-            scrPanel.setViewportView(new MaterialPanel());
+            scrPanel.setViewportView(materialPanel);
         }
         if (pageName.equals("Check In-Out")) {
-            scrPanel.setViewportView(new CheckinCheckoutPanel());
+            scrPanel.setViewportView(checkInOutPannel);
         }
         if (pageName.equals("Check Stock")) {
-            scrPanel.setViewportView(new CheckStockPanel());
+            scrPanel.setViewportView(checkStockPanel);
         }
-        if (pageName.equals("BuyStock")) {
-            scrPanel.setViewportView(new BuyStockPanel());
+        if(pageName.equals("SS Main")){
+            scrPanel.setViewportView(salaryPannel);
+            
+        }
+        if(pageName.equals("BuyStock")){
+            scrPanel.setViewportView(buyStockPanel);
         }
 
     }
+
+    @Override
+    public void chagePageEmp(Employee emp, String pageName) {
+        if(pageName.equals("SS Emp")){
+            scrPanel.setViewportView(new TableSalaryPanel(emp));
+        }
+    }
+
 }

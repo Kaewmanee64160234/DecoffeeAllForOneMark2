@@ -106,7 +106,6 @@ public class CheckStockPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCheckStock = new javax.swing.JTable();
-        btnEditNumber = new javax.swing.JButton();
 
         jPanel3.setBackground(new java.awt.Color(213, 208, 189));
 
@@ -216,34 +215,20 @@ public class CheckStockPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblCheckStock);
 
-        btnEditNumber.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnEditNumber.setText("Edit Number");
-        btnEditNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditNumberActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnEditNumber)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnEditNumber)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -323,33 +308,10 @@ public class CheckStockPanel extends javax.swing.JPanel {
 
     }
 
-    private void btnEditNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditNumberActionPerformed
-        int selectedIndex = tblCheckStock.getSelectedRow();
-        if (selectedIndex >= 0) {
-            editedMaterial = list.get(selectedIndex);
-
-            String newNumber = JOptionPane.showInputDialog(this, "Edit Number:", editedMaterial.getMatMinQty());
-
-            if (newNumber != null) {
-                try {
-
-                    int updatedNumber = Integer.parseInt(newNumber);
-
-                    editedMaterial.setMatMinQty(updatedNumber);
-
-                    tblCheckStock.setValueAt(newNumber, selectedIndex, 2);
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-    }//GEN-LAST:event_btnEditNumberActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnConfirm;
-    private javax.swing.JButton btnEditNumber;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

@@ -38,7 +38,7 @@ public class PromotionPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 8;
+                return 7;
             }
 
             @Override

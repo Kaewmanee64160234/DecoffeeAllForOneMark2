@@ -19,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -63,6 +64,7 @@ public class PayRentPanel extends javax.swing.JPanel {
     
     public PayRentPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
          initDatePicker();
          initDatePicker1();
         rentStoreService = new RentStoreService();

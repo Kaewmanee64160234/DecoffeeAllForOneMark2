@@ -26,6 +26,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -44,6 +45,7 @@ public class FindMemberDialog extends javax.swing.JDialog implements CusObs {
 
         super(parent, true);
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         subscribers = new ArrayList<CusObs>();
         this.customerService = new CustomerService();
         customers = (ArrayList<Customer>) customerService.getCustomers();

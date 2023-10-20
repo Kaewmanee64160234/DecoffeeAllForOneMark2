@@ -4,6 +4,8 @@
  */
 package Page;
 
+import scrollbar.ScrollBarCustom;
+
 /**
  *
  * @author ASUS
@@ -15,6 +17,7 @@ public class PaymentSlipPanel extends javax.swing.JPanel {
      */
     public PaymentSlipPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     /**

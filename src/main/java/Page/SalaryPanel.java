@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -23,6 +24,8 @@ public class SalaryPanel extends javax.swing.JPanel {
      */
     public SalaryPanel() {
         initComponents();
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     /**

@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -52,6 +53,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
     public MainFrame() {
         initComponents();
+        scrPanel.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
@@ -60,10 +63,10 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         navigationBar.addInSubs(this);
 
 
-        //scrPanel.setViewportView(new PosPanel());
+//        scrPanel.setViewportView(new TableSalaryPanel());
 
-  scrPanel.setViewportView(new PosPanel());
-//      scrPanel.setViewportView(new ReportPanel());
+//  scrPanel.setViewportView(new PosPanel());
+      scrPanel.setViewportView(new ReportPanel());
 
 
 

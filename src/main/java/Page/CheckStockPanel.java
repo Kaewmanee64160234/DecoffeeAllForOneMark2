@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 public class CheckStockPanel extends javax.swing.JPanel {
 
@@ -23,6 +24,7 @@ public class CheckStockPanel extends javax.swing.JPanel {
 
     public CheckStockPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         int number = 0;
         materialService = new MaterialService();
 

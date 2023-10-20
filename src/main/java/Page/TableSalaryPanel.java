@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -29,6 +30,8 @@ private Employee employee;
         initComponents();
         this.employee = employee;
         lblNameEmp.setText(employee.getName());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+    
     }
 
     /**

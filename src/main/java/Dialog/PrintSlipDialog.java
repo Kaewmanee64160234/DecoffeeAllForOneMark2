@@ -4,6 +4,8 @@
  */
 package Dialog;
 
+import scrollbar.ScrollBarCustom;
+
 /**
  *
  * @author ASUS
@@ -16,6 +18,7 @@ public class PrintSlipDialog extends javax.swing.JDialog {
     public PrintSlipDialog(java.awt.Frame parent) {
         super(parent);
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     /**

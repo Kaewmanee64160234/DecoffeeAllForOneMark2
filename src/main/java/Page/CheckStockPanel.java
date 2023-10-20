@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
@@ -25,6 +26,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
     public CheckStockPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         subs = new ArrayList<>();
         int number = 0;
         materialService = new MaterialService();

@@ -36,6 +36,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -62,11 +63,14 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
 
     public MainFrame() {
         initComponents();
+        scrPanel.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         employee = new Employee();         
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
+//        posPanel = new PosPanel();
         buystockPanel = new BuyStockPanel();
         posPanel = new PosPanel();
         userPannel = new UserPanel();
@@ -80,6 +84,20 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         jScrollPane1.setViewportView(navigationBar);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+
+
+//        scrPanel.setViewportView(new TableSalaryPanel());
+
+//  scrPanel.setViewportView(new PosPanel());
+      scrPanel.setViewportView(new ReportPanel());
+
+
+
+
+        //scrPanel.setViewportView(new CheckStockPanel());
+//        scrPanel.setViewportView(new PosPanel());
+        //scrPanel.setViewportView(new PosPanel());
+//        scrPanel.setViewportView(new PayRentPanel());
         checkStockPanel.addInSubs(this);
         salaryPannel.addInSubs(this);
        scrPanel.setViewportView(reportPanel);

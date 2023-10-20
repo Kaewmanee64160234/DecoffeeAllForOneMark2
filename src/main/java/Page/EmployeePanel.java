@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -39,6 +40,7 @@ public class EmployeePanel extends javax.swing.JPanel {
      */
     public EmployeePanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
 
         TableActionEvent event = new TableActionEvent() {
             @Override

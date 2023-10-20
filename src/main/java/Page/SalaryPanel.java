@@ -24,8 +24,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
 import javax.swing.table.AbstractTableModel;
 import selectInTable.TableActionCellRender;
+import scrollbar.ScrollBarCustom;
+
 
 /**
  *
@@ -140,6 +143,9 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         });
         tblSalary.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRender());
         tblSalary.getColumnModel().getColumn(8).setCellEditor(new selectInTable.TableActionCellEditor(event));
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
+
     }
 
     /**

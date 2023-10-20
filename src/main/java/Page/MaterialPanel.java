@@ -10,6 +10,8 @@ import Service.MaterialService;
 import TableCrud.TableActionCellEditor;
 import TableCrud.TableActionCellRenderer;
 import TableCrud.TableActionEvent;
+import scrollbar.ScrollBarCustom;
+
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -35,7 +37,7 @@ public class MaterialPanel extends javax.swing.JPanel {
      */
     public MaterialPanel() {
         initComponents();
-
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {

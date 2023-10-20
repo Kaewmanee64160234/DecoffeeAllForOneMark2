@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -36,6 +37,8 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
 
     public BuyStockPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
         chagpages = new ArrayList<ChagePage>();
         initDatePicker();
         bill = new Bill();
@@ -389,13 +392,18 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTotal)
+                        .addComponent(btnCalculate)))
+
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCalculate)
                             .addComponent(txtTotal))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
-        );
+        ;
 
         tblMeterial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblMeterial.setModel(new javax.swing.table.DefaultTableModel(

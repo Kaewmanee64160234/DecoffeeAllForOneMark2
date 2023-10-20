@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -34,6 +35,7 @@ public class CustomerPanel extends javax.swing.JPanel {
      */
     public CustomerPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
 
         TableActionEvent event = new TableActionEvent() {
             @Override

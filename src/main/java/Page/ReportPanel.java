@@ -25,6 +25,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -65,6 +66,9 @@ public class ReportPanel extends javax.swing.JPanel {
         initDatePicker();
         initBarChart();
         loadBarDataset();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
     }
 
 //    private void initBarChart() {

@@ -7,6 +7,10 @@ package Page;
 import Dialog.CustomerDialog;
 import Model.Customer;
 import Service.CustomerService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionCellRenderer;
+import TableCrud.TableActionEvent;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -30,11 +34,38 @@ public class CustomerPanel extends javax.swing.JPanel {
      */
     public CustomerPanel() {
         initComponents();
+
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                int selectedIndex = tblCustomer.getSelectedRow();
+                if (selectedIndex >= 0) {
+                    editedCustomer = list.get(selectedIndex);
+                    openDialog();
+                }
+            }
+
+            @Override
+            public void onDelete(int row) {
+                int selectedIndex = tblCustomer.getSelectedRow();
+                if (selectedIndex >= 0) {
+                    editedCustomer = list.get(selectedIndex);
+                    int input = JOptionPane.showConfirmDialog(null,
+                            "Do you want to proceed?", "Select an Option...", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (input == 0) {
+                        customerService.delete(editedCustomer);
+                    }
+                    refreshTable();
+                }
+            }
+        };
+
         customerService = new CustomerService();
         list = customerService.getCustomers();
-        tblCustomer.setRowHeight(100);
+        tblCustomer.setRowHeight(60);
+        tblCustomer.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblCustomer.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember"};
+            String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -48,7 +79,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 5;
+                return 6;
             }
 
             @Override
@@ -65,12 +96,24 @@ public class CustomerPanel extends javax.swing.JPanel {
                         return customer.getPoint();
                     case 4:
                         return customer.getStartDate();
-
+                    case 5:
+                        return new TableActionCellRenderer();
                     default:
                         return "Unknown";
                 }
+
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIndex == 5) {
+                    return true;
+                }
+                return false;
             }
         });
+        tblCustomer.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderer());
+        tblCustomer.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -97,6 +140,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(166, 190, 178));
 
+        btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +162,7 @@ public class CustomerPanel extends javax.swing.JPanel {
             }
         });
 
+        tblCustomer.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -129,6 +174,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCustomer.setSelectionBackground(new java.awt.Color(164, 196, 203));
         jScrollPane1.setViewportView(tblCustomer);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -157,7 +203,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                     .addComponent(btnAdd)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

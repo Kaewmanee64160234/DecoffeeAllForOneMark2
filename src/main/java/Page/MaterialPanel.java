@@ -3,9 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Page;
+
 import Dialog.MaterialDialog;
 import Model.Material;
 import Service.MaterialService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionCellRenderer;
+import TableCrud.TableActionEvent;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -25,18 +29,45 @@ public class MaterialPanel extends javax.swing.JPanel {
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
+
     /**
      * Creates new form UserPanel
      */
     public MaterialPanel() {
         initComponents();
+
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                int selectIndex = tblMaterial.getSelectedRow();
+                if (selectIndex >= 0) {
+                    editedMaterial = list.get(selectIndex);
+                    openDialog();
+                }
+            }
+
+            @Override
+            public void onDelete(int row) {
+                int selectIndex = tblMaterial.getSelectedRow();
+                if (selectIndex >= 0) {
+                    editedMaterial = list.get(selectIndex);
+                    int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (input == 0) {
+                        materialService.delete(editedMaterial);
+                    }
+                    refreshTable();
+                }
+            }
+        };
+
         materialService = new MaterialService();
 
         list = materialService.getMaterials();
-        tblMaterial.setRowHeight(50); 
-        tblMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblMaterial.setRowHeight(60);
+        tblMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblMaterial.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Name", "Minimum Quantity", "Quantity", "Unit", "Price Per Unit"};
+            String[] columnNames = {"ID", "Name", "Minimum Quantity", "Quantity", "Unit", "Price Per Unit", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -50,12 +81,12 @@ public class MaterialPanel extends javax.swing.JPanel {
 
             @Override
             public int getColumnCount() {
-                return 6;
+                return 7;
             }
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                switch(columnIndex) {
+                switch (columnIndex) {
                     default:
                         return String.class;
                 }
@@ -77,12 +108,24 @@ public class MaterialPanel extends javax.swing.JPanel {
                         return material.getMatUnit();
                     case 5:
                         return material.getMatPricePerUnit();
+                    case 6:
+                        return new TableActionCellRenderer();
                     default:
                         return "Unknown";
                 }
             }
-        });
 
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIndex == 6) {
+                    return true;
+                }
+                return false;
+            }
+
+        });
+        tblMaterial.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
+        tblMaterial.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -102,8 +145,6 @@ public class MaterialPanel extends javax.swing.JPanel {
         txtRole = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMaterial = new javax.swing.JTable();
 
@@ -162,7 +203,7 @@ public class MaterialPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(166, 190, 178));
 
-        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,22 +211,7 @@ public class MaterialPanel extends javax.swing.JPanel {
             }
         });
 
-        btnEdit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
+        tblMaterial.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblMaterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -197,35 +223,29 @@ public class MaterialPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblMaterial.setSelectionBackground(new java.awt.Color(164, 196, 203));
         jScrollPane1.setViewportView(tblMaterial);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete)))
+                        .addComponent(btnAdd)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnEdit)
-                    .addComponent(btnDelete))
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -270,27 +290,6 @@ public class MaterialPanel extends javax.swing.JPanel {
         });
     }
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectIndex = tblMaterial.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedMaterial = list.get(selectIndex);
-            openDialog();
-        }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int selectIndex = tblMaterial.getSelectedRow();
-        if (selectIndex >= 0) {
-            editedMaterial = list.get(selectIndex);
-            int input = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (input == 0) {
-                materialService.delete(editedMaterial);
-            }
-            refreshTable();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void refreshTable() {
         list = materialService.getMaterials();
         tblMaterial.revalidate();
@@ -300,8 +299,6 @@ public class MaterialPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

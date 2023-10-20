@@ -66,7 +66,7 @@ public class UserPanel extends javax.swing.JPanel {
 
         list = userService.getUsers();
         tblUser.setRowHeight(60);
-        tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
 
         tblUser.setModel(new AbstractTableModel() {
             String[] columnNames = {"Profile", "Id", "Login", "Name", "Password", "Role", "Action"};
@@ -170,11 +170,11 @@ public class UserPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Prpfile", "ID", "Login", "Name", "Password", "Role", "Action"
+                "Profile", "ID", "Login", "Name", "Password", "Role", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, true
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -182,9 +182,10 @@ public class UserPanel extends javax.swing.JPanel {
             }
         });
         tblUser.setRowHeight(60);
+        tblUser.setSelectionBackground(new java.awt.Color(164, 196, 203));
         jScrollPane1.setViewportView(tblUser);
 
-        btnAdd.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +212,7 @@ public class UserPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

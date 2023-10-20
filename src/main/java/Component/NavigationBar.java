@@ -44,6 +44,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
         btnCheckinout = new javax.swing.JButton();
         btnCheckStock1 = new javax.swing.JButton();
         btnSummarySalary = new javax.swing.JButton();
+        btnButStock = new javax.swing.JButton();
 
         btnCheckStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnCheckStock.setText("Check Stock");
@@ -151,6 +152,15 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
             }
         });
 
+        btnButStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnButStock.setText("BuyStock");
+        btnButStock.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnButStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnButStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,7 +180,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
                     .addComponent(btnMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCheckinout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCheckStock1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSummarySalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSummarySalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnButStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -198,7 +209,9 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
                 .addComponent(btnCheckStock1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSummarySalary, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnButStock, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -274,8 +287,14 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
         chagePage("SS Main");
     }//GEN-LAST:event_btnSummarySalaryActionPerformed
 
+    private void btnButStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnButStockActionPerformed
+        // TODO add your handling code here:
+        chagePage("BuyStock");
+    }//GEN-LAST:event_btnButStockActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnButStock;
     private javax.swing.JButton btnCheckStock;
     private javax.swing.JButton btnCheckStock1;
     private javax.swing.JButton btnCheckinout;

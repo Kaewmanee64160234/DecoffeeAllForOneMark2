@@ -4,6 +4,9 @@
  */
 package Dialog;
 
+import Model.SummarySalary;
+import Service.SummarySalaryService;
+import java.util.ArrayList;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -11,6 +14,8 @@ import scrollbar.ScrollBarCustom;
  * @author ASUS
  */
 public class PaymentStatus extends javax.swing.JDialog {
+    private SummarySalaryService summarySalaryService;
+    private ArrayList<SummarySalary> summarySalarys;
 
     /**
      * Creates new form PaymentStatus

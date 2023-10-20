@@ -60,6 +60,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
     private SalaryPanel salaryPannel;
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
+    private BuyStockPanel buyStockPanel;
 
     public MainFrame() {
         initComponents();
@@ -81,6 +82,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         checkStockPanel = new CheckStockPanel();
         salaryPannel = new SalaryPanel();
         reportPanel = new ReportPanel();
+        buyStockPanel = new BuyStockPanel();
+        
         jScrollPane1.setViewportView(navigationBar);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
@@ -232,6 +235,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         if(pageName.equals("SS Main")){
             scrPanel.setViewportView(salaryPannel);
             
+        }
+        if(pageName.equals("BuyStock")){
+            scrPanel.setViewportView(buyStockPanel);
         }
 
     }

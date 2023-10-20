@@ -346,21 +346,22 @@ public class PayRentPanel extends javax.swing.JPanel {
         addRentBillDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                        
+
                 refreshTable();
             }
 
         });
     }
+
     private void openDialog2() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PayRentDialog payRentDialog = new PayRentDialog(frame);
+        PayRentDialog payRentDialog = new PayRentDialog(frame, editedRentStore);
         payRentDialog.setLocationRelativeTo(this); //set dialog to center
         payRentDialog.setVisible(true);
         payRentDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                        
+
                 refreshTable();
             }
 
@@ -369,6 +370,7 @@ public class PayRentPanel extends javax.swing.JPanel {
     private void btnAddRentBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRentBillActionPerformed
         editedRentStore = new RentStore();
         openDialog1();
+        
     }//GEN-LAST:event_btnAddRentBillActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
@@ -381,7 +383,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         list = rentStore;
         System.out.println(rentStore);
 //        tblPayRent.getModel();
-        refreshTable();
+        refreshTableGetList();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnPayRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayRentActionPerformed
@@ -389,11 +391,16 @@ public class PayRentPanel extends javax.swing.JPanel {
         if (selectedIndex >= 0) {
             editedRentStore = list.get(selectedIndex);
         }
+        System.out.println(editedRentStore);
         openDialog2();
     }//GEN-LAST:event_btnPayRentActionPerformed
 
     private void refreshTable() {
-//        list = rentStoreService.getRentStores();
+        list = rentStoreService.getRentStores();
+        tblPayRent.revalidate();
+        tblPayRent.repaint();
+    }
+    private void refreshTableGetList() {
         tblPayRent.revalidate();
         tblPayRent.repaint();
     }

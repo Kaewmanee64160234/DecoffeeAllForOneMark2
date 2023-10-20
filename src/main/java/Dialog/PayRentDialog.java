@@ -23,14 +23,16 @@ public class PayRentDialog extends javax.swing.JDialog {
     private UtilDateModel model2;
     private RentStoreService rentStoreService;
     private ArrayList<RentStore> lists;
-    private RentStore editedRentStore;
+    private RentStore rentStore;
 
     /**
      * Creates new form AddARentBillDialog1
      */
-    public PayRentDialog(java.awt.Frame parent) {
-        
+    public PayRentDialog(java.awt.Frame parent, RentStore rentStore) {
+
         initComponents();
+        this.rentStore = rentStore;
+        this.rentStoreService = new RentStoreService();
         initDatePicker1();
         initDatePicker2();
     }
@@ -194,7 +196,9 @@ public class PayRentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        editedRentStore.setRentPaidStatus("Y");
+        rentStore.getRentDate();
+        rentStore.setRentPaidStatus("Y");
+        rentStoreService.update(rentStore);
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
 
@@ -235,7 +239,7 @@ public class PayRentDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PayRentDialog dialog = new PayRentDialog(new javax.swing.JFrame());
+                PayRentDialog dialog = new PayRentDialog(new javax.swing.JFrame(), new RentStore());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

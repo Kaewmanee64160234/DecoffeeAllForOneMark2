@@ -4,6 +4,7 @@
  */
 package TableCrud;
 
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +33,32 @@ public class Test extends javax.swing.JFrame {
                 model.removeRow(row);
             }
         };
+        tbl.setModel(new AbstractTableModel() {
+            @Override
+            public int getRowCount() {
+                return 3;
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 4;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+               return "";
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if(columnIndex==3) {
+                    return true;
+                }
+                return false;
+                
+            }
+            
+        });
         tbl.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRenderer());
         tbl.getColumnModel().getColumn(3).setCellEditor(new TableActionCellEditor(event));
                 

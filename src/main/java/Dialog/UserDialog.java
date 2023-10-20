@@ -130,6 +130,11 @@ public class UserDialog extends javax.swing.JDialog {
 
         cmbRole.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        cmbRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRoleActionPerformed(evt);
+            }
+        });
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnCancel.setText("Cancel");
@@ -275,6 +280,10 @@ public class UserDialog extends javax.swing.JDialog {
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
+
+    private void cmbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRoleActionPerformed
 
     private void setFormToObject() {
         editedUser.setLogin(edtLogin.getText());

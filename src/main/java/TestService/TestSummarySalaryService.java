@@ -8,14 +8,14 @@ public class TestSummarySalaryService {
     public static void main(String[] args) {
         SummarySalaryService summarySalaryService = new SummarySalaryService();
 //        System.out.println(summarySalaryService.getById(3));
-//        SummarySalary summarySalary = new SummarySalary();
-//        summarySalaryService.addNewSalary(3, summarySalary);
+        SummarySalary summarySalary = new SummarySalary();
+        summarySalaryService.addNewSalary(3, summarySalary);
 //        for (SummarySalary ss : summarySalaryService.getAll()) {
 //            System.out.println(ss.toString());
 //
 //        }
 //        summarySalary.printSummaryReciept();
-        System.out.println(summarySalaryService.getSalaryLastCreated().printSummaryReciept());
+//        System.out.println(summarySalaryService.getSalaryLastCreated().printSummaryReciept());
 //        SummarySalary summarySalary = summarySalaryService.getById(7);
 //        summarySalaryService.updatePaidSttus(summarySalary);
 //        for (SummarySalary summarySalary1 : summarySalaryService.getAll()) {

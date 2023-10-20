@@ -6,11 +6,17 @@ package Page;
 
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
+import Model.Checkinout;
 import Model.Employee;
+import Model.SummarySalary;
+import Service.CheckinoutService;
+import Service.SummarySalaryService;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -18,7 +24,7 @@ import scrollbar.ScrollBarCustom;
  * @author ASUS
  */
 public class TableSalaryPanel extends javax.swing.JPanel {
-private Employee employee;
+
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -26,12 +32,76 @@ private Employee employee;
     /**
      * Creates new form TableSalaryPanel
      */
+    private Employee employee;
+    private CheckinoutService checkinoutService;
+    private SummarySalaryService summarySalaryService;
+    private ArrayList<Checkinout>cioList;
+    private SummarySalary summarySalary;
+
     public TableSalaryPanel(Employee employee) {
         initComponents();
         this.employee = employee;
-        lblNameEmp.setText(employee.getName());
+        this.cioList = new ArrayList<>();
+        this.summarySalary = new SummarySalary();
+         lblNameEmp.setText(employee.getName());
+        txtBathPerHr.setText(employee.getHourlyWage()+"");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-    
+        checkinoutService = new CheckinoutService();
+        summarySalaryService = new SummarySalaryService();
+        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(),"N");
+       
+        tblPaidDate.setModel(new AbstractTableModel() {
+          String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return cioList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Checkinout checkinout = cioList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return checkinout.getCioDate();
+                    case 1:
+                        return checkinout.getCioTimeIn();
+                    case 2:
+                        return checkinout.getCioTimeOut();
+                    case 3:
+                        return checkinout.getCioTotalHour();
+                    case 4:
+                        if (employee == null) {
+                            return "-";
+                        } else {
+                            return checkinout.getCioTotalHour() * employee.getHourlyWage();
+                        }
+
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
+
     }
 
     /**
@@ -46,9 +116,7 @@ private Employee employee;
         jPanel1 = new javax.swing.JPanel();
         lblNameEmp = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtBathPerHr = new javax.swing.JLabel();
-        pnlDatePicker1 = new javax.swing.JPanel();
         btnPaymentHistory = new javax.swing.JButton();
         btnPrintSlip = new javax.swing.JButton();
         btnPayMentStatus = new javax.swing.JButton();
@@ -66,9 +134,6 @@ private Employee employee;
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("bath/hr :");
-
-        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        jLabel5.setText("date :");
 
         txtBathPerHr.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
 
@@ -114,6 +179,7 @@ private Employee employee;
 
         cmbPosition.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not paid" }));
+        cmbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbPosition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPositionActionPerformed(evt);
@@ -160,11 +226,7 @@ private Employee employee;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPrintSlip))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 450, Short.MAX_VALUE)
                         .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,15 +256,8 @@ private Employee employee;
                                 .addComponent(btnPayMentStatus)
                                 .addComponent(btnPrintSlip)
                                 .addComponent(btnPaymentHistory)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(cmbPosition))))
+                        .addGap(6, 6, 6)
+                        .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,11 +281,12 @@ private Employee employee;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed
-        
+
     }//GEN-LAST:event_btnPaymentHistoryActionPerformed
 
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
         openPrintSlipDialog();
+        refreshTable();
     }//GEN-LAST:event_btnPrintSlipActionPerformed
 
     private void btnPayMentStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayMentStatusActionPerformed
@@ -251,7 +307,7 @@ private Employee employee;
 
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame);
+        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame,employee);
         printSlipDialog.setLocationRelativeTo(this);
         printSlipDialog.setVisible(true);
         printSlipDialog.addWindowListener(new WindowAdapter() {
@@ -261,7 +317,7 @@ private Employee employee;
             }
         });
     }
-    
+
     private void openPaymentStatusDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         PaymentStatus paymentStatus = new PaymentStatus(frame);
@@ -274,12 +330,13 @@ private Employee employee;
             }
         });
     }
-    
+
     private void refreshTable() {
+        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(), "N");
         tblPaidDate.revalidate();
         tblPaidDate.repaint();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel1;
@@ -289,12 +346,10 @@ private Employee employee;
     private javax.swing.JButton btnPrintSlip;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNameEmp;
-    private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;
     // End of variables declaration//GEN-END:variables

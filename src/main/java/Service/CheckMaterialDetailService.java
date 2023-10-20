@@ -11,24 +11,28 @@ import Model.CheckMaterialDetail;
 public class CheckMaterialDetailService {
 
     public CheckMaterialDetail getById(int id) {
-        CheckMaterialDetailDao CheckMaterialDetailDao = new CheckMaterialDetailDao();
-        CheckMaterialDetail CheckMaterialDetail = CheckMaterialDetailDao.get(id);
-        return CheckMaterialDetail;
+        CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
+        return checkMaterialDetailDao.get(id);
+    }
+
+    public List<CheckMaterialDetail> getCheckMaterialDetails() {
+        CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
+        return checkMaterialDetailDao.getAll(" cmd_id asc");
     }
 
     public CheckMaterialDetail addNew(CheckMaterialDetail editedCheckMaterialDetail) {
-        CheckMaterialDetailDao CheckMaterialDetailDao = new CheckMaterialDetailDao();
-        return CheckMaterialDetailDao.save(editedCheckMaterialDetail);
+        CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
+        return checkMaterialDetailDao.save(editedCheckMaterialDetail);
     }
 
     public CheckMaterialDetail update(CheckMaterialDetail editedCheckMaterialDetail) {
-        CheckMaterialDetailDao CheckMaterialDetailDao = new CheckMaterialDetailDao();
-        return CheckMaterialDetailDao.update(editedCheckMaterialDetail);
+        CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
+        return checkMaterialDetailDao.update(editedCheckMaterialDetail);
     }
 
     public int delete(CheckMaterialDetail editedCheckMaterialDetail) {
-        CheckMaterialDetailDao CheckMaterialDetailDao = new CheckMaterialDetailDao();
-        return CheckMaterialDetailDao.delete(editedCheckMaterialDetail);
+        CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
+        return checkMaterialDetailDao.delete(editedCheckMaterialDetail);
     }
 
 }

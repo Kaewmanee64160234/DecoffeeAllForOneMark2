@@ -258,7 +258,7 @@ public class CheckinoutDao implements Dao<Checkinout> {
     
     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,char paidStatus){
         ArrayList<Checkinout> list = new ArrayList();
-        String sql = "SELECT * FROM check_in_out where employee_id = ? and cio_paid_status = ? ORDER BY cio_date DESC";
+        String sql = "SELECT * FROM check_in_out where employee_id = ? and cio_paid_status = ? and ss_id=-1 ORDER BY cio_date DESC";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);

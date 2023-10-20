@@ -286,6 +286,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
         openPrintSlipDialog();
+        refreshTable();
     }//GEN-LAST:event_btnPrintSlipActionPerformed
 
     private void btnPayMentStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayMentStatusActionPerformed
@@ -331,6 +332,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     }
 
     private void refreshTable() {
+        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(), "N");
         tblPaidDate.revalidate();
         tblPaidDate.repaint();
     }

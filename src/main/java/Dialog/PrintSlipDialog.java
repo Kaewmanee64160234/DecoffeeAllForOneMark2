@@ -10,6 +10,7 @@ import Model.SummarySalary;
 import Service.CheckinoutService;
 import Service.SummarySalaryService;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
@@ -18,7 +19,7 @@ import scrollbar.ScrollBarCustom;
  * @author ASUS
  */
 public class PrintSlipDialog extends javax.swing.JDialog {
-    
+
     private SummarySalary summarySalary;
     private Employee employee;
     private CheckinoutService checkinoutService;
@@ -28,18 +29,18 @@ public class PrintSlipDialog extends javax.swing.JDialog {
     /**
      * Creates new form PrintSlipDialog
      */
-    public PrintSlipDialog(java.awt.Frame parent,Employee employee) {
+    public PrintSlipDialog(java.awt.Frame parent, Employee employee) {
         super(parent);
         initComponents();
-        this.summarySalary = summarySalary;
+        this.summarySalary = new SummarySalary();
         this.employee = employee;
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         checkinoutService = new CheckinoutService();
         summarySalaryService = new SummarySalaryService();
         cioList = checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId());
-       
+
         tblPayment.setModel(new AbstractTableModel() {
-          String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
             @Override
             public String getColumnName(int column) {
@@ -214,7 +215,10 @@ public class PrintSlipDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
+        
+        summarySalaryService.addNewSalary(employee.getId(), summarySalary);
+        JOptionPane.showMessageDialog(this, "Create Summary Salary complete");
+        dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
@@ -247,7 +251,7 @@ public class PrintSlipDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PrintSlipDialog dialog = new PrintSlipDialog(new javax.swing.JFrame(),new Employee());
+                PrintSlipDialog dialog = new PrintSlipDialog(new javax.swing.JFrame(), new Employee());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

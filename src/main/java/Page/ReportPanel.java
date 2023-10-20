@@ -11,6 +11,7 @@ import Model.RecieptReport;
 import Service.CustomerService;
 import Service.MaterialService;
 import Service.RecieptService;
+import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,24 +67,38 @@ public class ReportPanel extends javax.swing.JPanel {
         loadBarDataset();
     }
 
+//    private void initBarChart() {
+//        barDataset = new DefaultCategoryDataset();
+//        JFreeChart chart = ChartFactory.createBarChart(
+//                "Total Sale",
+//                "Month Year",
+//                "Total Income",
+//                barDataset,
+//                PlotOrientation.VERTICAL,
+//                true, true, false);
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        pnlBarGraph.add(chartPanel);
+//    }
     private void initBarChart() {
         barDataset = new DefaultCategoryDataset();
         JFreeChart chart = ChartFactory.createBarChart(
                 "Total Sale",
-                "Store Name",
+                "Month Year",
                 "Total Income",
                 barDataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
         ChartPanel chartPanel = new ChartPanel(chart);
-        pnlBarGraph.add(chartPanel);
+        pnlBarGraph.setLayout(new java.awt.BorderLayout());
+        pnlBarGraph.add(chartPanel, BorderLayout.CENTER);
     }
 
     private void loadBarDataset() {
         barDataset.clear();
-            for (RecieptReport r : reciept) {
-                barDataset.setValue(r.getTotalSale(), "Income", r.getStoreName());
-            }
+        for (RecieptReport r : reciept) {
+            System.out.println("MonthYear: " + r.getMonthYear() + ", TotalSale: " + r.getTotalSale()); // Add this line for debugging
+            barDataset.addValue(r.getTotalSale(), "Income", r.getMonthYear());
+        }
     }
 
     private void initDatePicker() {
@@ -449,12 +464,14 @@ public class ReportPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComfirmActionPerformed
+
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         System.out.println("" + formater.format(model4.getValue()) + " " + formater.format(model5.getValue()));
         String begin = formater.format(model4.getValue());
         String end = formater.format(model5.getValue());
         reciept = recieptDetailService.getRecieptByTotalSale(begin, end);
+        System.out.println("Reciept List: " + reciept); // Add this line for debugging
         model.fireTableDataChanged();
         loadBarDataset();
 

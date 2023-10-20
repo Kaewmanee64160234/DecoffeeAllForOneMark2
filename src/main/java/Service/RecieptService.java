@@ -68,9 +68,10 @@ public class RecieptService {
     }
 
     public List<RecieptReport> getRecieptByTotalSale(String begin, String end) {
-        RecieptDao recieptDao = new RecieptDao();
-        return recieptDao.getRecieptByTotalSale(begin, end);
-    }
+    RecieptDao recieptDao = new RecieptDao();
+    return recieptDao.getRecieptByTotalSale(begin, end);
+}
+
 
     public Reciept addNew(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();

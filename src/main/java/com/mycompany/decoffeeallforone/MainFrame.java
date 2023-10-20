@@ -63,12 +63,12 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         //scrPanel.setViewportView(new PosPanel());
 
        // scrPanel.setViewportView(new PosPanel());
-       scrPanel.setViewportView(new UserPanel());
+       scrPanel.setViewportView(new ReportPanel());
 
 
 
 
-        scrPanel.setViewportView(new CheckStockPanel());
+        //scrPanel.setViewportView(new CheckStockPanel());
 //        scrPanel.setViewportView(new PosPanel());
         //scrPanel.setViewportView(new PosPanel());
 //        scrPanel.setViewportView(new PayRentPanel());

@@ -15,25 +15,26 @@ import java.util.logging.Logger;
  */
 public class RecieptReport {
 
-    private String StoreName;
     private float TotalSale;
+    private int TotalQuantity;
+    private String MonthYear;
 
-    public RecieptReport( String StoreName, float TotalSale) {
-        this.StoreName = StoreName;
+    public RecieptReport(float TotalSale, int TotalQuantity, String MonthYear) {
         this.TotalSale = TotalSale;
+        this.TotalQuantity = TotalQuantity;
     }
 
     public RecieptReport() {
-        this.StoreName = "";
         this.TotalSale = 0;
+        this.TotalQuantity = 0;
     }
 
-    public String getStoreName() {
-        return StoreName;
+    public String getMonthYear() {
+        return MonthYear;
     }
 
-    public void setStoreName(String StoreName) {
-        this.StoreName = StoreName;
+    public void setMonthYear(String MonthYear) {
+        this.MonthYear = MonthYear;
     }
 
     public float getTotalSale() {
@@ -44,16 +45,27 @@ public class RecieptReport {
         this.TotalSale = TotalSale;
     }
 
+    public int getTotalQuantity() {
+        return TotalQuantity;
+    }
+
+    public void setTotalQuantity(int TotalQuantity) {
+        this.TotalQuantity = TotalQuantity;
+    }
+
     @Override
     public String toString() {
-        return "RecieptReport{" + "StoreName=" + StoreName + ", TotalSale=" + TotalSale + '}';
+        return "RecieptReport{" + "TotalSale=" + TotalSale + ", TotalQuantity=" + TotalQuantity + ", MonthYear=" + MonthYear + '}';
     }
+
+    
     
     public static RecieptReport fromRS(ResultSet rs) {
         RecieptReport obj = new RecieptReport();
         try {
-            obj.setStoreName(rs.getString("StoreName"));
             obj.setTotalSale(rs.getFloat("TotalSale"));
+            obj.setTotalQuantity(rs.getInt("TotalQuantity"));
+            obj.setMonthYear(rs.getString("MonthYear"));
 
         } catch (SQLException ex) {
             Logger.getLogger(RecieptReport.class.getName()).log(Level.SEVERE, null, ex);

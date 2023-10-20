@@ -107,14 +107,18 @@ public class RecieptDao implements Dao<Reciept> {
     public List<RecieptReport> getRecieptByTotalSale(String being, String end) {
         ArrayList<RecieptReport> list = new ArrayList();
         String sql = """
-              SELECT sto.store_name AS StoreName,
-                      sum(reciept_total) AS TotalSale
-                 FROM reciept rec
-                      INNER JOIN
-                      store sto ON sto.store_id = rec.store_id
-                WHERE rec.create_date BETWEEN ? AND ?
-                GROUP BY StoreName
-                ORDER BY TotalSale DESC;
+           SELECT 
+               strftime('%m-%Y', rec.create_date) AS MonthYear,
+               sum(reciept_total) AS TotalSale,
+               sum(rec.reciept_total_qty) AS TotalQuantity
+           FROM 
+               reciept rec
+           WHERE 
+               rec.create_date BETWEEN ? AND ?
+           GROUP BY  
+               MonthYear
+           ORDER BY 
+               TotalSale DESC;
                                      """;
         Connection conn = DatabaseHelper.getConnect();
         try {

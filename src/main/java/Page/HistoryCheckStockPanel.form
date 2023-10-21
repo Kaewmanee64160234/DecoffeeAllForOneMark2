@@ -80,12 +80,10 @@
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnSubmit" pref="30" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="pnlDatePicker2" alignment="1" max="32767" attributes="0"/>
-                          <Component id="pnlDatePicker1" alignment="1" max="32767" attributes="0"/>
-                          <Component id="lblStartDate1" alignment="1" pref="30" max="32767" attributes="0"/>
-                          <Component id="lblStartDate" alignment="1" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="pnlDatePicker2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="pnlDatePicker1" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblStartDate1" alignment="1" pref="30" max="32767" attributes="0"/>
+                      <Component id="lblStartDate" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

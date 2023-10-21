@@ -395,18 +395,28 @@ public class PayRentPanel extends javax.swing.JPanel {
         String value = cmbPosition.getSelectedItem().toString();
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
-        System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
-        String begin = formater.format(model1.getValue());
-        String end = formater.format(model2.getValue());
-        list = rentStore;
-        list = rentStoreService.getByDate(begin, end);
-        if (value.equals("Paid")) {
-            list = rentStoreService.getByPaidStatus("Y");
-        }else{
-            list = rentStoreService.getByPaidStatus("N");
+        if (model1.getValue() == null && model2.getValue() == null) {
+            if (value.equals("Paid")) {
+                list = rentStoreService.getByPaidStatus("Y");
+            } else {
+                list = rentStoreService.getByPaidStatus("N");
+            }
+            cmbPosition.setSelectedItem(value);
+        } else {
+            String begin = formater.format(model1.getValue());
+            String end = formater.format(model2.getValue());
+            list = rentStore;
+
+            if (value.equals("Paid")) {
+                list = rentStoreService.getByDateByPaidStatus("Y", begin, end);
+
+            } else {
+                list = rentStoreService.getByDateByPaidStatus("N", begin, end);
+            }
+            cmbPosition.setSelectedItem(value);
+
         }
-        cmbPosition.setSelectedItem(value);
-        System.out.println(rentStore);
+
         refreshTableGetList();
     }//GEN-LAST:event_btnConfirmActionPerformed
 

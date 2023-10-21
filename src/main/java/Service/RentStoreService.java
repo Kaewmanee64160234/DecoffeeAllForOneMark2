@@ -33,6 +33,10 @@ public class RentStoreService {
         RentStoreDao rentStoreDao = new RentStoreDao();
         return rentStoreDao.getByPaidStatus(status);
     }
+   public ArrayList<RentStore> getByDateByPaidStatus(String status, String begin, String end) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getByDateByPaidStatus(status, begin, end);
+    }
 
     
     public List<RentStore> getRentStores(){

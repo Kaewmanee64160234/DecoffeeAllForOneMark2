@@ -166,6 +166,28 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return list;
     }
+        
+        public ArrayList<RentStore> getByDateByPaidStatus(String status, String begin, String end) {
+        ArrayList<RentStore> list = new ArrayList();
+        String sql = "SELECT * FROM rent_store WHERE rent_paid_status=? AND rent_date BETWEEN ? AND ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            stmt.setString(2, begin);
+            stmt.setString(3, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RentStore rentStore = RentStore.fromRS(rs);
+                list.add(rentStore);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
 
 
     public ArrayList<RentStore> getByDate(String begin, String end) {

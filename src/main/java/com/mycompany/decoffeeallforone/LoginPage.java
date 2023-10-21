@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author USER
  */
-public class LoginPage extends javax.swing.JFrame {
+public class LoginPage extends javax.swing.JFrame{
 
     private boolean isPasswordVisible = false;
 

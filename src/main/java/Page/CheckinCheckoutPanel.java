@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Component.LoginObs;
 import Model.Checkinout;
 import Model.Employee;
 import Service.CheckinoutService;
@@ -33,7 +34,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author toey
  */
-public class CheckinCheckoutPanel extends javax.swing.JPanel {
+public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs {
 
     private final CheckinoutService checkinoutService;
     private List<Checkinout> list;
@@ -46,12 +47,14 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private Employee employee;
     private User user;
     private EmployeeService employeeService;
+    private ArrayList<LoginObs> loginOsbs;
 
     /**
      * Creates new form ChecekinCheckoutPanel
      */
     public CheckinCheckoutPanel() {
         initComponents();
+        loginOsbs = new ArrayList<>();
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
         checkinoutService = new CheckinoutService();
         checkinout = new Checkinout();
@@ -118,8 +121,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         });
         setTimeInLblDate();
     }
-
-   
 
     private void setTimeInLblDate() {
         Timer timer = new Timer();
@@ -369,11 +370,14 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         employeeService = new EmployeeService();
         checkinout = new Checkinout();
         User user = userService.login(name, pass);
+
         if (user != null) {
             int empID = user.getEmployee_id();
             String formattedTime = cretaeFormatDate();
             employee = employeeService.getById(empID);
+            employeeService.setEditedEmployee(employee);
             setImage(user);
+            loginData(user);
             checkinout.setCioTimeIn(formattedTime);
             checkinout.setCioTimeOut("");
             checkinout.setCioPaidStatus("N");
@@ -382,19 +386,16 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
             checkinoutService.addNew(checkinout);
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
-
             list = checkinoutService.getCheckinoutsByIdEmployee(empID);
 
             tblCheckInCheckOut.setEnabled(true);
-            EmployeeService empServoce = new EmployeeService();
-            empServoce.setEditedEmployee(employee);
             refreshForm();
             refreshTable();
         } else {
             JOptionPane.showMessageDialog(this, "Usernot Found");
             return;
         }
-     
+
         btnCheckIn.setEnabled(false);
         btnCheckOut.setEnabled(true);
 
@@ -447,7 +448,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
         btnCheckIn.setEnabled(true);
         btnCheckOut.setEnabled(false);
         setImage(user);
-     
+
 
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
@@ -496,4 +497,17 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtRole;
     private javax.swing.JLabel txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loginData(User user) {
+        for (LoginObs log : loginOsbs) {
+            log.loginData(user);
+
+        }
+        System.out.println("Page.CheckinCheckoutPanel.loginData()"+user.toString());
+    }
+
+    public void addInLoginist(LoginObs login) {
+        loginOsbs.add(login);
+    }
 }

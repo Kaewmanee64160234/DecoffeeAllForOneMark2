@@ -5,15 +5,34 @@
 package Page;
 
 import Component.ChagePage;
+import Component.LoginObs;
+import Dao.BillDao;
+import Dao.BillDetailDao;
+import Dao.MaterialDao;
 import Model.Bill;
 import Model.BillDetail;
 import Model.DateLabelFormatter;
+import Model.Employee;
 import Model.Material;
+import Model.User;
+import Service.BillDetailService;
+import Service.EmployeeService;
 import Service.MaterialService;
+import Service.RecieptService;
+import Service.UserService;
+import Service.ValidateException;
+import helper.DatabaseHelper;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -26,22 +45,31 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Chaiwat
  */
-public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
+public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material material;
     private UtilDateModel model1;
+    private ArrayList<ChagePage> chagpages;
+    private int selectedRowIndex;
+    private ArrayList<LoginObs> loginObses;
+    private Employee employee;
+    private EmployeeService employService;
     private Bill bill;
-    private ArrayList<ChagePage> chagpages ;
 
-    public BuyStockPanel() {
+    public BuyStockPanel(Employee emp) {
         initComponents();
+        employee = emp;
+        employService = new EmployeeService();
+        bill = new Bill();
+        bill.setEmployeeId(employee.getId());
+        System.out.println("Create new Buy");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
         chagpages = new ArrayList<ChagePage>();
         initDatePicker();
-        bill = new Bill();
+        loginObses = new ArrayList<>();
         materialService = new MaterialService();
         list = materialService.getMaterials();
         tblMeterial.setRowHeight(30);
@@ -151,10 +179,10 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
 
         pnlDatePicker.add(datePicker1);
 
-        // setDate in Bill
+    }
+    // setDate in Bill
 //        Date selectedDate = (Date) datePicker1.getModel().getValue();
 //        bill.setCreatdDate(selectedDate);
-    }
 
     private void updateBillDetailTable() {
         DefaultTableModel model = new DefaultTableModel();
@@ -165,7 +193,6 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
         model.addColumn("Total");
         model.addColumn("Discount");
 
-        Bill bill = this.bill;
         ArrayList<BillDetail> billDetails = bill.getBillDetails();
 
         for (BillDetail billDetail : billDetails) {
@@ -544,9 +571,105 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
         // TODO add your handling code here:
     }//GEN-LAST:event_edtShopNameActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("Start : " + bill.toString());
+        System.out.println(employee.toString());
+        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+        BillDetailDao billDetailDao = new BillDetailDao();
 
-    }//GEN-LAST:event_btnSaveActionPerformed
+        BillDao billDao = new BillDao();
+        boolean saved = true;
+
+        // add bill
+        bill.setShopname(edtShopName.getText());
+        Date selectedDate = model1.getValue();
+        bill.setCreatdDate(selectedDate);
+        if (selectedDate != null) {
+            bill.setCreatdDate(selectedDate);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a date.");
+            return;
+        }
+        String buyText = edtBuy.getText();
+        float buyValue = Float.parseFloat(buyText);
+        bill.setBuy(buyValue);
+        String totaldiscountText = edtDiscount.getText();
+        float totaldiscountValue = Float.parseFloat(totaldiscountText);
+        bill.setTotalDiscount(totaldiscountValue);
+        String billtotalText = lblTotal.getText();
+        float billtotalValue = Float.parseFloat(billtotalText);
+        bill.setBillTotal(billtotalValue);
+        String billchangText = lblChange.getText();
+        float billchangValue = Float.parseFloat(billchangText);
+        bill.setChange(billchangValue);
+
+        int billtotalQty = 0;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
+            billtotalQty += amount;
+        }
+
+        System.out.println("Save :" + bill.toString());
+        Bill savedBill = billDao.save(bill);
+        if (savedBill == null) {
+            saved = false;
+        }
+
+        //add bill_detail
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String name = model.getValueAt(i, 1).toString();
+            int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
+            float price = Float.parseFloat(model.getValueAt(i, 3).toString());
+            float total = Float.parseFloat(model.getValueAt(i, 4).toString());
+            float discount = Float.parseFloat(model.getValueAt(i, 5).toString());
+            int mat_id = Integer.parseInt(model.getValueAt(i, 0).toString());
+
+            BillDetail billDetail = new BillDetail();
+            billDetail.setName(name);
+            billDetail.setAmount(amount);
+            billDetail.setDiscount(discount);
+            billDetail.setPrice(price);
+            billDetail.setTotal(total - discount);
+            billDetail.setMat_id(mat_id);
+            billDetail.setBill_id(bill.getId());
+
+            BillDetail savedBillDetail = billDetailDao.save(billDetail);
+
+            if (savedBillDetail == null) {
+                saved = false;
+                break;
+            }
+        }
+
+        //updater materail
+        MaterialDao materialDao = new MaterialDao();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int mat_id = Integer.parseInt(model.getValueAt(i, 0).toString());
+            int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
+
+            Material material = materialDao.get(mat_id);
+
+            if (material != null) {
+                material.setMatQty(material.getMatQty() + amount);
+                materialDao.update(material);
+            }
+        }
+
+        if (saved) {
+            JOptionPane.showMessageDialog(this, "Save successful");
+            bill = new Bill();
+              chagePage("Material");
+        } else {
+            JOptionPane.showMessageDialog(this, "Save unsuccessful");
+            System.out.println("Page.BuyStockPanel.btnSaveActionPerformed()");
+            chagePage("Material");
+        }
+              chagePage("Material");
+
+    }
+
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         chagePage("Material");
@@ -644,7 +767,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
             }
         }
 
-        
+
     }//GEN-LAST:event_btnCalculateActionPerformed
 
 
@@ -682,13 +805,30 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage{
 
     @Override
     public void chagePage(String pageName) {
-         for (ChagePage subscober : chagpages) {
+        for (ChagePage subscober : chagpages) {
             subscober.chagePage(pageName);
-            
+
         }
     }
-    
+
     public void addInSubs(ChagePage chagePage) {
         chagpages.add(chagePage);
+    }
+
+    @Override
+    public void loginData(User user) {
+
+        System.out.println("Page.BuyStockPanel.loginData() " + user.toString());
+
+        this.employee = this.employService.getById(user.getEmployee_id()); // Set the 'employee' property, not 'editedEmployee'
+
+        System.out.println("set: " + employee.toString());
+        this.bill.setEmployeeId(this.employee.getId());
+        this.bill.setBuy(1000000);
+        System.out.println(bill.toString());
+    }
+
+    public void addInLoginObs(LoginObs loginObs) {
+        loginObses.add(loginObs);
     }
 }

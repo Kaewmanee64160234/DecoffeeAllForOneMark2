@@ -4,10 +4,21 @@
  */
 package Page;
 
+import Component.ChagePage;
+import Model.Bill;
+import Model.BillDetail;
 import Model.DateLabelFormatter;
+import Model.HistoryMaterialReport;
+import Service.BillDetailService;
+import Service.BillService;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DateFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -18,19 +29,112 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Lenovo
  */
-public class HistoryMaterialPanel extends javax.swing.JPanel {
+public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePage{
 
+    private final BillService billService;
+    private List<HistoryMaterialReport> billList;
+    private final BillDetailService billDetailService;
+    private List<BillDetail> billDetailList;
     private UtilDateModel model1;
     private UtilDateModel model2;
+    private AbstractTableModel model3;
+    private AbstractTableModel model4;
+    private ArrayList<ChagePage> chagpages;
 
     /**
      * Creates new form HistoryMaterialPanel
      */
     public HistoryMaterialPanel() {
         initComponents();
+        billService = new BillService();
+        billList = billService.getBillHistory();
+        billDetailService = new BillDetailService();
+        billDetailList = billDetailService.getBills();
+        initTableBill();
+        initDatePicker();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
-        initDatePicker();
+
+    }
+
+    private void initTableBill() {
+        model3 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Date History", "Total"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return billList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                HistoryMaterialReport bill = billList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return bill.getId();
+                    case 1:
+                        return bill.getCreated_date();
+                    case 2:
+                        return bill.getTotal();
+                    default:
+                        return "";
+                }
+            }
+        };
+        tblBillMaterial.setModel(model3);
+    }
+
+    private void initTableListBuy() {
+        model4 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "Amount", "Price", "Total", "Discount"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return billDetailList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 6;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                BillDetail billDetail = billDetailList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return billDetail.getId();
+                    case 1:
+                        return billDetail.getName();
+                    case 2:
+                        return billDetail.getAmount();
+                    case 3:
+                        return billDetail.getPrice();
+                    case 4:
+                        return billDetail.getTotal();
+                    case 5:
+                        return billDetail.getDiscount();
+                    default:
+                        return "";
+                }
+            }
+        };
+        tblListBuy.setModel(model4);
     }
 
     private void initDatePicker() {
@@ -40,16 +144,15 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
-//        datePanel1.setBackground(Color.decode("#940B92"));
-//        datePanel1.setForeground(Color.decode("#940B92"));
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
-//        datePicker1.setBackground(Color.decode("#BAE704"));
-//        datePicker1.setFont(new Font("Kanit", Font.BOLD, 5));
-        
         pnlDatePicker1.add(datePicker1);
+        model1.setSelected(true);
 
         model2 = new UtilDateModel();
         Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
@@ -86,6 +189,11 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         lblStartDate.setText("Date:");
 
@@ -111,9 +219,9 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
                     .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblStartDate1)
                 .addGap(18, 18, 18)
+                .addComponent(lblStartDate1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnSubmit)
@@ -154,6 +262,11 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblBillMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBillMaterialMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblBillMaterial);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -249,9 +362,53 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSubmitActionPerformed
 
-    }// GEN-LAST:event_btnSubmitActionPerformed
+    private void tblBillMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMaterialMouseClicked
+
+        int selectedRow = tblBillMaterial.getSelectedRow();
+        if (selectedRow >= 0) {
+            HistoryMaterialReport selectedBill = billList.get(selectedRow);
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("Name");
+            model.addColumn("Amount");
+            model.addColumn("Price");
+            model.addColumn("Total");
+            model.addColumn("Discount");
+            for (BillDetail bd : billDetailService.getBills()) {
+                if (bd.getBill_id() == selectedBill.getId()) {
+
+                    Object[] rowData = {
+                        bd.getMat_id(),
+                        bd.getName(),
+                        bd.getAmount(),
+                        bd.getPrice(),
+                        bd.getTotal(),
+                        bd.getDiscount()
+
+                    };
+                    model.addRow(rowData);
+                }
+            }
+            tblListBuy.setModel(model);
+        }
+    }//GEN-LAST:event_tblBillMaterialMouseClicked
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        chagePage("Material");
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        billList = billService.getBillHistory(begin, end);
+        System.out.println(billList);
+        model3.fireTableDataChanged();
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -271,4 +428,16 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblListBuy;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage subscober : chagpages) {
+            subscober.chagePage(pageName);
+
+        }
+    }
+
+    public void addInSubs(ChagePage chagePage) {
+        chagpages.add(chagePage);
+    }
+
 }

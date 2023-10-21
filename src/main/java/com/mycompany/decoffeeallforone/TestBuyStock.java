@@ -4,6 +4,7 @@
  */
 package com.mycompany.decoffeeallforone;
 
+import Model.Employee;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
 import Page.HistoryCheckStockPanel;
@@ -19,7 +20,9 @@ public class TestBuyStock extends javax.swing.JFrame {
      */
     public TestBuyStock() {
         initComponents();
-        scrPanel.setViewportView(new HistoryCheckStockPanel());
+
+        scrPanel.setViewportView(new BuyStockPanel(new Employee()));
+
 
     }
 

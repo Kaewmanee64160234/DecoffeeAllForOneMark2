@@ -8,9 +8,11 @@ import Component.ChagePage;
 import Component.NavigationBar;
 import Component.ProductListPanel;
 import Component.changePageSummary;
+import Component.loginObs;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
+import Model.User;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
 import Page.CheckinCheckoutPanel;
@@ -33,6 +35,7 @@ import Service.PromotionService;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,7 +66,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
+<<<<<<< HEAD
     private  HistoryMaterialPanel historyMaterialPanel;
+=======
+    private ArrayList<loginObs> loginObses;
+>>>>>>> 392f627270c25486e92e97e49e526671e23693c6
 
 
     public MainFrame() {
@@ -71,6 +78,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
+        loginObses = new ArrayList<>();
         employee = new Employee();         
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
@@ -88,29 +96,16 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         reportPanel = new ReportPanel();
         buyStockPanel = new BuyStockPanel();
         historyMaterialPanel = new HistoryMaterialPanel();
-        
+
+         checkInOutPannel.addInLoginist(buystockPanel);
+
         jScrollPane1.setViewportView(navigationBar);
-              checkStockPanel.addInSubs(this);
+        checkStockPanel.addInSubs(this);
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
-        buyStockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+       scrPanel.setViewportView(reportPanel);
 
-
-//        scrPanel.setViewportView(new TableSalaryPanel());
-
-//  scrPanel.setViewportView(new PosPanel());
-      scrPanel.setViewportView(new HistoryMaterialPanel());
-
-
-
-
-        //scrPanel.setViewportView(new CheckStockPanel());
-//        scrPanel.setViewportView(new PosPanel());
-        //scrPanel.setViewportView(new PosPanel());
-//        scrPanel.setViewportView(new PayRentPanel());
-  
-       //scrPanel.setViewportView(reportPanel);
 
     }
 
@@ -258,5 +253,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
             scrPanel.setViewportView(new TableSalaryPanel(emp));
         }
     }
+
 
 }

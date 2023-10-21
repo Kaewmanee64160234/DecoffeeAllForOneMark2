@@ -36,7 +36,7 @@ public class BillService {
         return billDao.getBillHistory(begin, end);
     }
 
-    public Bill addNew(Bill editedBill) throws ValidateException {
+    public Bill addNew(Bill editedBill){
 //        if(!editedBill.isValid()){
 //            throw new ValidateException("Bill is invalid!!!");
 //        }

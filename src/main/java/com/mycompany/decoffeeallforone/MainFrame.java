@@ -67,6 +67,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
     private Employee employee;
     private BuyStockPanel buyStockPanel;
     private ArrayList<LoginObs> loginObses;
+    private  HistoryMaterialPanel historyMaterialPanel;
+
 
 
     public MainFrame() {
@@ -236,6 +238,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         }
         if(pageName.equals("BuyStock")){
             scrPanel.setViewportView(buyStockPanel);
+        }
+          if(pageName.equals("HistoryMaterial")){
+            scrPanel.setViewportView(historyMaterialPanel);
         }
 
     }

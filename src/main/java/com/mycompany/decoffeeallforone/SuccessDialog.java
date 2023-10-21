@@ -44,7 +44,7 @@ public class SuccessDialog extends javax.swing.JFrame {
     private void initComponents() {
 
         lblText = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
         lblFrame = new javax.swing.JLabel();
 
@@ -54,16 +54,16 @@ public class SuccessDialog extends javax.swing.JFrame {
         getContentPane().add(lblText);
         lblText.setBounds(170, 220, 190, 40);
 
-        jButton1.setBackground(new java.awt.Color(102, 204, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setBackground(new java.awt.Color(102, 204, 255));
+        btnOk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(190, 270, 130, 40);
+        getContentPane().add(btnOk);
+        btnOk.setBounds(190, 270, 130, 40);
         getContentPane().add(lblPhoto);
         lblPhoto.setBounds(180, 50, 200, 160);
 
@@ -79,9 +79,9 @@ public class SuccessDialog extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,7 +120,7 @@ public class SuccessDialog extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnOk;
     private javax.swing.JLabel lblFrame;
     private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblText;

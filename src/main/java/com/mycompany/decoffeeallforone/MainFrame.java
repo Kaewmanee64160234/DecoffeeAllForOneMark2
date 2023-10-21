@@ -67,17 +67,12 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
-<<<<<<< HEAD
 
     private  HistoryMaterialPanel historyMaterialPanel;
 
     private ArrayList<loginObs> loginObses;
-
-
-=======
     private ArrayList<LoginObs> loginObses;
     private HistoryMaterialPanel historyMaterialPanel;
->>>>>>> 695120a1151c05ee8c44d7e4e53d88192a961589
 
     public MainFrame() {
         initComponents();

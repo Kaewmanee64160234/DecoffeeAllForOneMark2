@@ -47,6 +47,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
      */
     public SalaryPanel() {
         initComponents();
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
         employeeService = new EmployeeService();
         editedEmployee = new Employee();
         list = new ArrayList<>();

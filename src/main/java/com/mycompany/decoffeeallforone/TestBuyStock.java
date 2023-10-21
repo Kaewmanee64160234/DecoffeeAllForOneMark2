@@ -21,8 +21,7 @@ public class TestBuyStock extends javax.swing.JFrame {
     public TestBuyStock() {
         initComponents();
 
-        scrPanel.setViewportView(new BuyStockPanel(new Employee()));
-
+        scrPanel.setViewportView(new HistoryCheckStockPanel());
 
     }
 

@@ -41,6 +41,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         this.employee = employee;
         this.cioList = new ArrayList<>();
         this.summarySalary = new SummarySalary();

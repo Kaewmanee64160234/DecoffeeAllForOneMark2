@@ -4,29 +4,43 @@ import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
 import Service.CheckMaterialDetailService;
 import Service.CheckMaterialService;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
     private final CheckMaterialDetailService checkMaterialDetailService;
     private List<CheckMaterialDetail> list;
     private CheckMaterialDetail editedCheckMaterialDetail;
+    CheckMaterialDetail checkMaterialDetail;
 
     private final CheckMaterialService checkMaterialService;
     private List<CheckMaterial> listCM;
     private CheckMaterial editedCheckMaterial;
+    private UtilDateModel model1, model2;
 
     public HistoryCheckStockPanel() {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
 
         checkMaterialDetailService = new CheckMaterialDetailService();
         checkMaterialService = new CheckMaterialService();
+        checkMaterialDetail = new CheckMaterialDetail();
 
         list = checkMaterialDetailService.getCheckMaterialDetails();
         listCM = checkMaterialService.getCheckMaterials();
 
-
+        tblDateHistory.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 24));
         tblDateHistory.setRowHeight(30);
         tblDateHistory.setModel(new AbstractTableModel() {
             String[] columnNames = {"No.", "Date History"};
@@ -61,6 +75,40 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             }
         });
 
+        tblDateHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+//                int row = tblDateHistory.rowAtPoint(e.getPoint());
+//
+//                System.out.println(list.get(row));
+//                CheckMaterialDetail checkMD = list.get(row);
+//                CheckMaterialDetail cmd = new CheckMaterialDetail(checkMD.getId(), checkMD.getName(), checkMD.getLastQty(), checkMD.getQty(), checkMD.getCheckMaterialId(), checkMD.getMaterialId());
+            }
+        });
+
+    }
+
+    private void initDatePicker() {
+        model1 = new UtilDateModel();
+        Properties p1 = new Properties();
+        p1.put("text.today", "Today");
+        p1.put("text.month", "Month");
+        p1.put("text.year", "Year");
+        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
+        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new Model.DateLabelFormatter());
+        pnlDatePicker1.add(datePicker1);
+        model1.setSelected(true);
+
+        model2 = new UtilDateModel();
+        Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
+        JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
+        JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new Model.DateLabelFormatter());
+        pnlDatePicker2.add(datePicker2);
+        model2.setSelected(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -72,8 +120,8 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         btnSubmit = new javax.swing.JButton();
         lblStartDate1 = new javax.swing.JLabel();
         lblStartDate = new javax.swing.JLabel();
-        edtDatePicker1 = new javax.swing.JTextField();
-        edtDatePicker2 = new javax.swing.JTextField();
+        pnlDatePicker1 = new javax.swing.JPanel();
+        pnlDatePicker2 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDateHistory = new javax.swing.JTable();
@@ -101,27 +149,31 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         lblStartDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblStartDate.setText("From Date :");
 
+        edtDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDatePicker1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 473, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblStartDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblStartDate1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSubmit)))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(527, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblStartDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblStartDate1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,14 +181,14 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblStartDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(edtDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(edtDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblStartDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -145,10 +197,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         tblDateHistory.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         tblDateHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2"
@@ -158,13 +207,10 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
         tblHistoryStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
         jScrollPane3.setViewportView(tblHistoryStock);
@@ -177,7 +223,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -242,18 +288,25 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model1.getValue()) + "" + formater.format(model2.getValue()));
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        listCM = checkMaterialService.getDateBetween(begin, end);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void edtDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDatePicker1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtDatePicker1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JTextField edtDatePicker1;
-    private javax.swing.JTextField edtDatePicker2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -262,6 +315,8 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblStartDate1;
+    private javax.swing.JPanel pnlDatePicker1;
+    private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblDateHistory;
     private javax.swing.JTable tblHistoryStock;
     // End of variables declaration//GEN-END:variables

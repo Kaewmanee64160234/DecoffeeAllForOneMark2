@@ -17,6 +17,8 @@ import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
+import Page.HistoryCheckStockPanel;
+import Page.HistoryMaterialPanel;
 import Page.MaterialPanel;
 import Page.PayRentPanel;
 
@@ -96,7 +98,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
 //        scrPanel.setViewportView(new TableSalaryPanel());
 
 //  scrPanel.setViewportView(new PosPanel());
-      scrPanel.setViewportView(new ReportPanel());
+      scrPanel.setViewportView(new HistoryMaterialPanel());
 
 
 
@@ -106,7 +108,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         //scrPanel.setViewportView(new PosPanel());
 //        scrPanel.setViewportView(new PayRentPanel());
   
-       scrPanel.setViewportView(reportPanel);
+       //scrPanel.setViewportView(reportPanel);
 
     }
 

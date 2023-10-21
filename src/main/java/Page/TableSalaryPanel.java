@@ -319,8 +319,9 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     }
 
     private void openPaymentStatusDialog() {
+        ArrayList<SummarySalary> summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PaymentStatus paymentStatus = new PaymentStatus(frame);
+        PaymentStatus paymentStatus = new PaymentStatus(frame,summarySalarys);
         paymentStatus.setLocationRelativeTo(this);
         paymentStatus.setVisible(true);
         paymentStatus.addWindowListener(new WindowAdapter() {

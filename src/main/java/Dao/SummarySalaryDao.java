@@ -155,4 +155,24 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
         return summary;
     }
 
+    public ArrayList<SummarySalary> getSummarySalarysByPaidStatus(String status) {
+        ArrayList<SummarySalary> summaryList = new ArrayList();
+        String sql = "SELECT * FROM summary_salary WHERE ss_paid_status = ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SummarySalary summary = SummarySalary.fromRS(rs);
+                summaryList.add(summary);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return summaryList;
+    }
+
 }

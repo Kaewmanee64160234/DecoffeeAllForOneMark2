@@ -7,6 +7,8 @@ package Dialog;
 import Model.SummarySalary;
 import Service.SummarySalaryService;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -20,10 +22,34 @@ public class PaymentStatus extends javax.swing.JDialog {
     /**
      * Creates new form PaymentStatus
      */
-    public PaymentStatus(java.awt.Frame parent) {
+    public PaymentStatus(java.awt.Frame parent,ArrayList<SummarySalary> summarySalarys) {
         super(parent);
         initComponents();
+        this.summarySalarys = summarySalarys;
+        summarySalaryService = new SummarySalaryService();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        tblPatmentStatus.setModel(new AbstractTableModel(){
+            @Override
+            public int getRowCount() {
+                return summarySalarys.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                SummarySalary summarySalary = summarySalarys.get(rowIndex);
+                switch(columnIndex){
+                    case 0: return summarySalary.getDate();
+                    case 1: return summarySalary.getTotalHour();
+                    case 2: return summarySalary.getSalary();
+                    default: return null;
+                }
+            }
+        });
     }
 
     /**
@@ -155,7 +181,11 @@ public class PaymentStatus extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
+        for (SummarySalary summarySalary : summarySalarys) {
+            summarySalaryService.updatePaidSttus(summarySalary);
+        }
+        JOptionPane.showMessageDialog(this, "Complete update Symmary.");
+        dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
@@ -188,7 +218,7 @@ public class PaymentStatus extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PaymentStatus dialog = new PaymentStatus(new javax.swing.JFrame());
+                PaymentStatus dialog = new PaymentStatus(new javax.swing.JFrame(),new ArrayList<>());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -7,8 +7,12 @@ package Dialog;
 import Model.DateLabelFormatter;
 import Model.RentStore;
 import Service.RentStoreService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -33,20 +37,36 @@ public class PayRentDialog extends javax.swing.JDialog {
         initComponents();
         this.rentStore = rentStore;
         this.rentStoreService = new RentStoreService();
-        initDatePicker1();
+//        initDatePicker1();
+        setTimeInLblDate();
         initDatePicker2();
     }
 
-    private void initDatePicker1() {
-        model1 = new UtilDateModel();
-        Properties p1 = new Properties();
-        p1.put("text.today", "Today");
-        p1.put("text.month", "Month");
-        p1.put("text.year", "Year");
-        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
-        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
-        pnlDatePicker1.add(datePicker1);
+//    private void initDatePicker1() {
+//        model1 = new UtilDateModel();
+//        Properties p1 = new Properties();
+//        p1.put("text.today", "Today");
+//        p1.put("text.month", "Month");
+//        p1.put("text.year", "Year");
+//        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
+//        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+//        pnlDatePicker1.add(datePicker1);
+//
+//    }
 
+    private void setTimeInLblDate() {
+        String rentDate = rentStore.getRentDate();
+
+        // Define the format you want for the date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
+
+        try {
+            Date date = dateFormat.parse(rentDate);
+            String formattedTime = dateFormat.format(date);
+            lblDateTime.setText(formattedTime);
+        } catch (Exception e) {
+            lblDateTime.setText("Error formatting date");
+        }
     }
 
     private void initDatePicker2() {
@@ -74,9 +94,9 @@ public class PayRentDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         lblName1 = new javax.swing.JLabel();
         lblName2 = new javax.swing.JLabel();
-        pnlDatePicker1 = new javax.swing.JPanel();
         pnlDatePicker2 = new javax.swing.JPanel();
         btnConfirm = new javax.swing.JButton();
+        lblDateTime = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
 
@@ -98,6 +118,9 @@ public class PayRentDialog extends javax.swing.JDialog {
             }
         });
 
+        lblDateTime.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDateTime.setText(" 00/00");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -111,8 +134,8 @@ public class PayRentDialog extends javax.swing.JDialog {
                             .addComponent(lblName2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .addComponent(lblDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(225, 225, 225)
                         .addComponent(btnConfirm)))
@@ -122,10 +145,10 @@ public class PayRentDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblName1))
-                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName1)
+                    .addComponent(lblDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblName2))
@@ -184,7 +207,7 @@ public class PayRentDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
+            .addGap(0, 252, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -196,7 +219,7 @@ public class PayRentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        rentStore.getRentDate();
+
         rentStore.setRentPaidStatus("Y");
         rentStoreService.update(rentStore);
         dispose();
@@ -256,10 +279,10 @@ public class PayRentDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblDateTime;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblName2;
-    private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
     // End of variables declaration//GEN-END:variables
 }

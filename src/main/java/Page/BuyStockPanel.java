@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -579,13 +580,17 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         BillDao billDao = new BillDao();
         boolean saved = true;
-
         // add bill
         bill.setShopname(edtShopName.getText());
         Date selectedDate = model1.getValue();
-        bill.setCreatdDate(selectedDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(selectedDate);
+        bill.setCreatdDate(formattedDate);
+        System.out.println(formattedDate);
+
         if (selectedDate != null) {
-            bill.setCreatdDate(selectedDate);
+            bill.setCreatdDate(formattedDate);
         } else {
             JOptionPane.showMessageDialog(this, "Please select a date.");
             return;
@@ -660,13 +665,13 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         if (saved) {
             JOptionPane.showMessageDialog(this, "Save successful");
             bill = new Bill();
-              chagePage("Material");
+            chagePage("Material");
         } else {
             JOptionPane.showMessageDialog(this, "Save unsuccessful");
             System.out.println("Page.BuyStockPanel.btnSaveActionPerformed()");
             chagePage("Material");
         }
-              chagePage("Material");
+        chagePage("Material");
 
     }
 

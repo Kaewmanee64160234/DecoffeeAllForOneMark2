@@ -60,7 +60,6 @@ public class BillDao implements Dao<Bill> {
         }
         return list;
     }
-    
 
     @Override
     public List<Bill> getAll(String where, String order) {
@@ -83,7 +82,6 @@ public class BillDao implements Dao<Bill> {
         return list;
     }
 
-
     public List<Bill> getAll(String order) {
         ArrayList<Bill> list = new ArrayList();
         String sql = "SELECT * FROM bill  ORDER BY" + order;
@@ -103,8 +101,7 @@ public class BillDao implements Dao<Bill> {
         }
         return list;
     }
-    
-    
+
     public List<HistoryMaterialReport> getBillHistory(String being, String end) {
         ArrayList<HistoryMaterialReport> list = new ArrayList();
         String sql = """ 
@@ -154,23 +151,23 @@ public class BillDao implements Dao<Bill> {
         }
         return list;
     }
-    
-    
+
     @Override
     public Bill save(Bill obj) {
 
-        String sql = "INSERT INTO bill (bill_shop_name, bill_buy, bill_total_discount, bill_total, bill_change, bill_total_qty, employee_id)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bill (bill_created_date,bill_shop_name, bill_buy, bill_total_discount, bill_total, bill_change, bill_total_qty, employee_id)"
+                + "VALUES(?,?, ?, ?, ?, ?, ?, ?)";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, obj.getShopname());
-            stmt.setFloat(2, obj.getBuy());
-            stmt.setFloat(3, obj.getTotalDiscount());
-            stmt.setFloat(4, obj.getBillTotal());
-            stmt.setFloat(5, obj.getChange());
-            stmt.setInt(6, obj.getTotalQty());
-            stmt.setInt(7, obj.getEmployeeId());
+            stmt.setString(1, obj.getCreatdDate());
+            stmt.setString(2, obj.getShopname());
+            stmt.setFloat(3, obj.getBuy());
+            stmt.setFloat(4, obj.getTotalDiscount());
+            stmt.setFloat(5, obj.getBillTotal());
+            stmt.setFloat(6, obj.getChange());
+            stmt.setInt(7, obj.getTotalQty());
+            stmt.setInt(8, obj.getEmployeeId());
             // System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
@@ -221,7 +218,5 @@ public class BillDao implements Dao<Bill> {
         }
         return -1;
     }
-
-
 
 }

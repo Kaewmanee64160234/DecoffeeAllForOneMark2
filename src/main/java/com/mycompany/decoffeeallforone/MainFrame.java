@@ -102,7 +102,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
 
-        scrPanel.setViewportView(reportPanel);
+        scrPanel.setViewportView(reportPanel);   
+//        scrPanel.setViewportView();
+
 
     }
 

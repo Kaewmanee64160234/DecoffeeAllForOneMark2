@@ -17,10 +17,10 @@ import java.util.logging.Logger;
 public class HistoryMaterialReport {
 
     private int id;
-    private Date created_date;
+    private String created_date;
     private float Total;
 
-    public HistoryMaterialReport(int id, Date created_date, float Total) {
+    public HistoryMaterialReport(int id, String created_date, float Total) {
         this.id = id;
         this.created_date = created_date;
         this.Total = Total;
@@ -46,11 +46,11 @@ public class HistoryMaterialReport {
         this.id = id;
     }
 
-    public Date getCreated_date() {
+    public String getCreated_date() {
         return created_date;
     }
 
-    public void setCreated_date(Date created_date) {
+    public void setCreated_date(String created_date) {
         this.created_date = created_date;
     }
 
@@ -71,7 +71,7 @@ public class HistoryMaterialReport {
         HistoryMaterialReport obj = new HistoryMaterialReport();
         try {
             obj.setId(rs.getInt("bill_id"));
-            obj.setCreated_date(rs.getDate("bill_created_date"));
+            obj.setCreated_date(rs.getString("bill_created_date"));
            obj.setTotal(rs.getFloat("bill_total"));
            
         } catch (SQLException ex) {

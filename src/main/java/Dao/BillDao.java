@@ -105,9 +105,12 @@ public class BillDao implements Dao<Bill> {
     public List<HistoryMaterialReport> getBillHistory(String being, String end) {
         ArrayList<HistoryMaterialReport> list = new ArrayList();
         String sql = """ 
-               SELECT bill_id, bill_created_date,bill_total
-               FROM bill
-               WHERE bill_created_date  BETWEEN ? AND ?
+              SELECT bill_id,
+                      strftime('%Y-%m-%d', bill_created_date) AS created_date,
+                      sum(bill_total) AS Total
+                 FROM bill
+                WHERE bill_created_date BETWEEN ? AND ?
+                GROUP BY created_date;
                                      """;
         Connection conn = DatabaseHelper.getConnect();
         try {

@@ -52,6 +52,7 @@ public class EmployeeService {
 
     public void setEditedEmployee(Employee editedEmployee) {
         this.editedEmployee = editedEmployee;
+        System.out.println("from service : "+editedEmployee.toString());
     }
 
     

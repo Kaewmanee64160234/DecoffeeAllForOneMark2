@@ -27,7 +27,7 @@ public class BillService {
         return billDao.getAll(" bill_id asc");
     }
 
-    public Bill addNew(Bill editedBill) throws ValidateException {
+    public Bill addNew(Bill editedBill){
 //        if(!editedBill.isValid()){
 //            throw new ValidateException("Bill is invalid!!!");
 //        }

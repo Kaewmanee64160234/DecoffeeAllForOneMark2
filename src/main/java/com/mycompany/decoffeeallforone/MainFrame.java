@@ -77,7 +77,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
-        loginObses = new ArrayList<>();
+       // loginObses = new ArrayList<>();
         employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
@@ -109,7 +109,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
 
-        scrPanel.setViewportView(reportPanel);
+        scrPanel.setViewportView(new HistoryMaterialPanel());   
+//        scrPanel.setViewportView();
+
 
 
     }

@@ -66,11 +66,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
-<<<<<<< HEAD
+
     private  HistoryMaterialPanel historyMaterialPanel;
-=======
+
     private ArrayList<loginObs> loginObses;
->>>>>>> 392f627270c25486e92e97e49e526671e23693c6
+
 
 
     public MainFrame() {
@@ -104,8 +104,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
-       scrPanel.setViewportView(reportPanel);
+       //scrPanel.setViewportView(reportPanel);
 
+       scrPanel.setViewportView(new HistoryMaterialPanel());
 
     }
 

@@ -428,7 +428,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     private javax.swing.JTable tblListBuy;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
-    
     @Override
     public void chagePage(String pageName) {
         for (ChagePage subscober : chagpages) {

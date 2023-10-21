@@ -72,8 +72,8 @@ public class HistoryMaterialReport {
         try {
             obj.setId(rs.getInt("bill_id"));
             obj.setCreated_date(rs.getDate("bill_created_date"));
-           obj.setTotal(rs.getFloat("bill_total"));
-           
+            obj.setTotal(rs.getFloat("bill_total"));
+
         } catch (SQLException ex) {
             Logger.getLogger(HistoryMaterialReport.class.getName()).log(Level.SEVERE, null, ex);
             return null;

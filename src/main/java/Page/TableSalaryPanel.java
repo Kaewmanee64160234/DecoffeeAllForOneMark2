@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Dialog.PaymentSlipDialog;
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
 import Model.Checkinout;
@@ -35,7 +36,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private Employee employee;
     private CheckinoutService checkinoutService;
     private SummarySalaryService summarySalaryService;
-    private ArrayList<Checkinout>cioList;
+    private ArrayList<Checkinout> cioList;
     private SummarySalary summarySalary;
 
     public TableSalaryPanel(Employee employee) {
@@ -43,15 +44,15 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         this.employee = employee;
         this.cioList = new ArrayList<>();
         this.summarySalary = new SummarySalary();
-         lblNameEmp.setText(employee.getName());
-        txtBathPerHr.setText(employee.getHourlyWage()+"");
+        lblNameEmp.setText(employee.getName());
+        txtBathPerHr.setText(employee.getHourlyWage() + "");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         checkinoutService = new CheckinoutService();
         summarySalaryService = new SummarySalaryService();
-        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(),"N");
-       
+        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(), "N");
+
         tblPaidDate.setModel(new AbstractTableModel() {
-          String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
             @Override
             public String getColumnName(int column) {
@@ -287,6 +288,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
         openPrintSlipDialog();
         refreshTable();
+
     }//GEN-LAST:event_btnPrintSlipActionPerformed
 
     private void btnPayMentStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayMentStatusActionPerformed
@@ -307,13 +309,17 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame,employee);
+        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
         printSlipDialog.setLocationRelativeTo(this);
         printSlipDialog.setVisible(true);
         printSlipDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
+                summarySalary = summarySalaryService.getSalaryLastCreated();
+                System.out.println(summarySalary.toString());
+//                opendialogSlip(summarySalary, employee);
+
             }
         });
     }
@@ -321,7 +327,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void openPaymentStatusDialog() {
         ArrayList<SummarySalary> summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PaymentStatus paymentStatus = new PaymentStatus(frame,summarySalarys);
+        PaymentStatus paymentStatus = new PaymentStatus(frame, summarySalarys);
         paymentStatus.setLocationRelativeTo(this);
         paymentStatus.setVisible(true);
         paymentStatus.addWindowListener(new WindowAdapter() {
@@ -354,4 +360,11 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;
     // End of variables declaration//GEN-END:variables
+
+    private void opendialogSlip(SummarySalary summarySalary, Employee employee) {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PaymentSlipDialog paymentSlipDialog = new PaymentSlipDialog(frame, summarySalary, employee);
+        paymentSlipDialog.setLocationRelativeTo(this);
+        paymentSlipDialog.setVisible(true);
+    }
 }

@@ -5,7 +5,7 @@
 package Page;
 
 import Component.ChagePage;
-import Component.loginObs;
+import Component.LoginObs;
 import Dao.BillDao;
 import Dao.BillDetailDao;
 import Dao.MaterialDao;
@@ -45,7 +45,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Chaiwat
  */
-public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, loginObs {
+public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs {
 
     private final MaterialService materialService;
     private List<Material> list;
@@ -53,7 +53,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
     private UtilDateModel model1;
     private ArrayList<ChagePage> chagpages;
     private int selectedRowIndex;
-    private ArrayList<loginObs> loginObses;
+    private ArrayList<LoginObs> loginObses;
     private Employee employee = new Employee();
     private Bill bill = new Bill();
 
@@ -570,8 +570,10 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("Start : "+bill.toString());
+        System.out.println(employee.toString());
         DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
         BillDetailDao billDetailDao = new BillDetailDao();
+        
         BillDao billDao = new BillDao();
         boolean saved = true;
 
@@ -820,7 +822,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
         System.out.println(bill.toString());
     }
 
-    public void addInLoginObs(loginObs loginObs) {
+    public void addInLoginObs(LoginObs loginObs) {
         loginObses.add(loginObs);
     }
 }

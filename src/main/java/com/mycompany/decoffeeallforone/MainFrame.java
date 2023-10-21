@@ -5,10 +5,10 @@
 package com.mycompany.decoffeeallforone;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Component.NavigationBar;
 import Component.ProductListPanel;
 import Component.changePageSummary;
-import Component.loginObs;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
@@ -47,7 +47,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage,changePageSummary {
+public class MainFrame extends javax.swing.JFrame implements ChagePage,changePageSummary,LoginObs {
 
     /**
      * Creates new form MainFrame
@@ -66,7 +66,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
-    private ArrayList<loginObs> loginObses;
+    private ArrayList<LoginObs> loginObses;
 
 
     public MainFrame() {
@@ -91,13 +91,15 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         salaryPannel = new SalaryPanel();
         reportPanel = new ReportPanel();
         buyStockPanel = new BuyStockPanel();
-         checkInOutPannel.addInLoginist(buystockPanel);
 
         jScrollPane1.setViewportView(navigationBar);
         checkStockPanel.addInSubs(this);
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+                 checkInOutPannel.addInLoginist(buystockPanel);
+                 checkInOutPannel.addInLoginist(this);
+
        scrPanel.setViewportView(reportPanel);
 
 
@@ -243,6 +245,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         if(pageName.equals("SS Emp")){
             scrPanel.setViewportView(new TableSalaryPanel(emp));
         }
+    }
+
+    @Override
+    public void loginData(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 

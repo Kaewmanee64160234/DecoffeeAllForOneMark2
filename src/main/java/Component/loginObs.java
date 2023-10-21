@@ -10,7 +10,7 @@ import Model.User;
  *
  * @author USER
  */
-public interface loginObs {
+public interface LoginObs {
     public void loginData(User user);
     
 }

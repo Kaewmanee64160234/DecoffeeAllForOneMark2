@@ -69,19 +69,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private BuyStockPanel buyStockPanel;
 
 
-
-    private  HistoryMaterialPanel historyMaterialPanel;
-
-    // private ArrayList<loginObs> loginObses;
-
-
-
-    // private ArrayList<LoginObs> loginObses;
-//    private HistoryMaterialPanel historyMaterialPanel;
-
     private ArrayList<LoginObs> loginObses;
- //   private HistoryMaterialPanel historyMaterialPanel;
-
+    private HistoryMaterialPanel historyMaterialPanel;
 
     public MainFrame() {
         initComponents();

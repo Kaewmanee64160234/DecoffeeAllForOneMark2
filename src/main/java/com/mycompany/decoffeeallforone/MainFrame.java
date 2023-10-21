@@ -19,6 +19,8 @@ import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
+import Page.HistoryCheckStockPanel;
+import Page.HistoryMaterialPanel;
 import Page.MaterialPanel;
 import Page.PayRentPanel;
 
@@ -97,6 +99,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
        scrPanel.setViewportView(reportPanel);
+
 
     }
 

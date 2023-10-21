@@ -4,10 +4,18 @@
  */
 package Page;
 
+import Model.Bill;
+import Model.BillDetail;
 import Model.DateLabelFormatter;
+import Model.HistoryMaterialReport;
+import Service.BillDetailService;
+import Service.BillService;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Properties;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.text.DateFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -20,17 +28,61 @@ import scrollbar.ScrollBarCustom;
  */
 public class HistoryMaterialPanel extends javax.swing.JPanel {
 
+    private final BillService billService;
+    private List<HistoryMaterialReport> billList;
     private UtilDateModel model1;
     private UtilDateModel model2;
+    private AbstractTableModel model3;
 
     /**
      * Creates new form HistoryMaterialPanel
      */
     public HistoryMaterialPanel() {
         initComponents();
+        billService = new BillService();
+        billList = billService.getBillHistory();
+        initTableBill();
+        initDatePicker();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
-        initDatePicker();
+
+    }
+
+    private void initTableBill() {
+        model3 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Date History", "Total"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return billList.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                HistoryMaterialReport bill = billList.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return bill.getId();
+                    case 1:
+                        return bill.getCreated_date();
+                    case 2:
+                        return bill.getTotal();
+                    default:
+                        return "";
+                }
+            }
+        };
+        tblBillMaterial.setModel(model3);
     }
 
     private void initDatePicker() {
@@ -40,16 +92,15 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
-//        datePanel1.setBackground(Color.decode("#940B92"));
-//        datePanel1.setForeground(Color.decode("#940B92"));
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
-//        datePicker1.setBackground(Color.decode("#BAE704"));
-//        datePicker1.setFont(new Font("Kanit", Font.BOLD, 5));
-        
         pnlDatePicker1.add(datePicker1);
+        model1.setSelected(true);
 
         model2 = new UtilDateModel();
         Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
@@ -249,9 +300,19 @@ public class HistoryMaterialPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSubmitActionPerformed
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {
+         String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        billList = billService.getBillHistory(begin, end);
+        System.out.println(billList);
+        model3.fireTableDataChanged();
+        
 
-    }// GEN-LAST:event_btnSubmitActionPerformed
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

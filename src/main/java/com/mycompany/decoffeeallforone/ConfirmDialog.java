@@ -25,7 +25,7 @@ public class ConfirmDialog extends javax.swing.JFrame {
     }
 
     private void loadImage() {
-        ImageIcon icon  = new ImageIcon("./correct"+ ".png");
+        ImageIcon icon  = new ImageIcon("./help"+ ".png");
         Image image = icon.getImage();
         int width = image.getWidth(null);
         int height = image.getHeight(null);
@@ -43,28 +43,41 @@ public class ConfirmDialog extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblText = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         lblFrame = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(null);
-        getContentPane().add(lblText);
-        lblText.setBounds(170, 220, 190, 40);
+        getContentPane().add(lblPhoto);
+        lblPhoto.setBounds(180, 30, 180, 140);
 
-        jButton1.setBackground(new java.awt.Color(102, 204, 255));
-        jButton1.setText("OK");
+        jButton1.setBackground(new java.awt.Color(130, 205, 71));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setText("YES");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(190, 270, 130, 40);
-        getContentPane().add(lblPhoto);
-        lblPhoto.setBounds(180, 50, 200, 160);
+        jButton1.setBounds(140, 230, 100, 40);
+
+        jButton2.setBackground(new java.awt.Color(252, 79, 79));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton2.setText("NO");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(260, 230, 110, 40);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(130, 180, 250, 30);
 
         lblFrame.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblFrame.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -72,15 +85,19 @@ public class ConfirmDialog extends javax.swing.JFrame {
         lblFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblFrame.setPreferredSize(new java.awt.Dimension(100, 100));
         getContentPane().add(lblFrame);
-        lblFrame.setBounds(0, 0, 510, 370);
+        lblFrame.setBounds(0, 0, 510, 300);
 
-        setSize(new java.awt.Dimension(519, 372));
+        setSize(new java.awt.Dimension(513, 304));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,8 +143,9 @@ public class ConfirmDialog extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblFrame;
     private javax.swing.JLabel lblPhoto;
-    private javax.swing.JLabel lblText;
     // End of variables declaration//GEN-END:variables
 }

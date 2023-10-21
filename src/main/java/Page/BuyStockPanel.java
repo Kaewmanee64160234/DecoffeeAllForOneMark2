@@ -5,7 +5,7 @@
 package Page;
 
 import Component.ChagePage;
-import Component.loginObs;
+import Component.LoginObs;
 import Dao.BillDao;
 import Dao.BillDetailDao;
 import Dao.MaterialDao;
@@ -45,7 +45,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Chaiwat
  */
-public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, loginObs {
+public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs {
 
     private final MaterialService materialService;
     private List<Material> list;
@@ -53,13 +53,17 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
     private UtilDateModel model1;
     private ArrayList<ChagePage> chagpages;
     private int selectedRowIndex;
-    private ArrayList<loginObs> loginObses;
-    private Employee employee = new Employee();
-    private Bill bill = new Bill();
+    private ArrayList<LoginObs> loginObses;
+    private Employee employee;
+    private EmployeeService employService;
+    private Bill bill;
 
-    public BuyStockPanel() {
+    public BuyStockPanel(Employee emp) {
         initComponents();
-       
+        employee = emp;
+        employService = new EmployeeService();
+        bill = new Bill();
+        bill.setEmployeeId(employee.getId());
         System.out.println("Create new Buy");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
@@ -189,7 +193,6 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
         model.addColumn("Total");
         model.addColumn("Discount");
 
-        
         ArrayList<BillDetail> billDetails = bill.getBillDetails();
 
         for (BillDetail billDetail : billDetails) {
@@ -569,9 +572,11 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
     }//GEN-LAST:event_edtShopNameActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("Start : "+bill.toString());
+        System.out.println("Start : " + bill.toString());
+        System.out.println(employee.toString());
         DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
         BillDetailDao billDetailDao = new BillDetailDao();
+
         BillDao billDao = new BillDao();
         boolean saved = true;
 
@@ -604,8 +609,8 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
             int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
             billtotalQty += amount;
         }
-      
-        System.out.println("Save :"+bill.toString());
+
+        System.out.println("Save :" + bill.toString());
         Bill savedBill = billDao.save(bill);
         if (savedBill == null) {
             saved = false;
@@ -655,11 +660,14 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
         if (saved) {
             JOptionPane.showMessageDialog(this, "Save successful");
             bill = new Bill();
-            chagePage("Material");
+              chagePage("Material");
         } else {
             JOptionPane.showMessageDialog(this, "Save unsuccessful");
+            System.out.println("Page.BuyStockPanel.btnSaveActionPerformed()");
+            chagePage("Material");
         }
-        
+              chagePage("Material");
+
     }
 
 
@@ -811,16 +819,16 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, logi
     public void loginData(User user) {
 
         System.out.println("Page.BuyStockPanel.loginData() " + user.toString());
-        EmployeeService empSer = new EmployeeService();
-        this.employee = empSer.getById(user.getEmployee_id()); // Set the 'employee' property, not 'editedEmployee'
-       
+
+        this.employee = this.employService.getById(user.getEmployee_id()); // Set the 'employee' property, not 'editedEmployee'
+
         System.out.println("set: " + employee.toString());
         this.bill.setEmployeeId(this.employee.getId());
         this.bill.setBuy(1000000);
         System.out.println(bill.toString());
     }
 
-    public void addInLoginObs(loginObs loginObs) {
+    public void addInLoginObs(LoginObs loginObs) {
         loginObses.add(loginObs);
     }
 }

@@ -5,10 +5,10 @@
 package com.mycompany.decoffeeallforone;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Component.NavigationBar;
 import Component.ProductListPanel;
 import Component.changePageSummary;
-import Component.loginObs;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
@@ -31,6 +31,7 @@ import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
+import Service.EmployeeService;
 import Service.PromotionService;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -47,7 +48,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage,changePageSummary {
+public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs {
 
     /**
      * Creates new form MainFrame
@@ -66,12 +67,17 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
+<<<<<<< HEAD
 
     private  HistoryMaterialPanel historyMaterialPanel;
 
     private ArrayList<loginObs> loginObses;
 
 
+=======
+    private ArrayList<LoginObs> loginObses;
+    private HistoryMaterialPanel historyMaterialPanel;
+>>>>>>> 695120a1151c05ee8c44d7e4e53d88192a961589
 
     public MainFrame() {
         initComponents();
@@ -79,12 +85,12 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
         loginObses = new ArrayList<>();
-        employee = new Employee();         
+        employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
 //        posPanel = new PosPanel();
-        buystockPanel = new BuyStockPanel();
+        buystockPanel = new BuyStockPanel(employee);
         posPanel = new PosPanel();
         userPannel = new UserPanel();
         employeePannel = new EmployeePanel();
@@ -94,19 +100,24 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         checkStockPanel = new CheckStockPanel();
         salaryPannel = new SalaryPanel();
         reportPanel = new ReportPanel();
-        buyStockPanel = new BuyStockPanel();
-        historyMaterialPanel = new HistoryMaterialPanel();
-
-         checkInOutPannel.addInLoginist(buystockPanel);
-
+        buyStockPanel = new BuyStockPanel(employee);
         jScrollPane1.setViewportView(navigationBar);
         checkStockPanel.addInSubs(this);
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+
        //scrPanel.setViewportView(reportPanel);
 
        scrPanel.setViewportView(new HistoryMaterialPanel());
+
+        checkInOutPannel.addInLoginist(buystockPanel);
+        checkInOutPannel.addInLoginist(this);
+        buyStockPanel.addInLoginObs(this);
+        buyStockPanel.addInSubs(this);
+
+        scrPanel.setViewportView(reportPanel);
+
 
     }
 
@@ -210,7 +221,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
 
     @Override
     public void chagePage(String pageName) {
-        if(pageName.equals("Main menu")){
+        if (pageName.equals("Main menu")) {
             scrPanel.setViewportView(reportPanel);
         }
 
@@ -235,14 +246,14 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
         if (pageName.equals("Check Stock")) {
             scrPanel.setViewportView(checkStockPanel);
         }
-        if(pageName.equals("SS Main")){
+        if (pageName.equals("SS Main")) {
             scrPanel.setViewportView(salaryPannel);
-            
+
         }
-        if(pageName.equals("BuyStock")){
+        if (pageName.equals("BuyStock")) {
             scrPanel.setViewportView(buyStockPanel);
         }
-          if(pageName.equals("HistoryMaterial")){
+        if (pageName.equals("HistoryMaterial")) {
             scrPanel.setViewportView(historyMaterialPanel);
         }
 
@@ -250,10 +261,16 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage,changePag
 
     @Override
     public void chagePageEmp(Employee emp, String pageName) {
-        if(pageName.equals("SS Emp")){
+        if (pageName.equals("SS Emp")) {
             scrPanel.setViewportView(new TableSalaryPanel(emp));
         }
     }
 
+    @Override
+    public void loginData(User user) {
+        EmployeeService employSer = new EmployeeService();
+        buyStockPanel = new BuyStockPanel(employSer.getById(user.getEmployee_id()));
+
+    }
 
 }

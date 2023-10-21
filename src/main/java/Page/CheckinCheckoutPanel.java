@@ -4,7 +4,7 @@
  */
 package Page;
 
-import Component.loginObs;
+import Component.LoginObs;
 import Model.Checkinout;
 import Model.Employee;
 import Service.CheckinoutService;
@@ -34,7 +34,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author toey
  */
-public class CheckinCheckoutPanel extends javax.swing.JPanel implements loginObs {
+public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs {
 
     private final CheckinoutService checkinoutService;
     private List<Checkinout> list;
@@ -47,7 +47,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements loginObs
     private Employee employee;
     private User user;
     private EmployeeService employeeService;
-    private ArrayList<loginObs> loginOsbs;
+    private ArrayList<LoginObs> loginOsbs;
 
     /**
      * Creates new form ChecekinCheckoutPanel
@@ -500,14 +500,14 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements loginObs
 
     @Override
     public void loginData(User user) {
-        for (loginObs log : loginOsbs) {
+        for (LoginObs log : loginOsbs) {
             log.loginData(user);
 
         }
         System.out.println("Page.CheckinCheckoutPanel.loginData()"+user.toString());
     }
 
-    public void addInLoginist(loginObs login) {
+    public void addInLoginist(LoginObs login) {
         loginOsbs.add(login);
     }
 }

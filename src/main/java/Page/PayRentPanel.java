@@ -9,6 +9,7 @@ import Dialog.PayRentDialog;
 import Model.DateLabelFormatter;
 import Model.RentStore;
 import Service.RentStoreService;
+import Validation.ValidateException;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,7 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -70,6 +73,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         initDatePicker1();
         initDatePicker2();
         rentStoreService = new RentStoreService();
+        editedRentStore = new RentStore();
         rentStore = rentStoreService.getByDate("", "");
         list = rentStoreService.getRentStores();
         tblPayRent.setEnabled(true);
@@ -387,13 +391,21 @@ public class PayRentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddRentBillActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        String varName = (String) cmbPosition.getSelectedItem();
+        String value = cmbPosition.getSelectedItem().toString();
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
         String begin = formater.format(model1.getValue());
         String end = formater.format(model2.getValue());
-        rentStore = rentStoreService.getByDate(begin, end);
         list = rentStore;
+        list = rentStoreService.getByDate(begin, end);
+        if (value.equals("Paid")) {
+            list = rentStoreService.getByPaidStatus("Y");
+        }else{
+            list = rentStoreService.getByPaidStatus("N");
+        }
+        cmbPosition.setSelectedItem(value);
         System.out.println(rentStore);
         refreshTableGetList();
     }//GEN-LAST:event_btnConfirmActionPerformed
@@ -402,12 +414,17 @@ public class PayRentPanel extends javax.swing.JPanel {
         int selectedIndex = tblPayRent.getSelectedRow();
         if (selectedIndex >= 0) {
             editedRentStore = list.get(selectedIndex);
+            openDialog2();
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select an item", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
         System.out.println(editedRentStore);
-        openDialog2();
     }//GEN-LAST:event_btnPayRentActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        model1.setSelected(false);
+        model2.setSelected(false);
         refreshTable();
     }//GEN-LAST:event_btnClearActionPerformed
 
@@ -416,6 +433,7 @@ public class PayRentPanel extends javax.swing.JPanel {
         tblPayRent.revalidate();
         tblPayRent.repaint();
     }
+
     private void refreshTableGetList() {
         tblPayRent.revalidate();
         tblPayRent.repaint();

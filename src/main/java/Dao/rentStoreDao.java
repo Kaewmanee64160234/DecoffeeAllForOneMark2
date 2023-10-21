@@ -147,6 +147,26 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return rentStore;
     }
+        public ArrayList<RentStore> getByPaidStatus(String status) {
+        ArrayList<RentStore> list = new ArrayList();
+        String sql = "SELECT * FROM rent_store WHERE rent_paid_status=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RentStore rentStore = RentStore.fromRS(rs);
+                list.add(rentStore);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
 
     public ArrayList<RentStore> getByDate(String begin, String end) {
         ArrayList<RentStore> list = new ArrayList();
@@ -168,6 +188,7 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return list;
     }
+    
 
     @Override
     public RentStore update(RentStore obj) {

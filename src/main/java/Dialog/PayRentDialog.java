@@ -53,12 +53,15 @@ public class PayRentDialog extends javax.swing.JDialog {
 //        pnlDatePicker1.add(datePicker1);
 //
 //    }
-
+//    private void setTimeInLblDate() {
+//        String formattedTime = rentStore.getRentDate();
+//        lblDateTime.setText(formattedTime);
+//
+//    }
     private void setTimeInLblDate() {
         String rentDate = rentStore.getRentDate();
 
-        // Define the format you want for the date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
 
         try {
             Date date = dateFormat.parse(rentDate);
@@ -105,7 +108,7 @@ public class PayRentDialog extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(228, 228, 208));
 
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName1.setText("Month/Year: ");
+        lblName1.setText("Year/Month: ");
 
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName2.setText("Date Paid: ");

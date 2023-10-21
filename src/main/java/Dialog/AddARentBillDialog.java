@@ -48,6 +48,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         this.editedRentStore = new RentStore();
         setObjectToForm();
         rentStoreService = new RentStoreService();
+        txtTotal.setEnabled(false);
 
     }
 
@@ -113,6 +114,11 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         txtOther.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
         txtTotal.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalActionPerformed(evt);
+            }
+        });
 
         btnSave.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnSave.setText("Save");
@@ -351,6 +357,10 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         float totalPrice = Float.parseFloat(txtRent.getText()) + Float.parseFloat(txtOther.getText()) + Float.parseFloat(txtElectricBill.getText()) + Float.parseFloat(txtWaterBill.getText());
         txtTotal.setText("" + totalPrice);
     }//GEN-LAST:event_btnCalActionPerformed
+
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+
+    }//GEN-LAST:event_txtTotalActionPerformed
 
     /**
      * @param args the command line arguments

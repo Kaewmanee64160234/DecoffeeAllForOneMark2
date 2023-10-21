@@ -29,7 +29,11 @@ public class RentStoreService {
         RentStoreDao rentStoreDao = new RentStoreDao();
         return rentStoreDao.getByDate(begin, end);
     }
-    
+   public ArrayList<RentStore> getByPaidStatus(String status) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getByPaidStatus(status);
+    }
+
     
     public List<RentStore> getRentStores(){
         RentStoreDao rentStoreDao = new RentStoreDao();

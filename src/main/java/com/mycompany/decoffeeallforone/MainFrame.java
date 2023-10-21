@@ -69,6 +69,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private BuyStockPanel buyStockPanel;
 
 
+
     private  HistoryMaterialPanel historyMaterialPanel;
 
     // private ArrayList<loginObs> loginObses;
@@ -77,6 +78,10 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
     // private ArrayList<LoginObs> loginObses;
 //    private HistoryMaterialPanel historyMaterialPanel;
+
+    private ArrayList<LoginObs> loginObses;
+ //   private HistoryMaterialPanel historyMaterialPanel;
+
 
     public MainFrame() {
         initComponents();
@@ -115,7 +120,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
 
-        scrPanel.setViewportView(reportPanel);
+        scrPanel.setViewportView(reportPanel);   
+//        scrPanel.setViewportView();
+
 
 
     }

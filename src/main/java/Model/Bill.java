@@ -19,7 +19,7 @@ public class Bill {
 
     private int id;
     private String shopname;
-    private Date creatdDate;
+    private String creatdDate;
     private float buy;
     private float totalDiscount;
     private float billTotal;
@@ -28,7 +28,7 @@ public class Bill {
     private int employeeId;
     private ArrayList<BillDetail> billDetails = new ArrayList();
 
-    public Bill(int id, String shopname, Date creatdDate, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
+    public Bill(int id, String shopname, String creatdDate, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
         this.id = id;
         this.shopname = shopname;
         this.creatdDate = creatdDate;
@@ -40,7 +40,7 @@ public class Bill {
         this.employeeId = employeeId;
     }
 
-    public Bill(String shopname, Date creatdDate, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
+    public Bill(String shopname, String creatdDate, float buy, float totalDiscount, float billTotal, float change, int totalQty, int employeeId) {
         this.id = -1;
         this.shopname = shopname;
         this.creatdDate = creatdDate;
@@ -92,11 +92,11 @@ public class Bill {
         this.shopname = shopname;
     }
 
-    public Date getCreatdDate() {
+    public String getCreatdDate() {
         return creatdDate;
     }
 
-    public void setCreatdDate(Date creatdDate) {
+    public void setCreatdDate(String creatdDate) {
         this.creatdDate = creatdDate;
     }
 
@@ -216,7 +216,7 @@ public class Bill {
         try {
             bill.setId(rs.getInt("bill_id"));
             bill.setShopname(rs.getString("bill_shop_name"));
-            bill.setCreatdDate(rs.getTimestamp("bill_created_date"));
+            bill.setCreatdDate(rs.getString("bill_created_date"));
             bill.setBuy(rs.getFloat("bill_buy"));
             bill.setTotalDiscount(rs.getFloat("bill_total_discount"));
             bill.setBillTotal(rs.getFloat("bill_total"));

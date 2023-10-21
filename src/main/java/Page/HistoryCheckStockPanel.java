@@ -149,12 +149,6 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         lblStartDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblStartDate.setText("From Date :");
 
-        edtDatePicker1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtDatePicker1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(

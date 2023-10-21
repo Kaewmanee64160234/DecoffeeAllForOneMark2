@@ -99,10 +99,10 @@ public class PrintPayRentHistory extends javax.swing.JDialog {
         });
 
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName1.setText("month/year: ");
+        lblName1.setText("Year/Month:");
 
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblName2.setText("to: ");
+        lblName2.setText("To: ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -211,6 +211,7 @@ public class PrintPayRentHistory extends javax.swing.JDialog {
         String end = formater.format(model2.getValue());
         list = rentStore;
         list = rentStoreService.getByDate(begin, end);
+        System.out.println(list);
         dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 

@@ -42,6 +42,10 @@ public class CheckinoutService {
     
     public Checkinout addNew(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
+        CheckMaterialDetailService checkMaterialDetailService = new CheckMaterialDetailService();
+
+        
+
         return checkinoutDao.save(editedCheckinout);
     }
 
@@ -58,5 +62,16 @@ public class CheckinoutService {
         ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id, paidStatus);
         return checkins;
     }
+     public ArrayList<Checkinout> getCheckInOutByEmpIdStatusNoAndTotalNotZero(int id){
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByEmpIdStatusNoAndTotalNotZero(id);
+        return checkins;
+        
+     }
+     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,String status){
+          CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id,status.charAt(0));
+        return checkins;
+     }
 }
 

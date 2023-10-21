@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
@@ -76,6 +77,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         this.reciept = new Reciept();
         this.promotion = new Promotion();
         initFindMemberDialog();
+        scrProductList.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     private void initTable() {
@@ -584,6 +587,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
+        btnFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFoodActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -659,6 +667,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnAddMember.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMemberMouseClicked(evt);
+            }
+        });
+        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMemberActionPerformed(evt);
             }
         });
 

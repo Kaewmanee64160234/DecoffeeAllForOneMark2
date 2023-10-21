@@ -10,6 +10,8 @@ package Service;
 import Dao.BillDetailDao;
 import Model.Bill;
 import Model.BillDetail;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,10 +30,11 @@ public class BillDetailService {
         return billDetailDao.getAll(" bill_detail_id asc");
     }
 
-    public BillDetail addNew(BillDetail editedBillDetail) throws ValidateException {
-        if(!editedBillDetail.isValid()){
-            throw new ValidateException("BillDetail is invalid!!!");
-        }
+    
+    public BillDetail addNew(BillDetail editedBillDetail) {
+//        if(!editedBillDetail.isValid()){
+//            throw new ValidateException("BillDetail is invalid!!!");
+//        }
         BillDetailDao billDetailDao = new BillDetailDao();
         return billDetailDao.save(editedBillDetail);
     }

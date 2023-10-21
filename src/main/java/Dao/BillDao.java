@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Bill;
+import Model.HistoryMaterialReport;
 import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,7 +60,6 @@ public class BillDao implements Dao<Bill> {
         }
         return list;
     }
-    
 
     @Override
     public List<Bill> getAll(String where, String order) {
@@ -82,7 +82,6 @@ public class BillDao implements Dao<Bill> {
         return list;
     }
 
-
     public List<Bill> getAll(String order) {
         ArrayList<Bill> list = new ArrayList();
         String sql = "SELECT * FROM bill  ORDER BY" + order;
@@ -103,21 +102,75 @@ public class BillDao implements Dao<Bill> {
         return list;
     }
 
-    @Override
-    public Bill save(Bill obj) {
-
-        String sql = "INSERT INTO bill (bill_shop_name, bill_buy, bill_total_discount, bill_total, bill_change, bill_total_qty, employee_id)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+    public List<HistoryMaterialReport> getBillHistory(String being, String end) {
+        ArrayList<HistoryMaterialReport> list = new ArrayList();
+        String sql = """ 
+              SELECT bill_id,
+                      strftime('%Y-%m-%d', bill_created_date) AS created_date,
+                      sum(bill_total) AS Total
+                 FROM bill
+                WHERE bill_created_date BETWEEN ? AND ?
+                GROUP BY created_date;
+                                     """;
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, obj.getShopname());
-            stmt.setFloat(2, obj.getBuy());
-            stmt.setFloat(3, obj.getTotalDiscount());
-            stmt.setFloat(4, obj.getBillTotal());
-            stmt.setFloat(5, obj.getChange());
-            stmt.setInt(6, obj.getTotalQty());
-            stmt.setInt(7, obj.getEmployeeId());
+            stmt.setString(1, being);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                HistoryMaterialReport obj = HistoryMaterialReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<HistoryMaterialReport> getBillHistory() {
+        ArrayList<HistoryMaterialReport> list = new ArrayList();
+        String sql = """ 
+               SELECT bill_id, bill_created_date,bill_total
+               FROM bill
+               WHERE bill_created_date  BETWEEN ? AND ?
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                HistoryMaterialReport obj = HistoryMaterialReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public Bill save(Bill obj) {
+
+        String sql = "INSERT INTO bill (bill_created_date,bill_shop_name, bill_buy, bill_total_discount, bill_total, bill_change, bill_total_qty, employee_id)"
+                + "VALUES(?,?, ?, ?, ?, ?, ?, ?)";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, obj.getCreatdDate());
+            stmt.setString(2, obj.getShopname());
+            stmt.setFloat(3, obj.getBuy());
+            stmt.setFloat(4, obj.getTotalDiscount());
+            stmt.setFloat(5, obj.getBillTotal());
+            stmt.setFloat(6, obj.getChange());
+            stmt.setInt(7, obj.getTotalQty());
+            stmt.setInt(8, obj.getEmployeeId());
             // System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
@@ -168,7 +221,5 @@ public class BillDao implements Dao<Bill> {
         }
         return -1;
     }
-
-
 
 }

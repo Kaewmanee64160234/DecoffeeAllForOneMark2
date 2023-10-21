@@ -5,36 +5,50 @@
 package com.mycompany.decoffeeallforone;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Component.NavigationBar;
 import Component.ProductListPanel;
+import Component.changePageSummary;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
+import Model.User;
+import Page.BuyStockPanel;
+import Page.CheckStockPanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
+import Page.HistoryCheckStockPanel;
+import Page.HistoryMaterialPanel;
 import Page.MaterialPanel;
 import Page.PayRentPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
 import Page.ReportPanel;
+import Page.SalaryPanel;
+import Page.TablePaymentStatusPanel;
+import Page.TableSalaryPanel;
 import Page.UserPanel;
+import Service.EmployeeService;
 import Service.PromotionService;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import scrollbar.ScrollBarCustom;
 
 /**
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage {
+public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs {
 
     /**
      * Creates new form MainFrame
@@ -46,18 +60,58 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     private EmployeePanel employeePannel;
     private MaterialPanel materialPanel;
     private CheckinCheckoutPanel checkInOutPannel;
+    private CheckStockPanel checkStockPanel;
+    private BuyStockPanel buystockPanel;
+    private ReportPanel reportPanel;
+    private SalaryPanel salaryPannel;
+    private TableSalaryPanel tableSalaryPannel;
+    private Employee employee;
+    private BuyStockPanel buyStockPanel;
+
+
+    private ArrayList<LoginObs> loginObses;
+    private HistoryMaterialPanel historyMaterialPanel;
 
     public MainFrame() {
         initComponents();
+        scrPanel.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
+       // loginObses = new ArrayList<>();
+        employee = new Employee();
+        productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
         navigationBar = new NavigationBar();
+//        posPanel = new PosPanel();
+        buystockPanel = new BuyStockPanel(employee);
         posPanel = new PosPanel();
+        userPannel = new UserPanel();
+        employeePannel = new EmployeePanel();
+        materialPanel = new MaterialPanel();
+        checkInOutPannel = new CheckinCheckoutPanel();
+        navigationBar = new NavigationBar();
+        checkStockPanel = new CheckStockPanel();
+        salaryPannel = new SalaryPanel();
+        reportPanel = new ReportPanel();
+        buyStockPanel = new BuyStockPanel(employee);
         jScrollPane1.setViewportView(navigationBar);
+        checkStockPanel.addInSubs(this);
+        salaryPannel.addInSubs(this);
+        buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
 
-        //scrPanel.setViewportView(new PosPanel());
-        scrPanel.setViewportView(new PayRentPanel());
+       //scrPanel.setViewportView(reportPanel);
+
+       scrPanel.setViewportView(new HistoryMaterialPanel());
+
+        checkInOutPannel.addInLoginist(buystockPanel);
+        checkInOutPannel.addInLoginist(this);
+        buyStockPanel.addInLoginObs(this);
+        buyStockPanel.addInSubs(this);
+
+        scrPanel.setViewportView(new HistoryMaterialPanel());   
+//        scrPanel.setViewportView();
+
 
 
     }
@@ -74,7 +128,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
         scrPanel = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        panelFornavigation = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,32 +145,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
 
         scrPanel.setViewportView(jPanel1);
 
-        panelFornavigation.setBackground(new java.awt.Color(255, 255, 204));
-
-        javax.swing.GroupLayout panelFornavigationLayout = new javax.swing.GroupLayout(panelFornavigation);
-        panelFornavigation.setLayout(panelFornavigationLayout);
-        panelFornavigationLayout.setHorizontalGroup(
-            panelFornavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFornavigationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        panelFornavigationLayout.setVerticalGroup(
-            panelFornavigationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFornavigationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelFornavigation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -125,12 +159,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelFornavigation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -178,30 +211,61 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel panelFornavigation;
     private javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void chagePage(String pageName) {
+        if (pageName.equals("Main menu")) {
+            scrPanel.setViewportView(reportPanel);
+        }
+
         if (pageName.equals("POS")) {
-            scrPanel.setViewportView(new PosPanel());
+            scrPanel.setViewportView(posPanel);
         }
         if (pageName.equals("Product")) {
-            scrPanel.setViewportView(new ProductPanel());
+            scrPanel.setViewportView(productPanel);
         }
         if (pageName.equals("User")) {
-            scrPanel.setViewportView(new UserPanel());
+            scrPanel.setViewportView(userPannel);
         }
         if (pageName.equals("Employee")) {
-            scrPanel.setViewportView(new EmployeePanel());
+            scrPanel.setViewportView(employeePannel);
         }
         if (pageName.equals("Material")) {
-            scrPanel.setViewportView(new MaterialPanel());
+            scrPanel.setViewportView(materialPanel);
         }
         if (pageName.equals("Check In-Out")) {
-            scrPanel.setViewportView(new CheckinCheckoutPanel());
+            scrPanel.setViewportView(checkInOutPannel);
+        }
+        if (pageName.equals("Check Stock")) {
+            scrPanel.setViewportView(checkStockPanel);
+        }
+        if (pageName.equals("SS Main")) {
+            scrPanel.setViewportView(salaryPannel);
+
+        }
+        if (pageName.equals("BuyStock")) {
+            scrPanel.setViewportView(buyStockPanel);
+        }
+        if (pageName.equals("HistoryMaterial")) {
+            scrPanel.setViewportView(historyMaterialPanel);
         }
 
     }
+
+    @Override
+    public void chagePageEmp(Employee emp, String pageName) {
+        if (pageName.equals("SS Emp")) {
+            scrPanel.setViewportView(new TableSalaryPanel(emp));
+        }
+    }
+
+    @Override
+    public void loginData(User user) {
+        EmployeeService employSer = new EmployeeService();
+        buyStockPanel = new BuyStockPanel(employSer.getById(user.getEmployee_id()));
+
+    }
+
 }

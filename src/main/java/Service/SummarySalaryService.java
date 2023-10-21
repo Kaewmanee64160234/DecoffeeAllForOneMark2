@@ -44,15 +44,13 @@ public class SummarySalaryService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         EmployeeDao employeeDao = new EmployeeDao();
         Employee employee = employeeDao.get(empId);
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = dateFormat.format(date);
+        String formattedDate = setDate();
         summarySalary.setDate(formattedDate);
         SummarySalary new_sum = summarySalaryDao.save(summarySalary);
         System.out.println(new_sum.toString());
         int totalHour = 0;
         int id = new_sum.getId();
-        for (Checkinout object : checkinoutDao.getCheckInOutByPaidStatusAndEmpIdForAddInSS(empId, 'N')) {
+        for (Checkinout object : checkinoutDao.getCheckInOutByEmpIdStatusNoAndTotalNotZero(empId)) {
             object.setSsId(id);
             checkinoutDao.update(object);
             totalHour += object.getCioTotalHour();
@@ -63,6 +61,13 @@ public class SummarySalaryService {
 
         return new_sum;
 
+    }
+
+    private String setDate() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
     }
 
     public SummarySalary getSalaryCheckInOut(int id) {

@@ -6,6 +6,7 @@ package Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ public class BillDetail {
     private float total;
     private int bill_id;
     private int mat_id;
+    private ArrayList<BillDetail> billDetails = new ArrayList<>();
 
     public BillDetail(int id, String name, int amount, float discount, float price, float total, int bill_id, int mat_id) {
         this.id = id;
@@ -121,6 +123,33 @@ public class BillDetail {
         this.mat_id = mat_id;
     }
 
+    public void addBillDetail(BillDetail billDetail) {
+        if (billDetails == null) {
+            billDetails = new ArrayList<>();
+        }
+
+        boolean itemExists = false;
+
+        for (BillDetail existingBillDetail : billDetails) {
+            if (existingBillDetail.getMat_id() == billDetail.getMat_id()) {
+                itemExists = true;
+
+                int currentAmount = existingBillDetail.getAmount();
+                float pricePerUnit = billDetail.getPrice();
+                currentAmount++;
+
+                existingBillDetail.setAmount(currentAmount);
+                existingBillDetail.setTotal(pricePerUnit * currentAmount);
+
+                break;
+            }
+        }
+
+        if (!itemExists) {
+            billDetails.add(billDetail);
+        }
+    }
+
     @Override
     public String toString() {
         return "BillDetail{" + "id=" + id + ", name=" + name + ", amount=" + amount + ", discount=" + discount + ", price=" + price + ", total=" + total + ", bill_id=" + bill_id + ", mat_id=" + mat_id + '}';
@@ -150,7 +179,6 @@ public class BillDetail {
                 && this.amount >= 0
                 && this.discount >= 0
                 && this.price >= 0
-                && this.total >= 0
-                ;
+                && this.total >= 0;
     }
 }

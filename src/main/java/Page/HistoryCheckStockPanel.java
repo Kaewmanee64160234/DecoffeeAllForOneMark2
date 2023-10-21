@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
+import scrollbar.ScrollBarCustom;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -29,7 +30,8 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
     public HistoryCheckStockPanel() {
         initComponents();
-        initDatePicker();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
 
         checkMaterialDetailService = new CheckMaterialDetailService();
         checkMaterialService = new CheckMaterialService();
@@ -146,6 +148,12 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
         lblStartDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblStartDate.setText("From Date :");
+
+        edtDatePicker1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDatePicker1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -291,6 +299,10 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void edtDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDatePicker1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtDatePicker1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

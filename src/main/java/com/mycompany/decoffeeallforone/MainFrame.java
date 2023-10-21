@@ -97,6 +97,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+
+       //scrPanel.setViewportView(reportPanel);
+
+       scrPanel.setViewportView(new HistoryMaterialPanel());
+
         checkInOutPannel.addInLoginist(buystockPanel);
         checkInOutPannel.addInLoginist(this);
         buyStockPanel.addInLoginObs(this);
@@ -104,6 +109,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
         scrPanel.setViewportView(reportPanel);   
 //        scrPanel.setViewportView();
+
 
 
     }

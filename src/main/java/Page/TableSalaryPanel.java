@@ -317,8 +317,10 @@ public class TableSalaryPanel extends javax.swing.JPanel {
             public void windowClosed(WindowEvent e) {
                 refreshTable();
                 summarySalary = summarySalaryService.getSalaryLastCreated();
+                summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
+                summarySalary.setEmployee(employee);
                 System.out.println(summarySalary.toString());
-//                opendialogSlip(summarySalary, employee);
+                opendialogSlip(summarySalary, employee);
 
             }
         });

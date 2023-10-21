@@ -5,6 +5,11 @@
 package Dialog;
 
 import Model.DateLabelFormatter;
+import Model.RentStore;
+import Service.RentStoreService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -14,36 +19,51 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author ASUS
  */
-public class PleaseSelectRangeDialog extends javax.swing.JDialog {
+public class PrintPayRentHistory extends javax.swing.JDialog {
 
     private UtilDateModel model1;
     private UtilDateModel model2;
+    private JDatePanelImpl datePanel1;
+    private JDatePanelImpl datePanel2;
+    private final RentStoreService rentStoreService;
+    private RentStore editedRentStore;
+    private List<RentStore> list;
+    private ArrayList<RentStore> rentStore;
 
     /**
      * Creates new form AddARentBillDialog1
      */
-    public PleaseSelectRangeDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public PrintPayRentHistory(java.awt.Frame parent) {
         initComponents();
-        initDatePicker();
+        initDatePicker1();
+        initDatePicker2();
+        rentStoreService = new RentStoreService();
+        editedRentStore = new RentStore();
+        rentStore = rentStoreService.getByDate("", "");
+        list = rentStoreService.getRentStores();
     }
 
-    private void initDatePicker() {
+    private void initDatePicker1() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
-        JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
+        datePanel1 = new JDatePanelImpl(model1, p1);
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
-        
+
+    }
+
+    private void initDatePicker2() {
         model2 = new UtilDateModel();
         Properties p2 = new Properties();
-        JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
+        datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
-        model2.setSelected(true);
 
     }
 
@@ -185,7 +205,13 @@ public class PleaseSelectRangeDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        list = rentStore;
+        list = rentStoreService.getByDate(begin, end);
+        dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
@@ -205,14 +231,30 @@ public class PleaseSelectRangeDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PleaseSelectRangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrintPayRentHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PleaseSelectRangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrintPayRentHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PleaseSelectRangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrintPayRentHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PleaseSelectRangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrintPayRentHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -233,7 +275,7 @@ public class PleaseSelectRangeDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PleaseSelectRangeDialog dialog = new PleaseSelectRangeDialog(new javax.swing.JFrame(), true);
+                PrintPayRentHistory dialog = new PrintPayRentHistory(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

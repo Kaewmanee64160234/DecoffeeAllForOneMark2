@@ -30,6 +30,11 @@ public class BillDetailService {
         return billDetailDao.getAll(" bill_detail_id asc");
     }
 
+     public List<BillDetail> getBillDetailForDate(String date){
+       BillDetailDao billDetailDao = new BillDetailDao();
+       return billDetailDao.getBillDetailForDate(date);
+   }
+     
     
     public BillDetail addNew(BillDetail editedBillDetail) {
 //        if(!editedBillDetail.isValid()){

@@ -48,6 +48,17 @@ public class BillDetail {
         this.mat_id = mat_id;
     }
 
+      public BillDetail(String name) {
+        this.id = -1;
+        this.name = "";
+        this.amount = 0;
+        this.discount = 0;
+        this.price = 0;
+        this.total = 0;
+        this.bill_id = -1;
+        this.mat_id = -1;
+    }
+    
     public BillDetail() {
         this.id = -1;
         this.name = "";

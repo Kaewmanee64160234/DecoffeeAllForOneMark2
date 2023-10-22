@@ -4,6 +4,7 @@
  */
 package com.mycompany.decoffeeallforone;
 
+import Component.LoginObs;
 import Model.User;
 import Service.EmployeeService;
 import Service.UserService;
@@ -11,6 +12,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,15 +22,17 @@ import javax.swing.JOptionPane;
  *
  * @author USER
  */
-public class LoginPage extends javax.swing.JFrame{
+public class LoginPage extends javax.swing.JFrame implements LoginObs {
 
     private boolean isPasswordVisible = false;
+    private ArrayList<LoginObs> loginObs;
 
     /**
      * Creates new form LoginPage
      */
     public LoginPage() {
         initComponents();
+        loginObs = new ArrayList<>();
         ImageIcon icon = new ImageIcon("./user.png");
         Image image = icon.getImage();
         int width = image.getWidth(null);
@@ -285,13 +289,13 @@ public class LoginPage extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(new JFrame(), "Your password or Login is wrong. Please check again", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-         
+
             LoginPage loginPage = new LoginPage();
-            
+
             MainFrame mainFrame = new MainFrame();
-            dispose(); 
+            dispose();
             mainFrame.setVisible(true);
-            
+
         }
         clearTextFiled();
 
@@ -362,5 +366,12 @@ public class LoginPage extends javax.swing.JFrame{
     private void clearTextFiled() {
         txtLogin.setText("");
         txtPass.setText("");
+    }
+
+    @Override
+    public void loginData(User user) {
+        for (LoginObs loginOb : loginObs) {
+            loginOb.loginData(user);
+        }
     }
 }

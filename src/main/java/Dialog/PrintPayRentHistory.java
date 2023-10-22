@@ -215,6 +215,8 @@ public class PrintPayRentHistory extends javax.swing.JDialog implements CodeDial
         list = rentStoreService.getByDate(begin, end);
         CodeDialog(list);
         dispose();
+        model1.setSelected(false);
+        model2.setSelected(false);
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
@@ -308,7 +310,7 @@ public class PrintPayRentHistory extends javax.swing.JDialog implements CodeDial
         for (CodeDialog cd : codeDialogs) {
             cd.CodeDialog(renStores);
         }
-        
+
     }
 
     public void addInSub(CodeDialog codeDialog) {

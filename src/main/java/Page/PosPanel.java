@@ -821,6 +821,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }//GEN-LAST:event_btnPosConfirmMouseClicked
 
     private void btnPromtpayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromtpayActionPerformed
+        if (reciept.getRecieptDetails().size() <= 0) {
+            JOptionPane.showMessageDialog(this, "Detail is emplty");
+            return;
+        }
         lblCash.setText(lblTotalNet.getText());
         lblChange.setText("0");
         btnCalculator.setEnabled(false);

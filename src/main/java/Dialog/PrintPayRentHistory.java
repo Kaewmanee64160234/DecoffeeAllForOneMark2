@@ -4,6 +4,7 @@
  */
 package Dialog;
 
+import Component.CodeDialog;
 import Model.DateLabelFormatter;
 import Model.RentStore;
 import Service.RentStoreService;
@@ -19,7 +20,7 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author ASUS
  */
-public class PrintPayRentHistory extends javax.swing.JDialog {
+public class PrintPayRentHistory extends javax.swing.JDialog implements CodeDialog {
 
     private UtilDateModel model1;
     private UtilDateModel model2;
@@ -29,6 +30,7 @@ public class PrintPayRentHistory extends javax.swing.JDialog {
     private RentStore editedRentStore;
     private List<RentStore> list;
     private ArrayList<RentStore> rentStore;
+    private ArrayList<CodeDialog> codeDialogs;
 
     /**
      * Creates new form AddARentBillDialog1
@@ -39,6 +41,7 @@ public class PrintPayRentHistory extends javax.swing.JDialog {
         initDatePicker2();
         rentStoreService = new RentStoreService();
         editedRentStore = new RentStore();
+        codeDialogs = new ArrayList<>();
         rentStore = rentStoreService.getByDate("", "");
         list = rentStoreService.getRentStores();
     }
@@ -209,9 +212,8 @@ public class PrintPayRentHistory extends javax.swing.JDialog {
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         String begin = formater.format(model1.getValue());
         String end = formater.format(model2.getValue());
-        list = rentStore;
         list = rentStoreService.getByDate(begin, end);
-        System.out.println(list);
+        CodeDialog(list);
         dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
@@ -299,4 +301,17 @@ public class PrintPayRentHistory extends javax.swing.JDialog {
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void CodeDialog(List<RentStore> renStores) {
+
+        for (CodeDialog cd : codeDialogs) {
+            cd.CodeDialog(renStores);
+        }
+        
+    }
+
+    public void addInSub(CodeDialog codeDialog) {
+        codeDialogs.add(codeDialog);
+    }
 }

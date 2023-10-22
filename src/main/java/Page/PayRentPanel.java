@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Component.CodeDialog;
 import Dialog.AddARentBillDialog;
 import Dialog.PayRentDialog;
 import Dialog.PrintPayRentHistory;
@@ -32,7 +33,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class PayRentPanel extends javax.swing.JPanel {
+public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
 
     private final RentStoreService rentStoreService;
     private RentStore editedRentStore;
@@ -42,12 +43,14 @@ public class PayRentPanel extends javax.swing.JPanel {
     private JDatePanelImpl datePanel1;
     private UtilDateModel model2;
     private JDatePanelImpl datePanel2;
+    private PrintPayRentHistory payRentDialog;
 
     /**
      * Creates new form PayRentPanel
      */
     private void initDatePicker1() {
         model1 = new UtilDateModel();
+
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
         p1.put("text.month", "Month");
@@ -72,15 +75,16 @@ public class PayRentPanel extends javax.swing.JPanel {
 
     public PayRentPanel() {
         initComponents();
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        payRentDialog = new PrintPayRentHistory(frame);
+        payRentDialog.addInSub(this);
 
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-         initDatePicker1();
-         initDatePicker2();
+        initDatePicker1();
+        initDatePicker2();
 
         rentStoreService = new RentStoreService();
         editedRentStore = new RentStore();
-        rentStore = rentStoreService.getByDate("", "");
-        list = rentStoreService.getRentStores();
         tblPayRent.setEnabled(true);
         tblPayRent.setRowHeight(50);
         tblPayRent.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
@@ -94,7 +98,7 @@ public class PayRentPanel extends javax.swing.JPanel {
 
             @Override
             public int getRowCount() {
-                return list.size();
+                return rentStore.size();
             }
 
             @Override
@@ -113,20 +117,20 @@ public class PayRentPanel extends javax.swing.JPanel {
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                RentStore rentStore = list.get(rowIndex);
+                RentStore rentStore_ = rentStore.get(rowIndex);
                 switch (columnIndex) {
                     case 0:
-                        return rentStore.getRentDate();
+                        return rentStore_.getRentDate();
                     case 1:
-                        return rentStore.getRentPrice();
+                        return rentStore_.getRentPrice();
                     case 2:
-                        return rentStore.getRentWater();
+                        return rentStore_.getRentWater();
                     case 3:
-                        return rentStore.getRentElectic();
+                        return rentStore_.getRentElectic();
                     case 4:
-                        return rentStore.getRentTotal();
+                        return rentStore_.getRentTotal();
                     case 5:
-                        return rentStore.getRentPaidStatus();
+                        return rentStore_.getRentPaidStatus();
 
                     default:
                         return "Unknown";
@@ -134,6 +138,7 @@ public class PayRentPanel extends javax.swing.JPanel {
             }
 
         });
+        rentStore = (ArrayList<RentStore>) rentStoreService.getRentStores();
 
     }
 
@@ -395,21 +400,21 @@ public class PayRentPanel extends javax.swing.JPanel {
 
         });
     }
+
     private void openDialog3() {
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PrintPayRentHistory payRentDialog = new PrintPayRentHistory(frame);
+
         payRentDialog.setLocationRelativeTo(this); //set dialog to center
         payRentDialog.setVisible(true);
         payRentDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
 
-                refreshTable();
+                refreshTableGetList();
             }
 
         });
     }
-    
+
     private void btnAddRentBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRentBillActionPerformed
         editedRentStore = new RentStore();
         openDialog1();
@@ -422,21 +427,20 @@ public class PayRentPanel extends javax.swing.JPanel {
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         if (model1.getValue() == null && model2.getValue() == null) {
             if (value.equals("Paid")) {
-                list = rentStoreService.getByPaidStatus("Y");
+                rentStore = rentStoreService.getByPaidStatus("Y");
             } else {
-                list = rentStoreService.getByPaidStatus("N");
+                rentStore = rentStoreService.getByPaidStatus("N");
             }
             cmbPosition.setSelectedItem(value);
         } else {
             String begin = formater.format(model1.getValue());
             String end = formater.format(model2.getValue());
-            list = rentStore;
 
             if (value.equals("Paid")) {
-                list = rentStoreService.getByDateByPaidStatus("Y", begin, end);
+                rentStore = rentStoreService.getByDateByPaidStatus("Y", begin, end);
 
             } else {
-                list = rentStoreService.getByDateByPaidStatus("N", begin, end);
+                rentStore = rentStoreService.getByDateByPaidStatus("N", begin, end);
             }
             cmbPosition.setSelectedItem(value);
 
@@ -448,7 +452,7 @@ public class PayRentPanel extends javax.swing.JPanel {
     private void btnPayRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayRentActionPerformed
         int selectedIndex = tblPayRent.getSelectedRow();
         if (selectedIndex >= 0) {
-            editedRentStore = list.get(selectedIndex);
+            editedRentStore = rentStore.get(selectedIndex);
             openDialog2();
         } else {
             JOptionPane.showMessageDialog(null, "Please select an item", "Error", JOptionPane.ERROR_MESSAGE);
@@ -468,7 +472,7 @@ public class PayRentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPrintPaymentHistoryActionPerformed
 
     private void refreshTable() {
-        list = rentStoreService.getRentStores();
+        rentStore = (ArrayList<RentStore>) rentStoreService.getRentStores();
         tblPayRent.revalidate();
         tblPayRent.repaint();
     }
@@ -476,6 +480,7 @@ public class PayRentPanel extends javax.swing.JPanel {
     private void refreshTableGetList() {
         tblPayRent.revalidate();
         tblPayRent.repaint();
+        System.out.println("Page.PayRentPanel.refreshTableGetList() ::::" + rentStore);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -497,4 +502,12 @@ public class PayRentPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblPayRent;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void CodeDialog(List<RentStore> rentStores) {
+        System.out.println("Page.PayRentPanel.CodeDialog() : " + rentStores);
+        this.rentStore = (ArrayList<RentStore>) rentStores;
+        System.out.println("Page.PayRentPanel.CodeDialog() :::::::::: " + rentStore);
+        refreshTableGetList();
+    }
 }

@@ -4,10 +4,14 @@
  */
 package Component;
 
+import Model.RentStore;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author user
  */
 public interface CodeDialog {
-    public void CodeDialog();
+    public void CodeDialog(List<RentStore> renstores);
 }

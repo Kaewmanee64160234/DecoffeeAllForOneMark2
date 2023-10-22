@@ -12,6 +12,7 @@ import Component.changePageSummary;
 import Dialog.CustomerDialog;
 import Model.Employee;
 import Model.Promotion;
+import Model.RentStore;
 import Model.User;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
@@ -69,6 +70,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private BuyStockPanel buyStockPanel;
     private ArrayList<LoginObs> loginObses;
     private HistoryMaterialPanel historyMaterialPanel;
+    private PayRentPanel payRentPanel;
 
     public MainFrame() {
         initComponents();
@@ -84,6 +86,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buystockPanel = new BuyStockPanel(employee);
         posPanel = new PosPanel();
         userPannel = new UserPanel();
+        payRentPanel = new PayRentPanel();
         employeePannel = new EmployeePanel();
         materialPanel = new MaterialPanel();
         checkInOutPannel = new CheckinCheckoutPanel();
@@ -246,6 +249,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("HistoryMaterial")) {
             scrPanel.setViewportView(historyMaterialPanel);
+        }
+        if (pageName.equals("Rent Store")) {
+            scrPanel.setViewportView(payRentPanel);
         }
 
     }

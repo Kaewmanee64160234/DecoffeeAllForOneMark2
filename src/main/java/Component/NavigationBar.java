@@ -5,6 +5,7 @@
 package Component;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +47,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
         btnSummarySalary = new javax.swing.JButton();
         btnButStock = new javax.swing.JButton();
         btnHistoryMaterial = new javax.swing.JButton();
+        btnHistoryMaterial1 = new javax.swing.JButton();
+        btnHistoryMaterial2 = new javax.swing.JButton();
 
         btnCheckStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnCheckStock.setText("Check Stock");
@@ -171,6 +174,24 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
             }
         });
 
+        btnHistoryMaterial1.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnHistoryMaterial1.setText("Rent Store");
+        btnHistoryMaterial1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHistoryMaterial1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoryMaterial1ActionPerformed(evt);
+            }
+        });
+
+        btnHistoryMaterial2.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnHistoryMaterial2.setText("Logout");
+        btnHistoryMaterial2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHistoryMaterial2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoryMaterial2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -192,7 +213,9 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
                     .addComponent(btnCheckStock1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSummarySalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnButStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHistoryMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnHistoryMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHistoryMaterial1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHistoryMaterial2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -224,7 +247,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
                 .addComponent(btnButStock, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistoryMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHistoryMaterial1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHistoryMaterial2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -279,12 +306,6 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
         chagePage("Check In-Out");
     }//GEN-LAST:event_btnCheckinoutActionPerformed
 
-    private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed
-        // TODO add your handling code here:
-                chagePage("Check Stock");
-
-    }//GEN-LAST:event_btnCheckStockActionPerformed
-
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
         chagePage("Main menu");
@@ -310,6 +331,24 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
         chagePage("HistoryMaterial");
     }//GEN-LAST:event_btnHistoryMaterialActionPerformed
 
+    private void btnHistoryMaterial1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryMaterial1ActionPerformed
+        chagePage("Rent Store");        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHistoryMaterial1ActionPerformed
+
+    private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed
+        // TODO add your handling code here:
+        chagePage("Check Stock");
+    }//GEN-LAST:event_btnCheckStockActionPerformed
+
+    private void btnHistoryMaterial2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryMaterial2ActionPerformed
+        // TODO add your handling code here:
+       int response =  JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
+                    // User confirmed logout, so exit the application
+                    System.exit(0);
+                }
+    }//GEN-LAST:event_btnHistoryMaterial2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnButStock;
@@ -318,6 +357,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
     private javax.swing.JButton btnCheckinout;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnHistoryMaterial;
+    private javax.swing.JButton btnHistoryMaterial1;
+    private javax.swing.JButton btnHistoryMaterial2;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnMaterial;
     private javax.swing.JButton btnPos;

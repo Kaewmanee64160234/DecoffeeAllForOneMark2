@@ -14,6 +14,11 @@ public class CheckMaterialDetailService {
         CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
         return checkMaterialDetailDao.get(id);
     }
+    
+         public List<CheckMaterialDetail> getCheckMaterialDetailForDate(String date){
+       CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();
+       return checkMaterialDetailDao.getCheckMaterialDetailForDate(date);
+   }
 
     public List<CheckMaterialDetail> getCheckMaterialDetails() {
         CheckMaterialDetailDao checkMaterialDetailDao = new CheckMaterialDetailDao();

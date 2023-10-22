@@ -10,17 +10,17 @@ import java.util.logging.Logger;
 public class CheckMaterial {
 
     private int id;
-    private Date cmDate;
+    private String cmDate;
     private int employeeId;
     private ArrayList<CheckMaterialDetail> details;
 
-    public CheckMaterial(int id, Date cmDate, int employeeId) {
+    public CheckMaterial(int id, String cmDate, int employeeId) {
         this.id = id;
         this.cmDate = cmDate;
         this.employeeId = employeeId;
     }
 
-    public CheckMaterial(Date cmDate, int employeeId) {
+    public CheckMaterial(String cmDate, int employeeId) {
         this.id = -1;
         this.cmDate = cmDate;
         this.employeeId = employeeId;
@@ -56,11 +56,11 @@ public class CheckMaterial {
         this.id = id;
     }
 
-    public Date getCmDate() {
+    public String getCmDate() {
         return cmDate;
     }
 
-    public void setCmDate(Date cmDate) {
+    public void setCmDate(String cmDate) {
         this.cmDate = cmDate;
     }
 
@@ -81,7 +81,7 @@ public class CheckMaterial {
         CheckMaterial obj = new CheckMaterial();
         try {
             obj.setId(rs.getInt("check_mat_id"));
-            obj.setCmDate(rs.getTimestamp("check_mat_datetime"));
+            obj.setCmDate(rs.getString("check_mat_datetime"));
             obj.setEmployeeId(rs.getInt("employee_id"));
 
         } catch (SQLException ex) {

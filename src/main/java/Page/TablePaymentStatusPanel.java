@@ -4,6 +4,9 @@
  */
 package Page;
 
+import Model.Checkinout;
+import Model.SummarySalary;
+import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -15,9 +18,63 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
     /**
      * Creates new form TablePaymentStatusPanel
      */
-    public TablePaymentStatusPanel() {
+    private SummarySalary summarySalary;
+    public TablePaymentStatusPanel(SummarySalary summarySalary) {
         initComponents();
+        this.summarySalary = summarySalary;
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jLabel3.setText(summarySalary.getEmployee().getName());
+        txtBathPerHr.setText(summarySalary.getEmployee().getHourlyWage()+"");
+        txtPaidDate.setText(summarySalary.getDate());
+        jTable1.setModel(new AbstractTableModel(){
+           String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return summarySalary.getCheckins().size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 4;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Checkinout checkinout = summarySalary.getCheckins().get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return checkinout.getCioDate();
+                    case 1:
+                        return checkinout.getCioTimeIn();
+                    case 2:
+                        return checkinout.getCioTimeOut();
+                    case 3:
+                        return checkinout.getCioTotalHour();
+                 
+
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
+       
+
+        
     }
 
     /**
@@ -33,9 +90,7 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtBathPerHr = new javax.swing.JLabel();
-        pnlDatePicker1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -50,9 +105,6 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("bath/hr :");
-
-        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        jLabel5.setText("date :");
 
         txtBathPerHr.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
 
@@ -95,12 +147,6 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPaidDate, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,14 +155,16 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtPaidDate, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 318, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,17 +186,13 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(txtPaidDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
@@ -182,7 +226,7 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 418, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -205,13 +249,11 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JLabel txtBathPerHr;
     private javax.swing.JLabel txtPaidDate;
     // End of variables declaration//GEN-END:variables

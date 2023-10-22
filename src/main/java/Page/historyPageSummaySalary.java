@@ -5,8 +5,11 @@
 package Page;
 
 import Component.ChagePage;
+import Dialog.PrintSlipDialog;
+import Model.Checkinout;
 import Model.Employee;
 import Model.SummarySalary;
+import Service.CheckinoutService;
 import Service.EmployeeService;
 import Service.SummarySalaryService;
 import TableCrud.TableActionCellEditor;
@@ -22,6 +25,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -32,7 +37,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class historyPageSummaySalary extends javax.swing.JPanel implements ChagePage{
+public class historyPageSummaySalary extends javax.swing.JPanel implements ChagePage {
 
     private UtilDateModel model1;
     private UtilDateModel model2;
@@ -165,6 +170,8 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         tblSummarySalary = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -307,7 +314,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(723, Short.MAX_VALUE))
+                        .addContainerGap(786, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -358,28 +365,54 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         btnConfirm.setMaximumSize(new java.awt.Dimension(72, 23));
         btnConfirm.setMinimumSize(new java.awt.Dimension(72, 23));
         btnConfirm.setPreferredSize(new java.awt.Dimension(72, 23));
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack))
@@ -433,11 +466,11 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date startDate = model1.getValue();
         Date stopDate = model2.getValue();
-        
+
         ArrayList<String> command = new ArrayList<>();
 
         if (startDate != null && stopDate != null) {
-            command.add(" ss_date BETWEEN '" + formatter.format(startDate) + "' and '" + formatter.format(stopDate)+"'");
+            command.add(" ss_date BETWEEN '" + formatter.format(startDate) + "' and '" + formatter.format(stopDate) + "'");
 
         }
         if (!value.equals("")) {
@@ -464,13 +497,13 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 cons += command.get(i);
             }
 
-        }
-        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
+        }        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
         System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        jComboBox1.setSelectedIndex(0);
         model1.setSelected(false);
         model2.setSelected(false);
         refreshTable();
@@ -488,6 +521,21 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         // TODO add your handling code here:
         chagePage("SS Main");
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        int seleted_row = tblSummarySalary.getSelectedRow();
+        if (seleted_row != -1) {
+            int ss_id = (int) tblSummarySalary.getValueAt(seleted_row, 0);
+            ArrayList<SummarySalary> ss = summarySalaryService.getAllSummarySalarysByCondition("summary_salary.ss_id="+ss_id+" ");
+            System.out.println(ss);
+            CheckinoutService sioService = new CheckinoutService();
+            ArrayList<Checkinout> cck = sioService.getCheckinoutsBySsId(ss_id);
+           ss.get(0).setCheckins(cck);
+            openDialogBillSS(ss.get(0));
+
+        }
+
+    }//GEN-LAST:event_btnConfirmActionPerformed
     private void refreshTable() {
         summarySalarys = summarySalaryService.getAll();
         tblSummarySalary.revalidate();
@@ -516,20 +564,29 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblSummarySalary;
     // End of variables declaration//GEN-END:variables
 
-    public void addInChagePage(ChagePage ch){
+    public void addInChagePage(ChagePage ch) {
         chagePages.add(ch);
     }
+
     @Override
     public void chagePage(String pageName) {
         for (ChagePage ch : chagePages) {
             ch.chagePage(pageName);
-            
+
         }
+    }
+
+    private void openDialogBillSS(SummarySalary ss) {
+        jScrollPane2.setViewportView(new TablePaymentStatusPanel(ss));
+       
+
     }
 }

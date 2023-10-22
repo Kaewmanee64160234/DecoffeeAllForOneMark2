@@ -69,6 +69,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         scrProductList.setViewportView(productListPanel);
         recieptService = new RecieptService();
         customerService = new CustomerService();
+        btnCash.setEnabled(false);
         reciept = new Reciept();
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         addMemberDialog = new AddCustomerDialog(frame);
@@ -160,6 +161,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.setCellSelectionEnabled(true);
         tblRecieptDetail.setColumnSelectionAllowed(true);
         tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
+
     }
 
     private void initFindMemberDialog() {
@@ -221,6 +223,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblCash = new javax.swing.JTextField();
         btnPromtpay = new javax.swing.JButton();
         btnCalculator = new javax.swing.JButton();
+        btnCash = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnDrinks = new javax.swing.JButton();
         btnDessert = new javax.swing.JButton();
@@ -478,6 +481,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        btnCash.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCash.setText("Cash");
+        btnCash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCashActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnlCaculatorLayout = new javax.swing.GroupLayout(jpnlCaculator);
         jpnlCaculator.setLayout(jpnlCaculatorLayout);
         jpnlCaculatorLayout.setHorizontalGroup(
@@ -485,8 +496,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtTotal)
                         .addGap(19, 19, 19)
@@ -516,7 +530,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
                         .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBaht4)))
+                        .addComponent(txtBaht4))
+                    .addComponent(btnCalculator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpnlCaculatorLayout.setVerticalGroup(
@@ -547,10 +562,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addComponent(txtCange)
                     .addComponent(txtBaht5)
                     .addComponent(lblChange))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCalculator)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPromtpay)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPromtpay)
+                    .addComponent(btnCash))
                 .addContainerGap())
         );
 
@@ -669,6 +686,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         });
         
 
+
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -745,7 +763,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                             .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -830,9 +848,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         }
         lblCash.setText(lblTotalNet.getText());
         lblChange.setText("0");
-        btnCalculator.setEnabled(false);
         payment = "QR";
         reciept.setPayment(payment);
+        btnPromtpay.setEnabled(false);
+        btnCash.setEnabled(true);
     }//GEN-LAST:event_btnPromtpayActionPerformed
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatorActionPerformed
@@ -859,8 +878,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "cash";
         reciept.setPayment(payment);
         lblChange.setText("" + total);
-        btnPromtpay.setEnabled(false);
+        btnCash.setEnabled(true);
     }//GEN-LAST:event_btnCalculatorActionPerformed
+
+    private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
+
+        btnCash.setEnabled(false);
+        btnPromtpay.setEnabled(true);
+    }//GEN-LAST:event_btnCashActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:
@@ -875,6 +900,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         reciept = new Reciept();
+        btnCash.setEnabled(false);
+        btnPromtpay.setEnabled(true);
+        btnCalculator.setEnabled(true);
         resetPOSLable();
         refreshTable();
     }// GEN-LAST:event_btnCancelActionPerformed
@@ -993,6 +1021,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private javax.swing.JButton btnAddMember;
     private javax.swing.JButton btnCalculator;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnCash;
     private javax.swing.JButton btnDessert;
     private javax.swing.JButton btnDrinks;
     private javax.swing.JButton btnFindMember;

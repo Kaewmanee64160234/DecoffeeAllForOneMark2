@@ -13,6 +13,8 @@ import Model.Employee;
 import Model.SummarySalary;
 import Service.CheckinoutService;
 import Service.SummarySalaryService;
+
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     private ArrayList<Checkinout> cioList;
     private SummarySalary summarySalary;
     private ArrayList<ChagePage> chagePages;
+    private Component cmbPosition;
+    private Component jLabel6;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
@@ -48,13 +52,15 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
         this.employee = employee;
         this.cioList = new ArrayList<>();
         this.summarySalary = new SummarySalary();
-        lblNameEmp.setText(employee.getName());
+        lblNameEmp.setText("Name: " + employee.getName());
         txtBathPerHr.setText(employee.getHourlyWage() + "");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         checkinoutService = new CheckinoutService();
         summarySalaryService = new SummarySalaryService();
         cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(), "N");
-
+        if (cioList.size() == 0) {
+            btnPrintSlip.setEnabled(false);
+        }
         tblPaidDate.setModel(new AbstractTableModel() {
             String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
@@ -126,8 +132,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
         btnPayMentStatus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPaidDate = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        cmbPosition = new javax.swing.JComboBox<>();
         btnCancel1 = new javax.swing.JButton();
         btnConfirm1 = new javax.swing.JButton();
 
@@ -170,18 +174,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
         ));
         jScrollPane1.setViewportView(tblPaidDate);
 
-        jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        jLabel6.setText("Status :");
-
-        cmbPosition.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not paid" }));
-        cmbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbPosition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPositionActionPerformed(evt);
-            }
-        });
-
         btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCancel1.setText("Cancel");
         btnCancel1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,26 +199,19 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNameEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNameEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-                        .addComponent(btnPrintSlip))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addComponent(btnPrintSlip)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPayMentStatus)
-                    .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addComponent(btnPayMentStatus)
+                .addGap(13, 13, 13))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCancel1)
@@ -240,6 +225,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
                 .addContainerGap()
                 .addComponent(lblNameEmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,6 +241,17 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
+
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPayMentStatus)
+                        .addComponent(btnPrintSlip)))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel1)
                     .addComponent(btnConfirm1))
@@ -274,6 +271,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
+
         openPrintSlipDialog();
         refreshTable();
 
@@ -282,10 +280,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     private void btnPayMentStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayMentStatusActionPerformed
         openPaymentStatusDialog();
     }//GEN-LAST:event_btnPayMentStatusActionPerformed
-
-    private void cmbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPositionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPositionActionPerformed
 
     private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
 
@@ -304,13 +298,13 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
-                if (checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId()).size() > 0) {
-                    summarySalary = summarySalaryService.getSalaryLastCreated();
-                    summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
-                    summarySalary.setEmployee(employee);
-                    System.out.println(summarySalary.toString());
-                    opendialogSlip(summarySalary, employee);
-                }
+                System.out.println(cioList);
+
+                summarySalary = summarySalaryService.getSalaryLastCreated();
+                summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
+                summarySalary.setEmployee(employee);
+                System.out.println(summarySalary.toString());
+                opendialogSlip(summarySalary, employee);
 
             }
         });
@@ -334,6 +328,9 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
         cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(), "N");
         tblPaidDate.revalidate();
         tblPaidDate.repaint();
+        if (cioList.size() == 0) {
+            btnPrintSlip.setEnabled(false);
+        }
     }
 
 
@@ -342,9 +339,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnPayMentStatus;
     private javax.swing.JButton btnPrintSlip;
-    private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNameEmp;
@@ -357,8 +352,11 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
         PaymentSlipDialog paymentSlipDialog = new PaymentSlipDialog(frame, summarySalary, employee);
         paymentSlipDialog.setLocationRelativeTo(this);
         paymentSlipDialog.setVisible(true);
+        System.out.println("Runnn");
+
     }
-     public void addInChagePage(ChagePage ch){
+
+    public void addInChagePage(ChagePage ch) {
         chagePages.add(ch);
     }
 

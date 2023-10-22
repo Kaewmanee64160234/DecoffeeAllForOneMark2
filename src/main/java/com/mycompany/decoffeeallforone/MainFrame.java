@@ -113,8 +113,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkInOutPannel.addInLoginist(this);
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
-
-        scrPanel.setViewportView(hisPageSummaySalary);
+        hisPageSummaySalary.addInChagePage(this);
+        salaryPannel.addInChagePage(this);
+        scrPanel.setViewportView(posPanel);
 
 //        scrPanel.setViewportView();
     }
@@ -256,6 +257,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("Rent Store")) {
             scrPanel.setViewportView(payRentPanel);
+        }
+        if (pageName.equals("History ss")) {
+            scrPanel.setViewportView(hisPageSummaySalary);
         }
 
     }

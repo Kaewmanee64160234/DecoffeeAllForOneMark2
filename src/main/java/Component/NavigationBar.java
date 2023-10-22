@@ -60,7 +60,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
         btnSummarySalary = new javax.swing.JButton();
         btnButStock = new javax.swing.JButton();
         btnHistoryMaterial = new javax.swing.JButton();
-        btnHistoryMaterial1 = new javax.swing.JButton();
+        btnRentStore = new javax.swing.JButton();
         btnHistoryMaterial2 = new javax.swing.JButton();
 
         btnCheckStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
@@ -187,12 +187,12 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
             }
         });
 
-        btnHistoryMaterial1.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        btnHistoryMaterial1.setText("Rent Store");
-        btnHistoryMaterial1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnHistoryMaterial1.addActionListener(new java.awt.event.ActionListener() {
+        btnRentStore.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnRentStore.setText("Rent Store");
+        btnRentStore.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRentStore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistoryMaterial1ActionPerformed(evt);
+                btnRentStoreActionPerformed(evt);
             }
         });
 
@@ -227,7 +227,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
                     .addComponent(btnSummarySalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnButStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHistoryMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHistoryMaterial1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRentStore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHistoryMaterial2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -261,7 +261,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistoryMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnHistoryMaterial1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRentStore, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistoryMaterial2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -298,10 +298,6 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
         // TODO add your handling code here:
-        String role = editedUser.getRole();
-        if(role.equals("admin")){
-            
-        }
         chagePage("User");
 
     }//GEN-LAST:event_btnUserActionPerformed
@@ -348,9 +344,9 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
         chagePage("HistoryMaterial");
     }//GEN-LAST:event_btnHistoryMaterialActionPerformed
 
-    private void btnHistoryMaterial1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryMaterial1ActionPerformed
+    private void btnRentStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentStoreActionPerformed
         chagePage("Rent Store");        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHistoryMaterial1ActionPerformed
+    }//GEN-LAST:event_btnRentStoreActionPerformed
 
     private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed
         // TODO add your handling code here:
@@ -374,12 +370,12 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
     private javax.swing.JButton btnCheckinout;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnHistoryMaterial;
-    private javax.swing.JButton btnHistoryMaterial1;
     private javax.swing.JButton btnHistoryMaterial2;
     private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnMaterial;
     private javax.swing.JButton btnPos;
     private javax.swing.JButton btnProduct;
+    private javax.swing.JButton btnRentStore;
     private javax.swing.JButton btnSummarySalary;
     private javax.swing.JButton btnUser;
     private javax.swing.JPanel jPanel1;
@@ -411,7 +407,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
         editedUser = user;
         System.out.println("Component.NavigationBar.loginData() ::: "+editedUser);
          if(editedUser.getRole().equals("user")){
-            btnUser.setBackground(Color.red);
+            btnUser.setVisible(false);
+            btnEmployee.setVisible(false);
+            btnSummarySalary.setVisible(false);
+            btnButStock.setVisible(false);
+            btnRentStore.setVisible(false);
             
         }
    

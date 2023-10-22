@@ -56,7 +56,7 @@ public class PrintSlipDialog extends javax.swing.JDialog {
 
             @Override
             public int getColumnCount() {
-                return 5;
+                return 3;
             }
 
             @Override
@@ -80,12 +80,7 @@ public class PrintSlipDialog extends javax.swing.JDialog {
                         return checkinout.getCioTimeOut();
                     case 3:
                         return checkinout.getCioTotalHour();
-                    case 4:
-                        if (employee == null) {
-                            return "-";
-                        } else {
-                            return checkinout.getCioTotalHour() * employee.getHourlyWage();
-                        }
+                   
 
                     default:
                         return "Unknown";

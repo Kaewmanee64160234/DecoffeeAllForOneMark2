@@ -130,9 +130,15 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Status : ");
 
+        btnClear.setBackground(new java.awt.Color(204, 255, 204));
+        btnClear.setForeground(new java.awt.Color(54, 126, 24));
         btnClear.setText("Clear");
+        btnClear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
 
+        btnGo.setBackground(new java.awt.Color(204, 255, 204));
+        btnGo.setForeground(new java.awt.Color(54, 126, 24));
         btnGo.setText("Go");
+        btnGo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -225,9 +231,18 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnBack.setBackground(new java.awt.Color(255, 255, 204));
+        btnBack.setForeground(new java.awt.Color(195, 129, 84));
         btnBack.setText("Back");
+        btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 129, 84)));
 
+        btnConfirm.setBackground(new java.awt.Color(255, 255, 204));
+        btnConfirm.setForeground(new java.awt.Color(195, 129, 84));
         btnConfirm.setText("Confirm");
+        btnConfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 129, 84)));
+        btnConfirm.setMaximumSize(new java.awt.Dimension(72, 23));
+        btnConfirm.setMinimumSize(new java.awt.Dimension(72, 23));
+        btnConfirm.setPreferredSize(new java.awt.Dimension(72, 23));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -241,7 +256,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnConfirm)
+                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
         jPanel3Layout.setVerticalGroup(
@@ -251,7 +266,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirm)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack))
                 .addContainerGap(15, Short.MAX_VALUE))
         );

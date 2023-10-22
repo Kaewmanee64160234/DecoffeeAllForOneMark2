@@ -18,7 +18,7 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
     public PaymentSlipDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tblSlip.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     /**

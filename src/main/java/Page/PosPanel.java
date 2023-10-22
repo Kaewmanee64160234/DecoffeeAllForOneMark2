@@ -79,6 +79,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         initFindMemberDialog();
         scrProductList.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
+        
     }
 
     private void initTable() {
@@ -587,6 +588,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
+        btnFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFoodActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -662,6 +668,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnAddMember.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMemberMouseClicked(evt);
+            }
+        });
+        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMemberActionPerformed(evt);
             }
         });
 
@@ -749,20 +760,20 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -893,7 +904,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         RecieptService recieptService = new RecieptService();
         ProductService productService = new ProductService();
         RecieptDao recieptDao = new RecieptDao();
-
+        
         Reciept reciept = new Reciept();
         reciept.setQueue(1);
         reciept.setPayment("cash");
@@ -957,6 +968,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
 
         });
+        
     }
 
     private void openDialogFindMember() {

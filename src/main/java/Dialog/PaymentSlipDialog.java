@@ -28,7 +28,8 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
         txtHourlyWage.setText(employee.getHourlyWage() + "");
         txtTotalHour.setText(summarySalary.getTotalHour() + "");
         txtTotal.setText(summarySalary.getSalary() + "");
-        txtPaymentPeriod.setText(list.get(0).getCioTimeIn());
+        
+        txtPaymentPeriod.setText(summarySalary.getStartDate()+"-"+summarySalary.getEndDate());
         list = new ArrayList<>();
         list = summarySalary.getCheckins();
         tblSlip.setModel(new AbstractTableModel() {

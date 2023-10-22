@@ -68,6 +68,13 @@ public class CheckinoutService {
         return checkins;
         
      }
+     
+     public ArrayList<Checkinout> getLastCheckInOut(int id){
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getLastCheckInOut(id);
+        return checkins;
+        
+     }
      public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,String status){
           CheckinoutDao checkinoutDao = new CheckinoutDao();
         ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id,status.charAt(0));

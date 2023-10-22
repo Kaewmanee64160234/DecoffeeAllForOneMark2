@@ -346,4 +346,29 @@ public class CheckinoutDao implements Dao<Checkinout> {
 
 
 
+    public ArrayList<Checkinout> getLastCheckInOut(int id) {
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out where employee_id = ? and cio_paid_status = 'N' and cio_total_hour != 0 and ss_id !=-1 ORDER BY cio_date DESC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return list;
+        
+    }
+
+
+
 }

@@ -67,8 +67,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
-
-
     private ArrayList<LoginObs> loginObses;
     private HistoryMaterialPanel historyMaterialPanel;
 
@@ -77,7 +75,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
-       // loginObses = new ArrayList<>();
+        // loginObses = new ArrayList<>();
         employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
@@ -93,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkStockPanel = new CheckStockPanel();
         salaryPannel = new SalaryPanel();
         reportPanel = new ReportPanel();
+        historyMaterialPanel = new HistoryMaterialPanel();
         buyStockPanel = new BuyStockPanel(employee);
         jScrollPane1.setViewportView(navigationBar);
         checkStockPanel.addInSubs(this);
@@ -100,19 +99,16 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
 
-       //scrPanel.setViewportView(reportPanel);
-
-       scrPanel.setViewportView(new HistoryMaterialPanel());
+        //scrPanel.setViewportView(reportPanel);
+        scrPanel.setViewportView(new HistoryMaterialPanel());
 
         checkInOutPannel.addInLoginist(buystockPanel);
         checkInOutPannel.addInLoginist(this);
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
 
-        scrPanel.setViewportView(new HistoryMaterialPanel());   
+        scrPanel.setViewportView(reportPanel);
 //        scrPanel.setViewportView();
-
-
 
     }
 

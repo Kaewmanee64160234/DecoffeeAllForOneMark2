@@ -4,6 +4,8 @@
  */
 package Dialog;
 
+import scrollbar.ScrollBarCustom;
+
 /**
  *
  * @author ASUS
@@ -16,6 +18,7 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
     public PaymentSlipDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tblSlip.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     /**

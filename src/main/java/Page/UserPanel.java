@@ -38,6 +38,7 @@ public class UserPanel extends javax.swing.JPanel {
      */
     public UserPanel() {
         initComponents();
+        
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         TableActionEvent event = new TableActionEvent() {
             @Override

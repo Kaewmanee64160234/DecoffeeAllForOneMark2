@@ -8,6 +8,7 @@ package Service;
 
 import Dao.RentStoreDao;
 import Model.RentStore;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +25,19 @@ public class RentStoreService {
         RentStoreDao rentStoreDao = new RentStoreDao();
         return rentStoreDao.getByStore(store);
     }
-    
+    public ArrayList<RentStore> getByDate(String begin, String end) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getByDate(begin, end);
+    }
+   public ArrayList<RentStore> getByPaidStatus(String status) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getByPaidStatus(status);
+    }
+   public ArrayList<RentStore> getByDateByPaidStatus(String status, String begin, String end) {
+        RentStoreDao rentStoreDao = new RentStoreDao();
+        return rentStoreDao.getByDateByPaidStatus(status, begin, end);
+    }
+
     
     public List<RentStore> getRentStores(){
         RentStoreDao rentStoreDao = new RentStoreDao();
@@ -45,4 +58,8 @@ public class RentStoreService {
         RentStoreDao rentStoreDao = new RentStoreDao();
         return rentStoreDao.delete(editedRentStore);
     }
+
+    
+
+
 }

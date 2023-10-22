@@ -72,6 +72,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private ArrayList<LoginObs> loginObses;
     private HistoryMaterialPanel historyMaterialPanel;
     private PayRentPanel payRentPanel;
+    private historyPageSummaySalary hisPageSummaySalary;
 
     public MainFrame() {
         initComponents();
@@ -84,6 +85,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
 //        posPanel = new PosPanel();
+        hisPageSummaySalary = new historyPageSummaySalary();
         buystockPanel = new BuyStockPanel(employee);
         posPanel = new PosPanel();
         userPannel = new UserPanel();
@@ -111,8 +113,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkInOutPannel.addInLoginist(this);
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
-
-        scrPanel.setViewportView(reportPanel);
+        hisPageSummaySalary.addInChagePage(this);
+        salaryPannel.addInChagePage(this);
+        scrPanel.setViewportView(posPanel);
 
 //        scrPanel.setViewportView();
     }
@@ -254,6 +257,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("Rent Store")) {
             scrPanel.setViewportView(payRentPanel);
+        }
+        if (pageName.equals("History ss")) {
+            scrPanel.setViewportView(hisPageSummaySalary);
         }
 
     }

@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Component.ChagePage;
 import Model.Employee;
 import Model.SummarySalary;
 import Service.EmployeeService;
@@ -31,7 +32,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class historyPageSummaySalary extends javax.swing.JPanel {
+public class historyPageSummaySalary extends javax.swing.JPanel implements ChagePage{
 
     private UtilDateModel model1;
     private UtilDateModel model2;
@@ -40,6 +41,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private List<Employee> Employees;
     private EmployeeService employeeService;
     private List<String> employeeName = new ArrayList<>();
+    private ArrayList<ChagePage> chagePages = new ArrayList<>();
 
     /**
      * Creates new form historyPageSummaySalary
@@ -334,6 +336,11 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblSummarySalary);
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnConfirm.setText("Confirm");
 
@@ -404,21 +411,29 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
-        String varName = (String) cmbStatus.getSelectedItem();
+        String varName = (String) jComboBox1.getSelectedItem();
         String value = cmbStatus.getSelectedItem().toString();
 
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date startDate = model1.getValue();
         Date stopDate = model2.getValue();
+        
         ArrayList<String> command = new ArrayList<>();
 
         if (startDate != null && stopDate != null) {
-            command.add( " ss_date BTWEEN " + startDate + " and " + stopDate);
+            command.add(" ss_date BETWEEN '" + formatter.format(startDate) + "' and '" + formatter.format(stopDate)+"'");
 
         }
         if (!value.equals("")) {
-            command.add("  ss_paid_status='" + value + "'") ;
+            if (value.equals("Paid")) {
+                command.add("  ss_paid_status='" + "Y" + "' ");
+
+            }
+            if (value.equals("Not Paid")) {
+                command.add("  ss_paid_status='" + "N" + "' ");
+
+            }
 
         }
         if (!varName.equals("")) {
@@ -426,9 +441,14 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         }
         String cons = "";
-        for (String string : command) {
-            cons+=string+"and ";
-            
+        for (int i = 0; i < command.size(); i++) {
+
+            if (i != command.size() - 1) {
+                cons += command.get(i) + " and ";
+            } else {
+                cons += command.get(i);
+            }
+
         }
         summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
         System.out.println(summarySalarys);
@@ -448,6 +468,11 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        chagePage("SS Main");
+    }//GEN-LAST:event_btnBackActionPerformed
     private void refreshTable() {
         summarySalarys = summarySalaryService.getAll();
         tblSummarySalary.revalidate();
@@ -481,4 +506,15 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblSummarySalary;
     // End of variables declaration//GEN-END:variables
+
+    public void addInChagePage(ChagePage ch){
+        chagePages.add(ch);
+    }
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage ch : chagePages) {
+            ch.chagePage(pageName);
+            
+        }
+    }
 }

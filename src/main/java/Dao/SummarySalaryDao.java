@@ -174,6 +174,28 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
         }
         return summaryList;
     }
+    public ArrayList<SummarySalary> getSummarySalarysByDateByPaidStatus(String status, String begin, String end) {
+        ArrayList<SummarySalary> summaryList = new ArrayList();
+        String sql = "SELECT * FROM summary_salary WHERE ss_paid_status = ? AND ss_date BETWEEN ? AND ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            stmt.setString(2, begin);
+            stmt.setString(3, end);
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SummarySalary summary = SummarySalary.fromRS(rs);
+                summaryList.add(summary);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return summaryList;
+    }
      public ArrayList<SummarySalary> getByDate(String begin, String end) {
         ArrayList<SummarySalary> summaryList = new ArrayList();
         String sql = "SELECT * FROM summary_salary WHERE ss_date BETWEEN ? AND ?";

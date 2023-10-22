@@ -116,5 +116,9 @@ public class SummarySalaryService {
            SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
         return SummarySalaryDao.getByDate(begin, end);
     }
+    public ArrayList<SummarySalary> getSummarySalarysByDateByPaidStatus(String status, String begin, String end){
+           SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
+        return SummarySalaryDao.getSummarySalarysByDateByPaidStatus(status, begin, end);
+    }
 
 }

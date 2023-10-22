@@ -27,7 +27,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private UtilDateModel model1;
     private UtilDateModel model2;
     private ArrayList<SummarySalary> summarySalarys;
-    private SummarySalaryService summarySalaryService;
+    private final SummarySalaryService summarySalaryService;
     private SummarySalary editedSummarySalary;
 
     /**
@@ -38,7 +38,6 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         initDatePicker1();
         initDatePicker2();
         summarySalaryService = new SummarySalaryService();
-        summarySalarys = summarySalaryService.getByDate("", "");
         summarySalarys = summarySalaryService.getAll();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         tblSummarySalary.setRowHeight(60);
@@ -200,6 +199,11 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         jLabel3.setText("Status : ");
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnGo.setText("Go");
         btnGo.addActionListener(new java.awt.event.ActionListener() {
@@ -370,13 +374,20 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
-        SimpleDateFormat formater = new SimpleDateFormat("yy/MM/dd");
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
         String begin = formater.format(model1.getValue());
         String end = formater.format(model2.getValue());
         summarySalarys = summarySalaryService.getByDate(begin, end);
         System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        model1.setSelected(false);
+        model2.setSelected(false);
+        refreshTable();
+    }//GEN-LAST:event_btnClearActionPerformed
     private void refreshTable() {
         summarySalarys = summarySalaryService.getAll();
         tblSummarySalary.revalidate();

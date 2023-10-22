@@ -28,7 +28,6 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private UtilDateModel model2;
     private ArrayList<SummarySalary> summarySalarys;
     private final SummarySalaryService summarySalaryService;
-    private SummarySalary editedSummarySalary;
 
     /**
      * Creates new form historyPageSummaySalary
@@ -133,7 +132,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbStatus = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         pnlDatePicker2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -190,7 +189,12 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         jPanel5.setBackground(new java.awt.Color(204, 255, 204));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not Paid", " " }));
+        cmbStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbStatusActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Stop Date : ");
@@ -227,7 +231,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, 0, 224, Short.MAX_VALUE)))
+                        .addComponent(cmbStatus, 0, 224, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -245,7 +249,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox2))
+                    .addComponent(cmbStatus))
                 .addGap(5, 5, 5)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,11 +378,29 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
+        String varName = (String) cmbStatus.getSelectedItem();
+        String value = cmbStatus.getSelectedItem().toString();
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
-        String begin = formater.format(model1.getValue());
-        String end = formater.format(model2.getValue());
-        summarySalarys = summarySalaryService.getByDate(begin, end);
+        if (model1.getValue() == null && model2.getValue() == null) {
+            if (value.equals("Paid")) {
+                summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("Y");
+            } else {
+                summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
+            }
+            cmbStatus.setSelectedItem(value);
+        } else {
+            String begin = formater.format(model1.getValue());
+            String end = formater.format(model2.getValue());
+            if (value.equals("Paid")) {
+                summarySalarys = summarySalaryService.getSummarySalarysByDateByPaidStatus("Y", begin, end);
+
+            } else {
+                summarySalarys = summarySalaryService.getSummarySalarysByDateByPaidStatus("N", begin, end);
+            }
+            cmbStatus.setSelectedItem(value);
+        }
+        
         System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
@@ -388,11 +410,16 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         model2.setSelected(false);
         refreshTable();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbStatusActionPerformed
     private void refreshTable() {
         summarySalarys = summarySalaryService.getAll();
         tblSummarySalary.revalidate();
         tblSummarySalary.repaint();
     }
+
     private void refreshTableGetList() {
         tblSummarySalary.revalidate();
         tblSummarySalary.repaint();
@@ -403,8 +430,8 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnGo;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

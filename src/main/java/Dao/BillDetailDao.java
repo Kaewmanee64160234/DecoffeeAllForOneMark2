@@ -59,7 +59,6 @@ public class BillDetailDao implements Dao<BillDetail> {
         }
         return list;
     }
-    
 
     @Override
     public List<BillDetail> getAll(String where, String order) {
@@ -82,27 +81,70 @@ public class BillDetailDao implements Dao<BillDetail> {
         return list;
     }
 
+    // public List<BillDetail> getAll(String order) {
+    //     ArrayList<BillDetail> list = new ArrayList();
+    //     String sql = "SELECT * FROM bill_detail  ORDER BY" + order;
+    //     Connection conn = DatabaseHelper.getConnect();
+    //     try {
+    //         Statement stmt = conn.createStatement();
+    //         ResultSet rs = stmt.executeQuery(sql);
+
+    //         while (rs.next()) {
+    //             BillDetail billDetail = BillDetail.fromRS(rs);
+    //             list.add(billDetail);
+
+    //         }
+
+    //     } catch (SQLException ex) {
+    //         System.out.println(ex.getMessage());
+    //     }
+    //     return list;
+    // }
 
     public List<BillDetail> getAll(String order) {
         ArrayList<BillDetail> list = new ArrayList();
-        String sql = "SELECT * FROM bill_detail  ORDER BY" + order;
+        String sql = "SELECT * FROM bill_detail  ORDER BY " + order; // Added space after "ORDER BY"
         Connection conn = DatabaseHelper.getConnect();
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-
+    
             while (rs.next()) {
                 BillDetail billDetail = BillDetail.fromRS(rs);
                 list.add(billDetail);
-
             }
-
+    
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return list;
     }
+    
 
+    public List<BillDetail> getBillDetailForDate(String selectedDate) {
+        ArrayList<BillDetail> list = new ArrayList();
+        String sql = """ 
+              SELECT bd.*
+                FROM bill_detail bd
+                     JOIN bill b ON b.bill_id = bd.bill_id
+                WHERE b.bill_created_date = ?;
+                                 """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, selectedDate);
+            ResultSet rs = stmt.executeQuery();
+    
+            while (rs.next()) {
+                BillDetail obj = BillDetail.fromRS(rs);
+                list.add(obj);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
     @Override
     public BillDetail save(BillDetail obj) {
 
@@ -167,7 +209,5 @@ public class BillDetailDao implements Dao<BillDetail> {
         }
         return -1;
     }
-
-
 
 }

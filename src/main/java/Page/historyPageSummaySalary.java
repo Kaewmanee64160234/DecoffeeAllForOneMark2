@@ -4,14 +4,22 @@
  */
 package Page;
 
+import Model.Employee;
 import Model.SummarySalary;
+import Service.EmployeeService;
 import Service.SummarySalaryService;
 import TableCrud.TableActionCellEditor;
 import TableCrud.TableActionCellRenderer;
+import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -28,6 +36,9 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private UtilDateModel model2;
     private ArrayList<SummarySalary> summarySalarys;
     private final SummarySalaryService summarySalaryService;
+    private List<Employee> Employees;
+    private EmployeeService employeeService;
+    private List<String> employeeName = new ArrayList<>();
 
     /**
      * Creates new form historyPageSummaySalary
@@ -36,8 +47,15 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         initComponents();
         initDatePicker1();
         initDatePicker2();
+
         summarySalaryService = new SummarySalaryService();
         summarySalarys = summarySalaryService.getAll();
+        employeeService = new EmployeeService();
+        employeeName.add(""); // You can add any default value you want
+        employeeName.addAll(employeeService.getNameEmployees());
+        // Set the ComboBox model with the employee names
+        jComboBox1.setModel(new DefaultComboBoxModel<>(employeeName.toArray(new String[0])));
+
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         tblSummarySalary.setRowHeight(60);
         tblSummarySalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
@@ -153,6 +171,12 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Employee :");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Start Date : ");
@@ -400,7 +424,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
             }
             cmbStatus.setSelectedItem(value);
         }
-        
+
         System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
@@ -414,6 +438,10 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbStatusActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
     private void refreshTable() {
         summarySalarys = summarySalaryService.getAll();
         tblSummarySalary.revalidate();

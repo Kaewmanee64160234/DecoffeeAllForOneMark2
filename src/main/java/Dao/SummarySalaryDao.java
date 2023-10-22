@@ -217,4 +217,23 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
         return summaryList;
     }
 
+    public ArrayList<SummarySalary> getAllSummarySalarysByCondition(String condition) {
+        ArrayList<SummarySalary> summaryList = new ArrayList();
+        String sql = "SELECT summary_salary.ss_id ,summary_salary.ss_date,summary_salary.ss_work_hour,summary_salary.ss_salary,employee.employee_id FROM summary_salary JOIN check_in_out ON check_in_out.ss_id = summary_salary.ss_id JOIN employee on employee.employee_id = check_in_out.employee_id  WHERE  " + condition+"GROUP BY summary_salary.ss_id ORDER BY ss_id DESC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SummarySalary summary = SummarySalary.fromRS(rs);
+                summaryList.add(summary);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return summaryList;
+    }
+
 }

@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -405,27 +406,30 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         String varName = (String) cmbStatus.getSelectedItem();
         String value = cmbStatus.getSelectedItem().toString();
         String pattern = "yyyy-MM-dd";
-        SimpleDateFormat formater = new SimpleDateFormat(pattern);
-        if (model1.getValue() == null && model2.getValue() == null) {
-            if (value.equals("Paid")) {
-                summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("Y");
-            } else {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        Date startDate = model1.getValue(); 
+        Date stopDate = model2.getValue();
+
+        if (startDate == null && stopDate == null) {
+            // No date filter is applied
+            if ("Paid".equals(value)) {
+                summarySalarys = summarySalaryService.getAllSummarySalarysByCondition("ss_paid_status = 'Y'");
+            } else if ("".equals(value)) {
                 summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
             }
-            cmbStatus.setSelectedItem(value);
         } else {
-            String begin = formater.format(model1.getValue());
-            String end = formater.format(model2.getValue());
-            if (value.equals("Paid")) {
-                summarySalarys = summarySalaryService.getSummarySalarysByDateByPaidStatus("Y", begin, end);
+            // Date filter is applied
+            String begin = formatter.format(startDate);
+            String end = formatter.format(stopDate);
 
-            } else {
-                summarySalarys = summarySalaryService.getSummarySalarysByDateByPaidStatus("N", begin, end);
+            if ("Paid".equals(value)) {
+                summarySalarys = summarySalaryService.getSummarySalarysByDateAndPaidStatus("Y", begin, end);
+            } else if ("".equals(value)) {
+                summarySalarys = summarySalaryService.getSummarySalarysByDateAndPaidStatus("N", begin, end);
             }
-            cmbStatus.setSelectedItem(value);
         }
 
-        System.out.println(summarySalarys);
+        cmbStatus.setSelectedItem(value);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
 

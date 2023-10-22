@@ -31,6 +31,7 @@ import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
+import Page.historyPageSummaySalary;
 import Service.EmployeeService;
 import Service.PromotionService;
 import java.awt.Component;
@@ -109,7 +110,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
 
-        scrPanel.setViewportView(new HistoryMaterialPanel());   
+        scrPanel.setViewportView(new historyPageSummaySalary());   
 //        scrPanel.setViewportView();
 
 

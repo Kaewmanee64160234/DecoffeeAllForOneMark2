@@ -4,7 +4,15 @@
  */
 package Page;
 
+import Model.SummarySalary;
+import Service.SummarySalaryService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionCellRenderer;
+import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Properties;
+import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -18,17 +26,73 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
     private UtilDateModel model1;
     private UtilDateModel model2;
+    private ArrayList<SummarySalary> summarySalarys;
+    private SummarySalaryService summarySalaryService;
+    private SummarySalary editedSummarySalary;
 
     /**
      * Creates new form historyPageSummaySalary
      */
     public historyPageSummaySalary() {
         initComponents();
-        initDatePicker();
+        initDatePicker1();
+        initDatePicker2();
+        summarySalaryService = new SummarySalaryService();
+        summarySalarys = summarySalaryService.getByDate("", "");
+        summarySalarys = summarySalaryService.getAll();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        tblSummarySalary.setRowHeight(60);
+        tblSummarySalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
+        tblSummarySalary.setModel(new AbstractTableModel() {
+            String[] columnNames = {"ID", "Date", "Work Hour", "Salary", "Paid Status"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return summarySalarys.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                SummarySalary summarySalary = summarySalarys.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return summarySalary.getId();
+                    case 1:
+                        return summarySalary.getDate();
+                    case 2:
+                        return summarySalary.getTotalHour();
+                    case 3:
+                        return summarySalary.getSalary();
+                    case 4:
+                        return summarySalary.getPaidStatus();
+                    default:
+                        return "Unknown";
+                }
+            }
+
+        });
+
     }
 
-    private void initDatePicker() {
+    private void initDatePicker1() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
@@ -38,12 +102,17 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new Model.DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
 
+    }
+
+    private void initDatePicker2() {
         model2 = new UtilDateModel();
         Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new Model.DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
-        model2.setSelected(true);
 
     }
 
@@ -73,7 +142,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         btnGo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSummarySalary = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
 
@@ -133,6 +202,11 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         btnClear.setText("Clear");
 
         btnGo.setText("Go");
+        btnGo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -212,7 +286,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSummarySalary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -223,7 +297,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSummarySalary);
 
         btnBack.setText("Back");
 
@@ -295,6 +369,23 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
+        SimpleDateFormat formater = new SimpleDateFormat("yy/MM/dd");
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        summarySalarys = summarySalaryService.getByDate(begin, end);
+        System.out.println(summarySalarys);
+        refreshTableGetList();
+    }//GEN-LAST:event_btnGoActionPerformed
+    private void refreshTable() {
+        summarySalarys = summarySalaryService.getAll();
+        tblSummarySalary.revalidate();
+        tblSummarySalary.repaint();
+    }
+    private void refreshTableGetList() {
+        tblSummarySalary.revalidate();
+        tblSummarySalary.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -314,8 +405,8 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
+    private javax.swing.JTable tblSummarySalary;
     // End of variables declaration//GEN-END:variables
 }

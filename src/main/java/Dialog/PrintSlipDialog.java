@@ -10,7 +10,9 @@ import Model.SummarySalary;
 import Service.CheckinoutService;
 import Service.SummarySalaryService;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
@@ -219,6 +221,8 @@ public class PrintSlipDialog extends javax.swing.JDialog {
         summarySalaryService.addNewSalary(employee.getId(), summarySalary);
         JOptionPane.showMessageDialog(this, "Create Summary Salary complete");
         dispose();
+      
+        
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**

@@ -151,6 +151,32 @@ public class CheckMaterialDao implements Dao<CheckMaterial> {
         return checkMaterial;
     }
 
+    public List<CheckMaterial> getDateBetween(String begin, String end) {
+        ArrayList<CheckMaterial> list = new ArrayList();
+        String sql = """
+                    SELECT *
+                         FROM check_material cm
+                        WHERE cm.check_mat_datetime BETWEEN ? AND ?
+                        GROUP BY cm.check_mat_id;
+                              """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, begin);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CheckMaterial ar = CheckMaterial.fromRS(rs);
+                list.add(ar);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
     @Override
     public CheckMaterial update(CheckMaterial obj) {
         String sql = "UPDATE check_material"

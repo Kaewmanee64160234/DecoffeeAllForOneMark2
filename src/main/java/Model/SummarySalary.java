@@ -52,6 +52,14 @@ public class SummarySalary {
         this.paidStatus = "N";
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     public int getId() {
         return id;
     }

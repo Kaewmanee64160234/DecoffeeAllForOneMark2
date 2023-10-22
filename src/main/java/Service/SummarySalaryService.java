@@ -107,5 +107,10 @@ public class SummarySalaryService {
         SummarySalary summ = summarySalaryDao.getSalaryLastCreated();
         return summ;
     }
+    
+    public ArrayList<SummarySalary> getSummarySalarysByPaidStatus(String status){
+           SummarySalaryDao SummarySalaryDao = new SummarySalaryDao();
+        return SummarySalaryDao.getSummarySalarysByPaidStatus(status);
+    }
 
 }

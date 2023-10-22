@@ -297,12 +297,12 @@ public class FindMemberDialog extends javax.swing.JDialog implements CusObs {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {
         String tel = txtSearch.getText();
         if (tel.isBlank()) {
-            JOptionPane.showConfirmDialog(this, "Plase Input telPhone");
+            JOptionPane.showMessageDialog(this, "Plase Input tell phone number.");
         } else {
             Customer cus = null;
             cus = customerService.getByTel(tel);
             if (cus == null) {
-                JOptionPane.showConfirmDialog(this, "Not found Member");
+                JOptionPane.showMessageDialog(this, "Not found Member");
             } else {
                 customers.clear();
                 customers.add(cus);

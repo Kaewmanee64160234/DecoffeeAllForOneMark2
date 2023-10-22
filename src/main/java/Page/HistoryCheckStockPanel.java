@@ -1,8 +1,10 @@
 package Page;
 
 import Component.ChagePage;
+import Model.BillDetail;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
+import Service.BillDetailService;
 import Service.CheckMaterialDetailService;
 import Service.CheckMaterialService;
 import java.awt.Font;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import scrollbar.ScrollBarCustom;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -83,11 +86,35 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-//                int row = tblDateHistory.rowAtPoint(e.getPoint());
-//
-//                System.out.println(list.get(row));
-//                CheckMaterialDetail checkMD = list.get(row);
-//                CheckMaterialDetail cmd = new CheckMaterialDetail(checkMD.getId(), checkMD.getName(), checkMD.getLastQty(), checkMD.getQty(), checkMD.getCheckMaterialId(), checkMD.getMaterialId());
+                int selectedRow = tblDateHistory.getSelectedRow();
+                if (selectedRow >= 0) {
+                    String selectedDate = (String) tblDateHistory.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
+                    List<CheckMaterialDetail> cmdForDate = checkMaterialDetailService.getCheckMaterialDetailForDate(selectedDate);
+
+                    System.out.println(cmdForDate);
+                    DefaultTableModel model = new DefaultTableModel();
+                    model.addColumn("ID");
+                    model.addColumn("Name");
+                    model.addColumn("Qty Last");
+                    model.addColumn("Qty Remain");
+                    model.addColumn("Total");
+                    model.addColumn("Discount");
+
+                    int totalAmount = 0;
+                    for (CheckMaterialDetail cmd : cmdForDate) {
+                        Object[] rowData = {
+                            cmd.getId(),
+                            cmd.getName(),
+                            cmd.getLastQty(),
+                            cmd.getQty(),
+                            cmd.getMaterialId(),
+                            cmd.getCheckMaterialId()
+                        };
+                        model.addRow(rowData);
+                    }
+
+                    tblHistoryStock.setModel(model);
+                }
             }
         });
 

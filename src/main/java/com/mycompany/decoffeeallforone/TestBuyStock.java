@@ -8,7 +8,6 @@ import Model.Employee;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
 import Page.HistoryCheckStockPanel;
-import Page.HistoryMaterialPanel;
 
 /**
  *
@@ -22,7 +21,7 @@ public class TestBuyStock extends javax.swing.JFrame {
     public TestBuyStock() {
         initComponents();
 
-        scrPanel.setViewportView(new HistoryMaterialPanel());
+        scrPanel.setViewportView(new HistoryCheckStockPanel());
 
     }
 

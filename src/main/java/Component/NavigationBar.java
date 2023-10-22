@@ -4,16 +4,23 @@
  */
 package Component;
 
+import Model.User;
+import Service.UserService;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author toey
  */
-public class NavigationBar extends javax.swing.JPanel implements ChagePage {
+public class NavigationBar extends javax.swing.JPanel implements ChagePage,LoginObs {
 
     private ArrayList<ChagePage> subscobers;
+    private ArrayList<LoginObs> loginObs;
+    private UserService userService;
+    private List<User> list;
+    private User editedUser;
 
     /**
      * Creates new form NavigationBar
@@ -21,7 +28,10 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
     public NavigationBar() {
         initComponents();
         subscobers = new ArrayList<ChagePage>();
+        userService = new UserService();
+        
     }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -285,6 +295,10 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
         // TODO add your handling code here:
+        String role = editedUser.getRole();
+        if(role.equals("admin")){
+            
+        }
         chagePage("User");
 
     }//GEN-LAST:event_btnUserActionPerformed
@@ -342,11 +356,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
 
     private void btnHistoryMaterial2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryMaterial2ActionPerformed
         // TODO add your handling code here:
-       int response =  JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
-                    // User confirmed logout, so exit the application
-                    System.exit(0);
-                }
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+        if (response == JOptionPane.YES_OPTION) {
+            // User confirmed logout, so exit the application
+            System.exit(0);
+        }
     }//GEN-LAST:event_btnHistoryMaterial2ActionPerformed
 
 
@@ -374,11 +388,19 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage {
     public void chagePage(String pageName) {
         for (ChagePage subscober : subscobers) {
             subscober.chagePage(pageName);
-            
+
         }
     }
 
     public void addInSubs(ChagePage chagePage) {
         subscobers.add(chagePage);
+    }
+
+    @Override
+    public void loginData(User user) {
+        if(user.getRole().equals("user")){
+            btnUser.setVisible(false);
+            
+        }
     }
 }

@@ -354,7 +354,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                 };
                 model.addRow(rowData);
     
-                totalAmount += bd.getTotal() * bd.getAmount();
+                totalAmount += bd.getTotal();
             }
     
             tblListBuy.setModel(model);

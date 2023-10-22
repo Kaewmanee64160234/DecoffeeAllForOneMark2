@@ -57,6 +57,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private Customer customer;
     private AddCustomerDialog addMemberDialog;
     private CustomerService customerService;
+    private String payment;
 
     /**
      * Creates new form PosDialog
@@ -820,10 +821,15 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }//GEN-LAST:event_btnPosConfirmMouseClicked
 
     private void btnPromtpayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromtpayActionPerformed
-        // TODO add your handling code here:
-        reciept.setPayment("QR");
+        if (reciept.getRecieptDetails().size() <= 0) {
+            JOptionPane.showMessageDialog(this, "Detail is emplty");
+            return;
+        }
         lblCash.setText(lblTotalNet.getText());
         lblChange.setText("0");
+        btnCalculator.setEnabled(false);
+        payment = "QR";
+        reciept.setPayment(payment);
     }//GEN-LAST:event_btnPromtpayActionPerformed
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatorActionPerformed
@@ -831,7 +837,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             JOptionPane.showMessageDialog(this, "Detail is emplty");
             return;
         }
-        
+
         if (Float.parseFloat(lblCash.getText()) <= 0) {
             JOptionPane.showMessageDialog(this, "You are not paid.");
             return;
@@ -847,8 +853,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             reciept.setReceive(0);
 
         }
-        reciept.setPayment("cash");
+        payment = "cash";
+        reciept.setPayment(payment);
         lblChange.setText("" + total);
+        btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCalculatorActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
@@ -896,13 +904,15 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         Reciept reciept = new Reciept();
         reciept.setQueue(1);
-        reciept.setPayment("cash");
         reciept.setStoreId(1);
+        reciept.setPayment(payment);
         // set emplyee
         reciept.setEmployeeId(1);
         reciept.setReceive((float) Double.parseDouble(lblChange.getText()));
         float cash = (float) Double.parseDouble(lblChange.getText());
 
+        btnCalculator.setEnabled(true);
+        btnPromtpay.setEnabled(true);
     }// GEN-LAST:event_btnPosConfirmActionPerformed
 
     private void btnDrinksActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDrinksActionPerformed
@@ -1042,7 +1052,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         }
         refreshTable();
         reciept.calculateTotal();
-        lblTotal.setText(reciept.getTotal()+"");
+        lblTotal.setText(reciept.getTotal() + "");
 
     }
 
@@ -1082,7 +1092,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
     private void setTotalNet() {
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
-        lblTotal.setText(reciept.getTotal()+"");
+        lblTotal.setText(reciept.getTotal() + "");
         lblTotalNet.setText(totalNet + "");
         System.out.println(reciept.getTotal());
     }

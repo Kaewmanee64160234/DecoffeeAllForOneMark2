@@ -1,5 +1,6 @@
 package Page;
 
+import Component.ChagePage;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
 import Service.CheckMaterialDetailService;
@@ -8,6 +9,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
@@ -27,9 +29,11 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     private List<CheckMaterial> listCM;
     private CheckMaterial editedCheckMaterial;
     private UtilDateModel model1, model2;
+    private ArrayList<ChagePage> chagpages;
 
     public HistoryCheckStockPanel() {
         initComponents();
+        initDatePicker();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
 
@@ -178,11 +182,10 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblStartDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStartDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -291,9 +294,13 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        chagePage("Material");
     }//GEN-LAST:event_btnBackActionPerformed
-
+    public void chagePage(String pageName) {
+        for (ChagePage subscober : chagpages) {
+            subscober.chagePage(pageName);
+        }
+    }
     private void edtDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDatePicker1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtDatePicker1ActionPerformed

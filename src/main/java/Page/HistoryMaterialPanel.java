@@ -402,7 +402,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     public void chagePage(String pageName) {
         for (ChagePage subscober : chagpages) {
             subscober.chagePage(pageName);
-
         }
     }
 

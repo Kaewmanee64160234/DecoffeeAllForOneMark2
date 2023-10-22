@@ -449,13 +449,13 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 cons += command.get(i);
             }
 
-        }
-        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
+        }        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
         System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        jComboBox1.setSelectedIndex(0);
         model1.setSelected(false);
         model2.setSelected(false);
         refreshTable();

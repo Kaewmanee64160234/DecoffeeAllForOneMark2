@@ -50,6 +50,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         initDatePicker2();
 
         summarySalaryService = new SummarySalaryService();
+        summarySalarys = new ArrayList<>();
         summarySalarys = summarySalaryService.getAll();
         employeeService = new EmployeeService();
         employeeName.add(""); // You can add any default value you want
@@ -405,31 +406,32 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
         String varName = (String) cmbStatus.getSelectedItem();
         String value = cmbStatus.getSelectedItem().toString();
+
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        Date startDate = model1.getValue(); 
+        Date startDate = model1.getValue();
         Date stopDate = model2.getValue();
+        ArrayList<String> command = new ArrayList<>();
 
-        if (startDate == null && stopDate == null) {
-            // No date filter is applied
-            if ("Paid".equals(value)) {
-                summarySalarys = summarySalaryService.getAllSummarySalarysByCondition("ss_paid_status = 'Y'");
-            } else if ("".equals(value)) {
-                summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
-            }
-        } else {
-            // Date filter is applied
-            String begin = formatter.format(startDate);
-            String end = formatter.format(stopDate);
+        if (startDate != null && stopDate != null) {
+            command.add( " ss_date BTWEEN " + startDate + " and " + stopDate);
 
-            if ("Paid".equals(value)) {
-                summarySalarys = summarySalaryService.getSummarySalarysByDateAndPaidStatus("Y", begin, end);
-            } else if ("".equals(value)) {
-                summarySalarys = summarySalaryService.getSummarySalarysByDateAndPaidStatus("N", begin, end);
-            }
         }
+        if (!value.equals("")) {
+            command.add("  ss_paid_status='" + value + "'") ;
 
-        cmbStatus.setSelectedItem(value);
+        }
+        if (!varName.equals("")) {
+            command.add("  employee_name='" + varName + "' ");
+
+        }
+        String cons = "";
+        for (String string : command) {
+            cons+=string+"and ";
+            
+        }
+        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
+        System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
 

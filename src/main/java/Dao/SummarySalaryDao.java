@@ -174,6 +174,7 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
         }
         return summaryList;
     }
+
     public ArrayList<SummarySalary> getSummarySalarysByDateByPaidStatus(String status, String begin, String end) {
         ArrayList<SummarySalary> summaryList = new ArrayList();
         String sql = "SELECT * FROM summary_salary WHERE ss_paid_status = ? AND ss_date BETWEEN ? AND ?";
@@ -183,7 +184,7 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
             stmt.setString(1, status);
             stmt.setString(2, begin);
             stmt.setString(3, end);
-            
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 SummarySalary summary = SummarySalary.fromRS(rs);
@@ -196,7 +197,8 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
         }
         return summaryList;
     }
-     public ArrayList<SummarySalary> getByDate(String begin, String end) {
+
+    public ArrayList<SummarySalary> getByDate(String begin, String end) {
         ArrayList<SummarySalary> summaryList = new ArrayList();
         String sql = "SELECT * FROM summary_salary WHERE ss_date BETWEEN ? AND ?";
         Connection conn = DatabaseHelper.getConnect();
@@ -219,13 +221,15 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
 
     public ArrayList<SummarySalary> getAllSummarySalarysByCondition(String condition) {
         ArrayList<SummarySalary> summaryList = new ArrayList();
-        String sql = "SELECT summary_salary.ss_id ,summary_salary.ss_date,summary_salary.ss_work_hour,summary_salary.ss_salary,employee.employee_id FROM summary_salary JOIN check_in_out ON check_in_out.ss_id = summary_salary.ss_id JOIN employee on employee.employee_id = check_in_out.employee_id  WHERE  " + condition+"GROUP BY summary_salary.ss_id ORDER BY ss_id DESC";
+        String sql = "SELECT summary_salary.ss_id ,summary_salary.ss_date,summary_salary.ss_work_hour,summary_salary.ss_salary,summary_salary.ss_paid_status,employee.employee_id FROM summary_salary JOIN check_in_out ON check_in_out.ss_id = summary_salary.ss_id JOIN employee on employee.employee_id = check_in_out.employee_id WHERE  "
+                + condition + "GROUP BY summary_salary.ss_id ORDER BY ss_id DESC";
+        System.out.println(sql);
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                SummarySalary summary = SummarySalary.fromRS(rs);
+                SummarySalary summary = SummarySalary.fromRSCondition(rs);
                 summaryList.add(summary);
             }
 

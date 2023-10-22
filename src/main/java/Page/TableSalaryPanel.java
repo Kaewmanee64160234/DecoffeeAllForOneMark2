@@ -4,6 +4,8 @@
  */
 package Page;
 
+import Component.ChagePage;
+import Dialog.PaymentSlipDialog;
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
 import Model.Checkinout;
@@ -23,7 +25,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class TableSalaryPanel extends javax.swing.JPanel {
+public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
 
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -35,24 +37,26 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private Employee employee;
     private CheckinoutService checkinoutService;
     private SummarySalaryService summarySalaryService;
-    private ArrayList<Checkinout>cioList;
+    private ArrayList<Checkinout> cioList;
     private SummarySalary summarySalary;
+    private ArrayList<ChagePage> chagePages;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
+        chagePages = new ArrayList<>();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         this.employee = employee;
         this.cioList = new ArrayList<>();
         this.summarySalary = new SummarySalary();
-         lblNameEmp.setText(employee.getName());
-        txtBathPerHr.setText(employee.getHourlyWage()+"");
+        lblNameEmp.setText(employee.getName());
+        txtBathPerHr.setText(employee.getHourlyWage() + "");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         checkinoutService = new CheckinoutService();
         summarySalaryService = new SummarySalaryService();
-        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(),"N");
-       
+        cioList = checkinoutService.getCheckInOutByPaidStatusAndEmpId(employee.getId(), "N");
+
         tblPaidDate.setModel(new AbstractTableModel() {
-          String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
             @Override
             public String getColumnName(int column) {
@@ -118,7 +122,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         lblNameEmp = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtBathPerHr = new javax.swing.JLabel();
-        btnPaymentHistory = new javax.swing.JButton();
         btnPrintSlip = new javax.swing.JButton();
         btnPayMentStatus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -137,14 +140,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         jLabel4.setText("bath/hr :");
 
         txtBathPerHr.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-
-        btnPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnPaymentHistory.setText("Payment history");
-        btnPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaymentHistoryActionPerformed(evt);
-            }
-        });
 
         btnPrintSlip.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnPrintSlip.setText("Print payment slip");
@@ -222,12 +217,10 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(btnPaymentHistory)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                         .addComponent(btnPrintSlip))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 450, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,8 +248,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
                                 .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnPayMentStatus)
-                                .addComponent(btnPrintSlip)
-                                .addComponent(btnPaymentHistory)))
+                                .addComponent(btnPrintSlip)))
                         .addGap(6, 6, 6)
                         .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6))
@@ -281,13 +273,10 @@ public class TableSalaryPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed
-
-    }//GEN-LAST:event_btnPaymentHistoryActionPerformed
-
     private void btnPrintSlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSlipActionPerformed
         openPrintSlipDialog();
         refreshTable();
+
     }//GEN-LAST:event_btnPrintSlipActionPerformed
 
     private void btnPayMentStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayMentStatusActionPerformed
@@ -308,13 +297,21 @@ public class TableSalaryPanel extends javax.swing.JPanel {
 
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame,employee);
+        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
         printSlipDialog.setLocationRelativeTo(this);
         printSlipDialog.setVisible(true);
         printSlipDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
+                if (checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId()).size() > 0) {
+                    summarySalary = summarySalaryService.getSalaryLastCreated();
+                    summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
+                    summarySalary.setEmployee(employee);
+                    System.out.println(summarySalary.toString());
+                    opendialogSlip(summarySalary, employee);
+                }
+
             }
         });
     }
@@ -322,7 +319,7 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private void openPaymentStatusDialog() {
         ArrayList<SummarySalary> summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PaymentStatus paymentStatus = new PaymentStatus(frame,summarySalarys);
+        PaymentStatus paymentStatus = new PaymentStatus(frame, summarySalarys);
         paymentStatus.setLocationRelativeTo(this);
         paymentStatus.setVisible(true);
         paymentStatus.addWindowListener(new WindowAdapter() {
@@ -344,7 +341,6 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel1;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnPayMentStatus;
-    private javax.swing.JButton btnPaymentHistory;
     private javax.swing.JButton btnPrintSlip;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JLabel jLabel4;
@@ -355,4 +351,22 @@ public class TableSalaryPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;
     // End of variables declaration//GEN-END:variables
+
+    private void opendialogSlip(SummarySalary summarySalary, Employee employee) {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        PaymentSlipDialog paymentSlipDialog = new PaymentSlipDialog(frame, summarySalary, employee);
+        paymentSlipDialog.setLocationRelativeTo(this);
+        paymentSlipDialog.setVisible(true);
+    }
+     public void addInChagePage(ChagePage ch){
+        chagePages.add(ch);
+    }
+
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage ch : chagePages) {
+            ch.chagePage(pageName);
+
+        }
+    }
 }

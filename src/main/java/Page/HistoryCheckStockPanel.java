@@ -1,15 +1,21 @@
 package Page;
 
+import Component.ChagePage;
+import Model.BillDetail;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
+import Service.BillDetailService;
 import Service.CheckMaterialDetailService;
 import Service.CheckMaterialService;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import scrollbar.ScrollBarCustom;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -26,9 +32,11 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     private List<CheckMaterial> listCM;
     private CheckMaterial editedCheckMaterial;
     private UtilDateModel model1, model2;
+    private ArrayList<ChagePage> chagpages;
 
     public HistoryCheckStockPanel() {
         initComponents();
+        initDatePicker();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
 
@@ -78,11 +86,35 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-//                int row = tblDateHistory.rowAtPoint(e.getPoint());
-//
-//                System.out.println(list.get(row));
-//                CheckMaterialDetail checkMD = list.get(row);
-//                CheckMaterialDetail cmd = new CheckMaterialDetail(checkMD.getId(), checkMD.getName(), checkMD.getLastQty(), checkMD.getQty(), checkMD.getCheckMaterialId(), checkMD.getMaterialId());
+                int selectedRow = tblDateHistory.getSelectedRow();
+                if (selectedRow >= 0) {
+                    String selectedDate = (String) tblDateHistory.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
+                    List<CheckMaterialDetail> cmdForDate = checkMaterialDetailService.getCheckMaterialDetailForDate(selectedDate);
+
+                    System.out.println(cmdForDate);
+                    DefaultTableModel model = new DefaultTableModel();
+                    model.addColumn("ID");
+                    model.addColumn("Name");
+                    model.addColumn("Qty Last");
+                    model.addColumn("Qty Remain");
+                    model.addColumn("Total");
+                    model.addColumn("Discount");
+
+                    int totalAmount = 0;
+                    for (CheckMaterialDetail cmd : cmdForDate) {
+                        Object[] rowData = {
+                            cmd.getId(),
+                            cmd.getName(),
+                            cmd.getLastQty(),
+                            cmd.getQty(),
+                            cmd.getMaterialId(),
+                            cmd.getCheckMaterialId()
+                        };
+                        model.addRow(rowData);
+                    }
+
+                    tblHistoryStock.setModel(model);
+                }
             }
         });
 
@@ -148,12 +180,6 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         lblStartDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblStartDate.setText("From Date :");
 
-        edtDatePicker1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtDatePicker1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,11 +209,10 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblStartDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStartDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -287,13 +312,22 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formater = new SimpleDateFormat(pattern);
+        System.out.println("" + formater.format(model1.getValue()) + "" + formater.format(model2.getValue()));
+        String begin = formater.format(model1.getValue());
+        String end = formater.format(model2.getValue());
+        listCM = checkMaterialService.getDateBetween(begin, end);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        chagePage("Material");
     }//GEN-LAST:event_btnBackActionPerformed
-
+    public void chagePage(String pageName) {
+        for (ChagePage subscober : chagpages) {
+            subscober.chagePage(pageName);
+        }
+    }
     private void edtDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDatePicker1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtDatePicker1ActionPerformed

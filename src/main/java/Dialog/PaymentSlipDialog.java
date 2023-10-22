@@ -3,8 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package Dialog;
-
 import scrollbar.ScrollBarCustom;
+import Model.Checkinout;
+import Model.Employee;
+import Model.SummarySalary;
+import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -15,10 +19,71 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
     /**
      * Creates new form PaymentSlipDialog
      */
-    public PaymentSlipDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    private ArrayList<Checkinout> list;
+
+    public PaymentSlipDialog(java.awt.Frame parent, SummarySalary summarySalary, Employee employee) {
         initComponents();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        txtEmployee.setText(employee.getName());
+        txtPaymentPeriod.setText(summarySalary.getDate());
+        txtHourlyWage.setText(employee.getHourlyWage() + "");
+        txtTotalHour.setText(summarySalary.getTotalHour() + "");
+        txtTotal.setText(summarySalary.getSalary() + "");
+        
+        txtPaymentPeriod.setText(summarySalary.getStartDate()+"-"+summarySalary.getEndDate());
+        list = new ArrayList<>();
+        list = summarySalary.getCheckins();
+        tblSlip.setModel(new AbstractTableModel() {
+            String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return list.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Checkinout checkinout = list.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return checkinout.getCioDate();
+                    case 1:
+                        return checkinout.getCioTimeIn();
+                    case 2:
+                        return checkinout.getCioTimeOut();
+                    case 3:
+                        return checkinout.getCioTotalHour();
+                    case 4:
+                        if (employee == null) {
+                            return "-";
+                        } else {
+                            return checkinout.getCioTotalHour() * employee.getHourlyWage();
+                        }
+
+                    default:
+                        return "Unknown";
+                }
+            }
+        });
     }
 
     /**
@@ -280,11 +345,11 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
@@ -317,7 +382,7 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PaymentSlipDialog dialog = new PaymentSlipDialog(new javax.swing.JFrame(), true);
+                PaymentSlipDialog dialog = new PaymentSlipDialog(new javax.swing.JFrame(), new SummarySalary(), new Employee());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

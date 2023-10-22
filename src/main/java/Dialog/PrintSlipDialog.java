@@ -10,7 +10,9 @@ import Model.SummarySalary;
 import Service.CheckinoutService;
 import Service.SummarySalaryService;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
@@ -215,10 +217,16 @@ public class PrintSlipDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        
-        summarySalaryService.addNewSalary(employee.getId(), summarySalary);
-        JOptionPane.showMessageDialog(this, "Create Summary Salary complete");
-        dispose();
+        if (checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId()).size() > 0) {
+            summarySalaryService.addNewSalary(employee.getId(), summarySalary);
+            JOptionPane.showMessageDialog(this, "Create Summary Salary complete");
+            dispose();
+        }else{
+             JOptionPane.showMessageDialog(this, "Don't have Time to create.");
+            dispose();
+        }
+
+
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**

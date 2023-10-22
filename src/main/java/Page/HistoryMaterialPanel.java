@@ -38,7 +38,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     private UtilDateModel model1;
     private UtilDateModel model2;
     private AbstractTableModel model3;
-    private AbstractTableModel model4;
     private ArrayList<ChagePage> chagpages;
 
     /**
@@ -94,48 +93,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
         tblBillMaterial.setModel(model3);
     }
 
-//    private void initTableListBuy() {
-//        model4 = new AbstractTableModel() {
-//            String[] colNames = {"ID", "Name", "Amount", "Price", "Total", "Discount"};
-//
-//            @Override
-//            public String getColumnName(int column) {
-//                return colNames[column];
-//            }
-//
-//            @Override
-//            public int getRowCount() {
-//                return billDetailList.size();
-//            }
-//
-//            @Override
-//            public int getColumnCount() {
-//                return 6;
-//            }
-//
-//            @Override
-//            public Object getValueAt(int rowIndex, int columnIndex) {
-//                BillDetail billDetail = billDetailList.get(rowIndex);
-//                switch (columnIndex) {
-//                    case 0:
-//                        return billDetail.getId();
-//                    case 1:
-//                        return billDetail.getName();
-//                    case 2:
-//                        return billDetail.getAmount();
-//                    case 3:
-//                        return billDetail.getPrice();
-//                    case 4:
-//                        return billDetail.getTotal();
-//                    case 5:
-//                        return billDetail.getDiscount();
-//                    default:
-//                        return "";
-//                }
-//            }
-//        };
-//        tblListBuy.setModel(model4);
-//    }
     private void initDatePicker() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
@@ -182,7 +139,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListBuy = new javax.swing.JTable();
         lblTotal = new javax.swing.JLabel();
-        btnPrint = new javax.swing.JButton();
         lblTotalShow = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -308,10 +264,10 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
         });
         jScrollPane2.setViewportView(tblListBuy);
 
+        lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTotal.setText("Total:");
 
-        btnPrint.setText("Print");
-
+        lblTotalShow.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTotalShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalShow.setText("0");
 
@@ -330,9 +286,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                         .addComponent(lblTotal)
                         .addGap(18, 18, 18)
                         .addComponent(lblTotalShow, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))))
+                        .addGap(153, 153, 153))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,9 +296,8 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotal)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTotalShow))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -375,39 +328,12 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
     private void tblBillMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMaterialMouseClicked
 
-//        int selectedRow = tblBillMaterial.getSelectedRow();
-//        if (selectedRow >= 0) {
-//            HistoryMaterialReport selectedBill = billList.get(selectedRow);
-//            DefaultTableModel model = new DefaultTableModel();
-//            model.addColumn("ID");
-//            model.addColumn("Name");
-//            model.addColumn("Amount");
-//            model.addColumn("Price");
-//            model.addColumn("Total");
-//            model.addColumn("Discount");
-//            for (BillDetail bd : billDetailService.getBills()) {
-//                if (bd.getBill_id() == selectedBill.getId()) {
-//
-//                    Object[] rowData = {
-//                        bd.getMat_id(),
-//                        bd.getName(),
-//                        bd.getAmount(),
-//                        bd.getPrice(),
-//                        bd.getTotal(),
-//                        bd.getDiscount()
-//
-//                    };
-//                    model.addRow(rowData);
-//                }
-//                lblTotalShow.setText((bd.getTotal()*bd.getAmount()) + "");
-//            }
-//            tblListBuy.setModel(model);
-//        }
         int selectedRow = tblBillMaterial.getSelectedRow();
-        if (selectedRow >= 0) {
-            int totalAmount = 0; // Initialize a variable to hold the total amount
-
-            HistoryMaterialReport selectedBill = billList.get(selectedRow);
+        if (selectedRow >= 0 ) {
+            String selectedDate = (String) tblBillMaterial.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
+            List<BillDetail> billDetailsForDate = billDetailService.getBillDetailForDate(selectedDate);
+            
+            System.out.println(billDetailsForDate);
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
             model.addColumn("Name");
@@ -415,26 +341,28 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             model.addColumn("Price");
             model.addColumn("Total");
             model.addColumn("Discount");
-
-            for (BillDetail bd : billDetailService.getBills()) {
-                if (bd.getBill_id() == selectedBill.getId()) {
-                    Object[] rowData = {
-                        bd.getMat_id(),
-                        bd.getName(),
-                        bd.getAmount(),
-                        bd.getPrice(),
-                        bd.getTotal(),
-                        bd.getDiscount()
-                    };
-                    model.addRow(rowData);
-
-                    totalAmount += ((selectedBill.getTotal())); // Update total amount
-                }
+    
+            int totalAmount = 0;
+            for (BillDetail bd : billDetailsForDate) {
+                Object[] rowData = {
+                    bd.getId(),
+                    bd.getName(),
+                    bd.getAmount(),
+                    bd.getPrice(),
+                    bd.getTotal(),
+                    bd.getDiscount()
+                };
+                model.addRow(rowData);
+    
+                totalAmount += bd.getTotal();
             }
-
+    
             tblListBuy.setModel(model);
-            lblTotalShow.setText(String.valueOf(totalAmount)); // Update lblTotalShow
+            lblTotalShow.setText(String.valueOf(totalAmount));
         }
+
+
+        
     }//GEN-LAST:event_tblBillMaterialMouseClicked
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -455,7 +383,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -475,7 +402,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     public void chagePage(String pageName) {
         for (ChagePage subscober : chagpages) {
             subscober.chagePage(pageName);
-
         }
     }
 

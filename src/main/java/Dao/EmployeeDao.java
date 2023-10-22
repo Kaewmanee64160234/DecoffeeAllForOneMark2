@@ -231,4 +231,25 @@ public class EmployeeDao implements Dao<Employee> {
         }
         return -1;
     }
+
+    public ArrayList<String> getNameEmployees() {
+        ArrayList<String> list = new ArrayList();
+        String sql = "SELECT employee_name FROM employee";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("employee_name");
+                list.add(name);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+       
+    }
 }

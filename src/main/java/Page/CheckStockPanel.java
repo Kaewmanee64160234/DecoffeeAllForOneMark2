@@ -17,12 +17,13 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
-public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
     private ArrayList<ChagePage> subs;
+    private ArrayList<ChagePage> chagpages;
 
     public CheckStockPanel() {
         initComponents();
@@ -94,9 +95,11 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
 
         });
     }
- public void addInSubs(ChagePage chagePage) {
+
+    public void addInSubs(ChagePage chagePage) {
         subs.add(chagePage);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -265,11 +268,11 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        chagePage("Material");
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if( saveCheckStockDetail()){
+        if (saveCheckStockDetail()) {
             JOptionPane.showMessageDialog(this, "Update Material Complete.");
             chagePage("Material");
         }
@@ -342,9 +345,8 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage{
     public void chagePage(String pageName) {
         for (ChagePage sub : subs) {
             sub.chagePage(pageName);
-            
+
         }
-        
-        
+
     }
 }

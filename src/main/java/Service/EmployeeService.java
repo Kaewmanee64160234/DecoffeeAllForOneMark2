@@ -13,6 +13,7 @@ import Model.Employee;
 import Model.EmployeeReport;
 
 import Model.User;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -69,5 +70,10 @@ public class EmployeeService {
     public int delete(Employee editedEmployee) {
         EmployeeDao employeeDao = new EmployeeDao();
         return employeeDao.delete(editedEmployee);
+    }
+
+    public ArrayList<String> getNameEmployees() {
+        EmployeeDao employeeDao = new EmployeeDao();
+        return employeeDao.getNameEmployees();
     }
 }

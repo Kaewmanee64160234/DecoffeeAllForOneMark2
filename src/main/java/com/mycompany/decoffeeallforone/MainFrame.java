@@ -14,6 +14,7 @@ import Dialog.PosDialog;
 import Dialog.PosPromotionDialog;
 import Model.Employee;
 import Model.Promotion;
+import Model.RentStore;
 import Model.User;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
@@ -33,6 +34,7 @@ import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
 import Page.TableSalaryPanel;
 import Page.UserPanel;
+import Page.historyPageSummaySalary;
 import Service.EmployeeService;
 import Service.PromotionService;
 import java.awt.Component;
@@ -71,27 +73,28 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
-
-
     private ArrayList<LoginObs> loginObses;
     private HistoryMaterialPanel historyMaterialPanel;
     private Component PosDialog;
     private final JFrame frame;
-
+    private PayRentPanel payRentPanel;
+    private historyPageSummaySalary hisPageSummaySalary;
     public MainFrame() {
         initComponents();
+        loginObses = new ArrayList<>();
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
-       // loginObses = new ArrayList<>();
+        // loginObses = new ArrayList<>();
         employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
-        navigationBar = new NavigationBar();
 //        posPanel = new PosPanel();
+        hisPageSummaySalary = new historyPageSummaySalary();
         buystockPanel = new BuyStockPanel(employee);
         posPanel = new PosPanel();
         userPannel = new UserPanel();
+        payRentPanel = new PayRentPanel();
         employeePannel = new EmployeePanel();
         materialPanel = new MaterialPanel();
         checkInOutPannel = new CheckinCheckoutPanel();
@@ -99,6 +102,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkStockPanel = new CheckStockPanel();
         salaryPannel = new SalaryPanel();
         reportPanel = new ReportPanel();
+        historyMaterialPanel = new HistoryMaterialPanel();
         buyStockPanel = new BuyStockPanel(employee);
         jScrollPane1.setViewportView(navigationBar);
         checkStockPanel.addInSubs(this);
@@ -114,17 +118,19 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 //       scrPanel.setViewportView(new PosDialog());
 //        PosDialog posDialog = new PosDialog(frame);
 //        posDialog.setVisible(true);
+        loginObses.add(navigationBar);
+
+        //scrPanel.setViewportView(reportPanel);
 
         checkInOutPannel.addInLoginist(buystockPanel);
         checkInOutPannel.addInLoginist(this);
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
+        hisPageSummaySalary.addInChagePage(this);
+        salaryPannel.addInChagePage(this);
+        scrPanel.setViewportView(posPanel);
 
-        scrPanel.setViewportView(new HistoryMaterialPanel());   
 //        scrPanel.setViewportView();
-
-
-
     }
 
     /**
@@ -265,6 +271,12 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         if (pageName.equals("HistoryMaterial")) {
             scrPanel.setViewportView(historyMaterialPanel);
         }
+        if (pageName.equals("Rent Store")) {
+            scrPanel.setViewportView(payRentPanel);
+        }
+        if (pageName.equals("History ss")) {
+            scrPanel.setViewportView(hisPageSummaySalary);
+        }
 
     }
 
@@ -277,6 +289,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
     @Override
     public void loginData(User user) {
+        for (LoginObs loginObse : loginObses) {
+            loginObse.loginData(user);
+
+        }
+        System.out.println("com.mycompany.decoffeeallforone.MainFrame.loginData()");
         EmployeeService employSer = new EmployeeService();
         buyStockPanel = new BuyStockPanel(employSer.getById(user.getEmployee_id()));
 

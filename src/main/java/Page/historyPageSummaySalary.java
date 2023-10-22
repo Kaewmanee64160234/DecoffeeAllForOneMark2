@@ -4,7 +4,25 @@
  */
 package Page;
 
+import Component.ChagePage;
+import Model.Employee;
+import Model.SummarySalary;
+import Service.EmployeeService;
+import Service.SummarySalaryService;
+import TableCrud.TableActionCellEditor;
+import TableCrud.TableActionCellRenderer;
+import java.awt.Desktop;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -14,21 +32,87 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class historyPageSummaySalary extends javax.swing.JPanel {
+public class historyPageSummaySalary extends javax.swing.JPanel implements ChagePage{
 
     private UtilDateModel model1;
     private UtilDateModel model2;
+    private ArrayList<SummarySalary> summarySalarys;
+    private final SummarySalaryService summarySalaryService;
+    private List<Employee> Employees;
+    private EmployeeService employeeService;
+    private List<String> employeeName = new ArrayList<>();
+    private ArrayList<ChagePage> chagePages = new ArrayList<>();
 
     /**
      * Creates new form historyPageSummaySalary
      */
     public historyPageSummaySalary() {
         initComponents();
-        initDatePicker();
+        initDatePicker1();
+        initDatePicker2();
+
+        summarySalaryService = new SummarySalaryService();
+        summarySalarys = new ArrayList<>();
+        summarySalarys = summarySalaryService.getAll();
+        employeeService = new EmployeeService();
+        employeeName.add(""); // You can add any default value you want
+        employeeName.addAll(employeeService.getNameEmployees());
+        // Set the ComboBox model with the employee names
+        jComboBox1.setModel(new DefaultComboBoxModel<>(employeeName.toArray(new String[0])));
+
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        tblSummarySalary.setRowHeight(60);
+        tblSummarySalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
+        tblSummarySalary.setModel(new AbstractTableModel() {
+            String[] columnNames = {"ID", "Date", "Work Hour", "Salary", "Paid Status"};
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return summarySalarys.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                SummarySalary summarySalary = summarySalarys.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return summarySalary.getId();
+                    case 1:
+                        return summarySalary.getDate();
+                    case 2:
+                        return summarySalary.getTotalHour();
+                    case 3:
+                        return summarySalary.getSalary();
+                    case 4:
+                        return summarySalary.getPaidStatus();
+                    default:
+                        return "Unknown";
+                }
+            }
+
+        });
+
     }
 
-    private void initDatePicker() {
+    private void initDatePicker1() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
         p1.put("text.today", "Today");
@@ -38,12 +122,17 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new Model.DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
 
+    }
+
+    private void initDatePicker2() {
         model2 = new UtilDateModel();
         Properties p2 = new Properties();
+        p2.put("text.today", "Today");
+        p2.put("text.month", "Month");
+        p2.put("text.year", "Year");
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new Model.DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
-        model2.setSelected(true);
 
     }
 
@@ -65,7 +154,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbStatus = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         pnlDatePicker2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -73,7 +162,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         btnGo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSummarySalary = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
 
@@ -86,6 +175,12 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Employee :");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Start Date : ");
@@ -122,7 +217,12 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         jPanel5.setBackground(new java.awt.Color(204, 255, 204));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not Paid", " " }));
+        cmbStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbStatusActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Stop Date : ");
@@ -134,11 +234,21 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         btnClear.setForeground(new java.awt.Color(54, 126, 24));
         btnClear.setText("Clear");
         btnClear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnGo.setBackground(new java.awt.Color(204, 255, 204));
         btnGo.setForeground(new java.awt.Color(54, 126, 24));
         btnGo.setText("Go");
         btnGo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
+        btnGo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -155,7 +265,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, 0, 224, Short.MAX_VALUE)))
+                        .addComponent(cmbStatus, 0, 224, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -173,7 +283,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox2))
+                    .addComponent(cmbStatus))
                 .addGap(5, 5, 5)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,7 +328,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSummarySalary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -229,12 +339,17 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSummarySalary);
 
         btnBack.setBackground(new java.awt.Color(255, 255, 204));
         btnBack.setForeground(new java.awt.Color(195, 129, 84));
         btnBack.setText("Back");
         btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 129, 84)));
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnConfirm.setBackground(new java.awt.Color(255, 255, 204));
         btnConfirm.setForeground(new java.awt.Color(195, 129, 84));
@@ -310,14 +425,87 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
+        String varName = (String) jComboBox1.getSelectedItem();
+        String value = cmbStatus.getSelectedItem().toString();
+
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        Date startDate = model1.getValue();
+        Date stopDate = model2.getValue();
+        
+        ArrayList<String> command = new ArrayList<>();
+
+        if (startDate != null && stopDate != null) {
+            command.add(" ss_date BETWEEN '" + formatter.format(startDate) + "' and '" + formatter.format(stopDate)+"'");
+
+        }
+        if (!value.equals("")) {
+            if (value.equals("Paid")) {
+                command.add("  ss_paid_status='" + "Y" + "' ");
+
+            }
+            if (value.equals("Not Paid")) {
+                command.add("  ss_paid_status='" + "N" + "' ");
+
+            }
+
+        }
+        if (!varName.equals("")) {
+            command.add("  employee_name='" + varName + "' ");
+
+        }
+        String cons = "";
+        for (int i = 0; i < command.size(); i++) {
+
+            if (i != command.size() - 1) {
+                cons += command.get(i) + " and ";
+            } else {
+                cons += command.get(i);
+            }
+
+        }
+        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
+        System.out.println(summarySalarys);
+        refreshTableGetList();
+    }//GEN-LAST:event_btnGoActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        model1.setSelected(false);
+        model2.setSelected(false);
+        refreshTable();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbStatusActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        chagePage("SS Main");
+    }//GEN-LAST:event_btnBackActionPerformed
+    private void refreshTable() {
+        summarySalarys = summarySalaryService.getAll();
+        tblSummarySalary.revalidate();
+        tblSummarySalary.repaint();
+    }
+
+    private void refreshTableGetList() {
+        tblSummarySalary.revalidate();
+        tblSummarySalary.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnGo;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -329,8 +517,19 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
+    private javax.swing.JTable tblSummarySalary;
     // End of variables declaration//GEN-END:variables
+
+    public void addInChagePage(ChagePage ch){
+        chagePages.add(ch);
+    }
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage ch : chagePages) {
+            ch.chagePage(pageName);
+            
+        }
+    }
 }

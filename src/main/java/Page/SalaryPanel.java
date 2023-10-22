@@ -34,13 +34,14 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel implements changePageSummary {
+public class SalaryPanel extends javax.swing.JPanel implements changePageSummary,ChagePage {
 
     private Product editedProduct;
     private EmployeeService employeeService;
     private Employee editedEmployee;
     private ArrayList<Employee> list;
-    private ArrayList<changePageSummary> subs;
+    private ArrayList<changePageSummary> subs;    private ArrayList<ChagePage> chagePages = new ArrayList<>();
+
 
     /**
      * Creates new form SalaryPanel
@@ -172,6 +173,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         jPanel3 = new javax.swing.JPanel();
         btnHistory = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
+        btnPaymentHistory = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -228,13 +230,15 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(pnlNavigation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
-                    .addComponent(jScrollPane3)
+
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
+
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -251,7 +255,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(38, 38, 38))
         );
 
         jPanel3.setBackground(new java.awt.Color(166, 190, 178));
@@ -272,12 +276,22 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             }
         });
 
+        btnPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnPaymentHistory.setText("Payment history");
+        btnPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaymentHistoryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(915, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPaymentHistory)
+                .addGap(18, 18, 18)
                 .addComponent(btnPrint)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistory)
@@ -289,7 +303,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHistory)
-                    .addComponent(btnPrint))
+                    .addComponent(btnPrint)
+                    .addComponent(btnPaymentHistory))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -336,9 +351,14 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintActionPerformed
 
+    private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed
+        chagePage("History ss");
+    }//GEN-LAST:event_btnPaymentHistoryActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistory;
+    private javax.swing.JButton btnPaymentHistory;
     private javax.swing.JButton btnPrint;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -363,6 +383,18 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     public void addInSubs(changePageSummary aThis) {
         subs.add(aThis);
+    }
+     public void addInChagePage(ChagePage ch){
+        chagePages.add(ch);
+    }
+
+
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage chagePage : chagePages) {
+            chagePage.chagePage(pageName);
+            
+        }
     }
 
 }

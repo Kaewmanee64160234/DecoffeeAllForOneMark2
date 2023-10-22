@@ -11,6 +11,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import Service.EmployeeService;
+
 /**
  *
  * @author USER
@@ -50,6 +52,14 @@ public class SummarySalary {
         this.totalHour = 0;
         this.salary = 0;
         this.paidStatus = "N";
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public int getId() {
@@ -157,6 +167,26 @@ public class SummarySalary {
 
             return summarySalary;
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+     public static SummarySalary fromRSCondition(ResultSet rs) {
+        try {
+           
+            SummarySalary summarySalary = new SummarySalary();
+            summarySalary.setId(rs.getInt("ss_id"));
+            summarySalary.setDate(rs.getString("ss_date"));
+            summarySalary.setTotalHour(rs.getInt("ss_work_hour"));
+            summarySalary.setSalary(rs.getDouble("ss_salary"));
+            summarySalary.setPaidStatus(rs.getString("ss_paid_status"));          
+            EmployeeService employeeService = new EmployeeService();
+            Employee employee = employeeService.getById(rs.getInt("employee_id"));
+            summarySalary.setEmployee(employee);
+
+            // summarySalary.setCheckins(rs.get);
+            return summarySalary;
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return null;

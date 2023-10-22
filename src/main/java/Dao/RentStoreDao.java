@@ -6,6 +6,7 @@ package Dao;
 
 import Model.RentStore;
 import helper.DatabaseHelper;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -118,7 +119,6 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setString(7, obj.getRentDate());
             stmt.setFloat(8, obj.getRentOther());
 
-//            System.out.println(stmt);
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);
@@ -147,6 +147,70 @@ public class RentStoreDao implements Dao<RentStore> {
         }
         return rentStore;
     }
+        public ArrayList<RentStore> getByPaidStatus(String status) {
+        ArrayList<RentStore> list = new ArrayList();
+        String sql = "SELECT * FROM rent_store WHERE rent_paid_status=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RentStore rentStore = RentStore.fromRS(rs);
+                list.add(rentStore);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+        
+        public ArrayList<RentStore> getByDateByPaidStatus(String status, String begin, String end) {
+        ArrayList<RentStore> list = new ArrayList();
+        String sql = "SELECT * FROM rent_store WHERE rent_paid_status=? AND rent_date BETWEEN ? AND ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, status);
+            stmt.setString(2, begin);
+            stmt.setString(3, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RentStore rentStore = RentStore.fromRS(rs);
+                list.add(rentStore);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+
+    public ArrayList<RentStore> getByDate(String begin, String end) {
+        ArrayList<RentStore> list = new ArrayList();
+        String sql = "SELECT * FROM rent_store WHERE rent_date BETWEEN ? AND ? ";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, begin);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RentStore rentStore = RentStore.fromRS(rs);
+                list.add(rentStore);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
 
     @Override
     public RentStore update(RentStore obj) {
@@ -162,10 +226,10 @@ public class RentStoreDao implements Dao<RentStore> {
             stmt.setString(4, obj.getRentPaidStatus());
             stmt.setInt(5, obj.getStoreId());
             stmt.setFloat(6, obj.getRentPrice());
-            stmt.setString(7, obj.getRentDate());
-            stmt.setFloat(8, obj.getRentOther());
+            stmt.setFloat(7, obj.getRentOther());
+            stmt.setString(8, obj.getRentDate());
             stmt.setInt(9, obj.getId());
-            
+
             int ret = stmt.executeUpdate();
             System.out.println(ret);
             return obj;

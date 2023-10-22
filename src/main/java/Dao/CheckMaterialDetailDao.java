@@ -94,6 +94,31 @@ public class CheckMaterialDetailDao implements Dao<CheckMaterialDetail> {
         return list;
     }
 
+    public List<CheckMaterialDetail> getCheckMaterialDetailForDate(String selectedDate) {
+        ArrayList<CheckMaterialDetail> list = new ArrayList();
+        String sql = """ 
+              SELECT cmd.*
+                FROM check_material_detail cmd
+                     JOIN
+                     check_material cm ON cm.check_mat_id = cmd.cmd_id
+               WHERE cm.check_mat_datetime = ?;
+                                 """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, selectedDate);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CheckMaterialDetail obj = CheckMaterialDetail.fromRS(rs);
+                list.add(obj);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
     @Override
     public CheckMaterialDetail save(CheckMaterialDetail obj) {
         CheckMaterialDetail checkMaterialDetail = new CheckMaterialDetail();

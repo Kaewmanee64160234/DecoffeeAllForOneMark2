@@ -69,7 +69,7 @@ public class MaterialPanel extends javax.swing.JPanel {
         tblMaterial.setRowHeight(60);
         tblMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblMaterial.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Name", "Minimum Quantity", "Quantity", "Unit", "Price Per Unit", "Action"};
+            String[] columnNames = {"ID", "Date", "Minimum Quantity", "Quantity", "Unit", "Price Per Unit", "Action"};
 
             @Override
             public String getColumnName(int column) {

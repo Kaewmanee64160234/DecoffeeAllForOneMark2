@@ -820,10 +820,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }//GEN-LAST:event_btnPosConfirmMouseClicked
 
     private void btnPromtpayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromtpayActionPerformed
-        // TODO add your handling code here:
         reciept.setPayment("QR");
         lblCash.setText(lblTotalNet.getText());
         lblChange.setText("0");
+        btnCalculator.setEnabled(false);
     }//GEN-LAST:event_btnPromtpayActionPerformed
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatorActionPerformed
@@ -849,6 +849,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         }
         reciept.setPayment("cash");
         lblChange.setText("" + total);
+        btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCalculatorActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
@@ -896,12 +897,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         Reciept reciept = new Reciept();
         reciept.setQueue(1);
-        reciept.setPayment("cash");
         reciept.setStoreId(1);
         // set emplyee
         reciept.setEmployeeId(1);
         reciept.setReceive((float) Double.parseDouble(lblChange.getText()));
         float cash = (float) Double.parseDouble(lblChange.getText());
+        btnCalculator.setEnabled(true);
+        btnPromtpay.setEnabled(true);
 
     }// GEN-LAST:event_btnPosConfirmActionPerformed
 

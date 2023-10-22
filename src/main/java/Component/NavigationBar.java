@@ -6,6 +6,7 @@ package Component;
 
 import Model.User;
 import Service.UserService;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,16 +18,18 @@ import javax.swing.JOptionPane;
 public class NavigationBar extends javax.swing.JPanel implements ChagePage,LoginObs {
 
     private ArrayList<ChagePage> subscobers;
-    private ArrayList<LoginObs> loginObs;
     private UserService userService;
     private List<User> list;
     private User editedUser;
+    private ArrayList<LoginObs> loginObses;
 
     /**
      * Creates new form NavigationBar
      */
     public NavigationBar() {
+        editedUser = new User();
         initComponents();
+       loginObses = new ArrayList<>();
         subscobers = new ArrayList<ChagePage>();
         userService = new UserService();
         
@@ -395,12 +398,22 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
     public void addInSubs(ChagePage chagePage) {
         subscobers.add(chagePage);
     }
+    public void addInSubsLogin(LoginObs loginOb) {
+        loginObses.add(loginOb);
+    }
 
     @Override
     public void loginData(User user) {
-        if(user.getRole().equals("user")){
-            btnUser.setVisible(false);
+        for (LoginObs subscober : loginObses) {
+            subscober.loginData(user);
             
         }
+        editedUser = user;
+        System.out.println("Component.NavigationBar.loginData() ::: "+editedUser);
+         if(editedUser.getRole().equals("user")){
+            btnUser.setBackground(Color.red);
+            
+        }
+   
     }
 }

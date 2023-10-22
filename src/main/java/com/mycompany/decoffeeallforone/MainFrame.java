@@ -75,6 +75,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
     public MainFrame() {
         initComponents();
+        loginObses = new ArrayList<>();
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Set full Screen
@@ -82,7 +83,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
-        navigationBar = new NavigationBar();
 //        posPanel = new PosPanel();
         buystockPanel = new BuyStockPanel(employee);
         posPanel = new PosPanel();
@@ -102,6 +102,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+        loginObses.add(navigationBar);
 
         //scrPanel.setViewportView(reportPanel);
         scrPanel.setViewportView(new HistoryMaterialPanel());
@@ -111,11 +112,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
 
-
         scrPanel.setViewportView(reportPanel);
 
 //        scrPanel.setViewportView();
-
     }
 
     /**
@@ -268,6 +267,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
     @Override
     public void loginData(User user) {
+        for (LoginObs loginObse : loginObses) {
+            loginObse.loginData(user);
+
+        }
+        System.out.println("com.mycompany.decoffeeallforone.MainFrame.loginData()");
         EmployeeService employSer = new EmployeeService();
         buyStockPanel = new BuyStockPanel(employSer.getById(user.getEmployee_id()));
 

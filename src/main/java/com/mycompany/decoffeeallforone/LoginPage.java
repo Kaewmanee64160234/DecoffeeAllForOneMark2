@@ -26,12 +26,14 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
 
     private boolean isPasswordVisible = false;
     private ArrayList<LoginObs> loginObs;
+    private MainFrame mainFrame;
 
     /**
      * Creates new form LoginPage
      */
     public LoginPage() {
         initComponents();
+        mainFrame = new MainFrame();
         loginObs = new ArrayList<>();
         ImageIcon icon = new ImageIcon("./user.png");
         Image image = icon.getImage();
@@ -47,8 +49,10 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         height = imagepass.getHeight(null);
         newImage = imagepass.getScaledInstance((int) (40 * ((float) width / height)), 40, Image.SCALE_SMOOTH);
         newIcon = new ImageIcon(newImage);
+        loginObs.add(mainFrame);
         lblImage2.setIcon(newIcon);
-        lblImage2.addMouseListener(new MouseAdapter() {
+        lblImage2.addMouseListener(new MouseAdapter() 
+        {
             @Override
             public void mouseClicked(MouseEvent e) {
                 togglePasswordVisibility();
@@ -291,8 +295,9 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         } else {
 
             LoginPage loginPage = new LoginPage();
+            loginData(user);
 
-            MainFrame mainFrame = new MainFrame();
+             
             dispose();
             mainFrame.setVisible(true);
 
@@ -372,6 +377,9 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
     public void loginData(User user) {
         for (LoginObs loginOb : loginObs) {
             loginOb.loginData(user);
+                    System.out.println("com.mycompany.decoffeeallforone.LoginPage.loginData()");
+                           
+
         }
     }
 }

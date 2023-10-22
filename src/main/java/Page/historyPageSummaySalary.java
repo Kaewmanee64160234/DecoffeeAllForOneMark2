@@ -404,7 +404,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
-        String varName = (String) cmbStatus.getSelectedItem();
+        String varName = (String) jComboBox1.getSelectedItem();
         String value = cmbStatus.getSelectedItem().toString();
 
         String pattern = "yyyy-MM-dd";
@@ -414,11 +414,18 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
         ArrayList<String> command = new ArrayList<>();
 
         if (startDate != null && stopDate != null) {
-            command.add( " ss_date BTWEEN " + startDate + " and " + stopDate);
+            command.add(" ss_date BETWEEN '" + formatter.format(startDate) + "' and '" + formatter.format(stopDate)+"'");
 
         }
         if (!value.equals("")) {
-            command.add("  ss_paid_status='" + value + "'") ;
+            if (value.equals("Paid")) {
+                command.add("  ss_paid_status='" + "Y" + "' ");
+
+            }
+            if (value.equals("Not Paid")) {
+                command.add("  ss_paid_status='" + "N" + "' ");
+
+            }
 
         }
         if (!varName.equals("")) {
@@ -426,9 +433,14 @@ public class historyPageSummaySalary extends javax.swing.JPanel {
 
         }
         String cons = "";
-        for (String string : command) {
-            cons+=string+"and ";
-            
+        for (int i = 0; i < command.size(); i++) {
+
+            if (i != command.size() - 1) {
+                cons += command.get(i) + " and ";
+            } else {
+                cons += command.get(i);
+            }
+
         }
         summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
         System.out.println(summarySalarys);

@@ -77,7 +77,7 @@
                       <Component id="btnSummarySalary" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnButStock" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnHistoryMaterial" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnHistoryMaterial1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnRentStore" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnHistoryMaterial2" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -115,7 +115,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnHistoryMaterial" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnHistoryMaterial1" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="btnRentStore" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnHistoryMaterial2" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -279,7 +279,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistoryMaterialActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnHistoryMaterial1">
+        <Component class="javax.swing.JButton" name="btnRentStore">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="14" style="0"/>
@@ -288,7 +288,7 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistoryMaterial1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRentStoreActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnHistoryMaterial2">

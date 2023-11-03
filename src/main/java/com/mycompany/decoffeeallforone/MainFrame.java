@@ -29,6 +29,7 @@ import Page.PayRentPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.PromotionPanel;
 import Page.ReportPanel;
 import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
@@ -113,7 +114,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
        //scrPanel.setViewportView(reportPanel);
 
-       scrPanel.setViewportView(new UserPanel());
+       scrPanel.setViewportView(new PromotionPanel());
        
 //       scrPanel.setViewportView(new PosDialog());
 //        PosDialog posDialog = new PosDialog(frame);

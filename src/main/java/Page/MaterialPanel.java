@@ -7,9 +7,9 @@ package Page;
 import Dialog.MaterialDialog;
 import Model.Material;
 import Service.MaterialService;
-import TableCrud.TableActionCellEditor;
-import TableCrud.TableActionCellRenderer;
-import TableCrud.TableActionEvent;
+import TablebtnEditDelete.TableActionCellEditor;
+import TablebtnEditDelete.TableActionCellRenderer;
+import TablebtnEditDelete.TableActionEvent;
 import scrollbar.ScrollBarCustom;
 
 import java.awt.Font;

@@ -53,10 +53,11 @@ public class RecieptReport {
         this.TotalSale = TotalSale;
     }
 
-  
+    @Override
+    public String toString() {
+        return "RecieptReport{" + "TotalSale=" + TotalSale + ", MonthYear=" + MonthYear + '}';
+    }
 
-    
-    
     public static RecieptReport fromRS(ResultSet rs) {
         RecieptReport obj = new RecieptReport();
         try {

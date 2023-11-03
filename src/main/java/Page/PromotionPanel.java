@@ -1,5 +1,6 @@
-package com.mycompany.decoffeeallforone;
+package Page;
 
+import com.mycompany.decoffeeallforone.*;
 import Dialog.PromotionDialog;
 import Model.Promotion;
 import Service.PromotionService;

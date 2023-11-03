@@ -13,8 +13,6 @@ import Model.Employee;
 import Model.SummarySalary;
 import Service.CheckinoutService;
 import Service.SummarySalaryService;
-
-import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -42,8 +40,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     private ArrayList<Checkinout> cioList;
     private SummarySalary summarySalary;
     private ArrayList<ChagePage> chagePages;
-    private Component cmbPosition;
-    private Component jLabel6;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
@@ -225,23 +221,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
                 .addContainerGap()
                 .addComponent(lblNameEmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnPayMentStatus)
-                                .addComponent(btnPrintSlip)))
-                        .addGap(6, 6, 6)
-                        .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6))
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
@@ -255,7 +234,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel1)
                     .addComponent(btnConfirm1))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

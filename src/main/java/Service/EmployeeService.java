@@ -46,9 +46,9 @@ public class EmployeeService {
         return editedEmployee;
     }
     
-     public List<EmployeeReport> getTopFiveCustomerByTotalPrice() {
+     public List<EmployeeReport> getEmployeeByTotalHour(String begin, String end) {
         EmployeeDao employeeDao = new EmployeeDao();
-        return employeeDao.getEmployeeByTotalHour(5);
+        return employeeDao.getEmployeeByTotalHour(begin, end,5);
     }
 
     public void setEditedEmployee(Employee editedEmployee) {

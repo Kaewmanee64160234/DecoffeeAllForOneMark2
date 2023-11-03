@@ -9,6 +9,7 @@ import java.util.List;
 
 import Dao.RecieptDao;
 import Dao.RecieptDetailDao;
+import Model.HistoryOrderReport;
 import Model.Reciept;
 import Model.RecieptDetail;
 import Model.RecieptDetailReport;
@@ -68,10 +69,19 @@ public class RecieptService {
     }
 
     public List<RecieptReport> getRecieptByTotalSale(String begin, String end) {
-    RecieptDao recieptDao = new RecieptDao();
-    return recieptDao.getRecieptByTotalSale(begin, end);
-}
+        RecieptDao recieptDao = new RecieptDao();
+        return recieptDao.getRecieptByTotalSale(begin, end);
+    }
 
+    public List<HistoryOrderReport> getRecieptHistory() {
+        RecieptDao recieptDao = new RecieptDao();
+        return recieptDao.getRecieptHistory();
+    }
+
+    public List<HistoryOrderReport> getRecieptHistory(String begin, String end) {
+        RecieptDao recieptDao = new RecieptDao();
+        return recieptDao.getRecieptHistory(begin, end);
+    }
 
     public Reciept addNew(Reciept editedReciept) {
         RecieptDao recieptDao = new RecieptDao();

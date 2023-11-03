@@ -23,7 +23,7 @@ import scrollbar.ScrollBarCustom;
 
 /**
  *
- * @author Lenovo
+ * @Dang Double H
  */
 public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
 
@@ -41,7 +41,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
     public HistoryOrderPanel() {
         initComponents();
         recieptService = new RecieptService();
-//        recieptList = recieptService.getBillHistory();
+        recieptList = recieptService.getRecieptHistory();
         recieptDetailService = new RecieptDetailService();
         recieptDetailList = recieptDetailService.getRecieptDetails();
         initTableBill();
@@ -53,7 +53,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
 
     private void initTableBill() {
         model3 = new AbstractTableModel() {
-            String[] colNames = {"ID", "Date History"};
+            String[] colNames = {"ID", "Date History", "Total"};
 
             @Override
             public String getColumnName(int column) {
@@ -78,6 +78,8 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                         return reciept.getId();
                     case 1:
                         return reciept.getCreated_date();
+                    case 2:
+                        return reciept.getTotal();
                     default:
                         return "";
                 }
@@ -359,6 +361,9 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                     rd.getProductId(),
                     rd.getRecieptId()
                 };
+                model.addRow(rowData);
+
+                totalAmount += rd.getTotal();
             }
             tblOrderInDate.setModel(model);
             lblTotalShow.setText(String.valueOf(totalAmount));
@@ -377,7 +382,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
         String begin = formater.format(model1.getValue());
         String end = formater.format(model2.getValue());
-//        recieptList = recieptService.getBillHistory(begin, end);
+        recieptList = recieptService.getRecieptHistory(begin, end);
         System.out.println(recieptList);
         model3.fireTableDataChanged();
 

@@ -17,24 +17,26 @@ import javax.swing.table.TableModel;
  *
  * @author toey
  */
-public class TableColor extends JTable {
+   public class TableColor extends JTable {
 
-    public TableColor(TableModel dm) {
-        super(dm);
-
-        // สร้าง renderer สำหรับตารางและหัวตาราง
-        DefaultTableCellRenderer tableRenderer = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) getTableHeader().getDefaultRenderer();
-
-        // กำหนดสีพื้นหลังและสีตัวอักษรสำหรับตารางและหัวตาราง
-        tableRenderer.setBackground(Color.LIGHT_GRAY);
-        tableRenderer.setForeground(Color.BLACK);
-        headerRenderer.setBackground(Color.BLUE);
-        headerRenderer.setForeground(Color.WHITE);
-
-        // กำหนด renderer ให้กับตารางและหัวตาราง
-        setDefaultRenderer(Object.class, tableRenderer);
-        getTableHeader().setDefaultRenderer(headerRenderer);
+    public TableColor() {
+        getTableHeader().setDefaultRenderer((TableCellRenderer) new TableColorHeader());
+        getTableHeader().setPreferredSize(new Dimension(0, 35));
     }
 
+    private class TableColorHeader extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            com.setBackground(new Color(30, 30, 30));
+            com.setForeground(new Color(200, 200 ,200));
+            com.setFont(com.getFont().deriveFont(Font.BOLD, 14));
+            return com;
+        }
+
+    }
 }
+
+
+

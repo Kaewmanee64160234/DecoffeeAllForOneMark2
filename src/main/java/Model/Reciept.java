@@ -310,22 +310,16 @@ public class Reciept {
     public void calculateTotal() {
         int total_qty = 0;
         float total = 0.0f;
-        System.out.println("-------------xxxxx--------------");
+        System.out.println(recieptDetails.size());
         for (RecieptDetail rd : recieptDetails) {
-            System.out.println(rd.toString());
-            total += rd.getProductPrice();
-            total += rd.getToppingPrice();
-            total += rd.getTypePrice();
-            total += rd.getSizePrice();
-            total += rd.getSweetPrice();
-            total  = total*rd.getQty();
 
+            total += rd.getTotal();
             total_qty += rd.getQty();
         }
-                System.out.println("-------------xxx--------------");
 
         this.total = total;
         this.totalQTY = total_qty;
+
     }
 
     public void removeReceiptDetail(RecieptDetail receiptDateil) {

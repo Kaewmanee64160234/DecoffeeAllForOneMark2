@@ -25,6 +25,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -555,6 +556,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
             if (detailToRemove != null) {
                 bill.getBillDetails().remove(detailToRemove);
+                calculated = false;
             }
             model.removeRow(selectedRow);
         } else {
@@ -708,9 +710,13 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
 
-        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+        TableModel model = tblBillDetail.getModel();
+        if (model instanceof DefaultTableModel) {
+            DefaultTableModel defaultModel = (DefaultTableModel) model;
+            defaultModel.setRowCount(0);
+        }
+
         bill = new Bill();
-        model.setRowCount(0);
         edtShopName.setText("");
         model1.setValue(null);
         edtBuy.setText("");
@@ -721,9 +727,11 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         calculated = false;
         chagePage("Material");
 
+
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void tblMeterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMeterialMouseClicked
+        calculated = false;
         int selectedRow = tblMeterial.getSelectedRow();
         if (selectedRow >= 0) {
             Material selectedMaterial = list.get(selectedRow);
@@ -771,13 +779,13 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         String discountText = edtDiscount.getText().trim();
         String buyText = edtBuy.getText().trim();
-        
+
         DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
         if (model.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Please add items to the bill detail.");
             return;
         }
-        
+
         if (discountText.isEmpty() || buyText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {

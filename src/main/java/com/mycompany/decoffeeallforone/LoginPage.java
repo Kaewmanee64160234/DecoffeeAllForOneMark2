@@ -41,8 +41,8 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         int height = image.getHeight(null);
         Image newImage = image.getScaledInstance((int) (40.0 * ((float) width / height)), 40, Image.SCALE_SMOOTH);
         ImageIcon newIcon = new ImageIcon(newImage);
-        lblImage1.setIcon(newIcon);
-
+        lblHuman.setIcon(newIcon);
+        
         ImageIcon iconpass = new ImageIcon("./visible.png"); // Assuming this is a valid path to your image file
         Image imagepass = iconpass.getImage(); // Use iconpass here
         width = imagepass.getWidth(null);
@@ -50,8 +50,8 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         newImage = imagepass.getScaledInstance((int) (40 * ((float) width / height)), 40, Image.SCALE_SMOOTH);
         newIcon = new ImageIcon(newImage);
         loginObs.add(mainFrame);
-        lblImage2.setIcon(newIcon);
-        lblImage2.addMouseListener(new MouseAdapter() 
+        lbleye.setIcon(newIcon);
+        lbleye.addMouseListener(new MouseAdapter() 
         {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -67,11 +67,11 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         if (isPasswordVisible) {
             // Show the password and change the image to invisible.png
             txtPass.setEchoChar((char) 0); // Set the echo char to 0 to make it visible
-            lblImage2.setIcon(new ImageIcon("./hide.png")); // Change the icon
+            lbleye.setIcon(new ImageIcon("./hide.png")); // Change the icon
         } else {
             // Hide the password and change the image back to visible.png
             txtPass.setEchoChar('*'); // Set the echo char back to '*'
-            lblImage2.setIcon(new ImageIcon("./visible.png")); // Change the icon
+            lbleye.setIcon(new ImageIcon("./visible.png")); // Change the icon
         }
     }
 
@@ -91,27 +91,28 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         passwordLbl = new javax.swing.JLabel();
         loginLbl = new javax.swing.JLabel();
         btnExit = new javax.swing.JToggleButton();
-        loginLbl2 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         txtPass = new javax.swing.JPasswordField();
-        lblImage1 = new javax.swing.JLabel();
-        lblImage2 = new javax.swing.JLabel();
+        lbleye = new javax.swing.JLabel();
+        lblHuman = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(241, 222, 201));
 
-        txtLogin.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtLogin.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtLogin.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image (1).png"))); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(241, 222, 201));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/decoffeeallforone/image.png"))); // NOI18N
         jLabel1.setOpaque(true);
 
-        passwordLbl.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        passwordLbl.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         passwordLbl.setText("Password");
 
-        loginLbl.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        loginLbl.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         loginLbl.setText("Login ");
 
         btnExit.setBackground(new java.awt.Color(241, 222, 201));
@@ -124,14 +125,8 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
             }
         });
 
-        loginLbl2.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
-        loginLbl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        loginLbl2.setText("D-Coffee");
-        loginLbl2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        loginLbl2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         btnLogin.setBackground(new java.awt.Color(141, 123, 104));
-        btnLogin.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Kanit", 0, 20)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Login");
         btnLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -146,7 +141,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
             }
         });
 
-        txtPass.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtPass.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtPass.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,37 +149,37 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
             }
         });
 
+        lbleye.setBackground(new java.awt.Color(241, 222, 201));
+        lbleye.setIcon(new javax.swing.ImageIcon("D:\\Soft dev\\Group Project\\Dcoffee\\DecoffeeAllForOneMark2\\hide.png")); // NOI18N
+        lbleye.setOpaque(true);
+
+        lblHuman.setBackground(new java.awt.Color(241, 222, 201));
+        lblHuman.setIcon(new javax.swing.ImageIcon("D:\\Soft dev\\Group Project\\Dcoffee\\DecoffeeAllForOneMark2\\user.png")); // NOI18N
+        lblHuman.setOpaque(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(475, Short.MAX_VALUE)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtLogin)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginLbl)
+                    .addComponent(passwordLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtLogin)
-                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginLbl)
-                            .addComponent(passwordLbl)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(loginLbl2)
-                        .addGap(19, 19, 19)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(lblImage1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblImage2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)))))
+                    .addComponent(lbleye)
+                    .addComponent(lblHuman))
+                .addGap(104, 104, 104))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,28 +187,23 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loginLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblImage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(97, 97, 97))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(loginLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passwordLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 61, Short.MAX_VALUE))))
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHuman))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passwordLbl)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbleye))
+                .addGap(28, 28, 28)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,7 +217,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(373, 386));
+        setSize(new java.awt.Dimension(508, 568));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -311,10 +301,9 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblImage1;
-    private javax.swing.JLabel lblImage2;
+    private javax.swing.JLabel lblHuman;
+    private javax.swing.JLabel lbleye;
     private javax.swing.JLabel loginLbl;
-    private javax.swing.JLabel loginLbl2;
     private javax.swing.JLabel passwordLbl;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtPass;

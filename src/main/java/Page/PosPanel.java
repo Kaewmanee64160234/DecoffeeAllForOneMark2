@@ -37,12 +37,10 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.HeadlessException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -125,6 +123,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
                 if (columnIndex == 2) {
                     int qty = Integer.parseInt((String) aValue);
+                    System.out.println(qty);
                     if (qty < 1) {
                         return;
                     }
@@ -136,15 +135,16 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 }
             }
 
-//            @Override
-//            public boolean isCellEditable(int rowIndex, int columnIndex) {
-//                switch (columnIndex) {
-//                    case 2:
-//                        return true;
-//                    default:
-//                        return false;
-//                }
-//            }
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
                 ArrayList<RecieptDetail> recieptDetails = reciept.getRecieptDetails();
@@ -170,14 +170,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         return "";
                 }
             }
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                if (columnIndex == 2) {
-                    return true;
-                }
-                return false;
-            }
         });
         tblRecieptDetail.setCellSelectionEnabled(true);
         tblRecieptDetail.setColumnSelectionAllowed(true);
@@ -198,11 +190,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     public class QtyCellEditor extends DefaultCellEditor {
 
         private JSpinner input;
-        private JTable table;
-        private int row;
-        private RecieptDetail item;
+
         public QtyCellEditor() {
-            super(new JCheckBox());
+            super(new JTextField());
             input = new JSpinner();
             SpinnerNumberModel numberModel = (SpinnerNumberModel) input.getModel();
             numberModel.setMinimum(1);
@@ -210,17 +200,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             DefaultFormatter formatter = (DefaultFormatter) editor.getTextField().getFormatter();
             formatter.setCommitsOnValidEdit(true);
             editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
-            input.addChangeListener((ChangeEvent e) -> {
-                inputChange();
+            input.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+
+                }
+
             });
         }
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             super.getTableCellEditorComponent(table, value, isSelected, row, column);
-            this.table = table;
-            this.row = row;
-            this.item = (RecieptDetail)table.getValueAt(row, 0);
             int qty = Integer.parseInt(value.toString());
             input.setValue(qty);
             return input;
@@ -228,17 +219,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         @Override
         public Object getCellEditorValue() {
-            return input.getValue();
+            int qty = (int) input.getValue(); // Get the Integer value directly
+            return String.valueOf(qty);
 
-        }
-        private void inputChange(){
-            int qty = Integer.parseInt(input.getValue().toString());
-            if(qty!=item.getQty()){
-                DecimalFormat df = new DecimalFormat();
-                item.setQty(qty);
-                item.setTotal(item.getPrice()*qty);
-                table.setValueAt(df.format(item.getTotal()), row, 7);
-            }
         }
     }
 

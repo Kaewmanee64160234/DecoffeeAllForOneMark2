@@ -42,9 +42,11 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
     private Employee employee;
     private EmployeeService employService;
     private Bill bill;
+    private boolean calculated = false;
 
     public BuyStockPanel(Employee emp) {
         initComponents();
+
         employee = emp;
         employService = new EmployeeService();
         bill = new Bill();
@@ -225,8 +227,8 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         btnCalculate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -335,6 +337,12 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
         jLabel5.setText("Discount:");
+
+        edtDiscount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDiscountActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
         jLabel6.setText("Total:");
@@ -457,19 +465,19 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -479,9 +487,9 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -489,8 +497,8 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -554,38 +562,68 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (!calculated) {
+            JOptionPane.showMessageDialog(this, "Please calculate first by clicking the 'Calculate' button.");
+            return;
+        }
+
         System.out.println("Start : " + bill.toString());
         System.out.println(employee.toString());
-        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
-        BillDetailDao billDetailDao = new BillDetailDao();
 
+        String shopName = edtShopName.getText().trim();
+        String buyText = edtBuy.getText().trim();
+        String discountText = edtDiscount.getText().trim();
+
+        if (shopName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a shop name.");
+            return;
+        }
+
+        if (buyText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter the buy amount.");
+            return;
+        }
+
+        if (discountText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter the discount.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please add items to the bill detail.");
+            return;
+        }
+
+        BillDetailDao billDetailDao = new BillDetailDao();
         BillDao billDao = new BillDao();
         boolean saved = true;
-        // add bill
-        bill.setShopname(edtShopName.getText());
+
+// add bill
+        bill.setShopname(shopName);
         Date selectedDate = model1.getValue();
+
+        if (selectedDate == null) {
+            JOptionPane.showMessageDialog(this, "Please select a date.");
+            return;
+        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = dateFormat.format(selectedDate);
         bill.setCreatdDate(formattedDate);
         System.out.println(formattedDate);
 
-        if (selectedDate != null) {
-            bill.setCreatdDate(formattedDate);
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a date.");
-            return;
-        }
-        String buyText = edtBuy.getText();
         float buyValue = Float.parseFloat(buyText);
         bill.setBuy(buyValue);
-        String totaldiscountText = edtDiscount.getText();
-        float totaldiscountValue = Float.parseFloat(totaldiscountText);
+
+        float totaldiscountValue = Float.parseFloat(discountText);
         bill.setTotalDiscount(totaldiscountValue);
+
         String billtotalText = lblTotal.getText();
         float billtotalValue = Float.parseFloat(billtotalText);
         bill.setBillTotal(billtotalValue);
+
         String billchangText = lblChange.getText();
         float billchangValue = Float.parseFloat(billchangText);
         bill.setChange(billchangValue);
@@ -599,11 +637,12 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         System.out.println("Save :" + bill.toString());
         Bill savedBill = billDao.save(bill);
+
         if (savedBill == null) {
             saved = false;
         }
 
-        //add bill_detail
+//add bill_detail
         for (int i = 0; i < model.getRowCount(); i++) {
             String name = model.getValueAt(i, 1).toString();
             int amount = Integer.parseInt(model.getValueAt(i, 2).toString());
@@ -629,7 +668,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         }
 
-        //updater materail
+//updater materail
         MaterialDao materialDao = new MaterialDao();
 
         for (int i = 0; i < model.getRowCount(); i++) {
@@ -647,18 +686,42 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         if (saved) {
             JOptionPane.showMessageDialog(this, "Save successful");
             bill = new Bill();
+
             chagePage("Material");
+
+            model.setRowCount(0);
+            edtShopName.setText("");
+            model1.setValue(null);
+            edtBuy.setText("");
+            edtDiscount.setText("");
+            lblTotal.setText("0.00");
+            lblChange.setText("0.00");
+            lblTotalPrice.setText("0.00");
+            calculated = false;
         } else {
             JOptionPane.showMessageDialog(this, "Save unsuccessful");
             System.out.println("Page.BuyStockPanel.btnSaveActionPerformed()");
             chagePage("Material");
         }
-        chagePage("Material");
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+        bill = new Bill();
+        model.setRowCount(0);
+        edtShopName.setText("");
+        model1.setValue(null);
+        edtBuy.setText("");
+        edtDiscount.setText("");
+        lblTotal.setText("0.00");
+        lblChange.setText("0.00");
+        lblTotalPrice.setText("0.00");
+        calculated = false;
         chagePage("Material");
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void tblMeterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMeterialMouseClicked
         int selectedRow = tblMeterial.getSelectedRow();
@@ -697,6 +760,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
     }//GEN-LAST:event_tblBillDetailMouseClicked
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+
         float totalMaterialPrice = 0.0f;
 
         for (BillDetail billDetail : bill.getBillDetails()) {
@@ -705,39 +769,59 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         lblTotalPrice.setText(String.valueOf(totalMaterialPrice));
 
-        String discountText = edtDiscount.getText();
-        String buyText = edtBuy.getText();
-
+        String discountText = edtDiscount.getText().trim();
+        String buyText = edtBuy.getText().trim();
+        
+        DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please add items to the bill detail.");
+            return;
+        }
+        
         if (discountText.isEmpty() || buyText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            float discount = Float.parseFloat(discountText);
-            float totalAfterDiscount = totalMaterialPrice - discount;
-            float buy = Float.parseFloat(buyText);
+            try {
+                float discount = Float.parseFloat(discountText);
+                float totalAfterDiscount = totalMaterialPrice - discount;
+                float buy = Float.parseFloat(buyText);
 
-            if (buy < totalAfterDiscount) {
-                JOptionPane.showMessageDialog(this, "Please enter a valid purchase amount", "Warning", JOptionPane.WARNING_MESSAGE);
-            } else {
-                float change = buy - totalAfterDiscount;
-                if (totalAfterDiscount < 0) {
-                    totalAfterDiscount = 0;
-                    change = buy - totalAfterDiscount;
+                if (buy < totalAfterDiscount) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid purchase amount", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    float change = buy - totalAfterDiscount;
+
+                    if (totalAfterDiscount < 0) {
+                        totalAfterDiscount = 0;
+                        change = buy - totalAfterDiscount;
+                    }
+
+                    lblTotal.setText(String.valueOf(totalAfterDiscount));
+                    lblChange.setText(String.valueOf(change));
                 }
-                lblTotal.setText(String.valueOf(totalAfterDiscount));
-                lblChange.setText(String.valueOf(change));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid input. Please enter numeric values.", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
+
+        calculated = true;
+
+
     }//GEN-LAST:event_btnCalculateActionPerformed
+
+    private void edtDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDiscountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtDiscountActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculate;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
     private javax.swing.JTextField edtBuy;
     private javax.swing.JTextField edtDiscount;
     private javax.swing.JTextField edtShopName;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -789,4 +873,5 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
     public void addInLoginObs(LoginObs loginObs) {
         loginObses.add(loginObs);
     }
+
 }

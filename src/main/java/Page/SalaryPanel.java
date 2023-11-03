@@ -11,9 +11,12 @@ import Dialog.ProductDialog;
 import Model.Employee;
 import Model.EmployeeReport;
 import Model.Product;
+import Model.SummarySalary;
 import Service.EmployeeService;
+import Service.SummarySalaryService;
 import TablebtnEditDelete.TableActionCellRenderer;
 import com.mycompany.decoffeeallforone.MainFrame;
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
@@ -31,6 +34,11 @@ import javax.swing.table.AbstractTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import selectInTable.TableActionCellRender;
 import scrollbar.ScrollBarCustom;
 
@@ -50,13 +58,19 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private EmployeeService employeeService;
     private List<EmployeeReport> employeeList;
     private AbstractTableModel model3;
+    private DefaultCategoryDataset barDataset;
+    private List<SummarySalary> salary;
+    private  SummarySalaryService summarySalaryService = new SummarySalaryService();
 
     /**
      * Creates new form SalaryPanel
      */
     public SalaryPanel() {
         initComponents();
+        salary = new ArrayList<>();
         initDatePicker();
+        initBarChart();
+        loadBarDataset();
         initTableEmployee();
         jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
@@ -65,7 +79,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         list = new ArrayList<>();
         subs = new ArrayList<>();
         employeeList = new ArrayList<>();
-
 
         list = (ArrayList<Employee>) employeeService.getEmployees();
 
@@ -159,6 +172,28 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     }
 
+    private void initBarChart() {
+        barDataset = new DefaultCategoryDataset();
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Total Paid",
+                "Month Year",
+                "Total expenses",
+                barDataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        pnlBarGraph.setLayout(new java.awt.BorderLayout());
+        pnlBarGraph.add(chartPanel, BorderLayout.CENTER);
+    }
+
+    private void loadBarDataset() {
+        barDataset.clear();
+        for (SummarySalary ss : salary) {
+            System.out.println("MonthYear: " + ss.getMonthYear() + ", TotalPaid: " + ss.getTotalPaid());
+            barDataset.addValue(ss.getTotalPaid(), "expenses", ss.getMonthYear());
+        }
+    }
+
     private void initDatePicker() {
         model1 = new UtilDateModel();
         Properties p1 = new Properties();
@@ -180,10 +215,10 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         pnlDatePicker2.add(datePicker2);
         model2.setSelected(true);
     }
-    
-     private void initTableEmployee() {
+
+    private void initTableEmployee() {
         model3 = new AbstractTableModel() {
-            String[] colNames = {"ID", "Name", "MonthYear","TotalEmployee"};
+            String[] colNames = {"ID", "Name", "MonthYear", "TotalEmployee"};
 
             @Override
             public String getColumnName(int column) {
@@ -209,7 +244,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     case 1:
                         return employee.getName();
                     case 2:
-                        return  employee.getMonthYear();
+                        return employee.getMonthYear();
                     case 3:
                         return employee.getTopEmployee();
 
@@ -220,6 +255,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         };
         tblTopEmployee.setModel(model3);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -243,6 +279,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         lblEndDate = new javax.swing.JLabel();
         pnlDatePicker2 = new javax.swing.JPanel();
         btnComfirm = new javax.swing.JButton();
+        pnlBarGraph = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnHistory = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
@@ -300,6 +337,17 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             }
         });
 
+        javax.swing.GroupLayout pnlBarGraphLayout = new javax.swing.GroupLayout(pnlBarGraph);
+        pnlBarGraph.setLayout(pnlBarGraphLayout);
+        pnlBarGraphLayout.setHorizontalGroup(
+            pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 559, Short.MAX_VALUE)
+        );
+        pnlBarGraphLayout.setVerticalGroup(
+            pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 162, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pnlNavigation2Layout = new javax.swing.GroupLayout(pnlNavigation2);
         pnlNavigation2.setLayout(pnlNavigation2Layout);
         pnlNavigation2Layout.setHorizontalGroup(
@@ -307,25 +355,25 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(pnlNavigation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane4)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
-                        .addGap(0, 47, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblStartDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(41, 41, 41)
                         .addComponent(lblEndDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlNavigation2Layout.setVerticalGroup(
@@ -338,15 +386,17 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnComfirm)
-                            .addComponent(lblEndDate)
-                            .addComponent(lblStartDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblStartDate)
+                            .addComponent(lblEndDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4))
                     .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addGap(12, 12, 12)
@@ -401,7 +451,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     .addComponent(btnPaymentHistory)
                     .addComponent(btnPrint)
                     .addComponent(btnHistory))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -415,8 +465,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -447,13 +497,15 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     private void btnComfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComfirmActionPerformed
 
-      String pattern = "yyyy-MM-dd";
+        String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
         String begin = formater.format(model1.getValue());
         String end = formater.format(model2.getValue());
         employeeList = employeeService.getEmployeeByTotalHour(begin, end);
+        salary = summarySalaryService.getSummarySalaryByTotalPaid(begin, end);
         model3.fireTableDataChanged();
+        loadBarDataset();
     }//GEN-LAST:event_btnComfirmActionPerformed
 
 
@@ -471,6 +523,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblEndDate;
     private javax.swing.JLabel lblStartDate;
+    private javax.swing.JPanel pnlBarGraph;
     private javax.swing.JPanel pnlDatePicker1;
     private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JPanel pnlNavigation2;
@@ -489,16 +542,16 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     public void addInSubs(changePageSummary aThis) {
         subs.add(aThis);
     }
-     public void addInChagePage(ChagePage ch){
+
+    public void addInChagePage(ChagePage ch) {
         chagePages.add(ch);
     }
-
 
     @Override
     public void chagePage(String pageName) {
         for (ChagePage chagePage : chagePages) {
             chagePage.chagePage(pageName);
-            
+
         }
     }
 

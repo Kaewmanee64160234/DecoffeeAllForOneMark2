@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -222,6 +223,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             int qty = (int) input.getValue(); // Get the Integer value directly
             return String.valueOf(qty);
 
+        }
+    }
+    public class ActionButton extends JButton{
+        public ActionButton(){
+            setContentAreaFilled(false);
+            
         }
     }
 

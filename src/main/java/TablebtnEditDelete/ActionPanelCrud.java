@@ -46,14 +46,14 @@ public class ActionPanelCrud extends javax.swing.JPanel {
         btnEdit = new TablebtnEditDelete.ActionButtonCrud();
         btnDelete = new TablebtnEditDelete.ActionButtonCrud();
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TableCrud/edit.png"))); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TablebtnEditDelete/edit.png"))); // NOI18N
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
             }
         });
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TableCrud/delete.png"))); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TablebtnEditDelete/delete.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

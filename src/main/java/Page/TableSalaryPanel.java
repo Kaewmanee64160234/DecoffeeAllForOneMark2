@@ -44,6 +44,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
     private ArrayList<DialogSSData> dialogSSDatas;
     private String cloaseDialogMessage;
     private boolean dialogOpen = false;
+    private boolean paymentStatusDialogOpen = false;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
@@ -309,17 +310,24 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
     }
 
     private void openPaymentStatusDialog() {
-        ArrayList<SummarySalary> summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PaymentStatus paymentStatus = new PaymentStatus(frame, summarySalarys);
-        paymentStatus.setLocationRelativeTo(this);
-        paymentStatus.setVisible(true);
-        paymentStatus.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                refreshTable();
-            }
-        });
+        // Check if the dialog is already open
+        if (!paymentStatusDialogOpen) {
+            ArrayList<SummarySalary> summarySalarys = summarySalaryService.getSummarySalarysByPaidStatus("N");
+            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+            PaymentStatus paymentStatus = new PaymentStatus(frame, summarySalarys);
+            paymentStatus.setLocationRelativeTo(this);
+            paymentStatus.setVisible(true);
+            paymentStatus.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshTable();
+                    // Reset the flag when the dialog is closed
+                    paymentStatusDialogOpen = false;
+                }
+            });
+
+            paymentStatusDialogOpen = true; // Set the flag to true
+        }
     }
 
     private void refreshTable() {

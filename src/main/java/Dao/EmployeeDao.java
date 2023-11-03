@@ -141,20 +141,28 @@ public class EmployeeDao implements Dao<Employee> {
         return list;
     }
 
-    public List<EmployeeReport> getEmployeeByTotalHour(int limit) {
+    public List<EmployeeReport> getEmployeeByTotalHour(String begin, String end,int limit) {
         ArrayList<EmployeeReport> list = new ArrayList();
         String sql = """
-                SELECT emp.employee_id, emp.employee_name ,sum(cio.cio_total_hour) AS TopEmployee
-                FROM employee emp NATURAL JOIN check_in_out cio
-                GROUP BY emp.employee_id
-                ORDER BY TopEmployee DESC
-                LIMIT ?
+                SELECT emp.employee_id,
+                       emp.employee_name,
+                       strftime('%m-%Y', cio.cio_date) AS MonthYear,
+                       sum(cio.cio_total_hour) AS TopEmployee
+                  FROM employee emp
+                       NATURAL JOIN
+                       check_in_out cio
+                WHERE cio.cio_date BETWEEN ? AND ?
+                 GROUP BY emp.employee_id
+                 ORDER BY TopEmployee DESC
+                 LIMIT ?;
                                          """;
 
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, limit);
+            stmt.setString(1, begin);
+            stmt.setString(2, end);
+            stmt.setInt(3, limit);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -250,6 +258,6 @@ public class EmployeeDao implements Dao<Employee> {
             System.out.println(ex.getMessage());
         }
         return list;
-       
+
     }
 }

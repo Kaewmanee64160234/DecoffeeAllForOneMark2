@@ -37,15 +37,19 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.DefaultFormatter;
@@ -194,9 +198,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     public class QtyCellEditor extends DefaultCellEditor {
 
         private JSpinner input;
-
+        private JTable table;
+        private int row;
+        private RecieptDetail item;
         public QtyCellEditor() {
-            super(new JTextField());
+            super(new JCheckBox());
             input = new JSpinner();
             SpinnerNumberModel numberModel = (SpinnerNumberModel) input.getModel();
             numberModel.setMinimum(1);
@@ -204,11 +210,17 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             DefaultFormatter formatter = (DefaultFormatter) editor.getTextField().getFormatter();
             formatter.setCommitsOnValidEdit(true);
             editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+            input.addChangeListener((ChangeEvent e) -> {
+                inputChange();
+            });
         }
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             super.getTableCellEditorComponent(table, value, isSelected, row, column);
+            this.table = table;
+            this.row = row;
+            this.item = (RecieptDetail)table.getValueAt(row, 0);
             int qty = Integer.parseInt(value.toString());
             input.setValue(qty);
             return input;
@@ -218,6 +230,15 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         public Object getCellEditorValue() {
             return input.getValue();
 
+        }
+        private void inputChange(){
+            int qty = Integer.parseInt(input.getValue().toString());
+            if(qty!=item.getQty()){
+                DecimalFormat df = new DecimalFormat();
+                item.setQty(qty);
+                item.setTotal(item.getPrice()*qty);
+                table.setValueAt(df.format(item.getTotal()), row, 7);
+            }
         }
     }
 
@@ -663,11 +684,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
-        btnFood.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFoodActionPerformed(evt);
-            }
-        });
+        
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -745,11 +762,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnAddMemberMouseClicked(evt);
             }
         });
-        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMemberActionPerformed(evt);
-            }
-        });
+       
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");

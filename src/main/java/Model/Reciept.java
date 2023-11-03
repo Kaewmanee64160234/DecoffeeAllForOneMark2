@@ -310,8 +310,9 @@ public class Reciept {
     public void calculateTotal() {
         int total_qty = 0;
         float total = 0.0f;
+        System.out.println("-------------xxxxx--------------");
         for (RecieptDetail rd : recieptDetails) {
-
+            System.out.println(rd.toString());
             total += rd.getProductPrice();
             total += rd.getToppingPrice();
             total += rd.getTypePrice();
@@ -321,6 +322,8 @@ public class Reciept {
 
             total_qty += rd.getQty();
         }
+                System.out.println("-------------xxx--------------");
+
         this.total = total;
         this.totalQTY = total_qty;
     }

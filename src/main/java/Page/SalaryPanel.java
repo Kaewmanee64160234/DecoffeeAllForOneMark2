@@ -220,7 +220,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         };
         tblTopEmployee.setModel(model3);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -237,17 +236,17 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblSalary = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        btnHistory = new javax.swing.JButton();
-        btnPrint = new javax.swing.JButton();
-        btnPaymentHistory = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         lblStartDate = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
         lblEndDate = new javax.swing.JLabel();
         pnlDatePicker2 = new javax.swing.JPanel();
         btnComfirm = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        btnHistory = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
+        btnPaymentHistory = new javax.swing.JButton();
 
         pnlNavigation2.setBackground(new java.awt.Color(213, 208, 189));
 
@@ -280,11 +279,27 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         ));
         jScrollPane4.setViewportView(tblSalary);
 
+        jLabel4.setText("TopGoodEmployee");
+
         jLabel5.setText("SalaryTable");
 
-<<<<<<< HEAD
-        jLabel4.setText("TopGoodEmployee");
-=======
+        lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        lblStartDate.setText("Start Date:");
+
+        lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        lblEndDate.setText("End Date:");
+
+        btnComfirm.setBackground(new java.awt.Color(170, 183, 173));
+        btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
+        btnComfirm.setText("Confirm");
+        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnComfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComfirmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlNavigation2Layout = new javax.swing.GroupLayout(pnlNavigation2);
         pnlNavigation2.setLayout(pnlNavigation2Layout);
         pnlNavigation2Layout.setHorizontalGroup(
@@ -292,14 +307,25 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(pnlNavigation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4))
+                    .addComponent(jScrollPane4)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
+                        .addGap(0, 47, Short.MAX_VALUE)
+                        .addComponent(lblStartDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblEndDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlNavigation2Layout.setVerticalGroup(
@@ -307,17 +333,26 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(8, 8, 8)
-                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnComfirm)
+                            .addComponent(lblEndDate)
+                            .addComponent(lblStartDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4))
+                    .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
->>>>>>> bca931fc8e53c5f3b0abd99539c1159e7f3886df
 
         jPanel3.setBackground(new java.awt.Color(166, 190, 178));
 
@@ -369,110 +404,19 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblStartDate.setText("Start Date:");
-
-        lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblEndDate.setText("End Date:");
-
-        btnComfirm.setBackground(new java.awt.Color(170, 183, 173));
-        btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
-        btnComfirm.setText("Confirm");
-        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnComfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnComfirmActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlNavigation2Layout = new javax.swing.GroupLayout(pnlNavigation2);
-        pnlNavigation2.setLayout(pnlNavigation2Layout);
-        pnlNavigation2Layout.setHorizontalGroup(
-            pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
-            .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(lblStartDate)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(lblEndDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
-                .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(276, Short.MAX_VALUE))
-        );
-        pnlNavigation2Layout.setVerticalGroup(
-            pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnComfirm)
-                            .addComponent(lblStartDate)
-                            .addComponent(lblEndDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                            .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlNavigation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-=======
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
->>>>>>> bca931fc8e53c5f3b0abd99539c1159e7f3886df
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-<<<<<<< HEAD
-                .addComponent(pnlNavigation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-=======
                 .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> bca931fc8e53c5f3b0abd99539c1159e7f3886df
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -502,7 +446,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     }//GEN-LAST:event_btnPaymentHistoryActionPerformed
 
     private void btnComfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComfirmActionPerformed
-        String pattern = "yyyy-MM-dd";
+
+      String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
         System.out.println("" + formater.format(model1.getValue()) + " " + formater.format(model2.getValue()));
         String begin = formater.format(model1.getValue());
@@ -544,16 +489,16 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     public void addInSubs(changePageSummary aThis) {
         subs.add(aThis);
     }
-
-    public void addInChagePage(ChagePage ch) {
+     public void addInChagePage(ChagePage ch){
         chagePages.add(ch);
     }
+
 
     @Override
     public void chagePage(String pageName) {
         for (ChagePage chagePage : chagePages) {
             chagePage.chagePage(pageName);
-
+            
         }
     }
 

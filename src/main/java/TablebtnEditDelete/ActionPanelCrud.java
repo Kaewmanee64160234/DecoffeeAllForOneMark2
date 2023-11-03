@@ -54,14 +54,13 @@ public class ActionPanelCrud extends javax.swing.JPanel {
         });
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TablebtnEditDelete/delete.png"))); // NOI18N
-<<<<<<< HEAD
+
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
-=======
->>>>>>> bca931fc8e53c5f3b0abd99539c1159e7f3886df
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

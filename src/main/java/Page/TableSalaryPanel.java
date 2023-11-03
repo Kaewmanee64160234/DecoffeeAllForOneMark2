@@ -43,6 +43,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
     private ArrayList<ChagePage> chagePages;
     private ArrayList<DialogSSData> dialogSSDatas;
     private String cloaseDialogMessage;
+    private boolean dialogOpen = false;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
@@ -277,27 +278,34 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
 
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
-        printSlipDialog.setLocationRelativeTo(this);
-        printSlipDialog.setVisible(true);
-        printSlipDialog.addIndialogMessage(this);
-        printSlipDialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                refreshTable();
-                System.out.println(cioList);
-                if (cloaseDialogMessage.equals("create")) {
 
-                    System.out.println("-------in-5----------");
-                    summarySalary = summarySalaryService.getSalaryLastCreated();
-                    summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
-                    summarySalary.setEmployee(employee);
-                    System.out.println(summarySalary.toString());
-                    opendialogSlip(summarySalary, employee);
+// Check if the dialog is already open
+        if (!dialogOpen) {
+            PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
+            printSlipDialog.setLocationRelativeTo(this);
+            printSlipDialog.setVisible(true);
+            printSlipDialog.addIndialogMessage(this);
+            dialogOpen = true; // Set the flag to true
+
+            printSlipDialog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshTable();
+                    System.out.println(cioList);
+                    if (cloaseDialogMessage.equals("create")) {
+                        System.out.println("-------in-5----------");
+                        summarySalary = summarySalaryService.getSalaryLastCreated();
+                        summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
+                        summarySalary.setEmployee(employee);
+                        System.out.println(summarySalary.toString());
+                        opendialogSlip(summarySalary, employee);
+                    }
+
+                    // Reset the flag when the dialog is closed
+                    dialogOpen = false;
                 }
-
-            }
-        });
+            });
+        }
     }
 
     private void openPaymentStatusDialog() {

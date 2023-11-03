@@ -9,6 +9,7 @@ import Page.BuyStockPanel;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
 import Page.HistoryCheckStockPanel;
+import Page.HistoryOrderPanel;
 import Page.SalaryPanel;
 import java.awt.Component;
 
@@ -17,6 +18,8 @@ import java.awt.Component;
  * @author Chaiwat
  */
 public class TestBuyStock extends javax.swing.JFrame {
+
+    private Component HistoryOrderPanel;
 
     /**
      * Creates new form TestBuyStock
@@ -28,9 +31,10 @@ public class TestBuyStock extends javax.swing.JFrame {
 //        BuyStockPanel panelTest = new BuyStockPanel(employee);
 //        scrPanel.setViewportView(panelTest);
         
-        Employee employee = new Employee(); 
-        SalaryPanel panelTest = new SalaryPanel();
-        scrPanel.setViewportView(panelTest);
+
+       Employee employee = new Employee(); 
+       SalaryPanel panelTest = new SalaryPanel();
+    scrPanel.setViewportView(HistoryOrderPanel);
 
     }
 

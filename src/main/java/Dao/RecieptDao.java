@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import Model.HistoryOrderReport;
 import Model.Reciept;
 import Model.RecieptReport;
 import helper.DatabaseHelper;
@@ -128,6 +129,61 @@ public class RecieptDao implements Dao<Reciept> {
 
             while (rs.next()) {
                 RecieptReport obj = RecieptReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<HistoryOrderReport> getRecieptHistory(String being, String end) {
+        ArrayList<HistoryOrderReport> list = new ArrayList();
+        String sql = """ 
+                SELECT reciept_id,
+                     strftime('%Y-%m-%d', create_date) AS created_date,
+                     sum(reciept_total) AS Total
+                FROM reciept
+                WHERE create_date BETWEEN ? AND ?
+                GROUP BY created_date;
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, being);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                HistoryOrderReport obj = HistoryOrderReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<HistoryOrderReport> getRecieptHistory() {
+        ArrayList<HistoryOrderReport> list = new ArrayList();
+        String sql = """ 
+                SELECT reciept_id,
+                       create_date,
+                       reciept_total
+                 FROM reciept
+                 WHERE create_date BETWEEN ? AND ?;
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                HistoryOrderReport obj = HistoryOrderReport.fromRS(rs);
                 list.add(obj);
 
             }

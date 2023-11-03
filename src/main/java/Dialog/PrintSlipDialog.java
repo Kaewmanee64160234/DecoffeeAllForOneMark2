@@ -4,6 +4,8 @@
  */
 package Dialog;
 
+import Component.ChagePage;
+import Component.DialogSSData;
 import Model.Checkinout;
 import Model.Employee;
 import Model.SummarySalary;
@@ -20,13 +22,16 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class PrintSlipDialog extends javax.swing.JDialog {
+public class PrintSlipDialog extends javax.swing.JDialog implements DialogSSData{
 
     private SummarySalary summarySalary;
     private Employee employee;
     private CheckinoutService checkinoutService;
     private SummarySalaryService summarySalaryService;
     private ArrayList<Checkinout> cioList;
+     private ArrayList<ChagePage> chagePages;
+         private ArrayList<DialogSSData> dialogSSDatas = new ArrayList<>();
+
 
     /**
      * Creates new form PrintSlipDialog
@@ -209,12 +214,14 @@ public class PrintSlipDialog extends javax.swing.JDialog {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
+        dialogSSData("close");
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if (checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId()).size() > 0) {
             summarySalaryService.addNewSalary(employee.getId(), summarySalary);
             JOptionPane.showMessageDialog(this, "Create Summary Salary complete");
+            dialogSSData("create");
             dispose();
         }else{
              JOptionPane.showMessageDialog(this, "Don't have Time to create.");
@@ -265,6 +272,9 @@ public class PrintSlipDialog extends javax.swing.JDialog {
             }
         });
     }
+    public void addIndialogMessage(DialogSSData dialogSSData){
+        dialogSSDatas.add(dialogSSData);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -275,4 +285,12 @@ public class PrintSlipDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblName;
     private javax.swing.JTable tblPayment;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void dialogSSData(String data) {
+        for (DialogSSData dialogSSData : dialogSSDatas) {
+            dialogSSData.dialogSSData(data);
+            
+        }
+    }
 }

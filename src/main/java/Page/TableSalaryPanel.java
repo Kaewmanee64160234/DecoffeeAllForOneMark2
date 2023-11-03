@@ -26,7 +26,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage,DialogSSData {
+public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, DialogSSData {
 
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -42,10 +42,12 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage,Di
     private SummarySalary summarySalary;
     private ArrayList<ChagePage> chagePages;
     private ArrayList<DialogSSData> dialogSSDatas;
+    private String cloaseDialogMessage;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
         chagePages = new ArrayList<>();
+        cloaseDialogMessage = "";
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         this.employee = employee;
         this.cioList = new ArrayList<>();
@@ -269,20 +271,24 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage,Di
     private void btnConfirm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirm1ActionPerformed
 
     }//GEN-LAST:event_btnConfirm1ActionPerformed
-public void addInDialog(DialogSSData das){
-    dialogSSDatas.add(das);
-}
+    public void addInDialog(DialogSSData das) {
+        dialogSSDatas.add(das);
+    }
+
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
         printSlipDialog.setLocationRelativeTo(this);
         printSlipDialog.setVisible(true);
+        printSlipDialog.addIndialogMessage(this);
         printSlipDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
                 System.out.println(cioList);
-                if (checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId()).size() > 0) {
+                if (cloaseDialogMessage.equals("create")) {
+
+                    System.out.println("-------in-5----------");
                     summarySalary = summarySalaryService.getSalaryLastCreated();
                     summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
                     summarySalary.setEmployee(employee);
@@ -353,9 +359,7 @@ public void addInDialog(DialogSSData das){
 
     @Override
     public void dialogSSData(String data) {
-        for (DialogSSData dialogSSData : dialogSSDatas) {
-            dialogSSData.dialogSSData(data);
-            
-        }
+        this.cloaseDialogMessage = data;
+        System.out.println(data);
     }
 }

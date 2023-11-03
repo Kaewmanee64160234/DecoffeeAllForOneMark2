@@ -69,7 +69,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         scrProductList.setViewportView(productListPanel);
         recieptService = new RecieptService();
         customerService = new CustomerService();
-        btnCash.setEnabled(false);
         reciept = new Reciept();
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         addMemberDialog = new AddCustomerDialog(frame);
@@ -850,8 +849,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblChange.setText("0");
         payment = "QR";
         reciept.setPayment(payment);
-        btnPromtpay.setEnabled(false);
-        btnCash.setEnabled(true);
+        btnCash.setEnabled(false);
     }//GEN-LAST:event_btnPromtpayActionPerformed
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatorActionPerformed
@@ -879,12 +877,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         reciept.setPayment(payment);
         lblChange.setText("" + total);
         btnCash.setEnabled(true);
+        btnPromtpay.setEnabled(true);
     }//GEN-LAST:event_btnCalculatorActionPerformed
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
-
-        btnCash.setEnabled(false);
-        btnPromtpay.setEnabled(true);
+        btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCashActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
@@ -900,7 +897,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         reciept = new Reciept();
-        btnCash.setEnabled(false);
+        btnCash.setEnabled(true);
         btnPromtpay.setEnabled(true);
         btnCalculator.setEnabled(true);
         resetPOSLable();

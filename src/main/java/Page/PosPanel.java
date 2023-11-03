@@ -1222,7 +1222,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
         lblTotal.setText(reciept.getTotal() + "");
         lblTotalNet.setText(totalNet + "");
-        System.out.println(reciept.getTotal());
+
     }
 
     private void validateNotCusUsePromotion(Promotion promotion1) {

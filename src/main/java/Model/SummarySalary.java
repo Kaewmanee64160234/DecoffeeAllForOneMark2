@@ -29,6 +29,9 @@ public class SummarySalary {
     private String startDate;
     private String endDate;
 
+    private float TotalPaid;
+    private String MonthYear;
+
     public SummarySalary(int id, String date, int totalHour, double salary, String paidStatus) {
         this.id = id;
         this.date = date;
@@ -52,6 +55,13 @@ public class SummarySalary {
         this.totalHour = 0;
         this.salary = 0;
         this.paidStatus = "N";
+        this.TotalPaid = 0;
+        this.MonthYear = "";
+    }
+
+    public SummarySalary(float TotalPaid, String MonthYear) {
+        this.TotalPaid = TotalPaid;
+        this.MonthYear = MonthYear;
     }
 
     public Employee getEmployee() {
@@ -118,18 +128,36 @@ public class SummarySalary {
         this.endDate = endDate;
     }
 
+    public float getTotalPaid() {
+        return TotalPaid;
+    }
+
+    public void setTotalPaid(float TotalPaid) {
+        this.TotalPaid = TotalPaid;
+    }
+
+    public String getMonthYear() {
+        return MonthYear;
+    }
+
+    public void setMonthYear(String MonthYear) {
+        this.MonthYear = MonthYear;
+    }
+
     @Override
     public String toString() {
         return "SummarySalary{" + "id=" + id + ", date=" + date + ", totalHour=" + totalHour + ", salary=" + salary
                 + ", paidStatus=" + paidStatus + ", checkins=" + checkins + ", employee=" + employee + '}';
     }
-    
-     public String printSummaryReciept() {
+
+    public String printSummaryReciept() {
         return "SummarySalary{" + startDate + " - " + endDate + ", totalHour=" + totalHour + ", salary=" + salary
                 + '}';
     }
-    
-    
+
+    public String SummaryReport() {
+        return "SummarySalary{" + " MonthYear=" + MonthYear + ", TotalPaid=" + TotalPaid + '}';
+    }
 
     public ArrayList<Checkinout> getCheckins() {
         return checkins;
@@ -155,7 +183,7 @@ public class SummarySalary {
         return null;
     }
 
-    public static SummarySalary fromRSToPrintSummarySalary(ResultSet rs){
+    public static SummarySalary fromRSToPrintSummarySalary(ResultSet rs) {
         try {
             SummarySalary summarySalary = new SummarySalary();
             summarySalary.setId(rs.getInt("ss_id"));
@@ -164,22 +192,22 @@ public class SummarySalary {
             summarySalary.setTotalHour(rs.getInt("totalHour"));
             summarySalary.setSalary(rs.getDouble("salary"));
 
-
             return summarySalary;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         return null;
     }
-     public static SummarySalary fromRSCondition(ResultSet rs) {
+
+    public static SummarySalary fromRSCondition(ResultSet rs) {
         try {
-           
+
             SummarySalary summarySalary = new SummarySalary();
             summarySalary.setId(rs.getInt("ss_id"));
             summarySalary.setDate(rs.getString("ss_date"));
             summarySalary.setTotalHour(rs.getInt("ss_work_hour"));
             summarySalary.setSalary(rs.getDouble("ss_salary"));
-            summarySalary.setPaidStatus(rs.getString("ss_paid_status"));          
+            summarySalary.setPaidStatus(rs.getString("ss_paid_status"));
             EmployeeService employeeService = new EmployeeService();
             Employee employee = employeeService.getById(rs.getInt("employee_id"));
             summarySalary.setEmployee(employee);
@@ -192,10 +220,22 @@ public class SummarySalary {
         return null;
     }
 
+    public static SummarySalary fromRSReport(ResultSet rs) {
+        SummarySalary summarySalary = new SummarySalary();
+        try {
+            summarySalary.setMonthYear(rs.getString("MonthYear"));
+            summarySalary.setTotalPaid(rs.getFloat("TotalPaid"));
+            // summarySalary.setCheckins(rs.get);
+            return summarySalary;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+
+
     public SummarySalary get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
-  
 }

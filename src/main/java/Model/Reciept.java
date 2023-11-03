@@ -313,14 +313,14 @@ public class Reciept {
         System.out.println("-------------xxxxx--------------");
         for (RecieptDetail rd : recieptDetails) {
             System.out.println(rd.toString());
-//            total += rd.getProductPrice();
-//            total += rd.getToppingPrice();
-//            total += rd.getTypePrice();
-//            total += rd.getSizePrice();
-//            total += rd.getSweetPrice();
-//            total  = total*rd.getQty();
-//
-//            total_qty += rd.getQty();
+            total += rd.getProductPrice();
+            total += rd.getToppingPrice();
+            total += rd.getTypePrice();
+            total += rd.getSizePrice();
+            total += rd.getSweetPrice();
+            total  = total*rd.getQty();
+
+            total_qty += rd.getQty();
         }
                 System.out.println("-------------xxx--------------");
 

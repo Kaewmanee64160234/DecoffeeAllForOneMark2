@@ -55,13 +55,13 @@ public class SummarySalary {
         this.totalHour = 0;
         this.salary = 0;
         this.paidStatus = "N";
-        this.TotalPaid = 0;
         this.MonthYear = "";
+        this.TotalPaid = 0;
     }
 
-    public SummarySalary(float TotalPaid, String MonthYear) {
-        this.TotalPaid = TotalPaid;
+    public SummarySalary(String MonthYear, float TotalPaid) {
         this.MonthYear = MonthYear;
+        this.TotalPaid = TotalPaid;
     }
 
     public Employee getEmployee() {
@@ -155,7 +155,7 @@ public class SummarySalary {
                 + '}';
     }
 
-    public String SummaryReport() {
+    public String summaryReport() {
         return "SummarySalary{" + " MonthYear=" + MonthYear + ", TotalPaid=" + TotalPaid + '}';
     }
 
@@ -221,8 +221,8 @@ public class SummarySalary {
     }
 
     public static SummarySalary fromRSReport(ResultSet rs) {
-        SummarySalary summarySalary = new SummarySalary();
         try {
+            SummarySalary summarySalary = new SummarySalary();
             summarySalary.setMonthYear(rs.getString("MonthYear"));
             summarySalary.setTotalPaid(rs.getFloat("TotalPaid"));
             // summarySalary.setCheckins(rs.get);
@@ -232,7 +232,6 @@ public class SummarySalary {
         }
         return null;
     }
-
 
     public SummarySalary get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

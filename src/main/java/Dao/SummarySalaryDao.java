@@ -10,6 +10,7 @@ import helper.DatabaseHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,6 +235,40 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
             }
 
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return summaryList;
+    }
+
+    public ArrayList<SummarySalary> getSummarySalaryByTotalPaid(String begin, String end) {
+        ArrayList<SummarySalary> summaryList = new ArrayList();
+        String sql = """
+                      SELECT   strftime('%m-%Y', ss.ss_date) AS MonthYear,
+                                sum(ss.ss_salary) AS TotalPaid
+                                FROM 
+                                summary_salary ss
+                                WHERE 
+                                ss.ss_date BETWEEN ? AND ?
+                                GROUP BY  
+                                MonthYear
+                                ORDER BY 
+                                TotalPaid DESC;
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, begin);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                SummarySalary summary = SummarySalary.fromRSReport(rs);
+                summaryList.add(summary);
+
+            }
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
         }

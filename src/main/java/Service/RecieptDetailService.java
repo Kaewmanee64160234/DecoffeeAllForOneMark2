@@ -11,11 +11,11 @@ public class RecieptDetailService {
         return recieptDetailDao.get(id);
     }
 
-//         public List<RecieptDetail> getRecieptDetailForDate(String date){
-//       RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
-//       return recieptDetailDao.getRecieptDetailForDate(date);
-//   }
-    
+    public List<RecieptDetail> getRecieptDetailForDate(String date) {
+        RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
+        return recieptDetailDao.getRecieptDetailForDate(date);
+    }
+
     public List<RecieptDetail> getRecieptDetails() {
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
         return recieptDetailDao.getAll(" reciept_detail_id asc");

@@ -2,10 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package TableCrud;
-
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
+package TableColor;
 
 /**
  *
@@ -18,50 +15,6 @@ public class Test extends javax.swing.JFrame {
      */
     public Test() {
         initComponents();
-        TableActionEvent event = new TableActionEvent() {
-            @Override
-            public void onEdit(int row) {
-                System.out.println("Edit row: " + row);
-            }
-
-            @Override
-            public void onDelete(int row) {
-                if (tbl.isEditing()) {
-                    tbl.getCellEditor().stopCellEditing();
-                }
-                DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-                model.removeRow(row);
-            }
-        };
-        tbl.setModel(new AbstractTableModel() {
-            @Override
-            public int getRowCount() {
-                return 3;
-            }
-
-            @Override
-            public int getColumnCount() {
-                return 4;
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-               return "";
-            }
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                if(columnIndex==3) {
-                    return true;
-                }
-                return false;
-                
-            }
-            
-        });
-        tbl.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRenderer());
-        tbl.getColumnModel().getColumn(3).setCellEditor(new TableActionCellEditor(event));
-                
     }
 
     /**
@@ -74,11 +27,11 @@ public class Test extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl = new javax.swing.JTable();
+        tableRenderer = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tbl.setModel(new javax.swing.table.DefaultTableModel(
+        tableRenderer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -86,20 +39,10 @@ public class Test extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Tel", "Action"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbl.setRowHeight(60);
-        tbl.setSelectionBackground(new java.awt.Color(222, 207, 178));
-        jScrollPane1.setViewportView(tbl);
+        ));
+        jScrollPane1.setViewportView(tableRenderer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,8 +50,8 @@ public class Test extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +101,6 @@ public class Test extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbl;
+    private javax.swing.JTable tableRenderer;
     // End of variables declaration//GEN-END:variables
 }

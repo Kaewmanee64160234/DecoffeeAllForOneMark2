@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package TableCrud;
+package TablebtnEditDelete;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package TableCrud;
+package TablebtnEditDelete;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,8 +43,8 @@ public class ActionPanelCrud extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEdit = new TableCrud.ActionButtonCrud();
-        btnDelete = new TableCrud.ActionButtonCrud();
+        btnEdit = new TablebtnEditDelete.ActionButtonCrud();
+        btnDelete = new TablebtnEditDelete.ActionButtonCrud();
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TableCrud/edit.png"))); // NOI18N
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +83,7 @@ public class ActionPanelCrud extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private TableCrud.ActionButtonCrud btnDelete;
-    private TableCrud.ActionButtonCrud btnEdit;
+    private TablebtnEditDelete.ActionButtonCrud btnDelete;
+    private TablebtnEditDelete.ActionButtonCrud btnEdit;
     // End of variables declaration//GEN-END:variables
 }

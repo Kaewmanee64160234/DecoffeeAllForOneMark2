@@ -4,12 +4,12 @@
  */
 package Page;
 
-import TableCrud.TableActionCellRenderer;
+import TablebtnEditDelete.TableActionCellRenderer;
 import Dialog.UserDialog;
 import Model.User;
 import Service.UserService;
-import TableCrud.TableActionCellEditor;
-import TableCrud.TableActionEvent;
+import TablebtnEditDelete.TableActionCellEditor;
+import TablebtnEditDelete.TableActionEvent;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;

@@ -34,7 +34,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="TableCrud.ActionButtonCrud" name="btnEdit">
+    <Component class="TablebtnEditDelete.ActionButtonCrud" name="btnEdit">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/selectInTable/eye.png"/>

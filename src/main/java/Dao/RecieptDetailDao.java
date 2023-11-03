@@ -203,4 +203,29 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         }
     }
 
+    public List<RecieptDetail> getRecieptDetailForDate(String selectedDate) {
+        ArrayList<RecieptDetail> list = new ArrayList();
+        String sql = """ 
+                SELECT rd.*
+                FROM reciept_detail rd
+                     JOIN
+                     reciept r ON r.reciept_id = rd.reciept_id
+                WHERE r.create_date = ?;
+                                 """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, selectedDate);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RecieptDetail obj = RecieptDetail.fromRS(rs);
+                list.add(obj);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
 }

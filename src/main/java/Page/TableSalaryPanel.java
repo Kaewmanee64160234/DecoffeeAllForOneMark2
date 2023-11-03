@@ -5,6 +5,7 @@
 package Page;
 
 import Component.ChagePage;
+import Component.DialogSSData;
 import Dialog.PaymentSlipDialog;
 import Dialog.PaymentStatus;
 import Dialog.PrintSlipDialog;
@@ -25,7 +26,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
+public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage,DialogSSData {
 
     static void setVisible() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -40,6 +41,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     private ArrayList<Checkinout> cioList;
     private SummarySalary summarySalary;
     private ArrayList<ChagePage> chagePages;
+    private ArrayList<DialogSSData> dialogSSDatas;
 
     public TableSalaryPanel(Employee employee) {
         initComponents();
@@ -267,7 +269,9 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     private void btnConfirm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirm1ActionPerformed
 
     }//GEN-LAST:event_btnConfirm1ActionPerformed
-
+public void addInDialog(DialogSSData das){
+    dialogSSDatas.add(das);
+}
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
@@ -278,12 +282,13 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
             public void windowClosed(WindowEvent e) {
                 refreshTable();
                 System.out.println(cioList);
-
-                summarySalary = summarySalaryService.getSalaryLastCreated();
-                summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
-                summarySalary.setEmployee(employee);
-                System.out.println(summarySalary.toString());
-                opendialogSlip(summarySalary, employee);
+                if (checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId()).size() > 0) {
+                    summarySalary = summarySalaryService.getSalaryLastCreated();
+                    summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
+                    summarySalary.setEmployee(employee);
+                    System.out.println(summarySalary.toString());
+                    opendialogSlip(summarySalary, employee);
+                }
 
             }
         });
@@ -343,6 +348,14 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage {
     public void chagePage(String pageName) {
         for (ChagePage ch : chagePages) {
             ch.chagePage(pageName);
+        }
+    }
+
+    @Override
+    public void dialogSSData(String data) {
+        for (DialogSSData dialogSSData : dialogSSDatas) {
+            dialogSSData.dialogSSData(data);
+            
         }
     }
 }

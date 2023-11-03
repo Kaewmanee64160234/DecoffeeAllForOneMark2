@@ -9,6 +9,7 @@ import Page.BuyStockPanel;
 import Page.BuyStockPanel;
 import Page.CheckStockPanel;
 import Page.HistoryCheckStockPanel;
+import Page.SalaryPanel;
 import java.awt.Component;
 
 /**
@@ -23,8 +24,12 @@ public class TestBuyStock extends javax.swing.JFrame {
     public TestBuyStock() {
         initComponents();
 
+//        Employee employee = new Employee(); 
+//        BuyStockPanel panelTest = new BuyStockPanel(employee);
+//        scrPanel.setViewportView(panelTest);
+        
         Employee employee = new Employee(); 
-        BuyStockPanel panelTest = new BuyStockPanel(employee);
+        SalaryPanel panelTest = new SalaryPanel();
         scrPanel.setViewportView(panelTest);
 
     }

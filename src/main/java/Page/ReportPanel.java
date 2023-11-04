@@ -7,6 +7,7 @@ package Page;
 import Model.CustomerReport;
 import Model.MaterialReport;
 import Model.RecieptDetailReport;
+import Model.RecieptDetailWorstProduct;
 import Model.RecieptReport;
 import Service.CustomerService;
 import Service.MaterialService;
@@ -35,15 +36,21 @@ public class ReportPanel extends javax.swing.JPanel {
 
     private final CustomerService customerService;
     private final List<CustomerReport> customerList;
-    private AbstractTableModel model;
     private final MaterialService materialService;
     private final List<MaterialReport> materialList;
-    private AbstractTableModel model2;
     private final RecieptService recieptDetailService;
+
     private final List<RecieptDetailReport> recieptDetailList;
+    private final List<RecieptDetailWorstProduct> recieptDetailList2;
+
+    private AbstractTableModel model;
+    private AbstractTableModel model2;
     private AbstractTableModel model3;
+    private AbstractTableModel model6;
+
     private UtilDateModel model4;
     private UtilDateModel model5;
+
     private DefaultCategoryDataset barDataset;
     private List<RecieptReport> reciept;
 
@@ -58,14 +65,18 @@ public class ReportPanel extends javax.swing.JPanel {
         materialList = materialService.getMaterialByMinQty();
         recieptDetailService = new RecieptService();
         recieptDetailList = recieptDetailService.getTopTenProductSale();
+        recieptDetailList2 = recieptDetailService.getTopFiveWorstSellingProducts();
 
         reciept = new ArrayList<>();
         initTableCustomer();
         initTableMaterial();
         initTableTopSeller();
+        initTableWorstProduct();
+
         initDatePicker();
         initBarChart();
         loadBarDataset();
+
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
@@ -100,7 +111,7 @@ public class ReportPanel extends javax.swing.JPanel {
     private void loadBarDataset() {
         barDataset.clear();
         for (RecieptReport r : reciept) {
-            System.out.println("MonthYear: " + r.getMonthYear() + ", TotalSale: " + r.getTotalSale()); 
+            System.out.println("MonthYear: " + r.getMonthYear() + ", TotalSale: " + r.getTotalSale());
             barDataset.addValue(r.getTotalSale(), "Income", r.getMonthYear());
         }
     }
@@ -165,6 +176,44 @@ public class ReportPanel extends javax.swing.JPanel {
         tblTopSeller.setModel(model3);
     }
 
+    private void initTableWorstProduct() {
+        model6 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "TotalQty"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return recieptDetailList2.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                RecieptDetailWorstProduct recieptDetail2 = recieptDetailList2.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail2.getId();
+                    case 1:
+                        return recieptDetail2.getName();
+                    case 2:
+                        return recieptDetail2.getTotalQty();
+                    default:
+                        return "";
+                }
+            }
+        };
+        tblWorstProduct.setModel(model6);
+
+    }
+
     private void initTableMaterial() {
         model2 = new AbstractTableModel() {
             String[] colNames = {"ID", "Name", "Quantity"};
@@ -200,7 +249,7 @@ public class ReportPanel extends javax.swing.JPanel {
                 }
             }
         };
-        btnWorstProduct.setModel(model2);
+        tblProductOutStock1.setModel(model2);
     }
 
     private void initTableCustomer() {
@@ -263,7 +312,7 @@ public class ReportPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTopSeller = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        btnWorstProduct = new javax.swing.JTable();
+        tblWorstProduct = new javax.swing.JTable();
         lblTopCustomer = new javax.swing.JLabel();
         lblTopSeller = new javax.swing.JLabel();
         lblProductOutstock = new javax.swing.JLabel();
@@ -342,7 +391,7 @@ public class ReportPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblTopSeller);
 
-        btnWorstProduct.setModel(new javax.swing.table.DefaultTableModel(
+        tblWorstProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -353,7 +402,7 @@ public class ReportPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(btnWorstProduct);
+        jScrollPane3.setViewportView(tblWorstProduct);
 
         lblTopCustomer.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblTopCustomer.setText("Top 5 Customer");
@@ -497,7 +546,6 @@ public class ReportPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComfirm;
-    private javax.swing.JTable btnWorstProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -518,5 +566,6 @@ public class ReportPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblProductOutStock1;
     private javax.swing.JTable tblTopCustomer;
     private javax.swing.JTable tblTopSeller;
+    private javax.swing.JTable tblWorstProduct;
     // End of variables declaration//GEN-END:variables
 }

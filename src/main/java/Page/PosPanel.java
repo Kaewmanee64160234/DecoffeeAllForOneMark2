@@ -112,9 +112,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 if (tblRecieptDetail.isEditing()) {
                     tblRecieptDetail.getCellEditor().stopCellEditing();
                 }
-//                model = tblRecieptDetail.getModel();
-//                model.removeRow(row);
+                reciept.getRecieptDetails().remove(row);
                 refreshTable();
+                resetPOSLableByList();
                 System.out.println("This is row: " + row);
             }
         };
@@ -123,13 +123,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.setRowHeight(50);
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total", "Action"};
-
-            public void removeRow(int rowIndex) {
-                if (rowIndex >= 0 && rowIndex < reciept.getRecieptDetails().size()) {
-                    reciept.getRecieptDetails().remove(rowIndex);
-                    fireTableRowsDeleted(rowIndex, rowIndex);
-                }
-            }
 
             @Override
             public String getColumnName(int column) {
@@ -219,7 +212,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         });
 
     }
-
 
     public class QtyCellEditor extends DefaultCellEditor {
 
@@ -1034,6 +1026,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblTotalNet.setText("0");
         lblCash.setText("0");
         lblChange.setText("0");
+    }
+
+    private void resetPOSLableByList() {
+        reciept.calculateTotal();
+        lblTotal.setText(reciept.getTotal() + "");
+        lblTotalNet.setText(reciept.getTotal() + "");
+        lblChange.setText(reciept.getChange() + "");
     }
 
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed

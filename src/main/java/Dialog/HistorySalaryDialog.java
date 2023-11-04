@@ -41,7 +41,7 @@ public class HistorySalaryDialog extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         btnPaid = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(183, 202, 219));
+        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
 
         javax.swing.GroupLayout lblPhotoLayout = new javax.swing.GroupLayout(lblPhoto);
         lblPhoto.setLayout(lblPhotoLayout);
@@ -111,7 +111,7 @@ public class HistorySalaryDialog extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblHistorySalary);
 
-        jPanel4.setBackground(new java.awt.Color(183, 202, 219));
+        jPanel4.setBackground(new java.awt.Color(255, 251, 245));
 
         btnPaid.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnPaid.setText("Paid");

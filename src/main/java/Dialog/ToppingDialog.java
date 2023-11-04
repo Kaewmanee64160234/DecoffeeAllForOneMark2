@@ -92,12 +92,13 @@ public class ToppingDialog extends javax.swing.JDialog implements ProductDetailO
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(183, 202, 219));
+        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
 
-        lblImg.setBackground(new java.awt.Color(183, 202, 219));
+        lblImg.setBackground(new java.awt.Color(255, 251, 245));
         lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImg.setOpaque(true);
 
+        lblProductName.setBackground(new java.awt.Color(255, 251, 245));
         lblProductName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblProductName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProductName.setText("Product Name");

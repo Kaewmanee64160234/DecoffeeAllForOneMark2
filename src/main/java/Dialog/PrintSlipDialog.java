@@ -113,7 +113,7 @@ public class PrintSlipDialog extends javax.swing.JDialog implements DialogSSData
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(174, 195, 174));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         lblName.setFont(new java.awt.Font("Kanit", 1, 30)); // NOI18N
         lblName.setText("Payment period");
@@ -135,7 +135,7 @@ public class PrintSlipDialog extends javax.swing.JDialog implements DialogSSData
                 .addGap(16, 16, 16))
         );
 
-        jPanel2.setBackground(new java.awt.Color(228, 228, 208));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         tblPayment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

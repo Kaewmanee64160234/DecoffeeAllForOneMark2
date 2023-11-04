@@ -103,7 +103,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(228, 228, 208));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         txtRent.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
@@ -189,9 +189,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
                                 .addComponent(lblName2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblName3)))
+                            .addComponent(lblName3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -251,7 +249,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                 .addGap(30, 30, 30))
         );
 
-        jPanel3.setBackground(new java.awt.Color(174, 195, 174));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         lblName.setFont(new java.awt.Font("Kanit", 1, 30)); // NOI18N
         lblName.setText("Add a rent bill");

@@ -120,7 +120,7 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(245, 245, 220));
 
-        jPanel3.setBackground(new java.awt.Color(245, 245, 220));
+        jPanel3.setBackground(new java.awt.Color(255, 251, 245));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         jLabel3.setText("Payment Slip");

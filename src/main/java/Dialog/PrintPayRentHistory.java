@@ -91,7 +91,7 @@ public class PrintPayRentHistory extends javax.swing.JDialog implements CodeDial
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(228, 228, 208));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnConfirm.setText("Confirm");
@@ -143,7 +143,7 @@ public class PrintPayRentHistory extends javax.swing.JDialog implements CodeDial
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(174, 195, 174));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         lblName.setFont(new java.awt.Font("Kanit", 1, 30)); // NOI18N
         lblName.setText("Please select the range you want to print.");

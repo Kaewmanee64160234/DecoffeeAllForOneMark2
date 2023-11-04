@@ -116,9 +116,9 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(195, 176, 145));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(195, 176, 145));
 
         lblDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblDate.setText("Date:");
@@ -153,7 +153,7 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
                     .addContainerGap()))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 251, 245));
 
         tblPosPromotion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,7 +168,7 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
         ));
         jScrollPane1.setViewportView(tblPosPromotion);
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel4.setBackground(new java.awt.Color(195, 176, 145));
 
         btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCancel.setText("Cancel");
@@ -218,10 +218,10 @@ public class PosPromotionDialog extends javax.swing.JDialog implements Promotion
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

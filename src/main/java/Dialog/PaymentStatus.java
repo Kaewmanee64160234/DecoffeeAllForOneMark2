@@ -72,7 +72,7 @@ public class PaymentStatus extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(174, 195, 174));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         lblName.setFont(new java.awt.Font("Kanit", 1, 30)); // NOI18N
         lblName.setText("Payment period");
@@ -94,7 +94,7 @@ public class PaymentStatus extends javax.swing.JDialog {
                 .addGap(16, 16, 16))
         );
 
-        jPanel2.setBackground(new java.awt.Color(228, 228, 208));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         lblName1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName1.setText("Update installment payment status.");

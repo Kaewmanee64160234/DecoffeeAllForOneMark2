@@ -106,12 +106,12 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
     public List<RecieptDetailReport> getTopTenProductSale(int limit) {
         ArrayList<RecieptDetailReport> list = new ArrayList();
         String sql = """
-               SELECT product_id,reciept_detail_name, sum(reciept_detail_qty ) AS TotalQty
-               FROM reciept_detail
-               GROUP BY product_id
-               ORDER BY TotalQty DESC, reciept_detail_name ASC
-               LIMIT ?
-                                     """;
+                SELECT product_id,reciept_detail_name, sum(reciept_detail_qty ) AS TotalQty
+                FROM reciept_detail
+                GROUP BY product_id
+                ORDER BY TotalQty DESC, reciept_detail_name ASC
+                LIMIT ?
+                                      """;
 
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -205,7 +205,7 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
 
     public List<RecieptDetail> getRecieptDetailForDate(String selectedDate) {
         ArrayList<RecieptDetail> list = new ArrayList();
-        String sql = """ 
+        String sql = """
                 SELECT rd.*
                 FROM reciept_detail rd
                      JOIN
@@ -227,5 +227,7 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         }
         return list;
     }
+
+    
 
 }

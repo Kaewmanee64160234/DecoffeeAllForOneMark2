@@ -36,4 +36,5 @@ public class RecieptDetailService {
         return recieptDetailDao.delete(editedRecieptDetail);
     }
 
+
 }

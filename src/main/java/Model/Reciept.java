@@ -308,21 +308,28 @@ public class Reciept {
     }
 
     public void calculateTotal() {
+        this.total = 0;
         int total_qty = 0;
-        float total = 0.0f;
+
+        int total_all = 0;
+        float total_ = 0.0f;
         for (RecieptDetail rd : recieptDetails) {
 
-            total += rd.getProductPrice();
-            total += rd.getToppingPrice();
-            total += rd.getTypePrice();
-            total += rd.getSizePrice();
-            total += rd.getSweetPrice();
-            total  = total*rd.getQty();
-
-            total_qty += rd.getQty();
+//            total_ += rd.getProductPrice();
+//            total_ += rd.getToppingPrice();
+//            total_ += rd.getTypePrice();
+//            total_ += rd.getSizePrice();
+//            total_ += rd.getSweetPrice();
+//            System.out.println(total_ + " x " + " " + rd.getQty());
+//            total_ = total_ * rd.getQty();
+//            total_qty += rd.getQty();
+//            total_all += total_;
+//            System.out.println(rd.getName() + " " + rd.getQty());
         }
-        this.total = total;
+        this.total = total_all;
         this.totalQTY = total_qty;
+
+        System.out.println("Perice is" + total_qty);
     }
 
     public void removeReceiptDetail(RecieptDetail receiptDateil) {

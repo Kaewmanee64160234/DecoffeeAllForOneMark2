@@ -33,6 +33,7 @@ import Service.CustomerService;
 import Service.ValidateException;
 import TableCrud.TableActionCellEditor;
 import TableCrud.TableActionCellRenderer;
+import TableCrud.TableActionEvent;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Font;
@@ -51,8 +52,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatter;
 import scrollbar.ScrollBarCustom;
+import selectInTable.TableActionCellRender;
 
 /**
  *
@@ -98,8 +101,19 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }
 
     private void initTable() {
+        deleteInTable.TableActionEvent event = new deleteInTable.TableActionEvent() {
+
+            @Override
+            public void onDelete(int row) {
+                if (tblRecieptDetail.isEditing()) {
+                    tblRecieptDetail.getCellEditor().stopCellEditing();
+                }
+                DefaultTableModel model = (DefaultTableModel) tblRecieptDetail.getModel();
+                model.removeRow(row);
+            }
+        };
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
-        tblRecieptDetail.setRowHeight(40);
+        tblRecieptDetail.setRowHeight(50);
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total", "Action"};
 
@@ -167,6 +181,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         return recieptDetail.getSweet();
                     case 7:
                         return recieptDetail.getTotal();
+                    case 8:
+                        return new TableActionCellRenderer();
                     default:
                         return "";
                 }
@@ -175,6 +191,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.setCellSelectionEnabled(true);
         tblRecieptDetail.setColumnSelectionAllowed(true);
         tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
+        tblRecieptDetail.getColumnModel().getColumn(8).setCellRenderer(new deleteInTable.TableActionCellRenderer());
+        tblRecieptDetail.getColumnModel().getColumn(8).setCellEditor(new deleteInTable.TableActionCellEditor(event));
         tblRecieptDetail.getColumnModel().getColumn(2).setCellEditor(new QtyCellEditor());
         tblRecieptDetail.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -223,12 +241,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             int qty = (int) input.getValue(); // Get the Integer value directly
             return String.valueOf(qty);
 
-        }
-    }
-    public class ActionButton extends JButton{
-        public ActionButton(){
-            setContentAreaFilled(false);
-            
         }
     }
 

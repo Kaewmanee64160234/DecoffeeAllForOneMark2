@@ -59,6 +59,10 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
 
         pnlProductList = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlProductList.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout pnlProductListLayout = new javax.swing.GroupLayout(pnlProductList);
         pnlProductList.setLayout(pnlProductListLayout);
         pnlProductListLayout.setHorizontalGroup(

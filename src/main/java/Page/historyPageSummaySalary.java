@@ -274,13 +274,15 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbStatus, 0, 224, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGo)
+                .addGap(154, 154, 154))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                     .addContainerGap(160, Short.MAX_VALUE)
                     .addComponent(btnClear)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(btnGo)
-                    .addGap(16, 16, 16)))
+                    .addGap(45, 45, 45)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,13 +297,13 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGo)
+                .addGap(17, 17, 17))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                     .addContainerGap(84, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnGo)
-                        .addComponent(btnClear))
+                    .addComponent(btnClear)
                     .addGap(16, 16, 16)))
         );
 
@@ -479,7 +481,13 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             command.add(" ss_date BETWEEN '" + formatter.format(startDate) + "' and '" + formatter.format(stopDate) + "'");
 
         }
-        if (!value.equals("")) {
+        if (value.equals("All") && varName.equals("All")) {
+            summarySalarys = summarySalaryService.getAll();
+            refreshTableGetList();
+            return;
+
+        }
+        if (!value.equals("All")) {
             if (value.equals("Paid")) {
                 command.add("  ss_paid_status='" + "Y" + "' ");
 
@@ -490,7 +498,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             }
 
         }
-        if (!varName.equals("")) {
+        if (!varName.equals("All")) {
             command.add("  employee_name='" + varName + "' ");
 
         }
@@ -503,7 +511,8 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 cons += command.get(i);
             }
 
-        }        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
+        }
+        summarySalarys = summarySalaryService.getAllSummarySalarysByCondition(cons);
         System.out.println(summarySalarys);
         refreshTableGetList();
     }//GEN-LAST:event_btnGoActionPerformed
@@ -525,18 +534,18 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
- 
+
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         int seleted_row = tblSummarySalary.getSelectedRow();
         if (seleted_row != -1) {
             int ss_id = (int) tblSummarySalary.getValueAt(seleted_row, 0);
-            ArrayList<SummarySalary> ss = summarySalaryService.getAllSummarySalarysByCondition("summary_salary.ss_id="+ss_id+" ");
+            ArrayList<SummarySalary> ss = summarySalaryService.getAllSummarySalarysByCondition("summary_salary.ss_id=" + ss_id + " ");
             System.out.println(ss);
             CheckinoutService sioService = new CheckinoutService();
             ArrayList<Checkinout> cck = sioService.getCheckinoutsBySsId(ss_id);
-           ss.get(0).setCheckins(cck);
+            ss.get(0).setCheckins(cck);
             openDialogBillSS(ss.get(0));
 
         }
@@ -592,7 +601,6 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
 
     private void openDialogBillSS(SummarySalary ss) {
         jScrollPane2.setViewportView(new TablePaymentStatusPanel(ss));
-       
 
     }
 }

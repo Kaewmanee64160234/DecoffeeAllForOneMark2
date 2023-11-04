@@ -64,7 +64,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         employee = new Employee();
         employeeService = new EmployeeService();
         list = new ArrayList<Checkinout>();
-        btnCheckOut.enable(false);
         tblCheckInCheckOut.setEnabled(false);
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
@@ -120,6 +119,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             }
 
         });
+        btnCheckOut.setEnabled(false);
         setTimeInLblDate();
     }
 
@@ -385,7 +385,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             setImage(user);
             loginData(user);
             checkinout.setCioTimeIn(formattedTime);
-            checkinout.setCioTimeOut("");
+            checkinout.setCioTimeOut("-");
             checkinout.setCioPaidStatus("N");
             checkinout.setEmployeeId(empID);
             checkinout.setCioTotalHour(0);

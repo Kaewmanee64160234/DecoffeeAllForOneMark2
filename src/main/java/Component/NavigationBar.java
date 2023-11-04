@@ -304,7 +304,9 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         if (response == JOptionPane.YES_OPTION) {
             // User confirmed logout, so exit the application
             System.exit(0);
+            
         }
+        
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed

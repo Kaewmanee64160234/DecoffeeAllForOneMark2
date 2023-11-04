@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author toey
  */
-public class NavigationBar extends javax.swing.JPanel implements ChagePage,LoginObs {
+public class NavigationBar extends javax.swing.JPanel implements ChagePage, LoginObs {
 
     private ArrayList<ChagePage> subscobers;
     private UserService userService;
@@ -29,12 +29,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
     public NavigationBar() {
         editedUser = new User();
         initComponents();
-       loginObses = new ArrayList<>();
+        loginObses = new ArrayList<>();
         subscobers = new ArrayList<ChagePage>();
         userService = new UserService();
-        
+
     }
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -394,6 +393,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
     public void addInSubs(ChagePage chagePage) {
         subscobers.add(chagePage);
     }
+
     public void addInSubsLogin(LoginObs loginOb) {
         loginObses.add(loginOb);
     }
@@ -402,18 +402,24 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage,Login
     public void loginData(User user) {
         for (LoginObs subscober : loginObses) {
             subscober.loginData(user);
-            
+
         }
         editedUser = user;
-        System.out.println("Component.NavigationBar.loginData() ::: "+editedUser);
-         if(editedUser.getRole().equals("user")){
+        System.out.println("Component.NavigationBar.loginData() ::: " + editedUser);
+        if (editedUser.getRole().equals("user")) {
             btnUser.setVisible(false);
             btnEmployee.setVisible(false);
             btnSummarySalary.setVisible(false);
             btnButStock.setVisible(false);
             btnRentStore.setVisible(false);
-            
+
+        } else {
+            btnUser.setVisible(true);
+            btnEmployee.setVisible(true);
+            btnSummarySalary.setVisible(true);
+            btnButStock.setVisible(true);
+            btnRentStore.setVisible(true);
         }
-   
+
     }
 }

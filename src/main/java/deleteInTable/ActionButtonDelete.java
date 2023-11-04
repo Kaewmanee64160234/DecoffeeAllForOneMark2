@@ -4,7 +4,7 @@
  */
 package deleteInTable;
 
-import TableCrud.*;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,23 +24,26 @@ public class ActionButtonDelete extends JButton {
     private boolean mousePress;
 
     public ActionButtonDelete() {
+           setContentAreaFilled(false);
+        setBorder(new EmptyBorder(3, 3, 3, 3));
+
         setContentAreaFilled(false);
         setBorder(new EmptyBorder(3, 3, 3, 3));
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                mousePress = true; 
+                mousePress = true;
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                mousePress = false; 
+                mousePress = false;
             }
 
         });
     }
 
-    @Override
+       @Override
     protected void paintComponent(Graphics graphics) {
         Graphics2D gp = (Graphics2D) graphics.create();
         gp.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

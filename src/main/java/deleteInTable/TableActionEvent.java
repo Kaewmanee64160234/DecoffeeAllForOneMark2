@@ -4,7 +4,7 @@
  */
 package deleteInTable;
 
-import TableCrud.*;
+
 /**
  *
  * @author toey

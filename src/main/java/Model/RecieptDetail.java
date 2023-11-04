@@ -199,11 +199,8 @@ public class RecieptDetail {
 
     public void setTotal(float total) {
         this.total = total;
-<<<<<<< HEAD
-        this.total = total + toppingPrice  + sweetPrice + typePrice + sizePrice;
-=======
         this.total = total + toppingPrice + sweetPrice + typePrice + sizePrice;
->>>>>>> 4f6ea707536cd258f90a271a75739755e7c82ce5
+
     }
 
     public int getRecieptId() {

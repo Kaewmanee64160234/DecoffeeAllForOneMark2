@@ -57,7 +57,9 @@ import net.sf.jasperreports.engine.JRException;
 import print.ReportManager;
 
 import scrollbar.ScrollBarCustom;
-import selectInTable.TableActionCellRender;
+import deleteInTable.TableActionCellRenderer;
+import deleteInTable.TableActionCellEditor;
+import deleteInTable.TableActionEvent;
 
 /**
  *
@@ -110,14 +112,24 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 if (tblRecieptDetail.isEditing()) {
                     tblRecieptDetail.getCellEditor().stopCellEditing();
                 }
-                DefaultTableModel model = (DefaultTableModel) tblRecieptDetail.getModel();
-                model.removeRow(row);
+//                model = tblRecieptDetail.getModel();
+//                model.removeRow(row);
+                refreshTable();
+                System.out.println("This is row: " + row);
             }
         };
+
         tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblRecieptDetail.setRowHeight(50);
         tblRecieptDetail.setModel(new AbstractTableModel() {
             String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total", "Action"};
+
+            public void removeRow(int rowIndex) {
+                if (rowIndex >= 0 && rowIndex < reciept.getRecieptDetails().size()) {
+                    reciept.getRecieptDetails().remove(rowIndex);
+                    fireTableRowsDeleted(rowIndex, rowIndex);
+                }
+            }
 
             @Override
             public String getColumnName(int column) {
@@ -158,7 +170,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     case 2:
                         return true;
                     default:
-                        return false;
+                        return true;
                 }
             }
 
@@ -183,6 +195,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         return recieptDetail.getSweet();
                     case 7:
                         return recieptDetail.getTotal();
+                    case 8:
+                        return new TableActionCellRenderer();
                     default:
                         return "";
                 }
@@ -205,6 +219,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         });
 
     }
+
 
     public class QtyCellEditor extends DefaultCellEditor {
 
@@ -945,8 +960,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "QR";
         reciept.setPayment(payment);
         btnCash.setEnabled(false);
-    }                                           
-
+    }
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
         if (reciept.getRecieptDetails().size() <= 0) {
@@ -974,12 +988,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblChange.setText("" + total);
         btnCash.setEnabled(true);
         btnPromtpay.setEnabled(true);
-    }                                             
+    }
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
         btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCashActionPerformed
-
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:

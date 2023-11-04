@@ -4,6 +4,8 @@
  */
 package button;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,14 +36,14 @@ public class Testing extends javax.swing.JFrame implements ActionListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        SinglePLayer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        SinglePLayer.setText("SinglePLayer");
+        SinglePLayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SinglePLayerActionPerformed(evt);
             }
         });
 
@@ -50,48 +52,36 @@ public class Testing extends javax.swing.JFrame implements ActionListener{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jButton1)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(135, 135, 135)
+                .addComponent(SinglePLayer)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(65, 65, 65))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(SinglePLayer)
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFrame.setDefaultLookAndFeelDecorated(false);
-                interfaceFrame = new JFrame("G-Mine B0.4");
-                interfaceFrame.setSize(800,600);
-                interfaceFrame.setLayout(new GridLayout(9,1, 20, 15));
+    private void SinglePLayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SinglePLayerActionPerformed
+        setLayout(new GridBagLayout());
+        singleplayerButton.setBounds(20, 20, 200, 100);
+        GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.ipadx = 30;
+            gbc.ipady = 30;
 
-                singleplayerButton = new JButton("SinglePLayer");
-                singleplayerButton.addActionListener(this);
-                interfaceFrame.add(singleplayerButton);
-                singleplayerButton.setBounds(20, 20, 200, 100);
-
-                multiplayerButton = new JButton("MultiPlayer");
-                multiplayerButton.addActionListener(this);
-                interfaceFrame.add(multiplayerButton);
-
-                optionsButton = new JButton("Options");
-                optionsButton.addActionListener(this);
-                interfaceFrame.add(optionsButton);
-
-                quitButton = new JButton("Quit");
-                quitButton.addActionListener(this);
-                interfaceFrame.add(quitButton);
-
-                interfaceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                interfaceFrame.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+            add(singleplayerButton, gbc);
+            gbc.gridy++;
+           
+    }//GEN-LAST:event_SinglePLayerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,7 +119,7 @@ public class Testing extends javax.swing.JFrame implements ActionListener{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton SinglePLayer;
     // End of variables declaration//GEN-END:variables
 
     @Override

@@ -36,7 +36,7 @@ public class MyButton implements ActionListener {
                 singleplayerButton = new JButton("SinglePLayer");
                 singleplayerButton.addActionListener(this);
                 interfaceFrame.add(singleplayerButton);
-                singleplayerButton.setBounds(20, 20, 200, 100);
+                singleplayerButton.setBounds(20, 20, 20, 20);
 
                 multiplayerButton = new JButton("MultiPlayer");
                 multiplayerButton.addActionListener(this);

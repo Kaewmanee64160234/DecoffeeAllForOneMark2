@@ -356,50 +356,56 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
     private void tblDateOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDateOrderMouseClicked
 
         int selectedRow = tblDateOrder.getSelectedRow();
-        if (selectedRow >= 0) {
-            String selectedDate = (String) tblDateOrder.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
-            List<RecieptDetail> recieptDetailsForDate = recieptDetailService.getRecieptDetailForDate(selectedDate);
+        int selectedId = (int) tblDateOrder.getValueAt(selectedRow, 0);
 
-            System.out.println(recieptDetailsForDate);
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("ID");
-            model.addColumn("Name");
-            model.addColumn("Qty");
-            model.addColumn("Price");
-            model.addColumn("Total Price");
-            model.addColumn("Type");
-            model.addColumn("Type Price");
-            model.addColumn("Size");
-            model.addColumn("Size Price");
-            model.addColumn("Topping");
-            model.addColumn("Topping Price");
-            model.addColumn("Product Id");
-            model.addColumn("Reciept Id");
-
-            int totalAmount = 0;
-            for (RecieptDetail rd : recieptDetailsForDate) {
-                Object[] rowData = {
-                    rd.getId(),
-                    rd.getName(),
-                    rd.getQty(),
-                    rd.getPrice(),
-                    rd.getTotal(),
-                    rd.getType(),
-                    rd.getTypePrice(),
-                    rd.getSize(),
-                    rd.getSizePrice(),
-                    rd.getTopping(),
-                    rd.getToppingPrice(),
-                    rd.getProductId(),
-                    rd.getRecieptId()
-                };
-                model.addRow(rowData);
-
-                totalAmount += rd.getTotal();
-            }
-            tblOrderInDate.setModel(model);
-            tblOrderInDate.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
-            lblTotalShow.setText(String.valueOf(totalAmount));
+        System.out.println(selectedId);
+//        if (selectedRow >= 0) {
+            List<RecieptDetail> recieptDetailsForDate = recieptDetailService.getrDetailsByReciptId(selectedId);
+            for (RecieptDetail recieptDetail : recieptDetailsForDate) {
+                System.out.println(recieptDetail.toString());
+                
+//            }
+//
+//            System.out.println(recieptDetailsForDate);
+//            DefaultTableModel model = new DefaultTableModel();
+//            model.addColumn("ID");
+//            model.addColumn("Name");
+//            model.addColumn("Qty");
+//            model.addColumn("Price");
+//            model.addColumn("Total Price");
+//            model.addColumn("Type");
+//            model.addColumn("Type Price");
+//            model.addColumn("Size");
+//            model.addColumn("Size Price");
+//            model.addColumn("Topping");
+//            model.addColumn("Topping Price");
+//            model.addColumn("Product Id");
+//            model.addColumn("Reciept Id");
+//
+//            int totalAmount = 0;
+//            for (RecieptDetail rd : recieptDetailsForDate) {
+//                Object[] rowData = {
+//                    rd.getId(),
+//                    rd.getName(),
+//                    rd.getQty(),
+//                    rd.getPrice(),
+//                    rd.getTotal(),
+//                    rd.getType(),
+//                    rd.getTypePrice(),
+//                    rd.getSize(),
+//                    rd.getSizePrice(),
+//                    rd.getTopping(),
+//                    rd.getToppingPrice(),
+//                    rd.getProductId(),
+//                    rd.getRecieptId()
+//                };
+//                model.addRow(rowData);
+//
+//                totalAmount += rd.getTotal();
+//            }
+//            tblOrderInDate.setModel(model);
+//            tblOrderInDate.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
+//            lblTotalShow.setText(String.valueOf(totalAmount));
         }
 
 

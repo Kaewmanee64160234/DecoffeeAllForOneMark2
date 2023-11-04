@@ -481,6 +481,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed

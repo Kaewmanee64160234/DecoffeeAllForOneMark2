@@ -280,7 +280,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
     private void openPrintSlipDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
 
-// Check if the dialog is already open
         if (!dialogOpen) {
             PrintSlipDialog printSlipDialog = new PrintSlipDialog(frame, employee);
             printSlipDialog.setLocationRelativeTo(this);
@@ -294,7 +293,6 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
                     refreshTable();
                     System.out.println(cioList);
                     if (cloaseDialogMessage.equals("create")) {
-                        System.out.println("-------in-5----------");
                         summarySalary = summarySalaryService.getSalaryLastCreated();
                         summarySalary.setCheckins(checkinoutService.getCheckinoutsBySsId(summarySalary.getId()));
                         summarySalary.setEmployee(employee);

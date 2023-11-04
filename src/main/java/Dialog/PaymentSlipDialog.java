@@ -3,11 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package Dialog;
+
 import scrollbar.ScrollBarCustom;
 import Model.Checkinout;
 import Model.Employee;
 import Model.SummarySalary;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -29,8 +35,22 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
         txtHourlyWage.setText(employee.getHourlyWage() + "");
         txtTotalHour.setText(summarySalary.getTotalHour() + "");
         txtTotal.setText(summarySalary.getSalary() + "");
-        
-        txtPaymentPeriod.setText(summarySalary.getStartDate()+"-"+summarySalary.getEndDate());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date dateStart;
+        try {
+            dateStart = inputFormat.parse(summarySalary.getStartDate());
+            Date dateEnd = inputFormat.parse(summarySalary.getEndDate());
+            String formattedStartDate = dateFormat.format(dateStart);
+            String formattedStopDate = dateFormat.format(dateEnd);
+            String dateRange = formattedStartDate + " - " + formattedStopDate;
+            txtPaymentPeriod.setText(dateRange);
+
+        } catch (ParseException ex) {
+            Logger.getLogger(PaymentSlipDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         list = new ArrayList<>();
         list = summarySalary.getCheckins();
         tblSlip.setModel(new AbstractTableModel() {
@@ -129,7 +149,7 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
         jLabel5.setText("hourly wage : ");
 
         jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        jLabel6.setText("employee : ");
+        jLabel6.setText("Name:");
 
         txtEmployee.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
 

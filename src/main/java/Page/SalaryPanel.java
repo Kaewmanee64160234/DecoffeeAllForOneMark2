@@ -289,7 +289,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         btnPrint = new javax.swing.JButton();
         btnPaymentHistory = new javax.swing.JButton();
 
-        pnlNavigation2.setBackground(new java.awt.Color(213, 208, 189));
+        pnlNavigation2.setBackground(new java.awt.Color(255, 251, 245));
 
         tblTopEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -330,11 +330,11 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblEndDate.setText("End Date:");
 
-        btnComfirm.setBackground(new java.awt.Color(170, 183, 173));
+        btnComfirm.setBackground(new java.awt.Color(213, 208, 189));
         btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
+        btnComfirm.setForeground(new java.awt.Color(103, 93, 80));
         btnComfirm.setText("Confirm");
-        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnComfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComfirmActionPerformed(evt);
@@ -411,7 +411,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addContainerGap())
         );
 
-        jPanel3.setBackground(new java.awt.Color(166, 190, 178));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         btnPrint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnPrint.setText("Print");

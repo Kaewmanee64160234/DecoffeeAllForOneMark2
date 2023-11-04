@@ -31,16 +31,35 @@ import Dialog.AddCustomerDialog;
 import Dialog.PosPromotionDialog;
 import Service.CustomerService;
 import Service.ValidateException;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
+
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatter;
+
 import net.sf.jasperreports.engine.JRException;
 import print.ReportManager;
+
 import scrollbar.ScrollBarCustom;
+import deleteInTable.TableActionCellRenderer;
+import deleteInTable.TableActionCellEditor;
+import deleteInTable.TableActionEvent;
 
 /**
  *
@@ -77,7 +96,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         addMemberDialog = new AddCustomerDialog(frame);
         addMemberDialog.addSubs(this);
         initTable();
-
         this.reciept = new Reciept();
         this.promotion = new Promotion();
         initFindMemberDialog();
@@ -87,10 +105,24 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }
 
     private void initTable() {
-        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        deleteInTable.TableActionEvent event = new deleteInTable.TableActionEvent() {
 
+            @Override
+            public void onDelete(int row) {
+                if (tblRecieptDetail.isEditing()) {
+                    tblRecieptDetail.getCellEditor().stopCellEditing();
+                }
+                reciept.getRecieptDetails().remove(row);
+                refreshTable();
+                resetPOSLableByList();
+                System.out.println("This is row: " + row);
+            }
+        };
+
+        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblRecieptDetail.setRowHeight(50);
         tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total"};
+            String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -104,7 +136,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
             @Override
             public int getColumnCount() {
-                return 8;
+                return 9;
             }
 
             @Override
@@ -113,6 +145,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
                 if (columnIndex == 2) {
                     int qty = Integer.parseInt((String) aValue);
+                    System.out.println(qty);
                     if (qty < 1) {
                         return;
                     }
@@ -130,7 +163,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     case 2:
                         return true;
                     default:
-                        return false;
+                        return true;
                 }
             }
 
@@ -155,6 +188,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         return recieptDetail.getSweet();
                     case 7:
                         return recieptDetail.getTotal();
+                    case 8:
+                        return new TableActionCellRenderer();
                     default:
                         return "";
                 }
@@ -163,7 +198,57 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.setCellSelectionEnabled(true);
         tblRecieptDetail.setColumnSelectionAllowed(true);
         tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
+        tblRecieptDetail.getColumnModel().getColumn(8).setCellRenderer(new deleteInTable.TableActionCellRenderer());
+        tblRecieptDetail.getColumnModel().getColumn(8).setCellEditor(new deleteInTable.TableActionCellEditor(event));
+        tblRecieptDetail.getColumnModel().getColumn(2).setCellEditor(new QtyCellEditor());
+        tblRecieptDetail.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setHorizontalAlignment(SwingConstants.CENTER);
+                return this;
+            }
 
+        });
+
+    }
+
+    public class QtyCellEditor extends DefaultCellEditor {
+
+        private JSpinner input;
+
+        public QtyCellEditor() {
+            super(new JTextField());
+            input = new JSpinner();
+            SpinnerNumberModel numberModel = (SpinnerNumberModel) input.getModel();
+            numberModel.setMinimum(1);
+            JSpinner.NumberEditor editor = (JSpinner.NumberEditor) input.getEditor();
+            DefaultFormatter formatter = (DefaultFormatter) editor.getTextField().getFormatter();
+            formatter.setCommitsOnValidEdit(true);
+            editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+            input.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+
+                }
+
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            super.getTableCellEditorComponent(table, value, isSelected, row, column);
+            int qty = Integer.parseInt(value.toString());
+            input.setValue(qty);
+            return input;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            int qty = (int) input.getValue(); // Get the Integer value directly
+            return String.valueOf(qty);
+
+        }
     }
 
     private void initFindMemberDialog() {
@@ -183,7 +268,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jpnlHeader = new javax.swing.JPanel();
@@ -224,9 +309,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblTotalNet = new javax.swing.JLabel();
         lblChange = new javax.swing.JLabel();
         lblCash = new javax.swing.JTextField();
-        btnPromtpay = new javax.swing.JButton();
         btnCalculator = new javax.swing.JButton();
         btnCash = new javax.swing.JButton();
+        btnPromtpay = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnDrinks = new javax.swing.JButton();
         btnDessert = new javax.swing.JButton();
@@ -241,7 +326,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnCancel = new javax.swing.JButton();
         btnPosConfirm = new javax.swing.JButton();
 
-        jpnlHeader.setBackground(new java.awt.Color(213, 208, 189));
+        jpnlHeader.setBackground(new java.awt.Color(224, 205, 174));
+        jpnlHeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtDcoffee.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         txtDcoffee.setText("D-Coffee");
@@ -253,45 +339,43 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jpnlHeaderLayout = new javax.swing.GroupLayout(jpnlHeader);
         jpnlHeader.setLayout(jpnlHeaderLayout);
         jpnlHeaderLayout.setHorizontalGroup(
-                jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlHeaderLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtDcoffee, javax.swing.GroupLayout.PREFERRED_SIZE, 256,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 241,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap()));
+            jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtDcoffee, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
         jpnlHeaderLayout.setVerticalGroup(
-                jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlHeaderLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(
-                                        jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(jpnlHeaderLayout.createSequentialGroup()
-                                                        .addGap(0, 0, Short.MAX_VALUE)
-                                                        .addComponent(lblUserName))
-                                                .addComponent(txtDcoffee, javax.swing.GroupLayout.DEFAULT_SIZE, 58,
-                                                        Short.MAX_VALUE))
-                                .addContainerGap()));
+            jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnlHeaderLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblUserName))
+                    .addComponent(txtDcoffee, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
-        jpnlDetail.setBackground(new java.awt.Color(170, 183, 173));
+        jpnlDetail.setBackground(new java.awt.Color(255, 255, 255));
 
         tblRecieptDetail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null }
-                },
-                new String[] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane2.setViewportView(tblRecieptDetail);
 
-        jpnlMember.setBackground(new java.awt.Color(199, 195, 188));
+        jpnlMember.setBackground(new java.awt.Color(255, 255, 255));
 
         txtmemberName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtmemberName.setText("Member Name:");
@@ -347,103 +431,78 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jpnlMemberLayout = new javax.swing.GroupLayout(jpnlMember);
         jpnlMember.setLayout(jpnlMemberLayout);
         jpnlMemberLayout.setHorizontalGroup(
-                jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlMemberLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                .addComponent(txtmemberName)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblMemberName, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                .addComponent(txtPhoneNumber)
-                                                .addGap(2, 2, 2)
-                                                .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout
-                                                .createSequentialGroup()
-                                                .addComponent(txtMemberPoint)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        201, Short.MAX_VALUE)
-                                                .addComponent(lblMemberPoint, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtPoint))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout
-                                                .createSequentialGroup()
-                                                .addGroup(jpnlMemberLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                                .addComponent(txtPointEarn)
-                                                                .addGap(32, 32, 32)
-                                                                .addComponent(lblPointEarn,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                jpnlMemberLayout.createSequentialGroup()
-                                                                        .addComponent(lblPromotionName)
-                                                                        .addGap(32, 32, 32)
-                                                                        .addComponent(lblPromotionNameShow,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE))
-                                                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                                                .addComponent(txtTotalPoint)
-                                                                .addGap(45, 45, 45)
-                                                                .addComponent(lblTotalPoint,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jpnlMemberLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txtPoint2,
-                                                                javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(txtPoint1,
-                                                                javax.swing.GroupLayout.Alignment.TRAILING))))
-                                .addContainerGap()));
+            jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlMemberLayout.createSequentialGroup()
+                        .addComponent(txtmemberName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMemberName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpnlMemberLayout.createSequentialGroup()
+                        .addComponent(txtPhoneNumber)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout.createSequentialGroup()
+                        .addComponent(txtMemberPoint)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                        .addComponent(lblMemberPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPoint))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlMemberLayout.createSequentialGroup()
+                        .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(txtPointEarn)
+                                .addGap(32, 32, 32)
+                                .addComponent(lblPointEarn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(txtTotalPoint)
+                                .addGap(45, 45, 45)
+                                .addComponent(lblTotalPoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(lblPromotionName)
+                                .addGap(32, 32, 32)
+                                .addComponent(lblPromotionNameShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPoint2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPoint1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap())
+        );
         jpnlMemberLayout.setVerticalGroup(
-                jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlMemberLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtmemberName)
-                                                .addComponent(lblMemberName))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtPhoneNumber)
-                                                .addComponent(lblPhoneNumber))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtMemberPoint)
-                                                .addComponent(lblMemberPoint)
-                                                .addComponent(txtPoint))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtPointEarn)
-                                                .addComponent(lblPointEarn)
-                                                .addComponent(txtPoint1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(lblPromotionName)
-                                                .addComponent(lblPromotionNameShow))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(
-                                        jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtTotalPoint)
-                                                .addComponent(lblTotalPoint)
-                                                .addComponent(txtPoint2))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlMemberLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtmemberName)
+                    .addComponent(lblMemberName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhoneNumber)
+                    .addComponent(lblPhoneNumber))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMemberPoint)
+                    .addComponent(lblMemberPoint)
+                    .addComponent(txtPoint))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPointEarn)
+                    .addComponent(lblPointEarn)
+                    .addComponent(txtPoint1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPromotionName)
+                    .addComponent(lblPromotionNameShow))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalPoint)
+                    .addComponent(lblTotalPoint)
+                    .addComponent(txtPoint2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jpnlCaculator.setBackground(new java.awt.Color(199, 195, 188));
+        jpnlCaculator.setBackground(new java.awt.Color(255, 255, 255));
 
         txtTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotal.setText("Total:");
@@ -495,14 +554,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         lblCash.setText("0");
 
-        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnPromtpay.setText("Promtpay");
-        btnPromtpay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPromtpayActionPerformed(evt);
-            }
-        });
-
         btnCalculator.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCalculator.setText("Calculator");
         btnCalculator.addActionListener(new java.awt.event.ActionListener() {
@@ -519,106 +570,96 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPromtpay.setText("Promtpay");
+        btnPromtpay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromtpayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnlCaculatorLayout = new javax.swing.GroupLayout(jpnlCaculator);
         jpnlCaculator.setLayout(jpnlCaculatorLayout);
         jpnlCaculatorLayout.setHorizontalGroup(
-                jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnCash, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(5, 5, 5))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtTotal)
-                                                .addGap(19, 19, 19)
-                                                .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht1))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtCange)
-                                                .addGap(13, 13, 13)
-                                                .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht5))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtDiscount)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblDiscount, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht2))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtTotalNet)
-                                                .addGap(3, 3, 3)
-                                                .addComponent(lblTotalNet, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht3))
-                                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                                .addComponent(txtCash)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        304, Short.MAX_VALUE)
-                                                .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBaht4))
-                                        .addComponent(btnCalculator, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap()));
+            jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtTotal)
+                        .addGap(19, 19, 19)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht1))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtCange)
+                        .addGap(13, 13, 13)
+                        .addComponent(lblChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht5))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtDiscount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht2))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtTotalNet)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblTotalNet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht3))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(txtCash)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
+                        .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBaht4))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
+                        .addComponent(btnCash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         jpnlCaculatorLayout.setVerticalGroup(
-                jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtTotal)
-                                        .addComponent(txtBaht1)
-                                        .addComponent(lblTotal))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtDiscount)
-                                        .addComponent(txtBaht2)
-                                        .addComponent(lblDiscount))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtTotalNet)
-                                        .addComponent(txtBaht3)
-                                        .addComponent(lblTotalNet))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtCash)
-                                        .addComponent(txtBaht4)
-                                        .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 25,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtCange)
-                                        .addComponent(txtBaht5)
-                                        .addComponent(lblChange))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCalculator)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jpnlCaculatorLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnPromtpay)
-                                        .addComponent(btnCash))
-                                .addContainerGap()));
+            jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal)
+                    .addComponent(txtBaht1)
+                    .addComponent(lblTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDiscount)
+                    .addComponent(txtBaht2)
+                    .addComponent(lblDiscount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotalNet)
+                    .addComponent(txtBaht3)
+                    .addComponent(lblTotalNet))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCash)
+                    .addComponent(txtBaht4)
+                    .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCange)
+                    .addComponent(txtBaht5)
+                    .addComponent(lblChange))
+                .addGap(18, 18, 18)
+                .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCash)
+                    .addComponent(btnPromtpay))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCalculator)
+                .addContainerGap())
+        );
 
-        jPanel5.setBackground(new java.awt.Color(170, 183, 173));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
@@ -654,33 +695,36 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        // btnFood.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         btnFoodActionPerformed(evt);
+        //     }
+        // });
+
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
-                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDessert, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnFood, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDessert, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnFood, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         jPanel5Layout.setVerticalGroup(
-                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnDrinks, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnDessert, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnFood, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap()));
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDrinks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDessert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         txtItemList.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         txtItemList.setText("Item List");
@@ -698,14 +742,20 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        scrProductList.setBackground(new java.awt.Color(255, 251, 245));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 502, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 502, Short.MAX_VALUE)
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 634, Short.MAX_VALUE));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 634, Short.MAX_VALUE)
+        );
 
         scrProductList.setViewportView(jPanel1);
 
@@ -733,6 +783,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        // btnAddMember.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         btnAddMemberActionPerformed(evt);
+        //     }
+        // });
+
+
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -757,118 +814,81 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         javax.swing.GroupLayout jpnlDetailLayout = new javax.swing.GroupLayout(jpnlDetail);
         jpnlDetail.setLayout(jpnlDetailLayout);
         jpnlDetailLayout.setHorizontalGroup(
-                jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jpnlDetailLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(scrProductList)
-                                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(30, 30, 30)
-                                .addGroup(jpnlDetailLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 255,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 149,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 149,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 149,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 149,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                .addComponent(jpnlMember, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(jScrollPane2))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlDetailLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrProductList)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addComponent(jpnlMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         jpnlDetailLayout.setVerticalGroup(
-                jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(
-                                        jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpnlDetailLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jpnlDetailLayout.createSequentialGroup()
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                false)
-                                                        .addComponent(jpnlCaculator,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jpnlMember, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(jpnlDetailLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(btnFindMember,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnMainMenu,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnPosConfirm,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnAddMember,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(btnPromotion,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0,
-                                                Short.MAX_VALUE))
-                                .addContainerGap(11, Short.MAX_VALUE)));
+            jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlDetailLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jpnlDetailLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpnlCaculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpnlMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, 0)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, 0)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, 0)
-                                .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(0, 0, 0)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPosConfirmMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPosConfirmMouseClicked
@@ -944,8 +964,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "QR";
         reciept.setPayment(payment);
         btnCash.setEnabled(false);
-    }//GEN-LAST:event_btnPromtpayActionPerformed
-
+    }
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
         if (reciept.getRecieptDetails().size() <= 0) {
@@ -973,12 +992,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblChange.setText("" + total);
         btnCash.setEnabled(true);
         btnPromtpay.setEnabled(true);
-    }//GEN-LAST:event_btnCalculatorActionPerformed
+    }
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
         btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCashActionPerformed
-
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:
@@ -1020,6 +1038,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblTotalNet.setText("0");
         lblCash.setText("0");
         lblChange.setText("0");
+    }
+
+    private void resetPOSLableByList() {
+        reciept.calculateTotal();
+        lblTotal.setText(reciept.getTotal() + "");
+        lblTotalNet.setText(reciept.getTotal() + "");
+        lblChange.setText(reciept.getChange() + "");
     }
 
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed

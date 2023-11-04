@@ -200,6 +200,7 @@ public class RecieptDetail {
     public void setTotal(float total) {
         this.total = total;
         this.total = total + toppingPrice + sweetPrice + typePrice + sizePrice;
+
     }
 
     public int getRecieptId() {

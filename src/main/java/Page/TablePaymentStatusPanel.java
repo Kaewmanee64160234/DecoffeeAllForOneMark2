@@ -95,7 +95,6 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         txtPaidDate = new javax.swing.JLabel();
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
@@ -198,7 +197,7 @@ public class TablePaymentStatusPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
+            .addGap(0, 420, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)

@@ -137,7 +137,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
         btnCancel1 = new javax.swing.JButton();
         btnConfirm1 = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(213, 208, 189));
+        jPanel1.setBackground(new java.awt.Color(195, 176, 145));
 
         lblNameEmp.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblNameEmp.setText("Keawmanee Marasri");

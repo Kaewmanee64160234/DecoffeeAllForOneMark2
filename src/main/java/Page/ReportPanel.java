@@ -270,7 +270,7 @@ public class ReportPanel extends javax.swing.JPanel {
         pnlDatePicker1 = new javax.swing.JPanel();
         pnlDatePicker2 = new javax.swing.JPanel();
 
-        jPanel2.setBackground(new java.awt.Color(213, 208, 189));
+        jPanel2.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel1.setText("Report");
@@ -291,13 +291,13 @@ public class ReportPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1))
         );
 
-        jPanel3.setBackground(new java.awt.Color(170, 183, 173));
+        jPanel3.setBackground(new java.awt.Color(255, 251, 245));
 
-        btnComfirm.setBackground(new java.awt.Color(170, 183, 173));
+        btnComfirm.setBackground(new java.awt.Color(213, 208, 189));
         btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
+        btnComfirm.setForeground(new java.awt.Color(103, 93, 80));
         btnComfirm.setText("Confirm");
-        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnComfirm.setBorder(null);
         btnComfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComfirmActionPerformed(evt);

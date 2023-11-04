@@ -161,7 +161,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel3.setText("History CheckStock");
@@ -216,7 +216,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         tblDateHistory.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         tblDateHistory.setModel(new javax.swing.table.DefaultTableModel(
@@ -260,7 +260,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {

@@ -173,12 +173,12 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         jLabel1.setText("History Payment");
 
-        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel4.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Employee :");
@@ -222,7 +222,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 .addGap(50, 50, 50))
         );
 
-        jPanel5.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel5.setBackground(new java.awt.Color(195, 176, 145));
 
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Paid", "Not Paid" }));
         cmbStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -274,22 +274,26 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         btnClear.setBackground(new java.awt.Color(204, 255, 204));
         btnClear.setForeground(new java.awt.Color(54, 126, 24));
         btnClear.setText("Clear");
-        btnClear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
+        btnClear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
             }
         });
 
-        btnGo.setBackground(new java.awt.Color(204, 255, 204));
-        btnGo.setForeground(new java.awt.Color(54, 126, 24));
+        btnGo.setBackground(new java.awt.Color(213, 208, 189));
+        btnGo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGo.setForeground(new java.awt.Color(103, 93, 80));
         btnGo.setText("Go");
-        btnGo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
+        btnGo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
+        btnGo.setMaximumSize(new java.awt.Dimension(30, 18));
+        btnGo.setMinimumSize(new java.awt.Dimension(30, 18));
         btnGo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGoActionPerformed(evt);
             }
         });
+
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -311,6 +315,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34))))
+
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +335,6 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
         tblSummarySalary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -344,20 +348,22 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         ));
         jScrollPane1.setViewportView(tblSummarySalary);
 
-        btnBack.setBackground(new java.awt.Color(255, 255, 204));
-        btnBack.setForeground(new java.awt.Color(195, 129, 84));
+        btnBack.setBackground(new java.awt.Color(213, 208, 189));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(103, 93, 80));
         btnBack.setText("Back");
-        btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 129, 84)));
+        btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
 
-        btnConfirm.setBackground(new java.awt.Color(255, 255, 204));
-        btnConfirm.setForeground(new java.awt.Color(195, 129, 84));
+        btnConfirm.setBackground(new java.awt.Color(213, 208, 189));
+        btnConfirm.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(103, 93, 80));
         btnConfirm.setText("Confirm");
-        btnConfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 129, 84)));
+        btnConfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnConfirm.setMaximumSize(new java.awt.Dimension(72, 23));
         btnConfirm.setMinimumSize(new java.awt.Dimension(72, 23));
         btnConfirm.setPreferredSize(new java.awt.Dimension(72, 23));

@@ -973,7 +973,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "QR";
         reciept.setPayment(payment);
         btnCash.setEnabled(false);
-        btnCalculator.setEnabled(false);
+        btnCalculator.setEnabled(true);
     }
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
@@ -1005,10 +1005,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
+        if (reciept.getRecieptDetails().size() <= 0) {
+            JOptionPane.showMessageDialog(this, "Detail is emplty");
+            return;
+        }
         payment = "cash";
         reciept.setPayment(payment);
         btnPromtpay.setEnabled(false);
-        btnCalculator.setEnabled(false);
+        btnCalculator.setEnabled(true);
     }//GEN-LAST:event_btnCashActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked

@@ -309,6 +309,21 @@ public class EmployeeDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Plase Insert address more than 10 character");
             return;
         }
+         if (email.length() < 10) {
+            JOptionPane.showMessageDialog(this, "Plase Insert email more than 10 character");
+            return;
+        }
+         try {
+            hw = Integer.parseInt(txtHourlyWage.getText());
+            if (hw < 1) {
+                JOptionPane.showMessageDialog(this, "Hourly Wage must more than 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please fill the hourly wage and must be a valid integer.");
+            return;
+        }
+
         if (editedEmployee.getId() < 0) {//Add New
             setFormToObject();
             employee = employeeService.addNew(editedEmployee);

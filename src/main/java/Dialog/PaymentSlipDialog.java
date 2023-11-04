@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package Dialog;
-
+import scrollbar.ScrollBarCustom;
 import Model.Checkinout;
 import Model.Employee;
 import Model.SummarySalary;
@@ -23,6 +23,7 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
 
     public PaymentSlipDialog(java.awt.Frame parent, SummarySalary summarySalary, Employee employee) {
         initComponents();
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         txtEmployee.setText(employee.getName());
         txtPaymentPeriod.setText(summarySalary.getDate());
         txtHourlyWage.setText(employee.getHourlyWage() + "");

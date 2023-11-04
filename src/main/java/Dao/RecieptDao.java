@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import Model.HistoryOrderReport;
 import Model.Reciept;
 import Model.RecieptReport;
 import helper.DatabaseHelper;
@@ -107,12 +108,17 @@ public class RecieptDao implements Dao<Reciept> {
     public List<RecieptReport> getRecieptByTotalSale(String being, String end) {
         ArrayList<RecieptReport> list = new ArrayList();
         String sql = """
-           SELECT bill_id,
-                      strftime('%Y-%m-%d', bill_created_date) AS created_date,
-                      sum(bill_total) 
-                 FROM bill
-                WHERE bill_created_date BETWEEN "2023-09-01" AND "2023-10-31"
-                GROUP BY created_date
+                      SELECT 
+                               strftime('%m-%Y', rec.create_date) AS MonthYear,
+                               sum(reciept_total) AS TotalSale
+                           FROM 
+                               reciept rec
+                           WHERE 
+                               rec.create_date BETWEEN ? AND ?
+                           GROUP BY  
+                               MonthYear
+                           ORDER BY 
+                               TotalSale DESC;
                                      """;
         Connection conn = DatabaseHelper.getConnect();
         try {
@@ -123,6 +129,61 @@ public class RecieptDao implements Dao<Reciept> {
 
             while (rs.next()) {
                 RecieptReport obj = RecieptReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<HistoryOrderReport> getRecieptHistory(String being, String end) {
+        ArrayList<HistoryOrderReport> list = new ArrayList();
+        String sql = """ 
+                SELECT reciept_id,
+                     strftime('%Y-%m-%d', create_date) AS created_date,
+                     sum(reciept_total) AS Total
+                FROM reciept
+                WHERE create_date BETWEEN ? AND ?
+                GROUP BY created_date;
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, being);
+            stmt.setString(2, end);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                HistoryOrderReport obj = HistoryOrderReport.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<HistoryOrderReport> getRecieptHistory() {
+        ArrayList<HistoryOrderReport> list = new ArrayList();
+        String sql = """ 
+                SELECT reciept_id,
+                       create_date,
+                       reciept_total
+                 FROM reciept
+                 WHERE create_date BETWEEN ? AND ?;
+                                     """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                HistoryOrderReport obj = HistoryOrderReport.fromRS(rs);
                 list.add(obj);
 
             }

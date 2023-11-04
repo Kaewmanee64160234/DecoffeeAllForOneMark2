@@ -310,6 +310,7 @@ public class Reciept {
     public void calculateTotal() {
         this.total = 0;
         int total_qty = 0;
+<<<<<<< HEAD
 
         int total_all = 0;
         float total_ = 0.0f;
@@ -330,6 +331,19 @@ public class Reciept {
         this.totalQTY = total_qty;
 
         System.out.println("Perice is" + total_qty);
+=======
+        float total = 0.0f;
+        System.out.println(recieptDetails.size());
+        for (RecieptDetail rd : recieptDetails) {
+
+            total += rd.getTotal();
+            total_qty += rd.getQty();
+        }
+
+        this.total = total;
+        this.totalQTY = total_qty;
+
+>>>>>>> 4f6ea707536cd258f90a271a75739755e7c82ce5
     }
 
     public void removeReceiptDetail(RecieptDetail receiptDateil) {

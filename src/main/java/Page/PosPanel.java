@@ -31,9 +31,6 @@ import Dialog.AddCustomerDialog;
 import Dialog.PosPromotionDialog;
 import Service.CustomerService;
 import Service.ValidateException;
-import TableCrud.TableActionCellEditor;
-import TableCrud.TableActionCellRenderer;
-import TableCrud.TableActionEvent;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Font;
@@ -51,9 +48,14 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
+
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatter;
+
+import net.sf.jasperreports.engine.JRException;
+import print.ReportManager;
+
 import scrollbar.ScrollBarCustom;
 import selectInTable.TableActionCellRender;
 
@@ -75,6 +77,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private AddCustomerDialog addMemberDialog;
     private CustomerService customerService;
     private String payment;
+    private int queue = 1;
 
     /**
      * Creates new form PosDialog
@@ -86,7 +89,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         scrProductList.setViewportView(productListPanel);
         recieptService = new RecieptService();
         customerService = new CustomerService();
-        btnCash.setEnabled(false);
         reciept = new Reciept();
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         addMemberDialog = new AddCustomerDialog(frame);
@@ -181,8 +183,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         return recieptDetail.getSweet();
                     case 7:
                         return recieptDetail.getTotal();
-                    case 8:
-                        return new TableActionCellRenderer();
                     default:
                         return "";
                 }
@@ -260,6 +260,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -301,9 +302,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblTotalNet = new javax.swing.JLabel();
         lblChange = new javax.swing.JLabel();
         lblCash = new javax.swing.JTextField();
-        btnPromtpay = new javax.swing.JButton();
         btnCalculator = new javax.swing.JButton();
         btnCash = new javax.swing.JButton();
+        btnPromtpay = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnDrinks = new javax.swing.JButton();
         btnDessert = new javax.swing.JButton();
@@ -318,7 +319,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnCancel = new javax.swing.JButton();
         btnPosConfirm = new javax.swing.JButton();
 
-        jpnlHeader.setBackground(new java.awt.Color(213, 208, 189));
+        jpnlHeader.setBackground(new java.awt.Color(195, 176, 145));
 
         txtDcoffee.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         txtDcoffee.setText("D-Coffee");
@@ -350,8 +351,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap())
         );
 
-        jpnlDetail.setBackground(new java.awt.Color(170, 183, 173));
+        jpnlDetail.setBackground(new java.awt.Color(255, 251, 245));
 
+        tblRecieptDetail.setBackground(new java.awt.Color(255, 251, 245));
         tblRecieptDetail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -366,7 +368,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         ));
         jScrollPane2.setViewportView(tblRecieptDetail);
 
-        jpnlMember.setBackground(new java.awt.Color(199, 195, 188));
+        jpnlMember.setBackground(new java.awt.Color(255, 251, 245));
 
         txtmemberName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtmemberName.setText("Member Name:");
@@ -446,14 +448,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                                 .addComponent(txtPointEarn)
                                 .addGap(32, 32, 32)
                                 .addComponent(lblPointEarn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnlMemberLayout.createSequentialGroup()
-                                .addComponent(lblPromotionName)
-                                .addGap(32, 32, 32)
-                                .addComponent(lblPromotionNameShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jpnlMemberLayout.createSequentialGroup()
                                 .addComponent(txtTotalPoint)
                                 .addGap(45, 45, 45)
-                                .addComponent(lblTotalPoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(lblTotalPoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnlMemberLayout.createSequentialGroup()
+                                .addComponent(lblPromotionName)
+                                .addGap(32, 32, 32)
+                                .addComponent(lblPromotionNameShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPoint2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -493,7 +495,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpnlCaculator.setBackground(new java.awt.Color(199, 195, 188));
+        jpnlCaculator.setBackground(new java.awt.Color(255, 251, 245));
 
         txtTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotal.setText("Total:");
@@ -545,14 +547,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         lblCash.setText("0");
 
-        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnPromtpay.setText("Promtpay");
-        btnPromtpay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPromtpayActionPerformed(evt);
-            }
-        });
-
         btnCalculator.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCalculator.setText("Calculator");
         btnCalculator.addActionListener(new java.awt.event.ActionListener() {
@@ -569,6 +563,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPromtpay.setText("Promtpay");
+        btnPromtpay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromtpayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnlCaculatorLayout = new javax.swing.GroupLayout(jpnlCaculator);
         jpnlCaculator.setLayout(jpnlCaculatorLayout);
         jpnlCaculatorLayout.setHorizontalGroup(
@@ -576,11 +578,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
-                        .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(5, 5, 5))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(txtTotal)
                         .addGap(19, 19, 19)
@@ -611,7 +608,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         .addComponent(lblCash, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBaht4))
-                    .addComponent(btnCalculator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpnlCaculatorLayout.createSequentialGroup()
+                        .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
+                        .addComponent(btnCash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpnlCaculatorLayout.setVerticalGroup(
@@ -643,15 +644,15 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addComponent(txtBaht5)
                     .addComponent(lblChange))
                 .addGap(18, 18, 18)
-                .addComponent(btnCalculator)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPromtpay)
-                    .addComponent(btnCash))
+                    .addComponent(btnCash)
+                    .addComponent(btnPromtpay))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCalculator)
                 .addContainerGap())
         );
 
-        jPanel5.setBackground(new java.awt.Color(170, 183, 173));
+        jPanel5.setBackground(new java.awt.Color(255, 251, 245));
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
@@ -686,7 +687,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
-        
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -728,6 +728,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
         });
 
+        scrProductList.setBackground(new java.awt.Color(255, 251, 245));
+
+        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -764,7 +768,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnAddMemberMouseClicked(evt);
             }
         });
-       
+
+
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -850,24 +855,24 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jpnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jpnlDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPosConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPosConfirmMouseClicked
+    private void btnPosConfirmMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPosConfirmMouseClicked
         if (!reciept.getPayment().equals("QR")) {
             if (Float.parseFloat(lblCash.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "You are not paid.");
@@ -904,23 +909,33 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         reciept.setStoreId(1);
         reciept.setQueue(1);
-        //set befor implement login
+        // set befor implement login
         reciept.setCustomerId(1);
         reciept.setReceive(Float.parseFloat(lblCash.getText()));
         reciept.setChange(total);
         reciept.setEmployeeId(1);
-        //Save
+        reciept.setQueue(queue);
+        // Save
         Reciept new_re = recieptService.addNew(reciept);
+
+        try {
+            ReportManager.getInstance().complieReport();
+            ReportManager.getInstance().printReport(new_re);
+
+        } catch (JRException ex) {
+            Logger.getLogger(PosPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         System.out.println(new_re.toString());
         System.out.println("Save !!!!!");
         reciept = new Reciept();
+        queue++;
         resetPOSLable();
         refreshTable();
 
+    }// GEN-LAST:event_btnPosConfirmMouseClicked
 
-    }//GEN-LAST:event_btnPosConfirmMouseClicked
-
-    private void btnPromtpayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromtpayActionPerformed
+    private void btnPromtpayActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPromtpayActionPerformed
         if (reciept.getRecieptDetails().size() <= 0) {
             JOptionPane.showMessageDialog(this, "Detail is emplty");
             return;
@@ -929,11 +944,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblChange.setText("0");
         payment = "QR";
         reciept.setPayment(payment);
-        btnPromtpay.setEnabled(false);
-        btnCash.setEnabled(true);
-    }//GEN-LAST:event_btnPromtpayActionPerformed
+        btnCash.setEnabled(false);
+    }                                           
 
-    private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatorActionPerformed
+
+    private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
         if (reciept.getRecieptDetails().size() <= 0) {
             JOptionPane.showMessageDialog(this, "Detail is emplty");
             return;
@@ -958,13 +973,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         reciept.setPayment(payment);
         lblChange.setText("" + total);
         btnCash.setEnabled(true);
-    }//GEN-LAST:event_btnCalculatorActionPerformed
+        btnPromtpay.setEnabled(true);
+    }                                             
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
-
-        btnCash.setEnabled(false);
-        btnPromtpay.setEnabled(true);
+        btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCashActionPerformed
+
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:
@@ -979,9 +994,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         reciept = new Reciept();
-        btnCash.setEnabled(false);
+        btnCash.setEnabled(true);
         btnPromtpay.setEnabled(true);
         btnCalculator.setEnabled(true);
+        queue++;
         resetPOSLable();
         refreshTable();
     }// GEN-LAST:event_btnCancelActionPerformed
@@ -1077,6 +1093,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             }
 
         });
+
     }
 
     private void openDialogFindMember() {
@@ -1205,7 +1222,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         double totalNet = reciept.getTotal() - Double.parseDouble(lblDiscount.getText());
         lblTotal.setText(reciept.getTotal() + "");
         lblTotalNet.setText(totalNet + "");
-        System.out.println(reciept.getTotal());
+
     }
 
     private void validateNotCusUsePromotion(Promotion promotion1) {

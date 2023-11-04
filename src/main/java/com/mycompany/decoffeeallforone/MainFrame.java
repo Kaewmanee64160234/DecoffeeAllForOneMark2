@@ -10,6 +10,8 @@ import Component.NavigationBar;
 import Component.ProductListPanel;
 import Component.changePageSummary;
 import Dialog.CustomerDialog;
+import Dialog.PosDialog;
+import Dialog.PosPromotionDialog;
 import Model.Employee;
 import Model.Promotion;
 import Model.RentStore;
@@ -44,6 +46,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import scrollbar.ScrollBarCustom;
 
 /**
@@ -55,6 +58,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     /**
      * Creates new form MainFrame
      */
+    
     private NavigationBar navigationBar;
     private PosPanel posPanel;
     private ProductPanel productPanel;
@@ -66,14 +70,15 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private BuyStockPanel buystockPanel;
     private ReportPanel reportPanel;
     private SalaryPanel salaryPannel;
-    private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
     private ArrayList<LoginObs> loginObses;
     private HistoryMaterialPanel historyMaterialPanel;
+    private Component PosDialog;
+    private final JFrame frame;
     private PayRentPanel payRentPanel;
     private historyPageSummaySalary hisPageSummaySalary;
-
+    private TableSalaryPanel tableSalaryPanel;
     public MainFrame() {
         initComponents();
         loginObses = new ArrayList<>();
@@ -84,6 +89,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
+        tableSalaryPanel = new TableSalaryPanel(employee);
 //        posPanel = new PosPanel();
         hisPageSummaySalary = new historyPageSummaySalary();
         buystockPanel = new BuyStockPanel(employee);
@@ -104,10 +110,20 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+        hisPageSummaySalary.addInChagePage(this);
+        tableSalaryPanel.addInChagePage(this);
+        frame = (JFrame) SwingUtilities.getRoot(this);
+
+       //scrPanel.setViewportView(reportPanel);
+
+       scrPanel.setViewportView(new UserPanel());
+       
+//       scrPanel.setViewportView(new PosDialog());
+//        PosDialog posDialog = new PosDialog(frame);
+//        posDialog.setVisible(true);
         loginObses.add(navigationBar);
 
         //scrPanel.setViewportView(reportPanel);
-        scrPanel.setViewportView(new HistoryMaterialPanel());
 
         checkInOutPannel.addInLoginist(buystockPanel);
         checkInOutPannel.addInLoginist(this);
@@ -154,11 +170,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(scrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +183,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -226,6 +242,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 
         if (pageName.equals("POS")) {
             scrPanel.setViewportView(posPanel);
+//            PosDialog PosDialog = new PosDialog(frame);
+//            PosDialog.setLocationRelativeTo(this); // set dialog to center
+//            PosDialog.setVisible(true);
         }
         if (pageName.equals("Product")) {
             scrPanel.setViewportView(productPanel);
@@ -267,7 +286,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     @Override
     public void chagePageEmp(Employee emp, String pageName) {
         if (pageName.equals("SS Emp")) {
-            scrPanel.setViewportView(new TableSalaryPanel(emp));
+            tableSalaryPanel = new TableSalaryPanel(emp);
+            tableSalaryPanel.addInChagePage(this);
+            scrPanel.setViewportView(tableSalaryPanel);
         }
     }
 

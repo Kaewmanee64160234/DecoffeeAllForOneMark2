@@ -31,6 +31,7 @@ public class SummarySalary {
 
     private float TotalPaid;
     private String MonthYear;
+    private String EmployeeName;
 
     public SummarySalary(int id, String date, int totalHour, double salary, String paidStatus) {
         this.id = id;
@@ -94,6 +95,14 @@ public class SummarySalary {
 
     public void setTotalHour(int totalHour) {
         this.totalHour = totalHour;
+    }
+
+    public String getEmployeeName() {
+        return EmployeeName;
+    }
+
+    public void setEmployeeName(String string) {
+        this.EmployeeName = string;
     }
 
     public double getSalary() {
@@ -232,6 +241,20 @@ public class SummarySalary {
         }
         return null;
     }
+     public static SummarySalary fromRSReportPrint(ResultSet rs) {
+        try{
+            SummarySalary summarySalary = new SummarySalary();
+            summarySalary.setEmployeeName(rs.getString("EmployeeName"));
+            summarySalary.setDate(rs.getString("ss_date"));
+            summarySalary.setSalary(rs.getDouble("ss_salary"));
+            return summarySalary;
+        }
+        catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+     }
+
 
     public SummarySalary get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

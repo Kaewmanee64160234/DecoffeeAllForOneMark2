@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -287,6 +288,27 @@ public class EmployeeDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Employee employee;
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String tel = txtTelephone.getText();
+        String email = txtEmail.getText();
+        int hw;
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
+         if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            return;
+        }
+          if (!tel.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Please insert a telephone number with exactly 10 digits.");
+            return;
+        }
+         if (address.length() < 10) {
+            JOptionPane.showMessageDialog(this, "Plase Insert address more than 10 character");
+            return;
+        }
         if (editedEmployee.getId() < 0) {//Add New
             setFormToObject();
             employee = employeeService.addNew(editedEmployee);

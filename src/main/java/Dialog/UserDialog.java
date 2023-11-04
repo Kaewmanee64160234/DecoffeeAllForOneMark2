@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -48,7 +49,7 @@ public class UserDialog extends javax.swing.JDialog {
         }
 
     }
-    
+
     private void loadImage(String path) {
         if (editedUser.getId() > 0) {
             ImageIcon icon = new ImageIcon(path);
@@ -252,6 +253,25 @@ public class UserDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         User user;
+        String login = edtLogin.getText();
+        String name = edtName.getText();
+        String password = edtPassword.getText();
+        if (login.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert login name more than 3 character");
+            return;
+        }
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
+         if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            return;
+        }
+         if (password.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Plase Insert password more than 5 character");
+            return;
+        }
         if (editedUser.getId() < 0) {//Add New
             setFormToObject();
             user = userService.addNew(editedUser);
@@ -264,9 +284,11 @@ public class UserDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void saveImage(User user) {
-        if(path==null || path.isEmpty()) return;
+        if (path == null || path.isEmpty()) {
+            return;
+        }
         try {
-            BufferedImage  image = ImageIO.read(new File(path));
+            BufferedImage image = ImageIO.read(new File(path));
             ImageIO.write(image, "png", new File("./user" + user.getId() + ".png")); // name image
         } catch (IOException ex) {
             Logger.getLogger(UserDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -289,12 +311,15 @@ public class UserDialog extends javax.swing.JDialog {
         editedUser.setLogin(edtLogin.getText());
         editedUser.setUsername(edtName.getText());
         editedUser.setPassword(new String(edtPassword.getPassword()));
+        editedUser.setRole((String) cmbRole.getSelectedItem());
     }
 
     private void setObjectToForm() {
         edtLogin.setText(editedUser.getLogin());
         edtName.setText(editedUser.getUsername());
         edtPassword.setText(editedUser.getPassword());
+        
+        cmbRole.setSelectedItem(editedUser.getRole());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

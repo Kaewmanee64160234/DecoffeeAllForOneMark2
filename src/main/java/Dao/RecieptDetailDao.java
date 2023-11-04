@@ -227,6 +227,29 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         }
         return list;
     }
+    
+     public ArrayList<RecieptDetail> getrDetailsByReciptId( int recieptId) {
+        ArrayList<RecieptDetail> list = new ArrayList();
+        String sql = """
+                SELECT *
+                FROM reciept_detail
+                WHERE reciept_id = ?;
+                                 """;
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, recieptId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RecieptDetail obj = RecieptDetail.fromRS(rs);
+                list.add(obj);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
 
     
 

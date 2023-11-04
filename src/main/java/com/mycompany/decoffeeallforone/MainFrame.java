@@ -21,6 +21,7 @@ import Page.CheckStockPanel;
 import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
+import Page.CustomerPanel;
 import Page.EmployeePanel;
 import Page.HistoryCheckStockPanel;
 import Page.HistoryMaterialPanel;
@@ -78,6 +79,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private PayRentPanel payRentPanel;
     private historyPageSummaySalary hisPageSummaySalary;
     private TableSalaryPanel tableSalaryPanel;
+    private CustomerPanel  customerPanel;
 
     public MainFrame() {
         initComponents();
@@ -106,6 +108,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         reportPanel = new ReportPanel();
         historyMaterialPanel = new HistoryMaterialPanel();
         buyStockPanel = new BuyStockPanel(employee);
+        customerPanel = new CustomerPanel();
         jScrollPane1.setViewportView(navigationBar);
                                 loginObses.add(checkInOutPannel);
 
@@ -118,6 +121,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 //        navigationBar.addInSubsLogin(this);
         hisPageSummaySalary.addInChagePage(this);
         tableSalaryPanel.addInChagePage(this);
+        customerPanel.addInChangePage(this);
         frame = (JFrame) SwingUtilities.getRoot(this);
 
         scrPanel.setViewportView(new UserPanel());
@@ -130,6 +134,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkInOutPannel.addInLoginist(userPannel);
         checkInOutPannel.addInLoginist(employeePannel);
         checkInOutPannel.addInLoginist(historyMaterialPanel);
+        checkInOutPannel.addInLoginist(customerPanel);
 
         hisPageSummaySalary.addInChagePage(this);
         
@@ -280,6 +285,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("History ss")) {
             scrPanel.setViewportView(hisPageSummaySalary);
+        }
+        if (pageName.equals("Customer")) {
+            scrPanel.setViewportView(customerPanel);
         }
 
     }

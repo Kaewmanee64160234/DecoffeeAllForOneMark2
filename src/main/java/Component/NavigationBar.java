@@ -95,9 +95,9 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         btnBuyStock = new javax.swing.JButton();
         btnHisMat = new javax.swing.JButton();
         btnSumSalary = new javax.swing.JButton();
+        btnCustomer = new javax.swing.JButton();
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogo.setIcon(new javax.swing.ImageIcon("D:\\Soft dev\\Group Project\\Dcoffee\\DecoffeeAllForOneMark2\\image.png")); // NOI18N
 
         btnReport.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnReport.setText("Dashboard");
@@ -203,6 +203,14 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnCustomer.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnCustomer.setText("Customer");
+        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -211,7 +219,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRentStore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPos, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
@@ -223,7 +231,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                     .addComponent(btnCheckStock, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnBuyStock, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnHisMat, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addComponent(btnSumSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                    .addComponent(btnSumSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(btnCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -240,6 +249,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCustomer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMat)
@@ -255,7 +266,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                 .addComponent(btnSumSalary)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRentStore)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addContainerGap())
         );
@@ -342,12 +353,17 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         chagePage("SS Main");
     }//GEN-LAST:event_btnSumSalaryActionPerformed
 
+    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+        chagePage("Customer");
+    }//GEN-LAST:event_btnCustomerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnBuyStock;
     private javax.swing.JButton btnCheckStock;
     private javax.swing.JButton btnCico;
+    private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnEmp;
     private javax.swing.JButton btnHisMat;
     private javax.swing.JButton btnLogout;

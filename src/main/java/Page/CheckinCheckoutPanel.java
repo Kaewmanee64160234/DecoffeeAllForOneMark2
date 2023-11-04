@@ -66,7 +66,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         list = new ArrayList<Checkinout>();
         tblCheckInCheckOut.setEnabled(false);
         tblCheckInCheckOut.setRowHeight(50);
-        tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCheckInCheckOut.setModel(new AbstractTableModel() {
             String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
@@ -227,23 +227,23 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         lblImage.setBackground(new java.awt.Color(236, 226, 226));
         lblImage.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         jLabel2.setText("Login: ");
 
-        jLabel3.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         jLabel3.setText("Password:");
 
-        pfdPassword.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        pfdPassword.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
 
-        txtLogin.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        txtLogin.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         jLabel4.setText("Date Time: ");
 
-        txtDateTime.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        txtDateTime.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         txtDateTime.setText("00/00/00 00:00:00");
 
-        btnCheckIn.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnCheckIn.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCheckIn.setText("Check In");
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +251,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             }
         });
 
-        btnCheckOut.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnCheckOut.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCheckOut.setText("Check Out");
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,7 +283,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                                 .addComponent(pfdPassword))
                             .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,6 +311,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblCheckInCheckOut.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblCheckInCheckOut.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -322,6 +323,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCheckInCheckOut.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane2.setViewportView(tblCheckInCheckOut);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -330,7 +332,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -348,7 +350,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)

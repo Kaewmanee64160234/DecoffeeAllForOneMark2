@@ -124,10 +124,10 @@ public class ProductDialog extends javax.swing.JDialog {
         jLabel8.setText("Type:");
 
         cmbSweetlv.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0123", "-" }));
+        cmbSweetlv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "-" }));
 
         cmbSize.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SML", "-" }));
+        cmbSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "-" }));
         cmbSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSizeActionPerformed(evt);
@@ -135,7 +135,7 @@ public class ProductDialog extends javax.swing.JDialog {
         });
 
         cmbType.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HCF", "-" }));
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "H", "C", "F", "-" }));
 
         jLabel9.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel9.setText("Select picture:");

@@ -11,6 +11,7 @@ import Model.Employee;
 import Model.SummarySalary;
 import Service.CheckinoutService;
 import Service.SummarySalaryService;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -45,7 +46,7 @@ public class PrintSlipDialog extends javax.swing.JDialog implements DialogSSData
         checkinoutService = new CheckinoutService();
         summarySalaryService = new SummarySalaryService();
         cioList = checkinoutService.getCheckInOutByEmpIdStatusNoAndTotalNotZero(employee.getId());
-
+        tblPayment.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblPayment.setModel(new AbstractTableModel() {
             String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
 
@@ -114,6 +115,7 @@ public class PrintSlipDialog extends javax.swing.JDialog implements DialogSSData
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel3.setBackground(new java.awt.Color(224, 205, 174));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblName.setFont(new java.awt.Font("Kanit", 1, 30)); // NOI18N
         lblName.setText("Payment period");
@@ -186,7 +188,7 @@ public class PrintSlipDialog extends javax.swing.JDialog implements DialogSSData
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)

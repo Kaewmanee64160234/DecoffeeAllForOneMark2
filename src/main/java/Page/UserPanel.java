@@ -162,7 +162,7 @@ public class UserPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
 
-        jPanel.setBackground(new java.awt.Color(166, 190, 178));
+        jPanel.setBackground(new java.awt.Color(255, 251, 245));
 
         tblUser.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
@@ -219,7 +219,7 @@ public class UserPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelHead.setBackground(new java.awt.Color(213, 208, 189));
+        jPanelHead.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel2.setText("User");

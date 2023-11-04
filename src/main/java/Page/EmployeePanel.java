@@ -166,7 +166,7 @@ public class EmployeePanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtRole1 = new javax.swing.JLabel();
 
-        jPanel.setBackground(new java.awt.Color(166, 190, 178));
+        jPanel.setBackground(new java.awt.Color(255, 251, 245));
 
         tblEmployee.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
@@ -214,7 +214,7 @@ public class EmployeePanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelHead.setBackground(new java.awt.Color(213, 208, 189));
+        jPanelHead.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel3.setText("Employee");

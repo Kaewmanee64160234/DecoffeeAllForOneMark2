@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author toey
  */
-public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
+public class AddCustomerDialog extends javax.swing.JDialog implements CusObs {
 
     private final CustomerService customerService;
     private ArrayList<Customer> lists;
@@ -185,20 +185,30 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String name = txtName.getText();
         String tel = txtTel.getText();
-        int point = Integer.parseInt(txtPoint.getText());
+        int point;
+        try {
+            point = Integer.parseInt(txtPoint.getText());
+            if (point < 0) {
+                JOptionPane.showMessageDialog(this, "Point must be greater than or equal to 0");
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Point must be a valid integer.");
+            return;
+        }
         if (name.length() < 3) {
             JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
             return;
         }
-        if (tel.length() != 10) {
-            JOptionPane.showMessageDialog(this, "Plase Insert teleplhon number 10 character");
+        if (!tel.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Please insert a telephone number with exactly 10 digits.");
             return;
-
         }
-        if (point < 0) {
-            JOptionPane.showMessageDialog(this, "Insert point is must more than 0");
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
             return;
-
+        } else {
         }
         try {
             editedCustomer.setName(name);
@@ -251,13 +261,14 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs{
     public void updateCustomer(Customer customer) {
         for (CusObs ob : listCusObses) {
             ob.updateCustomer(customer);
-            
+
         }
-        
+
     }
-     public void addSubs(CusObs cusObs) {
+
+    public void addSubs(CusObs cusObs) {
         listCusObses.add(cusObs);
-        
+
     }
-    
+
 }

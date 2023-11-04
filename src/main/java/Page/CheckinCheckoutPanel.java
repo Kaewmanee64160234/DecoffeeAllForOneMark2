@@ -35,10 +35,10 @@ import scrollbar.ScrollBarCustom;
  * @author toey
  */
 public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs {
-    
+
     private final CheckinoutService checkinoutService;
     private List<Checkinout> list;
-    
+
     private Checkinout checkinout;
     private ArrayList<Checkinout> checkinouts;
     private Customer customer;
@@ -64,37 +64,36 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         employee = new Employee();
         employeeService = new EmployeeService();
         list = new ArrayList<Checkinout>();
-        btnCheckOut.enable(false);
         tblCheckInCheckOut.setEnabled(false);
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCheckInCheckOut.setModel(new AbstractTableModel() {
             String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
-            
+
             @Override
             public String getColumnName(int column) {
                 return columnNames[column];
             }
-            
+
             @Override
             public int getRowCount() {
                 return list.size();
             }
-            
+
             @Override
             public int getColumnCount() {
                 return 5;
             }
-            
+
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
-                    
+
                     default:
                         return String.class;
                 }
             }
-            
+
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
                 Checkinout checkinout = list.get(rowIndex);
@@ -113,16 +112,17 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                         } else {
                             return checkinout.getCioTotalHour() * employee.getHourlyWage();
                         }
-                    
+
                     default:
                         return "Unknown";
                 }
             }
-            
+
         });
+        btnCheckOut.setEnabled(false);
         setTimeInLblDate();
     }
-    
+
     private void setTimeInLblDate() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -378,7 +378,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         employeeService = new EmployeeService();
         checkinout = new Checkinout();
         User user = userService.login(name, pass);
-        
+
         if (user != null) {
             int empID = user.getEmployee_id();
             String formattedTime = cretaeFormatDate();
@@ -387,7 +387,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             setImage(user);
             loginData(user);
             checkinout.setCioTimeIn(formattedTime);
-            checkinout.setCioTimeOut("");
+            checkinout.setCioTimeOut("-");
             checkinout.setCioPaidStatus("N");
             checkinout.setEmployeeId(empID);
             checkinout.setCioTotalHour(0);
@@ -395,7 +395,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
             list = checkinoutService.getCheckinoutsByIdEmployee(empID);
-            
+
             tblCheckInCheckOut.setEnabled(true);
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
@@ -406,23 +406,23 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             JOptionPane.showMessageDialog(this, "Usernot Found");
             return;
         }
-        
+
         btnCheckIn.setEnabled(false);
         btnCheckOut.setEnabled(true);
 
     }//GEN-LAST:event_btnCheckInActionPerformed
     private void refreshTable() {
-        
+
         tblCheckInCheckOut.revalidate();
         tblCheckInCheckOut.repaint();
     }
-    
+
     private void refreshForm() {
         txtLogin.setText("");
         pfdPassword.setText("");
-        
+
     }
-    
+
     private void setImage(User user) {
         ImageIcon icon = new ImageIcon("./user" + user.getId() + ".png");
         Image image = icon.getImage();
@@ -435,7 +435,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
-        
+
         System.out.println("-----------------------------------");
         String formattedTime = cretaeFormatDate();
         String[] time = new String[2];
@@ -455,7 +455,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         user.setRole("user");
         setImage(user);
         loginData(user);
-        
+
         employee = new Employee();
         txtUserName.setText("");
         txtRole.setText("");
@@ -463,10 +463,10 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         btnCheckIn.setEnabled(true);
         btnCheckOut.setEnabled(false);
         setImage(user);
-        
+
 
     }//GEN-LAST:event_btnCheckOutActionPerformed
-    
+
     private String cretaeFormatDate() {
         // TODO add your handling code here:
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -474,17 +474,17 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         String formattedTime = timeFormat.format(currentTime);
         return formattedTime;
     }
-    
+
     public static double calculateTotalHours(String startTime, String endTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        
+
         try {
             Date start = sdf.parse(startTime);
             Date end = sdf.parse(endTime);
-            
+
             long timeDifference = end.getTime() - start.getTime();
             double hoursDifference = timeDifference / (double) 3600000;
-            
+
             return hoursDifference;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -515,13 +515,18 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
 
     @Override
     public void loginData(User user) {
+        System.out.println("Page.CheckinCheckoutPanel.loginData()" + user.toString());
+
         for (LoginObs log : loginOsbs) {
             log.loginData(user);
-            
+            System.out.println(log.toString());
+
         }
-        System.out.println("Page.CheckinCheckoutPanel.loginData()" + user.toString());
+        txtUserName.setText(user.getUsername());
+        txtRole.setText(user.getRole());
+
     }
-    
+
     public void addInLoginist(LoginObs login) {
         loginOsbs.add(login);
     }

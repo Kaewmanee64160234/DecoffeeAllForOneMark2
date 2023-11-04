@@ -5,6 +5,7 @@
 package Component;
 
 import Model.User;
+import Page.CheckinCheckoutPanel;
 import Service.UserService;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -28,6 +29,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
     private List<User> list;
     private User editedUser;
     private ArrayList<LoginObs> loginObses;
+    private CheckinCheckoutPanel checkinCheckoutPanel = new CheckinCheckoutPanel();
 
     /**
      * Creates new form Navigation
@@ -39,7 +41,6 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         loginObses = new ArrayList<>();
         subscobers = new ArrayList<ChagePage>();
         userService = new UserService();
-
         ImageIcon icon = new ImageIcon("./image.png");
         Image image = icon.getImage();
         int width = image.getWidth(null);
@@ -371,7 +372,12 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             btnBuyStock.setVisible(false);
             btnRentStore.setVisible(false);
 
+        } else {
+            btnUser.setVisible(true);
+            btnEmp.setVisible(true);
+            btnSumSalary.setVisible(true);
+            btnBuyStock.setVisible(true);
+            btnRentStore.setVisible(true);
         }
-
     }
 }

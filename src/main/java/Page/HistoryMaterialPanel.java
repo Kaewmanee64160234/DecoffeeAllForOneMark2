@@ -5,10 +5,12 @@
 package Page;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Model.Bill;
 import Model.BillDetail;
 import Model.DateLabelFormatter;
 import Model.HistoryMaterialReport;
+import Model.User;
 import Service.BillDetailService;
 import Service.BillService;
 import java.awt.Color;
@@ -29,7 +31,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Lenovo
  */
-public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePage {
+public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePage, LoginObs {
 
     private final BillService billService;
     private List<HistoryMaterialReport> billList;
@@ -384,10 +386,10 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     private void tblBillMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMaterialMouseClicked
 
         int selectedRow = tblBillMaterial.getSelectedRow();
-        if (selectedRow >= 0 ) {
+        if (selectedRow >= 0) {
             String selectedDate = (String) tblBillMaterial.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
             List<BillDetail> billDetailsForDate = billDetailService.getBillDetailForDate(selectedDate);
-            
+
             System.out.println(billDetailsForDate);
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
@@ -396,7 +398,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             model.addColumn("Price");
             model.addColumn("Total");
             model.addColumn("Discount");
-    
+
             int totalAmount = 0;
             for (BillDetail bd : billDetailsForDate) {
                 Object[] rowData = {
@@ -408,16 +410,15 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                     bd.getDiscount()
                 };
                 model.addRow(rowData);
-    
+
                 totalAmount += bd.getTotal();
             }
-    
+
             tblListBuy.setModel(model);
             lblTotalShow.setText(String.valueOf(totalAmount));
         }
 
 
-        
     }//GEN-LAST:event_tblBillMaterialMouseClicked
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -469,6 +470,13 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
     public void addInSubs(ChagePage chagePage) {
         chagpages.add(chagePage);
+    }
+
+    @Override
+    public void loginData(User user) {
+        txtUserName1.setText(user.getUsername());
+        txtRole1.setText(user.getRole());
+
     }
 
 }

@@ -29,6 +29,7 @@ public class PaymentStatus extends javax.swing.JDialog {
         summarySalaryService = new SummarySalaryService();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         tblPatmentStatus.setModel(new AbstractTableModel(){
+            String[] columnNames = {"Date","Total Hour","Salary"};
             @Override
             public int getRowCount() {
                 return summarySalarys.size();
@@ -38,6 +39,12 @@ public class PaymentStatus extends javax.swing.JDialog {
             public int getColumnCount() {
                 return 3;
             }
+
+            @Override
+            public String getColumnName(int column) {
+                return columnNames[column];
+            }
+
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {

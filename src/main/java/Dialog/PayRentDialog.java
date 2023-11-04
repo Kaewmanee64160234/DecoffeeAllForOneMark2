@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JOptionPane;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -222,7 +223,9 @@ public class PayRentDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-
+        if(rentStore.getRentPaidStatus().equals("Y")){
+            JOptionPane.showMessageDialog(null, "This month has already been paid.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         rentStore.setRentPaidStatus("Y");
         rentStoreService.update(rentStore);
         dispose();

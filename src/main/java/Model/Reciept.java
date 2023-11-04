@@ -308,6 +308,7 @@ public class Reciept {
     }
 
     public void calculateTotal() {
+        this.total = 0;
         int total_qty = 0;
         float total = 0.0f;
         System.out.println(recieptDetails.size());
@@ -319,7 +320,6 @@ public class Reciept {
 
         this.total = total;
         this.totalQTY = total_qty;
-
     }
 
     public void removeReceiptDetail(RecieptDetail receiptDateil) {

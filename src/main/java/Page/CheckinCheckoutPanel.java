@@ -35,10 +35,10 @@ import scrollbar.ScrollBarCustom;
  * @author toey
  */
 public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs {
-
+    
     private final CheckinoutService checkinoutService;
     private List<Checkinout> list;
-
+    
     private Checkinout checkinout;
     private ArrayList<Checkinout> checkinouts;
     private Customer customer;
@@ -64,36 +64,37 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         employee = new Employee();
         employeeService = new EmployeeService();
         list = new ArrayList<Checkinout>();
+        btnCheckOut.enable(false);
         tblCheckInCheckOut.setEnabled(false);
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblCheckInCheckOut.setModel(new AbstractTableModel() {
             String[] columnNames = {"Date", "Time In", "Time Out", "Total Hour", "Total Price"};
-
+            
             @Override
             public String getColumnName(int column) {
                 return columnNames[column];
             }
-
+            
             @Override
             public int getRowCount() {
                 return list.size();
             }
-
+            
             @Override
             public int getColumnCount() {
                 return 5;
             }
-
+            
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
-
+                    
                     default:
                         return String.class;
                 }
             }
-
+            
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
                 Checkinout checkinout = list.get(rowIndex);
@@ -112,16 +113,16 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                         } else {
                             return checkinout.getCioTotalHour() * employee.getHourlyWage();
                         }
-
+                    
                     default:
                         return "Unknown";
                 }
             }
-
+            
         });
         setTimeInLblDate();
     }
-
+    
     private void setTimeInLblDate() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -164,10 +165,13 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCheckInCheckOut = new javax.swing.JTable();
 
-        jPanel2.setBackground(new java.awt.Color(195, 176, 145));
+        jPanel2.setBackground(new java.awt.Color(224, 205, 174));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel1.setText("Check in - Check out");
+        jLabel1.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel5.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         jLabel5.setText("User Name: ");
@@ -189,13 +193,16 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRole, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRole, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,20 +210,19 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(txtUserName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtRole)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         lblImage.setBackground(new java.awt.Color(236, 226, 226));
         lblImage.setOpaque(true);
@@ -303,7 +309,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         tblCheckInCheckOut.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -331,7 +337,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -342,7 +348,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -370,7 +376,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         employeeService = new EmployeeService();
         checkinout = new Checkinout();
         User user = userService.login(name, pass);
-
+        
         if (user != null) {
             int empID = user.getEmployee_id();
             String formattedTime = cretaeFormatDate();
@@ -387,31 +393,34 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
             list = checkinoutService.getCheckinoutsByIdEmployee(empID);
-
+            
             tblCheckInCheckOut.setEnabled(true);
+            txtUserName.setText(user.getUsername());
+            txtRole.setText(user.getRole());
+            loginData(user);
             refreshForm();
             refreshTable();
         } else {
             JOptionPane.showMessageDialog(this, "Usernot Found");
             return;
         }
-
+        
         btnCheckIn.setEnabled(false);
         btnCheckOut.setEnabled(true);
 
     }//GEN-LAST:event_btnCheckInActionPerformed
     private void refreshTable() {
-
+        
         tblCheckInCheckOut.revalidate();
         tblCheckInCheckOut.repaint();
     }
-
+    
     private void refreshForm() {
         txtLogin.setText("");
         pfdPassword.setText("");
-
+        
     }
-
+    
     private void setImage(User user) {
         ImageIcon icon = new ImageIcon("./user" + user.getId() + ".png");
         Image image = icon.getImage();
@@ -424,6 +433,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
+        
         System.out.println("-----------------------------------");
         String formattedTime = cretaeFormatDate();
         String[] time = new String[2];
@@ -440,7 +450,10 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         list.clear();
         refreshTable();
         User user = new User();
+        user.setRole("user");
         setImage(user);
+        loginData(user);
+        
         employee = new Employee();
         txtUserName.setText("");
         txtRole.setText("");
@@ -448,10 +461,10 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         btnCheckIn.setEnabled(true);
         btnCheckOut.setEnabled(false);
         setImage(user);
-
+        
 
     }//GEN-LAST:event_btnCheckOutActionPerformed
-
+    
     private String cretaeFormatDate() {
         // TODO add your handling code here:
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -459,17 +472,17 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         String formattedTime = timeFormat.format(currentTime);
         return formattedTime;
     }
-
+    
     public static double calculateTotalHours(String startTime, String endTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-
+        
         try {
             Date start = sdf.parse(startTime);
             Date end = sdf.parse(endTime);
-
+            
             long timeDifference = end.getTime() - start.getTime();
             double hoursDifference = timeDifference / (double) 3600000;
-
+            
             return hoursDifference;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -502,11 +515,11 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
     public void loginData(User user) {
         for (LoginObs log : loginOsbs) {
             log.loginData(user);
-
+            
         }
-        System.out.println("Page.CheckinCheckoutPanel.loginData()"+user.toString());
+        System.out.println("Page.CheckinCheckoutPanel.loginData()" + user.toString());
     }
-
+    
     public void addInLoginist(LoginObs login) {
         loginOsbs.add(login);
     }

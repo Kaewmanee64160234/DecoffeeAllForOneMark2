@@ -4,8 +4,10 @@
  */
 package Page;
 
+import Component.LoginObs;
 import Dialog.ProductDialog;
 import Model.Product;
+import Model.User;
 import Service.ProductService;
 import TablebtnEditDelete.TableActionCellEditor;
 import TablebtnEditDelete.TableActionCellRenderer;
@@ -26,7 +28,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Chaiwat
  */
-public class ProductPanel extends javax.swing.JPanel {
+public class ProductPanel extends javax.swing.JPanel implements LoginObs{
 
     private final ProductService productService;
     private List<Product> list;
@@ -324,4 +326,11 @@ public class ProductPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtRole;
     private javax.swing.JLabel txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loginData(User user) {
+        txtUserName.setText(user.getUsername());       
+        txtRole.setText(user.getRole());
+
+    }
 }

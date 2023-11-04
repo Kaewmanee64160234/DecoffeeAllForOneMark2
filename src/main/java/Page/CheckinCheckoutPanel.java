@@ -64,6 +64,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         employee = new Employee();
         employeeService = new EmployeeService();
         list = new ArrayList<Checkinout>();
+        btnCheckOut.enable(false);
         tblCheckInCheckOut.setEnabled(false);
         tblCheckInCheckOut.setRowHeight(50);
         tblCheckInCheckOut.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
@@ -424,6 +425,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
+ 
         System.out.println("-----------------------------------");
         String formattedTime = cretaeFormatDate();
         String[] time = new String[2];

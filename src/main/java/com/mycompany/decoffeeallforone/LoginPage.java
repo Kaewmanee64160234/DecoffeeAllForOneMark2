@@ -5,7 +5,10 @@
 package com.mycompany.decoffeeallforone;
 
 import Component.LoginObs;
+import Component.NavigationBar;
+import Model.Checkinout;
 import Model.User;
+import Page.CheckinCheckoutPanel;
 import Service.EmployeeService;
 import Service.UserService;
 import java.awt.Color;
@@ -27,6 +30,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
     private boolean isPasswordVisible = false;
     private ArrayList<LoginObs> loginObs;
     private MainFrame mainFrame;
+    private NavigationBar navigationBar = new NavigationBar();
 
     /**
      * Creates new form LoginPage
@@ -34,7 +38,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
     public LoginPage() {
         initComponents();
         mainFrame = new MainFrame();
-        loginObs = new ArrayList<>();
+        loginObs = new ArrayList<LoginObs>();
         ImageIcon icon = new ImageIcon("./user.png");
         Image image = icon.getImage();
         int width = image.getWidth(null);
@@ -42,7 +46,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         Image newImage = image.getScaledInstance((int) (40.0 * ((float) width / height)), 40, Image.SCALE_SMOOTH);
         ImageIcon newIcon = new ImageIcon(newImage);
         lblHuman.setIcon(newIcon);
-        
+
         ImageIcon iconpass = new ImageIcon("./visible.png"); // Assuming this is a valid path to your image file
         Image imagepass = iconpass.getImage(); // Use iconpass here
         width = imagepass.getWidth(null);
@@ -51,8 +55,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         newIcon = new ImageIcon(newImage);
         loginObs.add(mainFrame);
         lbleye.setIcon(newIcon);
-        lbleye.addMouseListener(new MouseAdapter() 
-        {
+        lbleye.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 togglePasswordVisibility();
@@ -102,7 +105,6 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         jPanel1.setBackground(new java.awt.Color(241, 222, 201));
 
         txtLogin.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        txtLogin.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
         jLabel1.setBackground(new java.awt.Color(241, 222, 201));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -142,7 +144,6 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         });
 
         txtPass.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        txtPass.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPassActionPerformed(evt);
@@ -150,11 +151,9 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
         });
 
         lbleye.setBackground(new java.awt.Color(241, 222, 201));
-        lbleye.setIcon(new javax.swing.ImageIcon("D:\\Soft dev\\Group Project\\Dcoffee\\DecoffeeAllForOneMark2\\hide.png")); // NOI18N
         lbleye.setOpaque(true);
 
         lblHuman.setBackground(new java.awt.Color(241, 222, 201));
-        lblHuman.setIcon(new javax.swing.ImageIcon("D:\\Soft dev\\Group Project\\Dcoffee\\DecoffeeAllForOneMark2\\user.png")); // NOI18N
         lblHuman.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -240,7 +239,6 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
             LoginPage loginPage = new LoginPage();
             loginData(user);
 
-             
             dispose();
             mainFrame.setVisible(true);
 
@@ -318,8 +316,7 @@ public class LoginPage extends javax.swing.JFrame implements LoginObs {
     public void loginData(User user) {
         for (LoginObs loginOb : loginObs) {
             loginOb.loginData(user);
-                    System.out.println("com.mycompany.decoffeeallforone.LoginPage.loginData()");
-                           
+            System.out.println("com.mycompany.decoffeeallforone.LoginPage.loginData()");
 
         }
     }

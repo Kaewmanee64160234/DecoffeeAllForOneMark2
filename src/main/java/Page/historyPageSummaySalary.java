@@ -175,7 +175,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
 
         jPanel2.setBackground(new java.awt.Color(195, 176, 145));
 
-        jLabel1.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel1.setText("History Pyment");
 
         jPanel4.setBackground(new java.awt.Color(195, 176, 145));

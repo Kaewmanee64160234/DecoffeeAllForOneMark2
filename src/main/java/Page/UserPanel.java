@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Component.LoginObs;
 import TablebtnEditDelete.TableActionCellRenderer;
 import Dialog.UserDialog;
 import Model.User;
@@ -27,7 +28,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author toey
  */
-public class UserPanel extends javax.swing.JPanel {
+public class UserPanel extends javax.swing.JPanel implements LoginObs{
 
     private final UserService userService;
     private List<User> list;
@@ -333,5 +334,11 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtRole;
     private javax.swing.JLabel txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loginData(User user) {
+        txtUserName.setText(user.getUsername());       
+        txtRole.setText(user.getRole());
+    }
 
 }

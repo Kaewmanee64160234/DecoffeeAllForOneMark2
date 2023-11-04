@@ -58,7 +58,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     /**
      * Creates new form MainFrame
      */
-    
     private NavigationBar navigationBar;
     private PosPanel posPanel;
     private ProductPanel productPanel;
@@ -79,6 +78,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private PayRentPanel payRentPanel;
     private historyPageSummaySalary hisPageSummaySalary;
     private TableSalaryPanel tableSalaryPanel;
+
     public MainFrame() {
         initComponents();
         loginObses = new ArrayList<>();
@@ -114,19 +114,25 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         tableSalaryPanel.addInChagePage(this);
         frame = (JFrame) SwingUtilities.getRoot(this);
 
-       //scrPanel.setViewportView(reportPanel);
+        //scrPanel.setViewportView(reportPanel);
+        scrPanel.setViewportView(new UserPanel());
 
-       scrPanel.setViewportView(new UserPanel());
-       
 //       scrPanel.setViewportView(new PosDialog());
 //        PosDialog posDialog = new PosDialog(frame);
 //        posDialog.setVisible(true);
         loginObses.add(navigationBar);
 
         //scrPanel.setViewportView(reportPanel);
-
-        checkInOutPannel.addInLoginist(buystockPanel);
         checkInOutPannel.addInLoginist(this);
+        checkInOutPannel.addInLoginist(navigationBar);
+        checkInOutPannel.addInLoginist(this.productPanel);
+        checkInOutPannel.addInLoginist(this.materialPanel);
+        checkInOutPannel.addInLoginist(this.checkStockPanel);
+        checkInOutPannel.addInLoginist(buystockPanel);
+        checkInOutPannel.addInLoginist(userPannel);        
+        checkInOutPannel.addInLoginist(employeePannel);
+
+
         buyStockPanel.addInLoginObs(this);
         buyStockPanel.addInSubs(this);
         hisPageSummaySalary.addInChagePage(this);

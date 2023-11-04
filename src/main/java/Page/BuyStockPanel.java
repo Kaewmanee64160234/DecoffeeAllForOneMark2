@@ -51,7 +51,10 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         employee = emp;
         employService = new EmployeeService();
         bill = new Bill();
-        bill.setEmployeeId(employee.getId());
+        if (emp != null) {
+            bill.setEmployeeId(employee.getId());
+
+        }
         System.out.println("Create new Buy");
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
@@ -871,11 +874,13 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         System.out.println("Page.BuyStockPanel.loginData() " + user.toString());
 
         this.employee = this.employService.getById(user.getEmployee_id()); // Set the 'employee' property, not 'editedEmployee'
+        if (employee != null) {
+            System.out.println("set: " + employee.toString());
+            this.bill.setEmployeeId(this.employee.getId());
+            this.bill.setBuy(1000000);
+            System.out.println(bill.toString());
+        }
 
-        System.out.println("set: " + employee.toString());
-        this.bill.setEmployeeId(this.employee.getId());
-        this.bill.setBuy(1000000);
-        System.out.println(bill.toString());
     }
 
     public void addInLoginObs(LoginObs loginObs) {

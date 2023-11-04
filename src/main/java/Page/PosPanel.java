@@ -273,7 +273,10 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         jpnlHeader = new javax.swing.JPanel();
         txtDcoffee = new javax.swing.JLabel();
-        lblUserName = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtUserName1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtRole1 = new javax.swing.JLabel();
         jpnlDetail = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRecieptDetail = new javax.swing.JTable();
@@ -326,14 +329,23 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnCancel = new javax.swing.JButton();
         btnPosConfirm = new javax.swing.JButton();
 
-        jpnlHeader.setBackground(new java.awt.Color(195, 176, 145));
+        jpnlHeader.setBackground(new java.awt.Color(224, 205, 174));
+        jpnlHeader.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtDcoffee.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         txtDcoffee.setText("D-Coffee");
 
-        lblUserName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblUserName.setText("UserName");
+        jLabel7.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel7.setText("User Name: ");
+
+        txtUserName1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtUserName1.setText("Name");
+
+        jLabel8.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel8.setText("Role:");
+
+        txtRole1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtRole1.setText("Role");
 
         javax.swing.GroupLayout jpnlHeaderLayout = new javax.swing.GroupLayout(jpnlHeader);
         jpnlHeader.setLayout(jpnlHeaderLayout);
@@ -343,7 +355,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap()
                 .addComponent(txtDcoffee, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRole1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jpnlHeaderLayout.setVerticalGroup(
@@ -353,14 +371,19 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpnlHeaderLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblUserName))
+                        .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtUserName1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtRole1)))
                     .addComponent(txtDcoffee, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jpnlDetail.setBackground(new java.awt.Color(255, 251, 245));
+        jpnlDetail.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblRecieptDetail.setBackground(new java.awt.Color(255, 251, 245));
         tblRecieptDetail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -375,7 +398,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         ));
         jScrollPane2.setViewportView(tblRecieptDetail);
 
-        jpnlMember.setBackground(new java.awt.Color(255, 251, 245));
+        jpnlMember.setBackground(new java.awt.Color(255, 255, 255));
 
         txtmemberName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtmemberName.setText("Member Name:");
@@ -502,7 +525,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpnlCaculator.setBackground(new java.awt.Color(255, 251, 245));
+        jpnlCaculator.setBackground(new java.awt.Color(255, 255, 255));
 
         txtTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotal.setText("Total:");
@@ -617,7 +640,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         .addComponent(txtBaht4))
                     .addGroup(jpnlCaculatorLayout.createSequentialGroup()
                         .addComponent(btnPromtpay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(11, 11, 11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -651,15 +674,15 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addComponent(txtBaht5)
                     .addComponent(lblChange))
                 .addGap(18, 18, 18)
+                .addComponent(btnCalculator)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCash)
                     .addComponent(btnPromtpay))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCalculator)
                 .addContainerGap())
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
@@ -737,7 +760,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         scrProductList.setBackground(new java.awt.Color(255, 251, 245));
 
-        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -775,8 +798,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnAddMemberMouseClicked(evt);
             }
         });
-
-
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -854,7 +875,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                             .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -952,6 +973,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "QR";
         reciept.setPayment(payment);
         btnCash.setEnabled(false);
+        btnCalculator.setEnabled(false);
     }
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
@@ -975,15 +997,18 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             reciept.setReceive(0);
 
         }
-        payment = "cash";
-        reciept.setPayment(payment);
+//        payment = "cash";
+//        reciept.setPayment(payment);
         lblChange.setText("" + total);
         btnCash.setEnabled(true);
         btnPromtpay.setEnabled(true);
     }
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
+        payment = "cash";
+        reciept.setPayment(payment);
         btnPromtpay.setEnabled(false);
+        btnCalculator.setEnabled(false);
     }//GEN-LAST:event_btnCashActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
@@ -1137,6 +1162,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private javax.swing.JButton btnPosConfirm;
     private javax.swing.JButton btnPromotion;
     private javax.swing.JButton btnPromtpay;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1156,7 +1183,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblTotalNet;
     private javax.swing.JLabel lblTotalPoint;
-    private javax.swing.JLabel lblUserName;
     private javax.swing.JScrollPane scrProductList;
     private javax.swing.JTable tblRecieptDetail;
     private javax.swing.JLabel txtBaht1;
@@ -1175,9 +1201,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private javax.swing.JLabel txtPoint1;
     private javax.swing.JLabel txtPoint2;
     private javax.swing.JLabel txtPointEarn;
+    private javax.swing.JLabel txtRole1;
     private javax.swing.JLabel txtTotal;
     private javax.swing.JLabel txtTotalNet;
     private javax.swing.JLabel txtTotalPoint;
+    private javax.swing.JLabel txtUserName1;
     private javax.swing.JLabel txtmemberName;
     // End of variables declaration//GEN-END:variables
 

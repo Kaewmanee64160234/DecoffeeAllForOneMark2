@@ -31,16 +31,35 @@ import Dialog.AddCustomerDialog;
 import Dialog.PosPromotionDialog;
 import Service.CustomerService;
 import Service.ValidateException;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
+
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatter;
+
 import net.sf.jasperreports.engine.JRException;
 import print.ReportManager;
+
 import scrollbar.ScrollBarCustom;
+import deleteInTable.TableActionCellRenderer;
+import deleteInTable.TableActionCellEditor;
+import deleteInTable.TableActionEvent;
 
 /**
  *
@@ -77,7 +96,6 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         addMemberDialog = new AddCustomerDialog(frame);
         addMemberDialog.addSubs(this);
         initTable();
-
         this.reciept = new Reciept();
         this.promotion = new Promotion();
         initFindMemberDialog();
@@ -87,10 +105,24 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }
 
     private void initTable() {
-        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        deleteInTable.TableActionEvent event = new deleteInTable.TableActionEvent() {
 
+            @Override
+            public void onDelete(int row) {
+                if (tblRecieptDetail.isEditing()) {
+                    tblRecieptDetail.getCellEditor().stopCellEditing();
+                }
+                reciept.getRecieptDetails().remove(row);
+                refreshTable();
+                resetPOSLableByList();
+                System.out.println("This is row: " + row);
+            }
+        };
+
+        tblRecieptDetail.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblRecieptDetail.setRowHeight(50);
         tblRecieptDetail.setModel(new AbstractTableModel() {
-            String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total"};
+            String[] headers = {"Name", "Price", "Qty", "Sizes", "Type", "Topping", "Sweet", "Total", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -104,7 +136,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
             @Override
             public int getColumnCount() {
-                return 8;
+                return 9;
             }
 
             @Override
@@ -113,6 +145,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 RecieptDetail recieptDetail = recieptDetails.get(rowIndex);
                 if (columnIndex == 2) {
                     int qty = Integer.parseInt((String) aValue);
+                    System.out.println(qty);
                     if (qty < 1) {
                         return;
                     }
@@ -130,7 +163,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     case 2:
                         return true;
                     default:
-                        return false;
+                        return true;
                 }
             }
 
@@ -155,6 +188,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                         return recieptDetail.getSweet();
                     case 7:
                         return recieptDetail.getTotal();
+                    case 8:
+                        return new TableActionCellRenderer();
                     default:
                         return "";
                 }
@@ -163,7 +198,57 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         tblRecieptDetail.setCellSelectionEnabled(true);
         tblRecieptDetail.setColumnSelectionAllowed(true);
         tblRecieptDetail.setSurrendersFocusOnKeystroke(true);
+        tblRecieptDetail.getColumnModel().getColumn(8).setCellRenderer(new deleteInTable.TableActionCellRenderer());
+        tblRecieptDetail.getColumnModel().getColumn(8).setCellEditor(new deleteInTable.TableActionCellEditor(event));
+        tblRecieptDetail.getColumnModel().getColumn(2).setCellEditor(new QtyCellEditor());
+        tblRecieptDetail.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setHorizontalAlignment(SwingConstants.CENTER);
+                return this;
+            }
 
+        });
+
+    }
+
+    public class QtyCellEditor extends DefaultCellEditor {
+
+        private JSpinner input;
+
+        public QtyCellEditor() {
+            super(new JTextField());
+            input = new JSpinner();
+            SpinnerNumberModel numberModel = (SpinnerNumberModel) input.getModel();
+            numberModel.setMinimum(1);
+            JSpinner.NumberEditor editor = (JSpinner.NumberEditor) input.getEditor();
+            DefaultFormatter formatter = (DefaultFormatter) editor.getTextField().getFormatter();
+            formatter.setCommitsOnValidEdit(true);
+            editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+            input.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+
+                }
+
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            super.getTableCellEditorComponent(table, value, isSelected, row, column);
+            int qty = Integer.parseInt(value.toString());
+            input.setValue(qty);
+            return input;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            int qty = (int) input.getValue(); // Get the Integer value directly
+            return String.valueOf(qty);
+
+        }
     }
 
     private void initFindMemberDialog() {
@@ -609,11 +694,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
+
         // btnFood.addActionListener(new java.awt.event.ActionListener() {
         //     public void actionPerformed(java.awt.event.ActionEvent evt) {
         //         btnFoodActionPerformed(evt);
         //     }
         // });
+
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -695,11 +782,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnAddMemberMouseClicked(evt);
             }
         });
+
         // btnAddMember.addActionListener(new java.awt.event.ActionListener() {
         //     public void actionPerformed(java.awt.event.ActionEvent evt) {
         //         btnAddMemberActionPerformed(evt);
         //     }
         // });
+
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -875,8 +964,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "QR";
         reciept.setPayment(payment);
         btnCash.setEnabled(false);
-    }                                           
-
+    }
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
         if (reciept.getRecieptDetails().size() <= 0) {
@@ -904,12 +992,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblChange.setText("" + total);
         btnCash.setEnabled(true);
         btnPromtpay.setEnabled(true);
-    }                                             
+    }
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
         btnPromtpay.setEnabled(false);
     }//GEN-LAST:event_btnCashActionPerformed
-
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:
@@ -951,6 +1038,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblTotalNet.setText("0");
         lblCash.setText("0");
         lblChange.setText("0");
+    }
+
+    private void resetPOSLableByList() {
+        reciept.calculateTotal();
+        lblTotal.setText(reciept.getTotal() + "");
+        lblTotalNet.setText(reciept.getTotal() + "");
+        lblChange.setText(reciept.getChange() + "");
     }
 
     private void btnPosConfirmActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPosConfirmActionPerformed

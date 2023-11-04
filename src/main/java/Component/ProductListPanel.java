@@ -108,7 +108,6 @@ public class ProductListPanel extends javax.swing.JPanel implements BuyProductab
 
     @Override
     public void buy(Product product, int qty, String sizeName, float sizePrice, String toppingName, float toppingPrice, String sweetName, float sweetPrice, String typeName, float typePrice) {
-        System.out.println("" + product.getName() + " " + qty);
         for(BuyProductable s: subscibers) {
             s.buy(product, qty, sizeName, sizePrice, toppingName, toppingPrice, sweetName, sweetPrice, typeName, typePrice);
                 }

@@ -4,8 +4,11 @@
  */
 package Page;
 
+import Component.ChagePage;
+import Component.LoginObs;
 import Dialog.CustomerDialog;
 import Model.Customer;
+import Model.User;
 import Service.CustomerService;
 import TablebtnEditDelete.TableActionCellEditor;
 import TablebtnEditDelete.TableActionCellRenderer;
@@ -13,6 +16,7 @@ import TablebtnEditDelete.TableActionEvent;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -24,11 +28,13 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Lenovo
  */
-public class CustomerPanel extends javax.swing.JPanel {
+public class CustomerPanel extends javax.swing.JPanel implements LoginObs, ChagePage{
 
     private final CustomerService customerService;
     private List<Customer> list;
     private Customer editedCustomer;
+    private ArrayList<LoginObs> loginObses;
+    private ArrayList<ChagePage> chagePages;
 
     /**
      * Creates new form CustomerPanel
@@ -36,7 +42,8 @@ public class CustomerPanel extends javax.swing.JPanel {
     public CustomerPanel() {
         initComponents();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-
+        loginObses = new ArrayList<>();
+        chagePages = new ArrayList<>();
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -129,8 +136,6 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
         jPanelHead = new javax.swing.JPanel();
@@ -142,25 +147,11 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnAdd.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
-            }
-        });
-
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -186,26 +177,19 @@ public class CustomerPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
+                        .addComponent(btnAdd)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -290,32 +274,9 @@ public class CustomerPanel extends javax.swing.JPanel {
         openDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectedIndex = tblCustomer.getSelectedRow();
-        if (selectedIndex >= 0) {
-            editedCustomer = list.get(selectedIndex);
-            openDialog();
-        }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int selectedIndex = tblCustomer.getSelectedRow();
-        if (selectedIndex >= 0) {
-            editedCustomer = list.get(selectedIndex);
-            int input = JOptionPane.showConfirmDialog(this,
-                    "Do you want to proceed?", "Select an Option...", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (input == 0) {
-                customerService.delete(editedCustomer);
-            }
-            refreshTable();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -346,4 +307,29 @@ public class CustomerPanel extends javax.swing.JPanel {
         tblCustomer.revalidate();
         tblCustomer.repaint();
     }
+
+    @Override
+    public void loginData(User user) {
+        for (LoginObs loginObse : loginObses) {
+            loginObse.loginData(user);
+        }
+        txtUserName1.setText(user.getUsername());
+        txtRole1.setText(user.getRole());
+    }
+
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage chagePage : chagePages) {
+            chagePage.chagePage(pageName);
+        }
+    }
+    
+    public void addInChangePage(ChagePage che){
+        chagePages.add(che);
+    }
+    
+    public void loginObs(LoginObs logObs){
+        loginObses.add(logObs);
+    }
+    
 }

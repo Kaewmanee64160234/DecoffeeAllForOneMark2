@@ -72,7 +72,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
 
         list = employeeService.getEmployees();
         tblEmployee.setRowHeight(60);
-        tblEmployee.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblEmployee.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblEmployee.setModel(new AbstractTableModel() {
             String[] columnNames = {"Profile","ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
 
@@ -181,7 +181,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblEmployee.setSelectionBackground(new java.awt.Color(164, 196, 203));
+        tblEmployee.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblEmployee);
 
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -216,6 +216,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
         );
 
         jPanelHead.setBackground(new java.awt.Color(224, 205, 174));
+        jPanelHead.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelHead.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
@@ -240,7 +241,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
             .addGroup(jPanelHeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                 .addGroup(jPanelHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
@@ -254,7 +255,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
             jPanelHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHeadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHeadLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

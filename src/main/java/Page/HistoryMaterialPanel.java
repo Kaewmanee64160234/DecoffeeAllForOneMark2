@@ -57,6 +57,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     }
 
     private void initTableBill() {
+        tblBillMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         model3 = new AbstractTableModel() {
             String[] colNames = {"ID", "Date History", "Total"};
 
@@ -207,6 +208,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblBillMaterial.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblBillMaterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -218,6 +220,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblBillMaterial.setSelectionBackground(new java.awt.Color(213, 208, 189));
         tblBillMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblBillMaterialMouseClicked(evt);
@@ -253,8 +256,8 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblStartDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblStartDate1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,12 +282,13 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                         .addComponent(lblStartDate))
                     .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblListBuy.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblListBuy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -304,6 +308,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                 return canEdit [columnIndex];
             }
         });
+        tblListBuy.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane2.setViewportView(tblListBuy);
 
         lblTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -348,12 +353,13 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotal)
-                    .addComponent(lblTotalShow)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTotalShow))
+                .addGap(12, 12, 12)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -413,6 +419,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             }
     
             tblListBuy.setModel(model);
+            tblBillMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
             lblTotalShow.setText(String.valueOf(totalAmount));
         }
 

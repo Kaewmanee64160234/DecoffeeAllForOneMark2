@@ -65,7 +65,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         customerService = new CustomerService();
         list = customerService.getCustomers();
         tblCustomer.setRowHeight(60);
-        tblCustomer.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
+        tblCustomer.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCustomer.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember", "Action"};
 
@@ -176,7 +176,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblCustomer.setSelectionBackground(new java.awt.Color(164, 196, 203));
+        tblCustomer.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblCustomer);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

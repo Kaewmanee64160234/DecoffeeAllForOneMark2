@@ -102,35 +102,35 @@ public class PromotionPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblPromotion);
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(242, 234, 211));
 
-        btnAdd.setBackground(new java.awt.Color(204, 255, 255));
+        btnAdd.setBackground(new java.awt.Color(213, 208, 189));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(27, 107, 147));
+        btnAdd.setForeground(new java.awt.Color(103, 93, 80));
         btnAdd.setText("Add");
-        btnAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(27, 107, 147)));
+        btnAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
 
-        btnEdit.setBackground(new java.awt.Color(204, 255, 255));
+        btnEdit.setBackground(new java.awt.Color(213, 208, 189));
         btnEdit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(27, 107, 147));
+        btnEdit.setForeground(new java.awt.Color(103, 93, 80));
         btnEdit.setText("Edit");
-        btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(27, 107, 147)));
+        btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
             }
         });
 
-        btnDelete.setBackground(new java.awt.Color(204, 255, 255));
+        btnDelete.setBackground(new java.awt.Color(213, 208, 189));
         btnDelete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(27, 107, 147));
+        btnDelete.setForeground(new java.awt.Color(103, 93, 80));
         btnDelete.setText("Delete");
-        btnDelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(27, 107, 147)));
+        btnDelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -143,11 +143,11 @@ public class PromotionPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEdit)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -169,7 +169,7 @@ public class PromotionPanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

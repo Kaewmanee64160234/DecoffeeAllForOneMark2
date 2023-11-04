@@ -164,7 +164,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCheckInCheckOut = new javax.swing.JTable();
 
-        jPanel2.setBackground(new java.awt.Color(213, 208, 189));
+        jPanel2.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel1.setText("Check in - Check out");
@@ -216,7 +216,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                 .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(170, 183, 173));
+        jPanel4.setBackground(new java.awt.Color(255, 251, 245));
 
         lblImage.setBackground(new java.awt.Color(236, 226, 226));
         lblImage.setOpaque(true);
@@ -303,7 +303,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(170, 183, 173));
+        jPanel5.setBackground(new java.awt.Color(255, 251, 245));
 
         tblCheckInCheckOut.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

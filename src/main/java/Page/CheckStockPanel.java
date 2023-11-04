@@ -117,7 +117,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCheckStock = new javax.swing.JTable();
 
-        jPanel3.setBackground(new java.awt.Color(213, 208, 189));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         btnBack.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnBack.setText("Back");
@@ -156,7 +156,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(213, 208, 189));
+        jPanel2.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel1.setText("Check Stock");
@@ -209,7 +209,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage {
                 .addContainerGap())
         );
 
-        jPanel1.setBackground(new java.awt.Color(170, 183, 173));
+        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
 
         tblCheckStock.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblCheckStock.setModel(new javax.swing.table.DefaultTableModel(

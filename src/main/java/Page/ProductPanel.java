@@ -164,7 +164,7 @@ public class ProductPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
 
-        jPanel2.setBackground(new java.awt.Color(166, 190, 178));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnAdd.setText("Add");
@@ -212,7 +212,7 @@ public class ProductPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelHead.setBackground(new java.awt.Color(213, 208, 189));
+        jPanelHead.setBackground(new java.awt.Color(195, 176, 145));
 
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel2.setText("Product");

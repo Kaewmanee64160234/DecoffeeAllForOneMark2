@@ -136,7 +136,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         lblTotal = new javax.swing.JLabel();
         lblTotalShow = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(195, 176, 145));
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +199,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                             .addGap(24, 24, 24)))))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         tblDateOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,7 +236,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
 
         tblOrderInDate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -50,7 +50,7 @@ public class PaymentSlipPanel extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(245, 245, 220));
+        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         jLabel3.setText("Payment Slip");

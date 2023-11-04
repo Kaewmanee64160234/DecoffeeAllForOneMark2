@@ -4,17 +4,27 @@
  */
 package button;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
 /**
  *
  * @author ASUS
  */
-public class Testing extends javax.swing.JFrame {
-
+public class Testing extends javax.swing.JFrame implements ActionListener{
+    JFrame interfaceFrame;
+    JButton singleplayerButton, multiplayerButton, optionsButton, quitButton;
     /**
      * Creates new form Testing
      */
     public Testing() {
         initComponents();
+        
     }
 
     /**
@@ -26,22 +36,52 @@ public class Testing extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        SinglePLayer = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        SinglePLayer.setText("SinglePLayer");
+        SinglePLayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SinglePLayerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(SinglePLayer)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(SinglePLayer)
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SinglePLayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SinglePLayerActionPerformed
+        setLayout(new GridBagLayout());
+        singleplayerButton.setBounds(20, 20, 200, 100);
+        GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.ipadx = 30;
+            gbc.ipady = 30;
+
+            add(singleplayerButton, gbc);
+            gbc.gridy++;
+           
+    }//GEN-LAST:event_SinglePLayerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +119,11 @@ public class Testing extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SinglePLayer;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

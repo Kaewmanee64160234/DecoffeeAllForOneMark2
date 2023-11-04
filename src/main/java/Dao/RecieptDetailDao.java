@@ -6,6 +6,7 @@ package Dao;
 
 import Model.RecieptDetail;
 import Model.RecieptDetailReport;
+import Model.RecieptDetailWorstProduct;
 import helper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -131,23 +132,24 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         return list;
     }
 
-    public List<RecieptDetailReport> getTopFiveWorstSellingProducts() {
-        ArrayList<RecieptDetailReport> list = new ArrayList();
+    public List<RecieptDetailWorstProduct> getTopFiveWorstSellingProducts(int limit) {
+        ArrayList<RecieptDetailWorstProduct> list = new ArrayList();
         String sql = """
            SELECT product_id, reciept_detail_name, sum(reciept_detail_qty) AS TotalQty
            FROM reciept_detail
            GROUP BY product_id
            ORDER BY TotalQty ASC, reciept_detail_name DESC
-           LIMIT 5
+           LIMIT ?
            """;
 
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, limit);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                RecieptDetailReport obj = RecieptDetailReport.fromRS(rs);
+                RecieptDetailWorstProduct obj = RecieptDetailWorstProduct.fromRS(rs);
                 list.add(obj);
             }
 

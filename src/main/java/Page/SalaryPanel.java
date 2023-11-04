@@ -61,13 +61,15 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private DefaultCategoryDataset barDataset;
     private List<SummarySalary> salary;
     private  SummarySalaryService summarySalaryService = new SummarySalaryService();
+    private historyPageSummaySalary hisPageSummaySalary_ = new historyPageSummaySalary();
+    private TableSalaryPanel tableSalaryPanel ;
 
     /**
      * Creates new form SalaryPanel
      */
     public SalaryPanel() {
         initComponents();
-        salary = new ArrayList<>();
+        salary = new ArrayList<>(); 
         initDatePicker();
         initBarChart();
         loadBarDataset();
@@ -76,9 +78,12 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
         employeeService = new EmployeeService();
         editedEmployee = new Employee();
+        tableSalaryPanel = new TableSalaryPanel(editedEmployee);
+        tableSalaryPanel.addInChagePage(this);
         list = new ArrayList<>();
         subs = new ArrayList<>();
         employeeList = new ArrayList<>();
+        
 
         list = (ArrayList<Employee>) employeeService.getEmployees();
 
@@ -281,7 +286,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         btnComfirm = new javax.swing.JButton();
         pnlBarGraph = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btnHistory = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
         btnPaymentHistory = new javax.swing.JButton();
 
@@ -341,7 +345,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         pnlBarGraph.setLayout(pnlBarGraphLayout);
         pnlBarGraphLayout.setHorizontalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 541, Short.MAX_VALUE)
         );
         pnlBarGraphLayout.setVerticalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,7 +361,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 95, Short.MAX_VALUE)
                         .addComponent(lblStartDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,13 +371,16 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlNavigation2Layout.setVerticalGroup(
@@ -406,14 +413,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
         jPanel3.setBackground(new java.awt.Color(166, 190, 178));
 
-        btnHistory.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnHistory.setText("History");
-        btnHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistoryActionPerformed(evt);
-            }
-        });
-
         btnPrint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         btnPrint.setText("Print");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -437,10 +436,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPaymentHistory)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrint)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnHistory)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -449,8 +446,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPaymentHistory)
-                    .addComponent(btnPrint)
-                    .addComponent(btnHistory))
+                    .addComponent(btnPrint))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -483,10 +479,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-
-    }//GEN-LAST:event_btnHistoryActionPerformed
-
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrintActionPerformed
@@ -511,7 +503,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComfirm;
-    private javax.swing.JButton btnHistory;
     private javax.swing.JButton btnPaymentHistory;
     private javax.swing.JButton btnPrint;
     private javax.swing.JLabel jLabel3;

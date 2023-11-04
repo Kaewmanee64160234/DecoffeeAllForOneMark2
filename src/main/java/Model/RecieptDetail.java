@@ -29,9 +29,9 @@ public class RecieptDetail {
     private Reciept reciept;
     private String sweet;
     private float sweetPrice;
-    private float  productPrice;
+    private float productPrice;
 
-    public RecieptDetail(String name, int id, float price, String size, double typePrice1, String type, double sizePrice1, String topping, double toppingPrice1, float typePrice, int qty, int recieptId, String sweet, float sweetPrice,float  productPrice) {
+    public RecieptDetail(String name, int id, float price, String size, double typePrice1, String type, double sizePrice1, String topping, double toppingPrice1, float typePrice, int qty, int recieptId, String sweet, float sweetPrice, float productPrice) {
         this.id = id;
         this.name = name;
         this.qty = qty;
@@ -50,7 +50,7 @@ public class RecieptDetail {
         this.productPrice = productPrice;
     }
 
-    public RecieptDetail(String name, int qty, float price, String size, float typePrice, String type, float sizePrice, String topping, float toppingPrice, float total, int recieptId, int productId, String sweet, float sweetPrice,float  productPrice) {
+    public RecieptDetail(String name, int qty, float price, String size, float typePrice, String type, float sizePrice, String topping, float toppingPrice, float total, int recieptId, int productId, String sweet, float sweetPrice, float productPrice) {
         this.id = -1;
         this.name = name;
         this.qty = qty;
@@ -199,7 +199,7 @@ public class RecieptDetail {
 
     public void setTotal(float total) {
         this.total = total;
-        this.total = total+toppingPrice  + sweetPrice + typePrice + sizePrice;
+        this.total = total + toppingPrice + sweetPrice + typePrice + sizePrice;
     }
 
     public int getRecieptId() {
@@ -246,7 +246,7 @@ public class RecieptDetail {
             recieptDetail.setName(rs.getString("reciept_detail_name"));
             recieptDetail.setQty(rs.getInt("reciept_detail_qty"));
             recieptDetail.setPrice(rs.getFloat("reciept_detail_price"));
-            recieptDetail.setSize(rs.getString("reciept_detail_size"));
+            recieptDetail.setSize(rs.getString("size"));
             recieptDetail.setTypePrice(rs.getFloat("type_price"));
             recieptDetail.setType(rs.getString("type"));
             recieptDetail.setSizePrice(rs.getFloat("size_price"));
@@ -255,8 +255,8 @@ public class RecieptDetail {
             recieptDetail.setTotal(rs.getFloat("reciept_detail_total_price"));
             recieptDetail.setRecieptId(rs.getInt("reciept_id"));
             recieptDetail.setProductId(rs.getInt("product_id"));
-            recieptDetail.setSweet(rs.getString("sweet"));
-            recieptDetail.setSweetPrice(rs.getFloat("sweet_price"));
+//            recieptDetail.setSweet(rs.getString("sweet"));
+//            recieptDetail.setSweetPrice(rs.getFloat("sweet_price"));
 
         } catch (Exception e) {
             System.out.println("Error on RecieptDetail.java FromRS: " + e);

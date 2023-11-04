@@ -70,7 +70,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private BuyStockPanel buystockPanel;
     private ReportPanel reportPanel;
     private SalaryPanel salaryPannel;
-    private TableSalaryPanel tableSalaryPannel;
     private Employee employee;
     private BuyStockPanel buyStockPanel;
     private ArrayList<LoginObs> loginObses;
@@ -79,6 +78,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private final JFrame frame;
     private PayRentPanel payRentPanel;
     private historyPageSummaySalary hisPageSummaySalary;
+    private TableSalaryPanel tableSalaryPanel;
     public MainFrame() {
         initComponents();
         loginObses = new ArrayList<>();
@@ -89,6 +89,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         employee = new Employee();
         productPanel = new ProductPanel();
         ProductPanel productPanel = new ProductPanel();
+        tableSalaryPanel = new TableSalaryPanel(employee);
 //        posPanel = new PosPanel();
         hisPageSummaySalary = new historyPageSummaySalary();
         buystockPanel = new BuyStockPanel(employee);
@@ -109,6 +110,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         salaryPannel.addInSubs(this);
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
+        hisPageSummaySalary.addInChagePage(this);
+        tableSalaryPanel.addInChagePage(this);
         frame = (JFrame) SwingUtilities.getRoot(this);
 
        //scrPanel.setViewportView(reportPanel);
@@ -283,7 +286,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     @Override
     public void chagePageEmp(Employee emp, String pageName) {
         if (pageName.equals("SS Emp")) {
-            scrPanel.setViewportView(new TableSalaryPanel(emp));
+            tableSalaryPanel = new TableSalaryPanel(emp);
+            tableSalaryPanel.addInChagePage(this);
+            scrPanel.setViewportView(tableSalaryPanel);
         }
     }
 

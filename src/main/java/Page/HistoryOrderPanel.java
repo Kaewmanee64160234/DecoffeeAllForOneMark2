@@ -356,9 +356,11 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
     private void tblDateOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDateOrderMouseClicked
 
         int selectedRow = tblDateOrder.getSelectedRow();
+        int selectedId = (int) tblDateOrder.getValueAt(selectedRow, 0);
+
+        System.out.println(selectedId);
         if (selectedRow >= 0) {
-            String selectedDate = (String) tblDateOrder.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
-            List<RecieptDetail> recieptDetailsForDate = recieptDetailService.getRecieptDetailForDate(selectedDate);
+            List<RecieptDetail> recieptDetailsForDate = recieptDetailService.getrDetailsByReciptId(selectedId);
 
             System.out.println(recieptDetailsForDate);
             DefaultTableModel model = new DefaultTableModel();

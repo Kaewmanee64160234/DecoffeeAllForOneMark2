@@ -69,6 +69,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         datePanel1 = new JDatePanelImpl(model1, p1);
         JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
         pnlDatePicker1.add(datePicker1);
+        model1.setSelected(true);
 
     }
 
@@ -106,6 +107,11 @@ public class AddARentBillDialog extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(228, 228, 208));
 
         txtRent.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRentActionPerformed(evt);
+            }
+        });
 
         txtWaterBill.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
 
@@ -189,9 +195,7 @@ public class AddARentBillDialog extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
                                 .addComponent(lblName2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblName3)))
+                            .addComponent(lblName3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,12 +318,40 @@ public class AddARentBillDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         RentStore rentStore;
+        float rent;
+        float waterBill;
+        float electicBill;
+        float total;
+        try {
+            rent = Float.parseFloat(txtRent.getText());
+            waterBill = Float.parseFloat(txtWaterBill.getText());
+            electicBill = Float.parseFloat(txtElectricBill.getText());
+            total = Float.parseFloat(txtTotal.getText());
+            if (rent < 1) {
+                JOptionPane.showMessageDialog(this, "Rent must be greater than or equal to 0");
+                return;
+            }
+            if (waterBill < 1) {
+                JOptionPane.showMessageDialog(this, "Water Bill must be greater than or equal to 0");
+                return;
+            }
+            if (electicBill < 1) {
+                JOptionPane.showMessageDialog(this, "Electic Bill must be greater than or equal to 0");
+                return;
+            }
+            if (total < 1) {
+                JOptionPane.showMessageDialog(this, "Please click calculatate before saving.");
+                return;
+            }
 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Point must be a valid integer.");
+            return;
+        }
         if (editedRentStore.getId() < 0) {
 
             setFormToObject();
             rentStore = rentStoreService.addNew(editedRentStore);
-
         } else {
             setFormToObject();
             rentStore = rentStoreService.update(editedRentStore);
@@ -360,6 +392,10 @@ public class AddARentBillDialog extends javax.swing.JDialog {
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
 
     }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void txtRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRentActionPerformed
 
     /**
      * @param args the command line arguments

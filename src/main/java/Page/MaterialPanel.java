@@ -4,8 +4,10 @@
  */
 package Page;
 
+import Component.LoginObs;
 import Dialog.MaterialDialog;
 import Model.Material;
+import Model.User;
 import Service.MaterialService;
 import TablebtnEditDelete.TableActionCellEditor;
 import TablebtnEditDelete.TableActionCellRenderer;
@@ -26,7 +28,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author toey
  */
-public class MaterialPanel extends javax.swing.JPanel {
+public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
 
     private final MaterialService materialService;
     private List<Material> list;
@@ -311,5 +313,12 @@ public class MaterialPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtRole;
     private javax.swing.JLabel txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loginData(User user) {
+        txtUserName.setText(user.getUsername());
+        txtRole.setText(user.getRole());
+
+    }
 
 }

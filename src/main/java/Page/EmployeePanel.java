@@ -4,6 +4,7 @@
  */
 package Page;
 
+import Component.LoginObs;
 import Dialog.EmployeeDialog;
 import Dialog.UserDialog;
 import Model.Employee;
@@ -29,7 +30,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class EmployeePanel extends javax.swing.JPanel {
+public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
 
     private final EmployeeService employeeService;
     private List<Employee> list;
@@ -325,4 +326,10 @@ public class EmployeePanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtRole1;
     private javax.swing.JLabel txtUserName1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loginData(User user) {
+        txtUserName1.setText(user.getUsername());       
+        txtRole1.setText(user.getRole());
+    }
 }

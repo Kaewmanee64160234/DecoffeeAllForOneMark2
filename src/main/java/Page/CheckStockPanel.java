@@ -1,9 +1,11 @@
 package Page;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
 import Model.Material;
+import Model.User;
 import Service.CheckMaterialService;
 import Service.CheckinoutService;
 import Service.EmployeeService;
@@ -17,7 +19,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
-public class CheckStockPanel extends javax.swing.JPanel implements ChagePage {
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,LoginObs {
 
     private final MaterialService materialService;
     private List<Material> list;
@@ -347,6 +349,13 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage {
             sub.chagePage(pageName);
 
         }
+
+    }
+
+    @Override
+    public void loginData(User user) {
+        txtUserName.setText(user.getUsername());
+        txtRole.setText(user.getRole());
 
     }
 }

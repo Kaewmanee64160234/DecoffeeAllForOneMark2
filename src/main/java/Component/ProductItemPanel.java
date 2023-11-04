@@ -88,7 +88,11 @@ public class ProductItemPanel extends javax.swing.JPanel implements ProductDetai
         btnMore = new javax.swing.JButton();
         btnBuy = new javax.swing.JButton();
 
-        lblImage.setBackground(new java.awt.Color(207, 202, 186));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblImage.setBackground(new java.awt.Color(224, 205, 174));
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setOpaque(true);
 

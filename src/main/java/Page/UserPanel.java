@@ -4,9 +4,11 @@
  */
 package Page;
 
+import Component.EmpObs;
 import Component.LoginObs;
 import TablebtnEditDelete.TableActionCellRenderer;
 import Dialog.UserDialog;
+import Model.Employee;
 import Model.User;
 import Service.UserService;
 import TablebtnEditDelete.TableActionCellEditor;
@@ -15,6 +17,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,19 +31,23 @@ import scrollbar.ScrollBarCustom;
  *
  * @author toey
  */
-public class UserPanel extends javax.swing.JPanel implements LoginObs{
+public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
 
     private final UserService userService;
     private List<User> list;
     private User editedUser;
+    private ArrayList<EmpObs> empObss;
+    private UserDialog userDialog;
 
     /**
      * Creates new form UserPanel
      */
     public UserPanel() {
         initComponents();
-        
+        empObss = new ArrayList();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        userDialog = new UserDialog(frame, editedUser);
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -297,13 +304,15 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        UserDialog userDialog = new UserDialog(frame, editedUser);
+        userDialog = new UserDialog(frame, editedUser);
         userDialog.setLocationRelativeTo(this); //set dialog to center
         userDialog.setVisible(true);
+        userDialog.addInSub(this);
         userDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
+                updateEmployee(new Employee());
             }
 
         });
@@ -337,8 +346,21 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
 
     @Override
     public void loginData(User user) {
-        txtUserName.setText(user.getUsername());       
+        txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        System.out.println("Page.UserPanel.updateEmployee()");
+        for (EmpObs empObs : empObss) {
+            empObs.updateEmployee(employee);
+            
+        }
+    }
+
+    public void addInSub(EmpObs empObs) {
+        empObss.add(empObs);
     }
 
 }

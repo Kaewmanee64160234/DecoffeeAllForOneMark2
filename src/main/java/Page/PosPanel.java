@@ -241,7 +241,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnCancel = new javax.swing.JButton();
         btnPosConfirm = new javax.swing.JButton();
 
-        jpnlHeader.setBackground(new java.awt.Color(195, 176, 145));
+        jpnlHeader.setBackground(new java.awt.Color(224, 205, 174));
+        jpnlHeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtDcoffee.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         txtDcoffee.setText("D-Coffee");
@@ -273,9 +274,8 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap())
         );
 
-        jpnlDetail.setBackground(new java.awt.Color(255, 251, 245));
+        jpnlDetail.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblRecieptDetail.setBackground(new java.awt.Color(255, 251, 245));
         tblRecieptDetail.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblRecieptDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -290,7 +290,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         ));
         jScrollPane2.setViewportView(tblRecieptDetail);
 
-        jpnlMember.setBackground(new java.awt.Color(255, 251, 245));
+        jpnlMember.setBackground(new java.awt.Color(255, 255, 255));
 
         txtmemberName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtmemberName.setText("Member Name:");
@@ -417,7 +417,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpnlCaculator.setBackground(new java.awt.Color(255, 251, 245));
+        jpnlCaculator.setBackground(new java.awt.Color(255, 255, 255));
 
         txtTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtTotal.setText("Total:");
@@ -574,7 +574,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 .addContainerGap())
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         btnDrinks.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnDrinks.setText("Drinks");
@@ -609,11 +609,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
-        btnFood.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFoodActionPerformed(evt);
-            }
-        });
+        // btnFood.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         btnFoodActionPerformed(evt);
+        //     }
+        // });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -657,7 +657,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         scrProductList.setBackground(new java.awt.Color(255, 251, 245));
 
-        jPanel1.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -695,11 +695,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnAddMemberMouseClicked(evt);
             }
         });
-        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMemberActionPerformed(evt);
-            }
-        });
+        // btnAddMember.addActionListener(new java.awt.event.ActionListener() {
+        //     public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //         btnAddMemberActionPerformed(evt);
+        //     }
+        // });
 
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCancel.setText("Cancel");
@@ -777,7 +777,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                             .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

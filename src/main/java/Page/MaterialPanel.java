@@ -17,6 +17,8 @@ import scrollbar.ScrollBarCustom;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import net.sf.jasperreports.engine.JRException;
-import print.ReportCheckStock;
+import print.ReportOutOfStock;
 import print.ReportSS;
 
 /**
@@ -311,19 +313,35 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
-        try {
+       
+ try {
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
+            String forr = simpleDateFormat.format(currentDate);
+            
             // TODO add your handling code here:
-            ReportCheckStock.getInstance().complieReport();
-            ReportCheckStock.getInstance().printReport();
+            ReportOutOfStock.getInstance().complieReport();
+            ReportOutOfStock.getInstance().printReport(forr);
 
         } catch (JRException ex) {
             Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
         // TODO add your handling code here:
+         try {
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
+            String forr = simpleDateFormat.format(currentDate);
+            
+            // TODO add your handling code here:
+            ReportOutOfStock.getInstance().complieReport();
+            ReportOutOfStock.getInstance().printReport(forr);
+
+        } catch (JRException ex) {
+            Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAdd2ActionPerformed
 
     private void openDialog() {

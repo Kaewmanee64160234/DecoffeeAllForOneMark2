@@ -5,6 +5,7 @@
 package print;
 
 import Model.Material;
+import Model.MaterialReport;
 import Model.Reciept;
 import Model.ReportSSModel;
 import Model.SummarySalary;
@@ -32,41 +33,40 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author USER
  */
-public class ReportCheckStock {
+public class ReportOutOfStock {
 
-    private static ReportCheckStock instance;
+    private static ReportOutOfStock instance;
     private JasperReport reportPay;
 
-    public static ReportCheckStock getInstance() {
+    public static ReportOutOfStock getInstance() {
         if (instance == null) {
-            instance = new ReportCheckStock();
+            instance = new ReportOutOfStock();
         }
         return instance;
     }
 
-    private ReportCheckStock() {
+    private ReportOutOfStock() {
 
     }
 
     public void complieReport() throws JRException {
-        reportPay = JasperCompileManager.compileReport("./Blank_A4_3.jrxml");
+        reportPay = JasperCompileManager.compileReport("./Blank_A4_4.jrxml");
 
     }
 
-    public void printReport() throws JRException {
-       
+    public void printReport(String date) throws JRException {
+ 
+        
             MaterialService materialService = new MaterialService();
-            ArrayList<Material> materials = new ArrayList<>();
-            materials = (ArrayList<Material>) materialService.getMaterials();
+          ArrayList<Material> materials = new ArrayList<>();
+          materials = materialService.getMaterialByMinQtyReport();
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(materials);
             Map<String, Object> map = new HashMap<>();
-            map.put("month", "");
-            
-            map.put("total","");
-
+          
             JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
             view(print);
 
+       
     }
 
     private void view(JasperPrint print) throws JRException {

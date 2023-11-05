@@ -57,4 +57,5 @@ public class CheckMaterialService {
         CheckMaterialDao checkMaterialDao = new CheckMaterialDao();
         return checkMaterialDao.delete(editedCheckMaterial);
     }
+
 }

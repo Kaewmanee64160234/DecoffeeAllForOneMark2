@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6bfc7334-59f5-4ba3-9c85-6461bf0559db">
+	<parameter name="date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="matMinQty" class="java.lang.Integer"/>
+	<field name="matQty" class="java.lang.Integer"/>
+	<field name="matUnit" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="-1" width="551" height="40" uuid="c32ea2e6-9cb6-4dfa-9943-558ab26ec124"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="35" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Product Out Of Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="30" height="20" uuid="de5e4979-fec8-4cef-a735-9e096daa6124"/>
+				<textElement>
+					<font fontName="Angsana New" size="15"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="50" width="90" height="20" uuid="3a12288e-d935-4436-b312-cfc5fd2e8ba9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="661da9c0-8685-4e02-915c-b28868f81178"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="22"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="0" width="200" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="921a091d-1e60-4855-b6e7-d16c7adb33fa"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="22"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="80" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="2777951e-931c-44ae-aacd-b79b5b7a2cfb"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="22"/>
+				</textElement>
+				<text><![CDATA[Minimum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="120" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="f78ce933-7740-4890-b5ce-0cfe4e42f28e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="22"/>
+				</textElement>
+				<text><![CDATA[Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="0" width="124" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="259bdb4a-26b2-4841-9c1a-ca3a347d3c67"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="22"/>
+				</textElement>
+				<text><![CDATA[Unit]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="30" uuid="29c33304-947c-4430-9210-1f795999dc72"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="200" height="30" uuid="039e915b-69e9-4bc7-aa6d-4c4750cdca16"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="80" height="30" uuid="71a6a088-70e6-4eb4-af7b-180e5af39128"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matMinQty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="120" height="30" uuid="e84d12cd-139f-49ab-b2b3-3f34bd75c32a"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matQty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="124" height="30" uuid="142b9895-9061-4b0d-8549-51a308096e2f"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matUnit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

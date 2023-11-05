@@ -5,6 +5,7 @@
 package Page;
 
 import Component.BuyProductable;
+import Component.ChagePage;
 import Component.ProductListPanel;
 import Dao.RecieptDao;
 import Dialog.FindMemberDialog;
@@ -65,7 +66,7 @@ import deleteInTable.TableActionEvent;
  *
  * @author toey
  */
-public final class PosPanel extends javax.swing.JPanel implements BuyProductable, CusObs, PromotionObs {
+public final class PosPanel extends javax.swing.JPanel implements ChagePage, BuyProductable, CusObs, PromotionObs {
 
     private ProductListPanel productListPanel;
     private final RecieptService recieptService;
@@ -80,13 +81,25 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private CustomerService customerService;
     private String payment;
     private int queue = 1;
+
+    private ArrayList<ChagePage> subs;
+    private ArrayList<ChagePage> chagpages;
+
+    private ReportPanel reportPanel;
+
+    public void setReportPanel(ReportPanel reportPanel) {
+        this.reportPanel = reportPanel;
+    }
+
     private ArrayList<CusObs> cusObs = new ArrayList<>();
+
 
     /**
      * Creates new form PosDialog
      */
     public PosPanel() {
         initComponents();
+        subs = new ArrayList<>();
         this.productListPanel = new ProductListPanel(1);
         productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
@@ -730,6 +743,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnFoodMouseClicked(evt);
             }
         });
+      
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -794,6 +808,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnMainMenu.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnMainMenu.setForeground(new java.awt.Color(255, 255, 255));
         btnMainMenu.setText("MainMenu");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
 
         btnFindMember.setBackground(new java.awt.Color(65, 145, 151));
         btnFindMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -819,6 +838,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                 btnAddMemberMouseClicked(evt);
             }
         });
+      
 
         btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -969,7 +989,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         // set befor implement login
         reciept.setCustomerId(1);
         reciept.setReceive(Float.parseFloat(lblCash.getText()));
-        reciept.setChange(Float.parseFloat(lblChange.getText()) );
+        reciept.setChange(Float.parseFloat(lblChange.getText()));
         reciept.setEmployeeId(1);
         reciept.setQueue(queue);
         // Save
@@ -1043,6 +1063,13 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         btnPromtpay.setEnabled(false);
         btnCalculator.setEnabled(true);
     }//GEN-LAST:event_btnCashActionPerformed
+
+    public void addInSubs(ChagePage chagePage) {
+        subs.add(chagePage);
+    }
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        chagePage("Main menu");
+    }//GEN-LAST:event_btnMainMenuActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:
@@ -1182,6 +1209,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblTotalNet.setText(reciept.getTotal() - Float.parseFloat(lblDiscount.getText()) + "");
     }
 
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage sub : subs) {
+            sub.chagePage(pageName);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddMember;
     private javax.swing.JButton btnCalculator;

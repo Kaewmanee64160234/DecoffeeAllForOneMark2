@@ -263,7 +263,7 @@ public class ProductDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         Product product;
         float price;
         String name = edtName.getText();
@@ -272,19 +272,26 @@ public class ProductDialog extends javax.swing.JDialog {
             return;
         }
         if (name.length() < 3) {
-            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            JOptionPane.showMessageDialog(this, "Please insert a name with more than 3 characters.");
             return;
         }
         try {
             price = Float.parseFloat(edtPrice.getText());
             if (price < 1) {
-                JOptionPane.showMessageDialog(this, "Price must more than 0");
+                JOptionPane.showMessageDialog(this, "Price must be more than 0");
                 return;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please fill the price and must be a valid integer.");
+            JOptionPane.showMessageDialog(this, "Please fill in the price, and it must be a valid number.");
             return;
         }
+        for (Product existingProduct : productService.getProductsOrderByName()) {
+            if (name.equals(existingProduct.getName())) {
+                JOptionPane.showMessageDialog(this, "Name is already in use. Please enter a new name.");
+                return;
+            }
+        }
+
 
         if (editedProduct.getId() < 0) {//Add New
             if (isDuplicatePName(name)) {
@@ -299,8 +306,8 @@ public class ProductDialog extends javax.swing.JDialog {
                 }
             } else {
                 return;
-            }
 
+            }
         } else {
             setFormToObject();
             try {
@@ -310,10 +317,10 @@ public class ProductDialog extends javax.swing.JDialog {
                 Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }
-
         }
         this.dispose();
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }
+
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();

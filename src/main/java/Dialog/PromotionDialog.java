@@ -6,6 +6,9 @@ import Service.PromotionService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+
+import javax.swing.JOptionPane;
+
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -213,17 +216,76 @@ public class PromotionDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         Promotion promotion;
-        if (editedPromotion.getId() < 0) {//Add New
-            setFormToObject();
-            promotion = promotionService.addNew(editedPromotion);
-        } else {
-            setFormToObject();
-            promotion = promotionService.update(editedPromotion);
+        boolean isValid = true; // สร้างตัวแปรเพื่อตรวจสอบความถูกต้อง
+    
+        String name = edtName.getText();
+        
+        // Check if the name contains non-numeric characters
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            isValid = false;
         }
-        this.dispose();
-    }//GEN-LAST:event_btnSaveActionPerformed
+        if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Please insert a name with more than 3 characters.");
+            isValid = false;
+        }
+        
+        String discountText = edtDiscount.getText();
+        String pointDiscountText = edtPointDiscount.getText();
+        String discountPercText = edtDiscountPerc.getText();
+        
+        float discount = 0;
+        float pointDiscount = 0;
+        float discountPerc = 0;
+        
+        try {
+            if (!discountText.isEmpty()) {
+                discount = Float.parseFloat(discountText);
+                if (discount < 0) {
+                    JOptionPane.showMessageDialog(this, "Discount value cannot be negative.");
+                    isValid = false;
+                }
+            }
+            if (!pointDiscountText.isEmpty()) {
+                pointDiscount = Float.parseFloat(pointDiscountText);
+                if (pointDiscount < 0) {
+                    JOptionPane.showMessageDialog(this, "Point Discount value cannot be negative.");
+                    isValid = false;
+                }
+            }
+            if (!discountPercText.isEmpty()) {
+                discountPerc = Float.parseFloat(discountPercText);
+                if (discountPerc < 0) {
+                    JOptionPane.showMessageDialog(this, "Discount Percentage value cannot be negative.");
+                    isValid = false;
+                }
+            }
+            
+            if ((discount != 0 ? 1 : 0) + (pointDiscount != 0 ? 1 : 0) + (discountPerc != 0 ? 1 : 0) != 1) {
+                JOptionPane.showMessageDialog(this, "Please fill exactly one of Discount, Point Discount, or Discount Percentage with a value of 0.");
+                isValid = false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Discount, Point Discount, and Discount Percentage.");
+            isValid = false;
+        }
+    
+        if (isValid) {
+            if (editedPromotion.getId() < 0) {
+                setFormToObject();
+                promotion = promotionService.addNew(editedPromotion);
+            } else {
+                setFormToObject();
+                promotion = promotionService.update(editedPromotion);
+            }
+            this.dispose();
+        }
+    }
+    
+    
+    //GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
@@ -251,11 +313,11 @@ public class PromotionDialog extends javax.swing.JDialog {
     }
 
     private void setFormToObject() {
-        
+
         Date selectedDate = model4.getValue();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = dateFormat.format(selectedDate);
-        
+
         editedPromotion.setEndDate(formattedDate);
         editedPromotion.setName(edtName.getText());
 

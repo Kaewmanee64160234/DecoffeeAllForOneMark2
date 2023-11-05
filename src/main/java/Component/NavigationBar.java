@@ -4,6 +4,7 @@
  */
 package Component;
 
+import Dialog.PosDialog;
 import Model.Checkinout;
 import Model.User;
 import Page.CheckinCheckoutPanel;
@@ -20,8 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -315,7 +318,12 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
     }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosActionPerformed
-        chagePage("POS");
+//        chagePage("POS");
+       
+        
+         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+          PosDialog posDialog = new PosDialog(frame);
+          posDialog.setVisible(true);
     }//GEN-LAST:event_btnPosActionPerformed
 
     private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed

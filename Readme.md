@@ -15,7 +15,7 @@
     ดังรูป
 
 <picture>
-  <img src="https://scontent.fbkk23-1.fna.fbcdn.net/v/t39.30808-6/399381199_191151500700791_4124648083600306551_n.jpg?stp=dst-jpg_p960x960&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=4UZQEoM1JlYAX9fz1Wh&_nc_ht=scontent.fbkk23-1.fna&cb_e2o_trans=t&oh=00_AfDZ4uYOEyqwNbB4IPSYodG7MdA1pjqdv6-qFaSKxgI0rw&oe=654D7045">
+  <img src="https://cdn.discordapp.com/attachments/912695959404810290/1170830667865665636/image.png?ex=655a7808&is=65480308&hm=957f8dbb9bf06103a013dc3a491233555212c638c43ddb911369d50f0c2bd240&">
 </picture>
 
 
@@ -49,7 +49,7 @@
     จากนั้นเมื่อตรวจสอบรายละเอียดการสั่งซื้อเรียบร้อยให้ทำการกรอกจำนวนเงินที่เรามาและทำการกดปุ่ม Calculate และเลือกทำการเลือกช่องทางการชำระเงินของลูกค้า แล้วกดปุ่ม confirm เพื่อบันทึกการสั่งซื้อของลูกค้า ดังรูป
 
 <picture>
-  <img src="https://scontent.fbkk23-1.fna.fbcdn.net/v/t39.30808-6/399212664_191150700700871_1027690684720417354_n.jpg?stp=dst-jpg_p960x960&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=KSFq0ndwkBUAX_KeE8v&_nc_ht=scontent.fbkk23-1.fna&cb_e2o_trans=t&oh=00_AfDXlckvNlFvg9xG-lvvhqwhR5b9gXZn6hurDCU284ulww&oe=654CDA99">
+  <img src="https://cdn.discordapp.com/attachments/912695959404810290/1170829963759456397/image.png?ex=655a7760&is=65480260&hm=4dd42f1fb8ba3c6626fbde8e0005f110abd625571e03e968688a7c5891419869&">
 </picture>
 
 **2. ส่วนการเช็ค Stock สินค้า**

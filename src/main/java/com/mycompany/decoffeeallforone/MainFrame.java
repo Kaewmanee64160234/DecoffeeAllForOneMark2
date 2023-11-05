@@ -61,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     /**
      * Creates new form MainFrame
      */
-    private NavigationBar navigationBar;
+  private NavigationBar navigationBar;
     private PosPanel posPanel;
     private ProductPanel productPanel;
     private UserPanel userPannel;

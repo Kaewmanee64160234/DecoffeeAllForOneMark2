@@ -28,7 +28,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author toey
  */
-public class UserPanel extends javax.swing.JPanel implements LoginObs{
+public class UserPanel extends javax.swing.JPanel implements LoginObs {
 
     private final UserService userService;
     private List<User> list;
@@ -39,7 +39,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
      */
     public UserPanel() {
         initComponents();
-        
+
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         TableActionEvent event = new TableActionEvent() {
             @Override
@@ -109,7 +109,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
+                        Image newImage = image.getScaledInstance((int) (250 * ((float) width) / height), 250, Image.SCALE_SMOOTH);
                         icon.setImage(newImage);
                         return icon;
                     case 1:
@@ -140,6 +140,8 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
         });
         tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
         tblUser.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        int columnIndex = 0; // The column index where you want to display the image
+        tblUser.getColumnModel().getColumn(columnIndex).setCellRenderer(new ImageRenderer());
     }
 
     /**
@@ -337,7 +339,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
 
     @Override
     public void loginData(User user) {
-        txtUserName.setText(user.getUsername());       
+        txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
     }
 

@@ -127,5 +127,5 @@
 <picture>
   <img src="https://cdn.discordapp.com/attachments/909784486412165140/1170774105939783821/image.png?ex=655a435a&is=6547ce5a&hm=c3a3bb7afa33cff14d022c9dbe012544673b4721d2b9d2709267122b5f1d2e83&">
   <img src="https://cdn.discordapp.com/attachments/909784486412165140/1170774153947775106/image.png?ex=655a4366&is=6547ce66&hm=c6e36e64c8ee2d699ae12a178f6559c9adfc593b1922e82abbb4dbfb4e0218fc&">
-</picture
+</picture>
    

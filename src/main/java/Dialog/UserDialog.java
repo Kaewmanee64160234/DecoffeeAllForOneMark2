@@ -454,6 +454,7 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
         if (editedUser.getId() < 0) {//Add New
             setFormToObject();
             user = userService.addNew(editedUser);
+            System.out.println(user.toString());
             saveImage(user);
         } else {
             setFormToObject();
@@ -464,6 +465,8 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
             setFormToObject();
             editedEmployee.setUser_id(user.getId());
             employee = employeeService.addNew(editedEmployee);
+            user.setEmployee_id(employee.getId());
+            userService.update(user);
             System.out.println(editedEmployee.toString());
         } else {
             setFormToObject();

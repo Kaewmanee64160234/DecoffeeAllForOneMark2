@@ -67,7 +67,6 @@ public class ReportSS {
                 reportSSModel.setEmployeeName(sse.getEmployeeName());
                 reportSSModels.add(reportSSModel);
             }
-
             SummarySalary ss = new SummarySalary();
             ss = salaryService.getTotalSummarySalaryOneMonth(date);
             Map<String, Object> map = new HashMap<>();

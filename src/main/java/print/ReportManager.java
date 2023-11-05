@@ -63,7 +63,7 @@ public class ReportManager {
         String formattedDate = dateFormat.format(reciept.getCreaetedDate());
         map.put("date", formattedDate);
         map.put("discount", reciept.getDiscount() + "");
-        map.put("totalNet", reciept.getTotal() + "");
+        map.put("totalNet", reciept.getTotal()-reciept.getDiscount() + "");
         map.put("queue", reciept.getQueue() + "");
 
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reciept.getRecieptDetails());

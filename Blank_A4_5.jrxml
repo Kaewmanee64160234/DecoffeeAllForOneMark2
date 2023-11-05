@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_5" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9455b2e0-5763-406c-b4c6-1fdc6bb72ed1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name=" shopname" class="java.lang.String"/>
+	<field name="creatdDate" class="java.lang.String"/>
+	<field name="buy" class="java.lang.Float"/>
+	<field name="totalDiscount" class="java.lang.Float"/>
+	<field name="billTotal" class="java.lang.Float"/>
+	<field name="change" class="java.lang.Float"/>
+	<field name="totalQty" class="java.lang.Integer"/>
+	<field name="employeeId" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="-1" width="551" height="40" uuid="69ef8f14-f2a2-45f9-9e0d-b585fb8918f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="35" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expense and Purchase Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="30" height="20" uuid="f228eee7-2388-4638-aacc-ee8755404ff3"/>
+				<textElement>
+					<font fontName="Angsana New" size="15"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="50" width="100" height="20" uuid="8bdd60cb-e245-403b-b6e4-3cccd12feef0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="96927be0-1da3-4602-93ea-3b4091ffdd1e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="0" width="130" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="8666e936-81e8-4f28-a387-e4cb05c13bdb"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Shop Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="90" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="9193ba46-582f-42ea-811d-0b14c1b3b449"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="40" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="e71218e1-d857-46fa-acf8-ab71060404e3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Buy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="50" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="c9b8f0f5-111e-46ba-b421-f420adca4155"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="64" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="2baabb18-cf52-45cb-a401-23709dd2f3f0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Employee Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="0" width="40" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="964f078c-28db-44f8-9e56-ce16576e3f09"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="494" y="0" width="60" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="72ea25c7-f29a-454d-95cf-2579ad07c5aa"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="50" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="14e58236-44e9-41c5-8d92-d8c458241a32"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<text><![CDATA[Change]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="30" uuid="4cef4e56-a414-4430-91d0-267166ee5e12">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="42fe0b16-f82d-42ee-8c56-fc00f06de35e"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="130" height="30" uuid="ea1730fd-7dfe-4194-bc3b-f78d462746a3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36011d1c-6219-4292-a7cd-08b0a9311f0e"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ shopname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="90" height="30" uuid="841818ce-2ccb-45bd-a3db-35531841d583">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8703d88c-bf8c-4b79-83d5-c2307799d379"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creatdDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="40" height="30" uuid="b003f842-aa51-40b7-8930-9473070caea3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1331e720-303e-496f-af69-6b0fd20ce333"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buy}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="50" height="30" uuid="9c23c406-d86e-4f2d-8341-f164dce2e961">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="762e65a6-ad8c-4d68-b243-1ef62381adfb"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDiscount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="50" height="30" uuid="e7473a1b-b295-48ab-94a0-433e6161727d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="28491f03-54ef-4c7b-b987-1f7ba94ede41"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{change}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="64" height="30" uuid="882aee2f-0b1c-4089-b0bd-644c774796ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e06cbba5-9c3b-4ca7-934f-1194f705e58e"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employeeId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="0" width="40" height="30" uuid="8ecf25c0-4b0a-414c-a27b-d4d90c251d55">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75e9f7b5-d19c-4d85-9282-e83a84003502"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalQty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="494" y="0" width="60" height="30" uuid="17d8b0bc-079e-4003-ad08-378f1256530a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a80f2e8-c0d4-43f7-a423-d6976ee08a27"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5">
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{billTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="459" height="30" uuid="1b09bc0a-bfbf-4345-a020-60a196a33de9"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+					<topPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="25"/>
+				</textElement>
+				<text><![CDATA[Total ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="10" width="100" height="30" uuid="ad7d7337-2ecb-4b6c-8bd7-724d3801f6b5"/>
+				<box leftPadding="15">
+					<topPen lineWidth="1.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

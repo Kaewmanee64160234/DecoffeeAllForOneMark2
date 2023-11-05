@@ -7,6 +7,8 @@ package Service;
 import Dao.BillDao;
 import Model.Bill;
 import Model.HistoryMaterialReport;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,5 +54,13 @@ public class BillService {
     public int delete(Bill editedBill) {
         BillDao billDao = new BillDao();
         return billDao.delete(editedBill);
+    }
+    public ArrayList<Bill> getBillOneMonth(String date) {
+        BillDao billDao = new BillDao();
+        return  billDao.getBillOneMonth(date);
+    }
+    public Bill getBillByDate(String date) {
+        BillDao billDao = new BillDao();
+        return  billDao.getTotalByDate(date);
     }
 }

@@ -34,7 +34,7 @@ public class TestBuyStock extends javax.swing.JFrame {
 
        Employee employee = new Employee(); 
        SalaryPanel panelTest = new SalaryPanel();
-    scrPanel.setViewportView(HistoryOrderPanel);
+    scrPanel.setViewportView(new HistoryOrderPanel());
 
     }
 

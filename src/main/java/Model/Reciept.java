@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -33,8 +34,17 @@ public class Reciept {
     private Promotion promotion;
     private Employee employee;
     private Store store;
+    private String CreatedDate;
     private ArrayList<RecieptDetail> recieptDetails = new ArrayList();
     // all
+
+    public String getCreatedDate() {
+        return CreatedDate;
+    }
+
+    public void setCreatedDate(String CreatedDate) {
+        this.CreatedDate = CreatedDate;
+    }
 
     public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change,
             int totalQTY, String payment, int storeId, int customerId, int promotionId) {
@@ -107,6 +117,7 @@ public class Reciept {
         this.storeId = -1;
         this.customerId = -1;
         this.promotionId = -1;
+        this.CreatedDate = "";
     }
 
     // have customer promotion
@@ -353,6 +364,43 @@ public class Reciept {
             obj.setCustomerId(rs.getInt("customer_id"));
             obj.setPromotionId(rs.getInt("prom_id"));
             obj.setEmployeeId(rs.getInt("employee_id"));
+            return obj;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public static Reciept fromRS__(ResultSet rs) {
+        try {
+            Reciept obj = new Reciept();
+            obj.setId(rs.getInt("reciept_id"));
+            obj.setCreaetedDate(rs.getTimestamp("create_date"));
+             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Define your desired date and time format
+            String formattedDate = sdf.format(obj.getCreaetedDate());
+            obj.setCreatedDate(formattedDate);
+            obj.setQueue(rs.getInt("reciept_queue"));
+            obj.setDiscount(rs.getFloat("reciept_discount"));
+            obj.setTotal(rs.getFloat("reciept_total"));
+            obj.setReceive(rs.getFloat("reciept_receive"));
+            obj.setChange(rs.getFloat("reciept_change"));
+            obj.setTotalQTY(rs.getInt("reciept_total_qty"));
+            obj.setPayment(rs.getString("reciept_payment"));
+            obj.setStoreId(rs.getInt("store_id"));
+            obj.setCustomerId(rs.getInt("customer_id"));
+            obj.setPromotionId(rs.getInt("prom_id"));
+            obj.setEmployeeId(rs.getInt("employee_id"));
+            return obj;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public static Reciept fromRSToGetId(ResultSet rs) {
+        try {
+            Reciept obj = new Reciept();
+            obj.setTotal(rs.getFloat("totalSum"));
             return obj;
         } catch (Exception e) {
             System.out.println(e.getMessage());

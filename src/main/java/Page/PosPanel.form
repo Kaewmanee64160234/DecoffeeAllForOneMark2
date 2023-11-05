@@ -748,7 +748,7 @@
             <Component class="javax.swing.JButton" name="btnCash">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="b9" green="cb" red="87" type="rgb"/>
+                  <Color blue="95" green="83" red="8" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="18" style="0"/>
@@ -765,7 +765,7 @@
             <Component class="javax.swing.JButton" name="btnPromtpay">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="fd" green="cd" red="85" type="rgb"/>
+                  <Color blue="ff" green="b3" red="80" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Kanit" size="18" style="0"/>

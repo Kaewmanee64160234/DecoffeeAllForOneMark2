@@ -108,6 +108,31 @@ public class MaterialDao implements Dao<Material> {
         return list;
     }
 
+    public ArrayList<Material> getMaterialByMinQtyReport() {
+        ArrayList<Material> list = new ArrayList();
+        String sql = """
+            SELECT *
+            FROM material
+            ORDER by (mat_quantity - mat_min_quantity) asc
+                                     """;
+
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+           while (rs.next()) {
+                Material obj = Material.fromRS(rs);
+                list.add(obj);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
     public List<Material> getAll(String order) {
         ArrayList<Material> list = new ArrayList();
         String sql = "SELECT * FROM material  ORDER BY" + order;

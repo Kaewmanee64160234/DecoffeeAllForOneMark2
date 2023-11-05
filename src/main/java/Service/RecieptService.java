@@ -112,5 +112,14 @@ public class RecieptService {
         RecieptDao recieptDao = new RecieptDao();
         return recieptDao.delete(editedReciept);
     }
+    public ArrayList<Reciept> getHistoryReciptByMonthAndYear(String date) {
+        RecieptDao recieptDao = new RecieptDao();
+        return recieptDao.getHistoryReciptByMonthAndYear(date);
+    }
+
+    public Reciept getTotalRecietOneMonth(String date) {
+        RecieptDao recieptDao = new RecieptDao();
+        return recieptDao.getTotalRecietOneMonth(date);
+    }
 
 }

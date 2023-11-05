@@ -285,12 +285,6 @@ public class ProductDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Please fill in the price, and it must be a valid number.");
             return;
         }
-        for (Product existingProduct : productService.getProductsOrderByName()) {
-            if (name.equals(existingProduct.getName())) {
-                JOptionPane.showMessageDialog(this, "Name is already in use. Please enter a new name.");
-                return;
-            }
-        }
 
 
         if (editedProduct.getId() < 0) {//Add New
@@ -342,7 +336,7 @@ public class ProductDialog extends javax.swing.JDialog {
 
         for (Product product : products) {
             if (product.getName().equals(Name)) {
-                JOptionPane.showMessageDialog(this, "The product name is a duplicate.");
+                JOptionPane.showMessageDialog(this, "Name is already in use. Please enter a new name.");
                 return false;
             }
         }

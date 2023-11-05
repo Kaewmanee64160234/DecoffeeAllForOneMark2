@@ -223,7 +223,7 @@ public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDi
                             .addComponent(jLabel9)
                             .addComponent(txtRole)))
                     .addComponent(jLabel4))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -264,7 +264,11 @@ public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDi
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-
+        tblPayRent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPayRentMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPayRent);
 
         btnAddRentBill.setBackground(new java.awt.Color(142, 172, 205));
@@ -287,13 +291,7 @@ public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDi
             }
         });
 
-
-       
-
-  
-
         cmbPosition.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not paid" }));
         cmbPosition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,31 +340,7 @@ public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDi
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAddRentBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPayRent)
-
-                        .addGap(204, 204, 204))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbPosition, 0, 228, Short.MAX_VALUE)
-                            .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnClear))
-                            .addComponent(btnConfirm))
-                        .addGap(0, 402, Short.MAX_VALUE)))
-
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-
-
+                        .addComponent(btnPayRent)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(

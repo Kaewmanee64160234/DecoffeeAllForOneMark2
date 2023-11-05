@@ -7,7 +7,9 @@ package Page;
 import Component.ChagePage;
 import Component.LoginObs;
 import Component.changePageSummary;
+import Component.sentDate;
 import Dialog.MaterialDialog;
+import Dialog.SelectDateForPrintReport;
 import Model.Material;
 import Model.User;
 import Service.MaterialService;
@@ -19,30 +21,42 @@ import scrollbar.ScrollBarCustom;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import net.sf.jasperreports.engine.JRException;
+import print.ReportCheckStock;
+import print.ReportOutOfStock;
+import print.ReportSaleIncome;
 
 /**
  *
  * @author toey
  */
-public class MaterialPanel extends javax.swing.JPanel implements ChagePage, LoginObs, DataUpdateObserver {
+public class MaterialPanel extends javax.swing.JPanel implements ChagePage, LoginObs, DataUpdateObserver,sentDate {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
     private ArrayList<ChagePage> chagePages = new ArrayList<>();
+    private String date = "";
+    private SelectDateForPrintReport selectDateForPrintReport;
 
     /**
      * Creates new form UserPanel
      */
     public MaterialPanel() {
         initComponents();
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        selectDateForPrintReport = new SelectDateForPrintReport(frame, true);
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         TableActionEvent event = new TableActionEvent() {
             @Override
@@ -165,6 +179,9 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         btnHisMat = new javax.swing.JButton();
         btnCheckStock = new javax.swing.JButton();
         btnBuyStock = new javax.swing.JButton();
+        btnReportStock = new javax.swing.JButton();
+        btnExpense = new javax.swing.JButton();
+        btnOutOfStock = new javax.swing.JButton();
 
         jPanelHead.setBackground(new java.awt.Color(224, 205, 174));
         jPanelHead.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -271,7 +288,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-        btnBuyStock.setBackground(new java.awt.Color(176, 139, 187));
+        btnBuyStock.setBackground(new java.awt.Color(157, 68, 192));
         btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnBuyStock.setForeground(new java.awt.Color(255, 255, 255));
         btnBuyStock.setText("Buy Stock");
@@ -281,23 +298,60 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnReportStock.setBackground(new java.awt.Color(41, 91, 167));
+        btnReportStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnReportStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportStock.setText("Print Report Stock");
+        btnReportStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportStockActionPerformed(evt);
+            }
+        });
+
+        btnExpense.setBackground(new java.awt.Color(185, 0, 91));
+        btnExpense.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnExpense.setForeground(new java.awt.Color(255, 255, 255));
+        btnExpense.setText("Print Expense CheckStock");
+        btnExpense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExpenseActionPerformed(evt);
+            }
+        });
+
+        btnOutOfStock.setBackground(new java.awt.Color(68, 93, 72));
+        btnOutOfStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnOutOfStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnOutOfStock.setText("Print Out Of Stock");
+        btnOutOfStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOutOfStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBuyStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCheckStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHisMat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(131, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnBuyStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCheckStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnHisMat)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAdd))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnOutOfStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExpense)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnReportStock))))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -310,7 +364,12 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
                     .addComponent(btnCheckStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuyStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReportStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExpense, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOutOfStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -357,6 +416,59 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         chagePage("BuyStock");
     }//GEN-LAST:event_btnBuyStockActionPerformed
 
+    private void btnReportStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportStockActionPerformed
+        // TODO add your handling code here:
+        try {
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
+            String forr = simpleDateFormat.format(currentDate);
+
+            // TODO add your handling code here:
+            ReportCheckStock.getInstance().complieReport();
+            ReportCheckStock.getInstance().printReport();
+
+        } catch (JRException ex) {
+            Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReportStockActionPerformed
+
+    private void btnExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpenseActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        try {
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
+            String forr = simpleDateFormat.format(currentDate);
+
+            // TODO add your handling code here:
+            ReportOutOfStock.getInstance().complieReport();
+            ReportOutOfStock.getInstance().printReport(forr);
+
+        } catch (JRException ex) {
+            Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExpenseActionPerformed
+
+    private void btnOutOfStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOutOfStockActionPerformed
+        // TODO add your handling code here:
+        selectDateForPrintReport.addinDate(this);
+        selectDateForPrintReport.setLocationRelativeTo(this); //set dialog to center
+        selectDateForPrintReport.setVisible(true);
+        selectDateForPrintReport.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                try {
+                    if (date != "") {
+                        ReportSaleIncome.getInstance().complieReport();
+                        ReportSaleIncome.getInstance().printReport(date);
+                    }
+                } catch (JRException ex) {
+                    Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            };
+        });
+    }//GEN-LAST:event_btnOutOfStockActionPerformed
+                
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         MaterialDialog materialDialog = new MaterialDialog(frame, editedMaterial);
@@ -382,7 +494,10 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBuyStock;
     private javax.swing.JButton btnCheckStock;
+    private javax.swing.JButton btnExpense;
     private javax.swing.JButton btnHisMat;
+    private javax.swing.JButton btnOutOfStock;
+    private javax.swing.JButton btnReportStock;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -413,8 +528,13 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             ch.chagePage(pageName);
         }
     }
-    
+
     public void addInchangePage(ChagePage ch) {
         chagePages.add(ch);
+    }
+
+    @Override
+    public void sentDate(String date) {
+        this.date = date;
     }
 }

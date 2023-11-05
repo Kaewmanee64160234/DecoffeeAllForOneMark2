@@ -600,7 +600,7 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
             }
         });
 
-        btnCash.setBackground(new java.awt.Color(135, 203, 185));
+        btnCash.setBackground(new java.awt.Color(8, 131, 149));
         btnCash.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnCash.setForeground(new java.awt.Color(255, 255, 255));
         btnCash.setText("Cash");
@@ -610,7 +610,7 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
             }
         });
 
-        btnPromtpay.setBackground(new java.awt.Color(133, 205, 253));
+        btnPromtpay.setBackground(new java.awt.Color(128, 179, 255));
         btnPromtpay.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPromtpay.setForeground(new java.awt.Color(255, 255, 255));
         btnPromtpay.setText("Promtpay");
@@ -742,7 +742,7 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
                 btnFoodMouseClicked(evt);
             }
         });
-     
+
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -827,7 +827,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
                 btnAddMemberMouseClicked(evt);
             }
         });
-      
 
         btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N

@@ -46,6 +46,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
      */
     public UserPanel() {
         initComponents();
+
         empObss = new ArrayList();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
@@ -118,7 +119,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
                         Image image = icon.getImage();
                         int width = image.getWidth(null);
                         int height = image.getHeight(null);
-                        Image newImage = image.getScaledInstance((int) (50 * ((float) width) / height), 50, Image.SCALE_SMOOTH);
+                        Image newImage = image.getScaledInstance((int) (250 * ((float) width) / height), 250, Image.SCALE_SMOOTH);
                         icon.setImage(newImage);
                         return icon;
                     case 1:
@@ -145,6 +146,8 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
             }
 
         });
+        int columnIndex = 0; // The column index where you want to display the image
+        tblUser.getColumnModel().getColumn(columnIndex).setCellRenderer(new ImageRenderer());
         tblUser.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderer());
         tblUser.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }

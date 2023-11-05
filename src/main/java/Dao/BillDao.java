@@ -222,4 +222,47 @@ public class BillDao implements Dao<Bill> {
         return -1;
     }
 
+    public ArrayList<Bill> getBillOneMonth(String date) {
+        ArrayList<Bill> list = new ArrayList();
+        String sql = "SELECT * FROM bill WHERE strftime('%Y-%m', bill_created_date) = ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, date );
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Bill bill = Bill.fromRS(rs);
+                list.add(bill);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+        
+
+       
+    }
+
+    public Bill getTotalByDate(String date){
+        Bill bill = null;
+        String sql = "SELECT SUM(bill_total)  FROM bill WHERE strftime('%Y-%m', bill_created_date) = ?;";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, date );
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                bill = Bill.fromRS__(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return bill;
+    }
+
 }

@@ -230,6 +230,19 @@ public class Bill {
         return bill;
     }
 
+    public static Bill fromRS__(ResultSet rs) {
+        Bill bill = new Bill();
+        try {
+
+            bill.setBillTotal(rs.getFloat("SUM(bill_total)"));
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return bill;
+    }
+
     public boolean isValid() {
 
         return this.shopname.length() >= 3

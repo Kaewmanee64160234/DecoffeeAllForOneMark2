@@ -95,11 +95,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         btnRentStore = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         btnCheckStock = new javax.swing.JButton();
-        btnBuyStock = new javax.swing.JButton();
         btnHisMat = new javax.swing.JButton();
         btnSumSalary = new javax.swing.JButton();
         btnCustomer = new javax.swing.JButton();
         btnPromotion = new javax.swing.JButton();
+        btnBuyStock = new javax.swing.JButton();
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -193,15 +193,6 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-        btnBuyStock.setBackground(new java.awt.Color(224, 205, 174));
-        btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        btnBuyStock.setText("Buy Stock");
-        btnBuyStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuyStockActionPerformed(evt);
-            }
-        });
-
         btnHisMat.setBackground(new java.awt.Color(224, 205, 174));
         btnHisMat.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnHisMat.setText("History Material");
@@ -238,6 +229,15 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnBuyStock.setBackground(new java.awt.Color(224, 205, 174));
+        btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnBuyStock.setText("Buy Stock");
+        btnBuyStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -256,11 +256,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                     .addComponent(btnCico, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnCheckStock, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addComponent(btnBuyStock, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnHisMat, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnSumSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addComponent(btnPromotion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                    .addComponent(btnPromotion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(btnBuyStock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -376,10 +376,6 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         chagePage("Check Stock");
     }//GEN-LAST:event_btnCheckStockActionPerformed
 
-    private void btnBuyStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyStockActionPerformed
-        chagePage("BuyStock");
-    }//GEN-LAST:event_btnBuyStockActionPerformed
-
     private void btnHisMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisMatActionPerformed
         chagePage("HistoryMaterial");
     }//GEN-LAST:event_btnHisMatActionPerformed
@@ -395,6 +391,11 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
     private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
         chagePage("Promotion");
     }//GEN-LAST:event_btnPromotionActionPerformed
+
+    private void btnBuyStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyStockActionPerformed
+        // TODO add your handling code here:
+        chagePage("BuyStock");
+    }//GEN-LAST:event_btnBuyStockActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

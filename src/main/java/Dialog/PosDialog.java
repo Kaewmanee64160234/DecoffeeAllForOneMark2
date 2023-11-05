@@ -27,13 +27,10 @@ public class PosDialog extends javax.swing.JDialog {
     public PosDialog(java.awt.Frame parent) {
         initComponents();
 //        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1486, 716));
         PosPanel posPanel = new PosPanel();
-        posPanel.setLayout(new FlowLayout());
-        posPanel.setVisible(true);
-          
+        jScrollPane1.setViewportView(posPanel);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,21 +41,53 @@ public class PosDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnMainMenu = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        btnMainMenu.setBackground(new java.awt.Color(255, 128, 128));
+        btnMainMenu.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnMainMenu.setForeground(new java.awt.Color(255, 255, 255));
+        btnMainMenu.setText("MainMenu");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1486, 716));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 946, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                        .addGap(775, 775, 775))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnMainMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,6 +119,7 @@ public class PosDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             private Frame frame;
+
             public void run() {
                 PosDialog dialog = new PosDialog(frame);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -104,5 +134,7 @@ public class PosDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMainMenu;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

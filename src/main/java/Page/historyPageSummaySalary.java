@@ -351,6 +351,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
 
         jpnlHeader1.setBackground(new java.awt.Color(224, 205, 174));
         jpnlHeader1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jpnlHeader1.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel1.setText("History Payment");
@@ -366,10 +367,10 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         );
         jpnlHeader1Layout.setVerticalGroup(
             jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlHeader1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(jpnlHeader1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -380,7 +381,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

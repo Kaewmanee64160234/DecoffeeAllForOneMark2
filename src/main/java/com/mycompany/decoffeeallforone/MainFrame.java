@@ -121,6 +121,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
         buyStockPanel.addInSubs(this);
+        historyMaterialPanel.addInSubs(this);
 
 //        navigationBar.addInSubsLogin(this);
         hisPageSummaySalary.addInChagePage(this);

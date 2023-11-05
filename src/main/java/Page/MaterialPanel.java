@@ -157,6 +157,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMaterial = new javax.swing.JTable();
         btnAdd1 = new javax.swing.JButton();
+        btnAdd2 = new javax.swing.JButton();
 
         jPanelHead.setBackground(new java.awt.Color(224, 205, 174));
         jPanelHead.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -244,6 +245,14 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
             }
         });
 
+        btnAdd2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd2.setText("print Material out of stock");
+        btnAdd2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -254,8 +263,10 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAdd2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdd1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdd)))
                 .addContainerGap())
         );
@@ -265,7 +276,8 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnAdd1))
+                    .addComponent(btnAdd1)
+                    .addComponent(btnAdd2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -310,6 +322,10 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
 
     }//GEN-LAST:event_btnAdd1ActionPerformed
 
+    private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdd2ActionPerformed
+
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         MaterialDialog materialDialog = new MaterialDialog(frame, editedMaterial);
@@ -334,6 +350,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAdd1;
+    private javax.swing.JButton btnAdd2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

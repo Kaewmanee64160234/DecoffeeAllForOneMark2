@@ -40,7 +40,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     private UtilDateModel model1;
     private UtilDateModel model2;
     private AbstractTableModel model3;
-    private ArrayList<ChagePage> chagpages;
+    private ArrayList<ChagePage> chagpages  = new ArrayList<>();
 
     /**
      * Creates new form HistoryMaterialPanel

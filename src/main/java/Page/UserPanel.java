@@ -78,7 +78,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
         userService = new UserService();
 
         list = userService.getUsers();
-        tblUser.setRowHeight(60);
+        tblUser.setRowHeight(50);
         tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
 
         tblUser.setModel(new AbstractTableModel() {

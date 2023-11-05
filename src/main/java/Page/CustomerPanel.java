@@ -71,7 +71,7 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
 
         customerService = new CustomerService();
         list = customerService.getCustomers();
-        tblCustomer.setRowHeight(60);
+        tblCustomer.setRowHeight(50);
         tblCustomer.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCustomer.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember", "Action"};

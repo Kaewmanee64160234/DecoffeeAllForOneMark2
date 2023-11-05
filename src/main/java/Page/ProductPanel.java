@@ -65,7 +65,7 @@ public class ProductPanel extends javax.swing.JPanel implements LoginObs{
         productService = new ProductService();
 
         list = productService.getProductsOrderByName();
-        tblProduct.setRowHeight(60);
+        tblProduct.setRowHeight(50);
         tblProduct.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblProduct.setModel(new AbstractTableModel() {
             String[] columnNames = {"Image", "ID", "Name", "Price", "Size", "Sweet_Level", "Type", "Cat_Id", "Action"};

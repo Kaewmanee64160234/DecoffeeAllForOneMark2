@@ -51,6 +51,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
         billList = billService.getBillHistory();
         billDetailService = new BillDetailService();
         billDetailList = billDetailService.getBills();
+        chagpages = new ArrayList<>();
         initTableBill();
         initDatePicker();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());

@@ -76,7 +76,7 @@
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Component id="pnlDatePicker2" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnConfirm" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConfirm" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>

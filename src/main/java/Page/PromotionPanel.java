@@ -7,6 +7,8 @@ import Dialog.PromotionDialog;
 import Model.Promotion;
 import Model.User;
 import Service.PromotionService;
+import TablebtnEditDelete.TableActionCellEditor;
+import TablebtnEditDelete.TableActionCellRenderer;
 import TablebtnEditDelete.TableActionEvent;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -55,10 +57,10 @@ public class PromotionPanel extends javax.swing.JPanel implements LoginObs, Chag
         promotionService = new PromotionService();
 
         list = promotionService.getPromotions();
-        tblPromotion.setRowHeight(30);
+        tblPromotion.setRowHeight(50);
         tblPromotion.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblPromotion.setModel(new AbstractTableModel() {
-            String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount"};
+            String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -72,7 +74,7 @@ public class PromotionPanel extends javax.swing.JPanel implements LoginObs, Chag
 
             @Override
             public int getColumnCount() {
-                return 7;
+                return 8;
             }
 
             @Override
@@ -103,11 +105,22 @@ public class PromotionPanel extends javax.swing.JPanel implements LoginObs, Chag
                         return promotion.getDiscountPerc();
                     case 6:
                         return promotion.getPointDiscount();
+                    case 7:
+                        return new TableActionCellRenderer();
                     default:
                         return "Unknown";
                 }
             }
+         @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                if (columnIndex == 7) {
+                    return true;
+                }
+                return false;
+            }
         });
+        tblPromotion.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRenderer());
+        tblPromotion.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
     }
 
     @SuppressWarnings("unchecked")

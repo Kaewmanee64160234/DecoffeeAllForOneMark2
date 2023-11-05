@@ -195,7 +195,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         jScrollPane1.setViewportView(tblSummarySalary);
 
         btnBack.setBackground(new java.awt.Color(213, 208, 189));
-        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Kanit", 1, 18)); // NOI18N
         btnBack.setForeground(new java.awt.Color(103, 93, 80));
         btnBack.setText("Back");
         btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
@@ -214,19 +214,19 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel2.setText("Employee :");
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -235,10 +235,10 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("Start Date : ");
 
-        cmbStatus.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbStatus.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Paid", "Not Paid" }));
         cmbStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,14 +246,14 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel3.setText("Status : ");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel5.setText("Stop Date : ");
 
         btnClear.setBackground(new java.awt.Color(204, 255, 204));
-        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnClear.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnClear.setForeground(new java.awt.Color(54, 126, 24));
         btnClear.setText("Clear");
         btnClear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
@@ -264,7 +264,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
         });
 
         btnGo.setBackground(new java.awt.Color(204, 255, 204));
-        btnGo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnGo.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnGo.setForeground(new java.awt.Color(54, 126, 24));
         btnGo.setText("Go");
         btnGo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 126, 24)));
@@ -343,7 +343,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                         .addComponent(btnGo)
                         .addComponent(btnClear)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,18 +380,18 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jpnlHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

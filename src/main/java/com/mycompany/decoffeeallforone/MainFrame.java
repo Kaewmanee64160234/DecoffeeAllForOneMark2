@@ -25,6 +25,7 @@ import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
 import Page.CustomerPanel;
+import Page.DataUpdateObserver;
 import Page.EmployeePanel;
 import Page.HistoryCheckStockPanel;
 import Page.HistoryMaterialPanel;
@@ -59,7 +60,9 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, EmpObs, CusObs {
+
+public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, DataUpdateObserver, EmpObs, CusObs {
+
 
     /**
      * Creates new form MainFrame
@@ -88,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private TableSalaryPanel tableSalaryPanel;
     private CustomerPanel customerPanel;
     private PromotionPanel promotionPanel;
+    private ArrayList<DataUpdateObserver> dataUpdateObservers = new ArrayList<>();
 
     public MainFrame() {
         initComponents();
@@ -100,7 +104,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         // loginObses = new ArrayList<>();
         employee = new Employee();
         productPanel = new ProductPanel();
-        ProductPanel productPanel = new ProductPanel();
         tableSalaryPanel = new TableSalaryPanel(employee);
         // posPanel = new PosPanel();
         hisPageSummaySalary = new historyPageSummaySalary();
@@ -151,6 +154,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkInOutPannel.addInLoginist(historyMaterialPanel);
         checkInOutPannel.addInLoginist(customerPanel);
 
+        checkStockPanel.addInupdate(this);
+        dataUpdateObservers.add(materialPanel);
+//-----------------------------------------------------
         hisPageSummaySalary.addInChagePage(this);
 
         salaryPannel.addInChagePage(this);
@@ -262,17 +268,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
 
         if (pageName.equals("POS")) {
-            scrPanel.setViewportView(posPanel);
-            // PosDialog PosDialog = new PosDialog(frame);
-            // PosDialog.setLocationRelativeTo(this); // set dialog to center
-            // PosDialog.setVisible(true);
+            JFrame posDialogFrame = new JFrame("POS");
+            posDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            posDialogFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            posDialogFrame.setUndecorated(true);
 
-//            if (pageName.equals("POS")) {
-//                PosDialog posDialog = new PosDialog(this); // สร้าง JDialog ใหม่
-//                posDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // ปิด JDialog เมื่อคุณปิดหน้าต่าง
-//                posDialog.setVisible(true); // แสดง JDialog
-//            }
-            scrPanel.setViewportView(new PosPanel());
+            posDialogFrame.add(posPanel);
+            posDialogFrame.setVisible(true);
 
         }
         if (pageName.equals("Product")) {
@@ -341,11 +343,20 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     }
 
     @Override
+    public void onDataUpdated() {
+        System.out.println("com.mycompany.decoffeeallforone.MainFrame.onDataUpdated()");
+        for (DataUpdateObserver dataUpdateObserver : dataUpdateObservers) {
+
+            dataUpdateObserver.onDataUpdated();
+        }
+    }
+
     public void updateEmployee(Employee employee) {
         System.out.println("com.mycompany.decoffeeallforone.MainFrame.updateEmployee()");
         for (EmpObs empObs : empObss) {
             empObs.updateEmployee(employee);
         }
+
     }
 
     @Override

@@ -100,6 +100,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        btnReport.setBackground(new java.awt.Color(224, 205, 174));
         btnReport.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnReport.setText("Dashboard");
         btnReport.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +109,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnPos.setBackground(new java.awt.Color(224, 205, 174));
         btnPos.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnPos.setText("Point of Sell");
         btnPos.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +118,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnProduct.setBackground(new java.awt.Color(224, 205, 174));
         btnProduct.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnProduct.setText("Product");
         btnProduct.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +127,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnUser.setBackground(new java.awt.Color(224, 205, 174));
         btnUser.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnUser.setText("User");
         btnUser.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +136,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnEmp.setBackground(new java.awt.Color(224, 205, 174));
         btnEmp.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnEmp.setText("Employee");
         btnEmp.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +145,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnMat.setBackground(new java.awt.Color(224, 205, 174));
         btnMat.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnMat.setText("Material");
         btnMat.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +154,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnCico.setBackground(new java.awt.Color(224, 205, 174));
         btnCico.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnCico.setText("Check In/Out");
         btnCico.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +163,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnRentStore.setBackground(new java.awt.Color(224, 205, 174));
         btnRentStore.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnRentStore.setText("Rent Store");
         btnRentStore.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +172,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnLogout.setBackground(new java.awt.Color(231, 70, 70));
         btnLogout.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +181,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnCheckStock.setBackground(new java.awt.Color(224, 205, 174));
         btnCheckStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnCheckStock.setText("Check Stock");
         btnCheckStock.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +190,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnBuyStock.setBackground(new java.awt.Color(224, 205, 174));
         btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnBuyStock.setText("Buy Stock");
         btnBuyStock.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +199,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnHisMat.setBackground(new java.awt.Color(224, 205, 174));
         btnHisMat.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnHisMat.setText("History Material");
         btnHisMat.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +208,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnSumSalary.setBackground(new java.awt.Color(224, 205, 174));
         btnSumSalary.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnSumSalary.setText("Summary Salary");
         btnSumSalary.addActionListener(new java.awt.event.ActionListener() {
@@ -204,6 +217,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnCustomer.setBackground(new java.awt.Color(224, 205, 174));
         btnCustomer.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnCustomer.setText("Customer");
         btnCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -212,6 +226,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnPromotion.setBackground(new java.awt.Color(224, 205, 174));
         btnPromotion.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnPromotion.setText("Promotion");
         btnPromotion.addActionListener(new java.awt.event.ActionListener() {

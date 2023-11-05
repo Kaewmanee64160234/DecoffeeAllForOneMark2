@@ -78,7 +78,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
         userService = new UserService();
 
         list = userService.getUsers();
-        tblUser.setRowHeight(60);
+        tblUser.setRowHeight(50);
         tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
 
         tblUser.setModel(new AbstractTableModel() {
@@ -236,16 +236,16 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel2.setText("User");
 
-        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel5.setText("User Name: ");
 
-        txtUserName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        txtUserName.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtUserName.setText("Name");
 
-        jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel6.setText("Role:");
 
-        txtRole.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        txtRole.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtRole.setText("Role");
 
         javax.swing.GroupLayout jpnlHeader1Layout = new javax.swing.GroupLayout(jpnlHeader1);
@@ -272,7 +272,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
                 .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtUserName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtRole))

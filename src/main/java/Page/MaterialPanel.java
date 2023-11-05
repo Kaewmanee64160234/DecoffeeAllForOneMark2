@@ -17,6 +17,7 @@ import scrollbar.ScrollBarCustom;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,11 +29,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author toey
  */
-public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
+public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUpdateObserver{
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
+
 
     /**
      * Creates new form UserPanel
@@ -48,6 +50,15 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
                     editedMaterial = list.get(selectIndex);
                     openDialog();
                 }
+            }
+
+           
+
+            private void refreshTable() {
+                list = materialService.getMaterials();
+                tblMaterial.revalidate();
+                tblMaterial.repaint();
+
             }
 
             @Override
@@ -201,7 +212,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
                         .addGroup(jPanelHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtRole)))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -230,6 +241,11 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
             }
         ));
         tblMaterial.setSelectionBackground(new java.awt.Color(213, 208, 189));
+        tblMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMaterialMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMaterial);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -282,6 +298,10 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
         openDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void tblMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMaterialMouseClicked
+        refreshTable();
+    }//GEN-LAST:event_tblMaterialMouseClicked
+
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         MaterialDialog materialDialog = new MaterialDialog(frame, editedMaterial);
@@ -323,4 +343,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
 
     }
 
+    @Override
+    public void onDataUpdated() {
+        System.out.println("Page.MaterialPanel.onDataUpdated()");
+    refreshTable();
+    }
 }

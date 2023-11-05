@@ -51,7 +51,9 @@ public class PromotionDialog extends javax.swing.JDialog {
 
         edtName.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
 
+        btnSave.setBackground(new java.awt.Color(93, 156, 89));
         btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +61,9 @@ public class PromotionDialog extends javax.swing.JDialog {
             }
         });
 
+        btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,8 +150,8 @@ public class PromotionDialog extends javax.swing.JDialog {
                     .addComponent(edtDiscountPerc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnCancel))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 

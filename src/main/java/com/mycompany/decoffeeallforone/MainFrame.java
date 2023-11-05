@@ -23,6 +23,7 @@ import Page.CheckinCheckoutPanel;
 import Page.EmployeePanel;
 import Page.CheckinCheckoutPanel;
 import Page.CustomerPanel;
+import Page.DataUpdateObserver;
 import Page.EmployeePanel;
 import Page.HistoryCheckStockPanel;
 import Page.HistoryMaterialPanel;
@@ -57,7 +58,9 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, EmpObs {
+public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, DataUpdateObserver, EmpObs {
+
+
 
     /**
      * Creates new form MainFrame
@@ -85,6 +88,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private TableSalaryPanel tableSalaryPanel;
     private CustomerPanel customerPanel;
     private PromotionPanel promotionPanel;
+    private ArrayList<DataUpdateObserver> dataUpdateObservers = new ArrayList<>();
 
     public MainFrame() {
         initComponents();
@@ -96,7 +100,6 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         // loginObses = new ArrayList<>();
         employee = new Employee();
         productPanel = new ProductPanel();
-        ProductPanel productPanel = new ProductPanel();
         tableSalaryPanel = new TableSalaryPanel(employee);
         // posPanel = new PosPanel();
         hisPageSummaySalary = new historyPageSummaySalary();
@@ -145,6 +148,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkInOutPannel.addInLoginist(historyMaterialPanel);
         checkInOutPannel.addInLoginist(customerPanel);
 
+        checkStockPanel.addInupdate(this);
+        dataUpdateObservers.add(materialPanel);
+//-----------------------------------------------------
         hisPageSummaySalary.addInChagePage(this);
 
         salaryPannel.addInChagePage(this);
@@ -335,11 +341,21 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     }
 
     @Override
+    public void onDataUpdated() {
+        System.out.println("com.mycompany.decoffeeallforone.MainFrame.onDataUpdated()");
+        for (DataUpdateObserver dataUpdateObserver : dataUpdateObservers) {
+            
+            dataUpdateObserver.onDataUpdated();
+        }
+        }
+        
+
     public void updateEmployee(Employee employee) {
         System.out.println("com.mycompany.decoffeeallforone.MainFrame.updateEmployee()");
         for (EmpObs empObs : empObss) {
             empObs.updateEmployee(employee);
         }
+
     }
 
 }

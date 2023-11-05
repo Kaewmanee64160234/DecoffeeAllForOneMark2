@@ -53,6 +53,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
 
     public HistoryOrderPanel() {
         initComponents();
+        chagpages = new ArrayList<ChagePage>();
         recieptService = new RecieptService();
         recieptList = recieptService.getRecieptHistory();
         recieptDetailService = new RecieptDetailService();
@@ -153,7 +154,6 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
         tblOrderInDate = new javax.swing.JTable();
         lblTotal = new javax.swing.JLabel();
         lblTotalShow = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -319,17 +319,6 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
         lblTotalShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalShow.setText("0");
 
-        btnBack.setBackground(new java.awt.Color(231, 70, 70));
-        btnBack.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("Back");
-        btnBack.setBorderPainted(false);
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 20)); // NOI18N
         jLabel3.setText("Detail");
 
@@ -345,8 +334,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelDetailLayout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblTotal)
                         .addGap(18, 18, 18)
                         .addComponent(lblTotalShow, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -363,9 +351,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
                 .addGroup(jPanelDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotal)
                     .addComponent(lblTotalShow))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -446,10 +432,6 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
 
     }//GEN-LAST:event_tblDateOrderMouseClicked
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        chagePage("Material");
-    }//GEN-LAST:event_btnBackActionPerformed
-
     private void btnSubmit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmit1ActionPerformed
         // TODO add your handling code here:
         selectDateForPrintReport.addinDate(this);
@@ -485,7 +467,6 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnSubmit1;
     private javax.swing.JLabel jLabel1;

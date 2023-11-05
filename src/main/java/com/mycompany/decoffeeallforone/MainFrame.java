@@ -29,6 +29,7 @@ import Page.DataUpdateObserver;
 import Page.EmployeePanel;
 import Page.HistoryCheckStockPanel;
 import Page.HistoryMaterialPanel;
+import Page.HistoryOrderPanel;
 import Page.MaterialPanel;
 import Page.PayRentPanel;
 
@@ -89,6 +90,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private TableSalaryPanel tableSalaryPanel;
     private CustomerPanel customerPanel;
     private PromotionPanel promotionPanel;
+   private HistoryOrderPanel historyOrderPanel;
     private ArrayList<DataUpdateObserver> dataUpdateObservers = new ArrayList<>();
 
     public MainFrame() {
@@ -120,6 +122,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel = new BuyStockPanel(employee);
         customerPanel = new CustomerPanel();
         promotionPanel = new PromotionPanel();
+        historyOrderPanel = new HistoryOrderPanel();
         jScrollPane1.setViewportView(navigationBar);
         loginObses.add(checkInOutPannel);
 
@@ -128,6 +131,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
         buyStockPanel.addInSubs(this);
+        historyOrderPanel.addInSubs(this);
         userPannel.addInSub(this);
         empObss.add(employeePannel);
         cusObss.add(customerPanel);
@@ -308,6 +312,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("Promotion")) {
             scrPanel.setViewportView(promotionPanel);
+        }
+         if (pageName.equals("History Order")) {
+            scrPanel.setViewportView(historyOrderPanel);
         }
 
     }

@@ -243,10 +243,8 @@ public class AddARentBillDialog extends javax.swing.JDialog{
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblName6)
-
                             .addComponent(btnCal))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(224, 205, 174));
@@ -366,7 +364,7 @@ public class AddARentBillDialog extends javax.swing.JDialog{
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Point must be a valid integer.");
+            JOptionPane.showMessageDialog(this, "All prices must be a valid integer.");
             return;
         }
         if (editedRentStore.getId() < 0) {
@@ -401,8 +399,15 @@ public class AddARentBillDialog extends javax.swing.JDialog{
         txtOther.setText((editedRentStore.getRentOther() + ""));
         txtTotal.setText((editedRentStore.getRentTotal() + ""));
     }
+    private void Clear(){
+        txtElectricBill.setText("0.0");
+        txtRent.setText("0.0");
+        txtWaterBill.setText("0.0");
+        txtOther.setText("0.0");
+        txtTotal.setText("0.0");
+    }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        dispose();
+        Clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalActionPerformed

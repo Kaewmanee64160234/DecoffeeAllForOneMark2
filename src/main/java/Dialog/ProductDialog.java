@@ -285,21 +285,22 @@ public class ProductDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Please fill in the price, and it must be a valid number.");
             return;
         }
-        for (Product existingProduct : productService.getProductsOrderByName()) {
-            if (name.equals(existingProduct.getName())) {
-                JOptionPane.showMessageDialog(this, "Name is already in use. Please enter a new name.");
-                return;
-            }
-        }
 
-        if (editedProduct.getId() < 0) { // Add New
-            setFormToObject();
-            try {
-                product = productService.addNew(editedProduct);
-                saveImage(product);
-            } catch (ValidateException ex) {
-                Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, ex.getMessage());
+
+        if (editedProduct.getId() < 0) {//Add New
+            if (isDuplicatePName(name)) {
+
+                setFormToObject();
+                try {
+                    product = productService.addNew(editedProduct);
+                    saveImage(product);
+                } catch (ValidateException ex) {
+                    Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            } else {
+                return;
+
             }
         } else {
             setFormToObject();
@@ -330,6 +331,17 @@ public class ProductDialog extends javax.swing.JDialog {
     private void cmbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSizeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSizeActionPerformed
+    private boolean isDuplicatePName(String Name) {
+        List<Product> products = productService.getProductsOrderByName();
+
+        for (Product product : products) {
+            if (product.getName().equals(Name)) {
+                JOptionPane.showMessageDialog(this, "Name is already in use. Please enter a new name.");
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void loadImage() {
         if (editedProduct.getId() > 0) {

@@ -253,17 +253,20 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs {
             return;
         }
 
-        if (isDuplicatePhoneNumber(tel)) {
-            JOptionPane.showMessageDialog(this, "This phone number is a duplicate.");
-            return;
-        } else {
+       else {
         }
         try {
             editedCustomer.setName(name);
             editedCustomer.setTel(tel);
             editedCustomer.setPoint(point);
-            customerService.addNew(editedCustomer);
-            updateCustomer(editedCustomer);
+            if (isDuplicatePhoneNumber(tel)) {
+                setFormToObject();
+                customerService.addNew(editedCustomer);
+                updateCustomer(editedCustomer);
+            } else {
+                return;
+            }
+
         } catch (ValidateException ex) {
             Logger.getLogger(AddCustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -291,11 +294,12 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs {
 
         for (Customer customer : customers) {
             if (customer.getTel().equals(phoneNumber)) {
-                return true; // The phone number is a duplicate
+                JOptionPane.showMessageDialog(this, "This phone number is a duplicate.");
+                return false; // The phone number is a duplicate
             }
         }
 
-        return false; // The phone number is not a duplicate
+        return true; // The phone number is not a duplicate
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;

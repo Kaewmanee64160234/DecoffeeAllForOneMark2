@@ -337,7 +337,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
         btnPromotion = new javax.swing.JButton();
         scrProductList = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        btnMainMenu = new javax.swing.JButton();
         btnFindMember = new javax.swing.JButton();
         btnAddMember = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -743,11 +742,7 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
                 btnFoodMouseClicked(evt);
             }
         });
-        btnFood.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFoodActionPerformed(evt);
-            }
-        });
+
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -808,16 +803,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
 
         scrProductList.setViewportView(jPanel1);
 
-        btnMainMenu.setBackground(new java.awt.Color(255, 128, 128));
-        btnMainMenu.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnMainMenu.setForeground(new java.awt.Color(255, 255, 255));
-        btnMainMenu.setText("MainMenu");
-        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMainMenuActionPerformed(evt);
-            }
-        });
-
         btnFindMember.setBackground(new java.awt.Color(65, 145, 151));
         btnFindMember.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnFindMember.setForeground(new java.awt.Color(255, 255, 255));
@@ -840,11 +825,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
         btnAddMember.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMemberMouseClicked(evt);
-            }
-        });
-        btnAddMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMemberActionPerformed(evt);
             }
         });
 
@@ -893,9 +873,7 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
                                 .addComponent(jpnlCaculator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlDetailLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(169, 169, 169)
                         .addComponent(btnFindMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPromotion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -925,7 +903,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                             .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                             .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
@@ -1075,10 +1052,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
     public void addInSubs(ChagePage chagePage) {
         subs.add(chagePage);
     }
-    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
-        chagePage("Main menu");
-    }//GEN-LAST:event_btnMainMenuActionPerformed
-
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked
         // TODO add your handling code here:
         openDialog();
@@ -1232,7 +1205,6 @@ public final class PosPanel extends javax.swing.JPanel implements ChagePage, Buy
     private javax.swing.JButton btnDrinks;
     private javax.swing.JButton btnFindMember;
     private javax.swing.JButton btnFood;
-    private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnPosConfirm;
     private javax.swing.JButton btnPromotion;
     private javax.swing.JButton btnPromtpay;

@@ -200,8 +200,8 @@ public class EmployeeDao implements Dao<Employee> {
     @Override
     public Employee save(Employee obj) {
 
-        String sql = "INSERT INTO employee (employee_name, employee_address, employee_tel, employee_email, employee_position, employee_hourly_wage)"
-                + "VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO employee (employee_name, employee_address, employee_tel, employee_email, employee_position, employee_hourly_wage, user_id)"
+                + "VALUES(?,?,?,?,?,?,?)";
         Connection conn = DatabaseHelper.getConnect();
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -211,6 +211,7 @@ public class EmployeeDao implements Dao<Employee> {
             stmt.setString(4, obj.getEmail());
             stmt.setString(5, obj.getPosition());
             stmt.setInt(6, obj.getHourlyWage());
+            stmt.setInt(7, obj.getUser_id());
             stmt.executeUpdate();
             int id = DatabaseHelper.getInsertedId(stmt);
             obj.setId(id);

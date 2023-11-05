@@ -525,6 +525,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
 
         jPanel6.setBackground(new java.awt.Color(224, 205, 174));
         jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel6.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel9.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel9.setText("Buy Stock");
@@ -572,7 +573,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txtRole)))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -589,7 +590,7 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

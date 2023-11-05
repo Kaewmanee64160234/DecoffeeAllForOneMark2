@@ -142,7 +142,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(195, 176, 145));
+        jPanel1.setBackground(new java.awt.Color(224, 205, 174));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(521, 76));
 

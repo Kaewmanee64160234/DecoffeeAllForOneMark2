@@ -163,7 +163,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
         jLabel6 = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
 
-        jPanel.setBackground(new java.awt.Color(255, 251, 245));
+        jPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         tblUser.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
@@ -186,7 +186,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
             }
         });
         tblUser.setRowHeight(60);
-        tblUser.setSelectionBackground(new java.awt.Color(164, 196, 203));
+        tblUser.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblUser);
 
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -216,26 +216,27 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
                 .addContainerGap()
                 .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jpnlHeader1.setBackground(new java.awt.Color(224, 205, 174));
         jpnlHeader1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jpnlHeader1.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel2.setText("User");
 
-        jLabel5.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel5.setText("User Name: ");
 
-        txtUserName.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtUserName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtUserName.setText("Name");
 
-        jLabel6.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel6.setText("Role:");
 
-        txtRole.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtRole.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         txtRole.setText("Role");
 
         javax.swing.GroupLayout jpnlHeader1Layout = new javax.swing.GroupLayout(jpnlHeader1);
@@ -258,20 +259,19 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
         jpnlHeader1Layout.setVerticalGroup(
             jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlHeader1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnlHeader1Layout.createSequentialGroup()
-                        .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtUserName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtRole)))
-                    .addGroup(jpnlHeader1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(11, 11, 11)
+                .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtUserName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtRole))
                 .addContainerGap())
+            .addGroup(jpnlHeader1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -282,7 +282,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(

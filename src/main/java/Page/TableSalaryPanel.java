@@ -139,7 +139,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblNameEmp.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
+        lblNameEmp.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         lblNameEmp.setText("Keawmanee Marasri");
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -147,7 +147,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
 
         txtBathPerHr.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
 
-        btnPrintSlip.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnPrintSlip.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPrintSlip.setText("Print payment slip");
         btnPrintSlip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
             }
         });
 
-        btnPayMentStatus.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnPayMentStatus.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPayMentStatus.setText("Payment status");
         btnPayMentStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +163,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
             }
         });
 
+        tblPaidDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblPaidDate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -174,9 +175,10 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPaidDate.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblPaidDate);
 
-        btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnCancel1.setText("Back");
         btnCancel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +186,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
             }
         });
 
-        btnConfirm1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnConfirm1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnConfirm1.setText("Confirm");
         btnConfirm1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,14 +211,13 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNameEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                                .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNameEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPrintSlip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPayMentStatus)
@@ -235,13 +236,13 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnPayMentStatus)
                         .addComponent(btnPrintSlip)))
-                .addGap(31, 31, 31)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel1)
                     .addComponent(btnConfirm1))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

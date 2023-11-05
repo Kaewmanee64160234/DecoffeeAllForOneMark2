@@ -193,7 +193,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-
+        btnHisMat.setBackground(new java.awt.Color(224, 205, 174));
         btnHisMat.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnHisMat.setText("History Material");
         btnHisMat.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +229,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnBuyStock.setBackground(new java.awt.Color(224, 205, 174));
         btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnBuyStock.setText("Buy Stock");
         btnBuyStock.addActionListener(new java.awt.event.ActionListener() {

@@ -288,7 +288,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-        btnBuyStock.setBackground(new java.awt.Color(176, 139, 187));
+        btnBuyStock.setBackground(new java.awt.Color(157, 68, 192));
         btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnBuyStock.setForeground(new java.awt.Color(255, 255, 255));
         btnBuyStock.setText("Buy Stock");
@@ -298,7 +298,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-        btnReportStock.setBackground(new java.awt.Color(176, 139, 187));
+        btnReportStock.setBackground(new java.awt.Color(41, 91, 167));
         btnReportStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnReportStock.setForeground(new java.awt.Color(255, 255, 255));
         btnReportStock.setText("Print Report Stock");
@@ -308,8 +308,8 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-        btnExpense.setBackground(new java.awt.Color(255, 165, 89));
-        btnExpense.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnExpense.setBackground(new java.awt.Color(185, 0, 91));
+        btnExpense.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnExpense.setForeground(new java.awt.Color(255, 255, 255));
         btnExpense.setText("Print Expense CheckStock");
         btnExpense.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +318,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
-        btnOutOfStock.setBackground(new java.awt.Color(83, 113, 136));
+        btnOutOfStock.setBackground(new java.awt.Color(68, 93, 72));
         btnOutOfStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         btnOutOfStock.setForeground(new java.awt.Color(255, 255, 255));
         btnOutOfStock.setText("Print Out Of Stock");
@@ -333,24 +333,26 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBuyStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCheckStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHisMat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnOutOfStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExpense)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnReportStock)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(241, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnBuyStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCheckStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnHisMat)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAdd))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnOutOfStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExpense)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnReportStock))))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,14 +363,14 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
                     .addComponent(btnHisMat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCheckStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuyStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReportStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExpense, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOutOfStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

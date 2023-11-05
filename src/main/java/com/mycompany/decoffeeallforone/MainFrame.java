@@ -60,9 +60,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-
 public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, DataUpdateObserver, EmpObs, CusObs {
-
 
     /**
      * Creates new form MainFrame
@@ -143,7 +141,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         frame = (JFrame) SwingUtilities.getRoot(this);
         materialPanel.addInchangePage(this);
         scrPanel.setViewportView(new UserPanel());
-        
+
         checkInOutPannel.addInLoginist(navigationBar);
         checkInOutPannel.addInLoginist(this.productPanel);
         checkInOutPannel.addInLoginist(this.materialPanel);
@@ -268,14 +266,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
 
         if (pageName.equals("POS")) {
-            JFrame posDialogFrame = new JFrame("POS");
-            posDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            posDialogFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            posDialogFrame.setUndecorated(true);
 
-            posDialogFrame.add(posPanel);
-            posDialogFrame.setVisible(true);
-
+            scrPanel.setViewportView(posPanel);
         }
         if (pageName.equals("Product")) {
             scrPanel.setViewportView(productPanel);

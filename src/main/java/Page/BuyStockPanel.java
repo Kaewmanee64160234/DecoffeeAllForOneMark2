@@ -13,6 +13,7 @@ import Model.Bill;
 import Model.BillDetail;
 import Model.Employee;
 import Model.Material;
+import Model.RecieptDetail;
 import Model.User;
 import Service.EmployeeService;
 import Service.MaterialService;
@@ -134,7 +135,31 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
             }
 
             @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                ArrayList<BillDetail> billDetails = bill.getBillDetails();
+                BillDetail billDetail = billDetails.get(rowIndex);
+
+                if (columnIndex == 2) { // Assuming column index 2 is for the quantity
+                    try {
+                        int qty = Integer.parseInt(aValue.toString());
+                        System.out.println(qty);
+
+                        if (qty < 1) {
+                            return; // Don't update if quantity is less than 1
+                        }
+
+                        billDetail.setAmount(qty);
+                        bill.calculateTotal();
+                        refreshTable_();
+                    } catch (NumberFormatException e) {
+                        System.out.println(".setValueAt()");
+                    }
+                }
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex
+            ) {
                 ArrayList<BillDetail> billDetails = bill.getBillDetails();
                 BillDetail billDetail = billDetails.get(rowIndex);
                 switch (columnIndex) {
@@ -154,10 +179,19 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
                         return "";
                 }
             }
-        });
-        tblBillDetail.setCellSelectionEnabled(true);
-        tblBillDetail.setColumnSelectionAllowed(true);
-        tblBillDetail.setSurrendersFocusOnKeystroke(true);
+            
+             public void refreshTable_() {
+        fireTableDataChanged(); // Notify the table that the data has changed
+    }
+
+        }
+        );
+        tblBillDetail.setCellSelectionEnabled(
+                true);
+        tblBillDetail.setColumnSelectionAllowed(
+                true);
+        tblBillDetail.setSurrendersFocusOnKeystroke(
+                true);
     }
 
     private void initDatePicker() {
@@ -744,7 +778,10 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    public void refreshTable() {
+        tblBillDetail.revalidate();
+        tblBillDetail.repaint();
+    }
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
 
         TableModel model = tblBillDetail.getModel();
@@ -794,16 +831,24 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
         }
     }//GEN-LAST:event_tblMeterialMouseClicked
 
-    private void tblBillDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillDetailMouseClicked
-        int selectedRow = tblBillDetail.getSelectedRow();
-        if (selectedRow >= 0) {
-            DefaultTableModel model = (DefaultTableModel) tblBillDetail.getModel();
-            int itemId = (int) model.getValueAt(selectedRow, 0);
-            String itemName = (String) model.getValueAt(selectedRow, 1);
-            int amount = (int) model.getValueAt(selectedRow, 2);
-        }
-    }//GEN-LAST:event_tblBillDetailMouseClicked
+    public void calculateTotal() {
+        float billTotal = 0.0f;
+        int totalQty = 0;
 
+        ArrayList<BillDetail> billDetails = bill.getBillDetails();
+
+        for (BillDetail bd : billDetails) {
+            bd.setTotal(bd.getAmount() * bd.getPrice());
+            billTotal += bd.getTotal();
+            totalQty += bd.getAmount();
+        }
+
+        bill.setBillDetails(billDetails);
+        bill.setBillTotal(billTotal);
+        bill.setTotalQty(totalQty);
+        System.out.println("Total = " + billTotal);
+        System.out.println("totalQty = " + totalQty);
+    }
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
 
         float totalMaterialPrice = 0.0f;
@@ -857,7 +902,11 @@ public class BuyStockPanel extends javax.swing.JPanel implements ChagePage, Logi
     private void edtDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDiscountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtDiscountActionPerformed
+    private void tblBillDetailMouseClicked(java.awt.event.MouseEvent evt) {
+        calculateTotal();
+        refreshTable();
 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculate;

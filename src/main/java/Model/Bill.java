@@ -253,4 +253,19 @@ public class Bill {
                 && this.totalQty >= 0;
     }
 
+    public void calculateTotal() {
+    this.billTotal = 0.0f;
+    int totalQty = 0;
+    
+    for (BillDetail bd : billDetails) {
+        bd.setTotal(bd.getAmount() * bd.getPrice());
+        billTotal += bd.getTotal();
+        totalQty += bd.getAmount();
+    }
+    
+    this.totalQty = totalQty;
+    System.out.println("Total = " + billTotal);
+    System.out.println("totalQty = " + totalQty);
+}
+
 }

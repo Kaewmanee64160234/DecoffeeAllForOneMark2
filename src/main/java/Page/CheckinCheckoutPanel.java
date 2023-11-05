@@ -394,7 +394,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             checkinoutService.addNew(checkinout);
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
-            list = checkinoutService.getCheckinoutsByIdEmployee(empID);
+            list = checkinoutService.getCheckinoutsByIdEmployeeDESC(empID);
 
             tblCheckInCheckOut.setEnabled(true);
             txtUserName.setText(user.getUsername());
@@ -451,18 +451,18 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         tblCheckInCheckOut.setEnabled(false);
         list.clear();
         refreshTable();
-        User user = new User();
-        user.setRole("user");
-        setImage(user);
-        loginData(user);
+//        User user = new User();
+//        user.setRole("user");
+//        setImage(user);
+//        loginData(user);
 
-        employee = new Employee();
-        txtUserName.setText("");
-        txtRole.setText("");
+//        employee = new Employee();
+//        txtUserName.setText("");
+//        txtRole.setText("");
         System.out.println("-----------------------------------");
         btnCheckIn.setEnabled(true);
         btnCheckOut.setEnabled(false);
-        setImage(user);
+//        setImage(user);
 
 
     }//GEN-LAST:event_btnCheckOutActionPerformed

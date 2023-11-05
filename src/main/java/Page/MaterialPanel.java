@@ -227,7 +227,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblMaterial.setSelectionBackground(new java.awt.Color(164, 196, 203));
+        tblMaterial.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblMaterial);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

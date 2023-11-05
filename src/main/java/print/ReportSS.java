@@ -55,25 +55,28 @@ public class ReportSS {
             SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date_ = inputDateFormat.parse(date);
             // Format the date to "MM/dd" format
-            SimpleDateFormat outputDateFormat = new SimpleDateFormat("MM/dd");
-            SimpleDateFormat outputDateFormat_ = new SimpleDateFormat("YYYY-MM");
+            SimpleDateFormat outputDateFormat = new SimpleDateFormat("MM/YYYY");
+            SimpleDateFormat outputDateFormat_ = new SimpleDateFormat("YYYY-MM");            
+            SimpleDateFormat outputDateFormat_1 = new SimpleDateFormat("MM-YYYY");
+
 
             ArrayList<SummarySalary> sses = salaryService.getSummarySalaryForReport(outputDateFormat_.format(date_));
             ArrayList<ReportSSModel> reportSSModels = new ArrayList<>();
             for (SummarySalary sse : sses) {
+                
                 ReportSSModel reportSSModel = new ReportSSModel();
                 reportSSModel.setDate(sse.getDate());
                 reportSSModel.setSalary(sse.getSalary()+"");
                 reportSSModel.setEmployeeName(sse.getEmployeeName());
+                System.out.println(reportSSModel.toString());
                 reportSSModels.add(reportSSModel);
             }
-
             SummarySalary ss = new SummarySalary();
-            ss = salaryService.getTotalSummarySalaryOneMonth(date);
+            ss = salaryService.getTotalSummarySalaryOneMonth(outputDateFormat_1.format(date_));
             Map<String, Object> map = new HashMap<>();
 
             String formattedDateStr = outputDateFormat.format(date_);
-            map.put("month", outputDateFormat_);
+            map.put("month", formattedDateStr);
             map.put("total", ss.getTotalPaid());
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportSSModels);

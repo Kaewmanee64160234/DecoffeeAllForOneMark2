@@ -937,10 +937,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
 
         reciept.setStoreId(1);
         reciept.setQueue(1);
+        reciept.setDiscount(Float.parseFloat(lblDiscount.getText()));
         // set befor implement login
         reciept.setCustomerId(1);
         reciept.setReceive(Float.parseFloat(lblCash.getText()));
-        reciept.setChange(total);
+        reciept.setChange(Float.parseFloat(lblChange.getText()) );
         reciept.setEmployeeId(1);
         reciept.setQueue(queue);
         // Save
@@ -1316,6 +1317,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             lblDiscount.setText(promotion1.getDiscount() + "");
         }
         lblPointEarn.setText(promotion1.getPointDiscount() + "");
+        reciept.setDiscount(promotion1.getPointDiscount());
         lblPromotionNameShow.setText(promotion1.getName());
         lblTotalPoint.setText(totalPoint + "");
         setTotalNet();

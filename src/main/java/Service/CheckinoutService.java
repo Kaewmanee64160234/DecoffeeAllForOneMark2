@@ -40,6 +40,12 @@ public class CheckinoutService {
 
     }
 
+    public List<Checkinout> getCheckinoutsByIdEmployeeDESC(int id) {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        return checkinoutDao.getAllByIdEmployeeDESC(id);
+
+    }
+
     public Checkinout addNew(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         CheckMaterialDetailService checkMaterialDetailService = new CheckMaterialDetailService();

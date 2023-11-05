@@ -178,7 +178,7 @@ public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDi
         jPanel3.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
-        jLabel4.setText("Pay Rent");
+        jLabel4.setText("Rent Store");
 
         jLabel8.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         jLabel8.setText("User Name: ");

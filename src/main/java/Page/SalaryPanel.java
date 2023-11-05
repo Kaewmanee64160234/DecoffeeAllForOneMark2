@@ -418,9 +418,9 @@ public class SalaryPanel extends javax.swing.JPanel implements LoginObs, changeP
                         .addComponent(lblEndDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                         .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPaymentHistory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPrint)))
@@ -459,18 +459,18 @@ public class SalaryPanel extends javax.swing.JPanel implements LoginObs, changeP
         jpnlHeader1.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
-        jLabel3.setText("Salary");
+        jLabel3.setText("Summary Salary");
 
-        jLabel7.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel7.setText("User Name: ");
 
-        txtUserName1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtUserName1.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtUserName1.setText("Name");
 
-        jLabel8.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel8.setText("Role:");
 
-        txtRole1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtRole1.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtRole1.setText("Role");
 
         javax.swing.GroupLayout jpnlHeader1Layout = new javax.swing.GroupLayout(jpnlHeader1);
@@ -479,7 +479,7 @@ public class SalaryPanel extends javax.swing.JPanel implements LoginObs, changeP
             jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlHeader1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)

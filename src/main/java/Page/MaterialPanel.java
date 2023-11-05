@@ -4,7 +4,9 @@
  */
 package Page;
 
+import Component.ChagePage;
 import Component.LoginObs;
+import Component.changePageSummary;
 import Dialog.MaterialDialog;
 import Model.Material;
 import Model.User;
@@ -29,12 +31,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author toey
  */
-public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUpdateObserver{
+public class MaterialPanel extends javax.swing.JPanel implements ChagePage, LoginObs, DataUpdateObserver {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
-
+    private ArrayList<ChagePage> chagePages = new ArrayList<>();
 
     /**
      * Creates new form UserPanel
@@ -51,8 +53,6 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
                     openDialog();
                 }
             }
-
-           
 
             private void refreshTable() {
                 list = materialService.getMaterials();
@@ -162,6 +162,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
         btnAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMaterial = new javax.swing.JTable();
+        btnHisMat = new javax.swing.JButton();
+        btnCheckStock = new javax.swing.JButton();
+        btnBuyStock = new javax.swing.JButton();
 
         jPanelHead.setBackground(new java.awt.Color(224, 205, 174));
         jPanelHead.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -248,6 +251,36 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
         });
         jScrollPane1.setViewportView(tblMaterial);
 
+        btnHisMat.setBackground(new java.awt.Color(83, 113, 136));
+        btnHisMat.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnHisMat.setForeground(new java.awt.Color(255, 255, 255));
+        btnHisMat.setText("History Material");
+        btnHisMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHisMatActionPerformed(evt);
+            }
+        });
+
+        btnCheckStock.setBackground(new java.awt.Color(255, 165, 89));
+        btnCheckStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckStock.setText("Check Stock");
+        btnCheckStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckStockActionPerformed(evt);
+            }
+        });
+
+        btnBuyStock.setBackground(new java.awt.Color(176, 139, 187));
+        btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnBuyStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuyStock.setText("Buy Stock");
+        btnBuyStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -258,6 +291,12 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBuyStock)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCheckStock)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHisMat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdd)))
                 .addContainerGap())
         );
@@ -265,7 +304,11 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHisMat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCheckStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuyStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -302,6 +345,18 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
         refreshTable();
     }//GEN-LAST:event_tblMaterialMouseClicked
 
+    private void btnHisMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisMatActionPerformed
+        chagePage("HistoryMaterial");
+    }//GEN-LAST:event_btnHisMatActionPerformed
+
+    private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed
+        chagePage("Check Stock");
+    }//GEN-LAST:event_btnCheckStockActionPerformed
+
+    private void btnBuyStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyStockActionPerformed
+        chagePage("BuyStock");
+    }//GEN-LAST:event_btnBuyStockActionPerformed
+
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         MaterialDialog materialDialog = new MaterialDialog(frame, editedMaterial);
@@ -325,6 +380,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBuyStock;
+    private javax.swing.JButton btnCheckStock;
+    private javax.swing.JButton btnHisMat;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -346,6 +404,17 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,DataUp
     @Override
     public void onDataUpdated() {
         System.out.println("Page.MaterialPanel.onDataUpdated()");
-    refreshTable();
+        refreshTable();
+    }
+
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage ch : chagePages) {
+            ch.chagePage(pageName);
+        }
+    }
+    
+    public void addInchangePage(ChagePage ch) {
+        chagePages.add(ch);
     }
 }

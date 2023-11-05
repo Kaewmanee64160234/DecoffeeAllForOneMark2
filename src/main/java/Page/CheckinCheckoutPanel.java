@@ -394,7 +394,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             checkinoutService.addNew(checkinout);
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
-            list = checkinoutService.getCheckinoutsByIdEmployee(empID);
+            list = checkinoutService.getCheckinoutsByIdEmployeeDESC(empID);
 
             tblCheckInCheckOut.setEnabled(true);
             txtUserName.setText(user.getUsername());

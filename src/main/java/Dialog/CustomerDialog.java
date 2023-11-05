@@ -78,7 +78,9 @@ public class CustomerDialog extends javax.swing.JDialog {
         lblPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPoint.setText("Point:");
 
+        btnSave.setBackground(new java.awt.Color(93, 156, 89));
         btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +88,9 @@ public class CustomerDialog extends javax.swing.JDialog {
             }
         });
 
+        btnClear.setBackground(new java.awt.Color(231, 70, 70));
         btnClear.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("Cancel");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +164,7 @@ public class CustomerDialog extends javax.swing.JDialog {
                             .addComponent(edtName3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClear)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave))
                 .addContainerGap())
         );

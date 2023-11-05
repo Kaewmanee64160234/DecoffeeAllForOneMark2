@@ -136,7 +136,9 @@ public class PayRentDialog extends javax.swing.JDialog {
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName2.setText("Date Paid: ");
 
+        btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

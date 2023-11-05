@@ -81,7 +81,9 @@ public class MaterialDialog extends javax.swing.JDialog {
         txtUnit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtUnit.setText("Unit: ");
 
+        btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +91,9 @@ public class MaterialDialog extends javax.swing.JDialog {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(93, 156, 89));
         btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

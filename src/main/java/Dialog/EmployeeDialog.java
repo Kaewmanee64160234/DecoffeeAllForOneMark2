@@ -142,7 +142,9 @@ public class EmployeeDialog extends javax.swing.JDialog {
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnCancel.setBackground(new java.awt.Color(231, 70, 70));
+        btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +152,9 @@ public class EmployeeDialog extends javax.swing.JDialog {
             }
         });
 
-        btnSave.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnSave.setBackground(new java.awt.Color(93, 156, 89));
+        btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,7 +265,7 @@ public class EmployeeDialog extends javax.swing.JDialog {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnCancel))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

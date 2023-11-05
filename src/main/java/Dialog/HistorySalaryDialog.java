@@ -118,7 +118,9 @@ public class HistorySalaryDialog extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnPaid.setBackground(new java.awt.Color(33, 156, 144));
         btnPaid.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPaid.setForeground(new java.awt.Color(255, 255, 255));
         btnPaid.setText("Paid");
         btnPaid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

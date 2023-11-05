@@ -147,7 +147,9 @@ public class PaymentStatus extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +157,9 @@ public class PaymentStatus extends javax.swing.JDialog {
             }
         });
 
+        btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

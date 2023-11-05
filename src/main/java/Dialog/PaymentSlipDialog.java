@@ -305,7 +305,9 @@ public class PaymentSlipDialog extends javax.swing.JDialog {
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -265,4 +265,40 @@ public class RecieptDao implements Dao<Reciept> {
         return -1;
     }
 
+    public ArrayList<Reciept> getHistoryReciptByMonthAndYear(String date){
+        ArrayList<Reciept> list = new ArrayList();
+        String sql = "SELECT * FROM reciept WHERE strftime('%m-%Y', create_date) = ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, date);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Reciept reciept = Reciept.fromRS(rs);
+                list.add(reciept);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    public Reciept getTotalRecietOneMonth(String date){
+        Reciept reciept = null;
+        String sql = "SELECT SUM(reciept.reciept_total)  totalSum FROM reciept WHERE strftime('%m-%Y', create_date) = ?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, date);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                reciept = Reciept.fromRSToGetId(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return reciept;
+    }
+
 }

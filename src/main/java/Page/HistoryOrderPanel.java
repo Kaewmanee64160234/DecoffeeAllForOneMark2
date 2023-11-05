@@ -1,6 +1,8 @@
 package Page;
 
 import Component.ChagePage;
+import Component.sentDate;
+import Dialog.SelectDateForPrintReport;
 import Model.Bill;
 import Model.RecieptDetail;
 import Model.DateLabelFormatter;
@@ -9,23 +11,32 @@ import Service.RecieptDetailService;
 import Service.RecieptService;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DateFormatter;
+import net.sf.jasperreports.engine.JRException;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import print.ReportSS;
+import print.ReportSaleIncome;
 import scrollbar.ScrollBarCustom;
 
 /**
  *
  * @Dang Double H
  */
-public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
+public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,sentDate{
 
     private final RecieptService recieptService;
     private List<HistoryOrderReport> recieptList;
@@ -37,6 +48,8 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
     private UtilDateModel model2;
     private AbstractTableModel model3;
     private ArrayList<ChagePage> chagpages;
+    private String date;
+    private SelectDateForPrintReport selectDateForPrintReport;
 
     public HistoryOrderPanel() {
         initComponents();
@@ -44,6 +57,8 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         recieptList = recieptService.getRecieptHistory();
         recieptDetailService = new RecieptDetailService();
         recieptDetailList = recieptDetailService.getRecieptDetails();
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        selectDateForPrintReport = new SelectDateForPrintReport(frame, true);
         initTableBill();
         initDatePicker();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
@@ -132,6 +147,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDateOrder = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        btnSubmit1 = new javax.swing.JButton();
         jPanelDetail = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblOrderInDate = new javax.swing.JTable();
@@ -205,6 +221,14 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 20)); // NOI18N
         jLabel2.setText("History");
 
+        btnSubmit1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSubmit1.setText("Print");
+        btnSubmit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmit1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelHisLayout = new javax.swing.GroupLayout(jPanelHis);
         jPanelHis.setLayout(jPanelHisLayout);
         jPanelHisLayout.setHorizontalGroup(
@@ -224,6 +248,8 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSubmit1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSubmit))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -239,7 +265,9 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                         .addComponent(lblStartDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelHisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSubmit1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanelHisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,6 +439,28 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         chagePage("Material");
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnSubmit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmit1ActionPerformed
+        // TODO add your handling code here:
+        selectDateForPrintReport.addinDate(this);
+        selectDateForPrintReport.setLocationRelativeTo(this); //set dialog to center
+        selectDateForPrintReport.setVisible(true);
+        selectDateForPrintReport.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                try {
+                    if (date != "") {
+                        ReportSaleIncome.getInstance().complieReport();
+                        ReportSaleIncome.getInstance().printReport(date);
+                    }
+                } catch (JRException ex) {
+                    Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        });
+    }//GEN-LAST:event_btnSubmit1ActionPerformed
+
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat formater = new SimpleDateFormat(pattern);
@@ -426,6 +476,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnSubmit1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -452,6 +503,11 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
 
     public void addInSubs(ChagePage chagePage) {
         chagpages.add(chagePage);
+    }
+
+    @Override
+    public void sentDate(String date) {
+        this.date = date;
     }
 
 }

@@ -4,14 +4,19 @@
  */
 package Component;
 
+import Model.Checkinout;
 import Model.User;
 import Page.CheckinCheckoutPanel;
+import Service.CheckinoutService;
+import Service.RecieptDetailService;
 import Service.UserService;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -311,13 +316,25 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
     }//GEN-LAST:event_btnRentStoreActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
         if (response == JOptionPane.YES_OPTION) {
             // User confirmed logout, so exit the application
+            CheckinoutService checkinoutService = new CheckinoutService();
+            Checkinout checkinout = checkinoutService.getLestCio();
+            System.out.println(checkinout.toString());
+            if (checkinout.getCioTimeOut().equals("-")) {
+                 Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+                String time = formatter.format(date);
+                checkinout.setCioTimeOut(time);
+                Checkinout checkinout_= checkinoutService.update(checkinout);
+                System.out.println(checkinout_.toString());
+            }
             System.exit(0);
-            
+
         }
-        
+
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed

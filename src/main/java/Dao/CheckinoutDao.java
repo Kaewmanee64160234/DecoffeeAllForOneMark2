@@ -369,6 +369,22 @@ public class CheckinoutDao implements Dao<Checkinout> {
         
     }
 
+    public Checkinout  getLestCio(){
+        Checkinout checkinout = null;
+        String sql = "SELECT * FROM check_in_out ORDER BY cio_date DESC  LIMIT 1;";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+                checkinout = Checkinout.fromRS(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return checkinout;
+    }
 
 }

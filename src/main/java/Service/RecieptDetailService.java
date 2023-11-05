@@ -41,4 +41,5 @@ public class RecieptDetailService {
         return recieptDetailDao.getrDetailsByReciptId(id);
     }
 
+
 }

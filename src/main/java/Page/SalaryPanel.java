@@ -25,12 +25,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import javax.swing.table.AbstractTableModel;
+import net.sf.jasperreports.engine.JRException;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -39,6 +42,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import print.ReportManager;
+import print.ReportSS;
 import selectInTable.TableActionCellRender;
 import scrollbar.ScrollBarCustom;
 
@@ -492,6 +497,15 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
+        try {
+              ReportSS.getInstance().complieReport();
+            ReportSS.getInstance().printReport("2023-11-04");
+
+        } catch (JRException ex) {
+            Logger.getLogger(PosPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed

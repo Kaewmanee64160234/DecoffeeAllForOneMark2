@@ -28,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import net.sf.jasperreports.engine.JRException;
+import print.ReportCheckStock;
 import print.ReportOutOfStock;
 import print.ReportSS;
 
@@ -320,8 +321,8 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
             String forr = simpleDateFormat.format(currentDate);
             
             // TODO add your handling code here:
-            ReportOutOfStock.getInstance().complieReport();
-            ReportOutOfStock.getInstance().printReport(forr);
+            ReportCheckStock.getInstance().complieReport();
+            ReportCheckStock.getInstance().printReport();
 
         } catch (JRException ex) {
             Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);

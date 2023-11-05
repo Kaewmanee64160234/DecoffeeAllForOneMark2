@@ -96,6 +96,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         btnHisMat = new javax.swing.JButton();
         btnSumSalary = new javax.swing.JButton();
         btnCustomer = new javax.swing.JButton();
+        btnPromotion = new javax.swing.JButton();
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -211,6 +212,14 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
             }
         });
 
+        btnPromotion.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnPromotion.setText("Promotion");
+        btnPromotion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromotionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -232,7 +241,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                     .addComponent(btnBuyStock, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnHisMat, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnSumSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addComponent(btnCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                    .addComponent(btnCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(btnPromotion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -244,6 +254,8 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                 .addComponent(btnReport)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -266,7 +278,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
                 .addComponent(btnSumSalary)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRentStore)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addContainerGap())
         );
@@ -357,6 +369,10 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
         chagePage("Customer");
     }//GEN-LAST:event_btnCustomerActionPerformed
 
+    private void btnPromotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromotionActionPerformed
+        chagePage("Promotion");
+    }//GEN-LAST:event_btnPromotionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
@@ -370,6 +386,7 @@ public class NavigationBar extends javax.swing.JPanel implements ChagePage, Logi
     private javax.swing.JButton btnMat;
     private javax.swing.JButton btnPos;
     private javax.swing.JButton btnProduct;
+    private javax.swing.JButton btnPromotion;
     private javax.swing.JButton btnRentStore;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSumSalary;

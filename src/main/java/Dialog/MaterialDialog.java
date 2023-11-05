@@ -282,15 +282,29 @@ public class MaterialDialog extends javax.swing.JDialog {
             return;
         }
         if (editedMaterial.getId() < 0) {//Add New
-            setFormToObject();
-            material = materialService.addNew(editedMaterial);
+            if (isDuplicatePName(name)) {
+                setFormToObject();
+                material = materialService.addNew(editedMaterial);
+            }else{
+                return;
+            }
         } else {
             setFormToObject();
             material = materialService.update(editedMaterial);
         }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
+    private boolean isDuplicatePName(String matName) {
+        List<Material> materials = materialService.getMaterials();
 
+        for (Material material : materials) {
+            if (material.getName().equals(matName)) {
+            JOptionPane.showMessageDialog(this, "The material name is a duplicate.");
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();

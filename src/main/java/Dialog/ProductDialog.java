@@ -271,10 +271,6 @@ public class ProductDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
             return;
         }
-        if (isDuplicatePName(name)) {
-            JOptionPane.showMessageDialog(this, "This product name is a duplicate.");
-            return;
-        }
         try {
             price = Float.parseFloat(edtPrice.getText());
             if (price < 1) {
@@ -317,17 +313,7 @@ public class ProductDialog extends javax.swing.JDialog {
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
-    private boolean isDuplicatePName(String productName) {
-        List<Product> products = productService.getProductsOrderByName(); // Replace with your data source
-
-        for (Product product : products) {
-            if (product.getName().equals(productName)) {
-                return true; // The phone number is a duplicate
-            }
-        }
-
-        return false; // The phone number is not a duplicate
-    }
+ 
     private void cmbCatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatIdActionPerformed
 
     }//GEN-LAST:event_cmbCatIdActionPerformed

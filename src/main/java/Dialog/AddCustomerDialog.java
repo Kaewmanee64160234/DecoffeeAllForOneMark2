@@ -244,12 +244,17 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs {
             JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
             return;
         }
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
         if (!tel.matches("\\d{10}")) {
             JOptionPane.showMessageDialog(this, "Please insert a telephone number with exactly 10 digits.");
             return;
         }
-        if (name.matches(".*\\d+.*")) {
-            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+
+        if (isDuplicatePhoneNumber(tel)) {
+            JOptionPane.showMessageDialog(this, "This phone number is a duplicate.");
             return;
         } else {
         }
@@ -281,7 +286,17 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs {
         txtPoint.setText("");
         txtTel.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
+    private boolean isDuplicatePhoneNumber(String phoneNumber) {
+        List<Customer> customers = customerService.getCustomers(); // Replace with your data source
 
+        for (Customer customer : customers) {
+            if (customer.getTel().equals(phoneNumber)) {
+                return true; // The phone number is a duplicate
+            }
+        }
+
+        return false; // The phone number is not a duplicate
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;

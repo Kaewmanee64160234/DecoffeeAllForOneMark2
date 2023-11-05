@@ -117,11 +117,9 @@
                           </Group>
                       </Group>
                   </Group>
-<<<<<<< HEAD
-                  <EmptySpace pref="87" max="32767" attributes="0"/>
-=======
+
                   <EmptySpace pref="39" max="32767" attributes="0"/>
->>>>>>> c4e0ff21f67869f9b89d27672f4f307d787bdf30
+
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnClear" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btnSave" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>

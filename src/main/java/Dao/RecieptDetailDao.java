@@ -6,6 +6,7 @@ package Dao;
 
 import Model.RecieptDetail;
 import Model.RecieptDetailReport;
+import Model.RecieptDetailWorstProduct;
 import helper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -131,6 +132,33 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         return list;
     }
 
+    public List<RecieptDetailWorstProduct> getTopFiveWorstSellingProducts(int limit) {
+        ArrayList<RecieptDetailWorstProduct> list = new ArrayList();
+        String sql = """
+           SELECT product_id, reciept_detail_name, sum(reciept_detail_qty) AS TotalQty
+           FROM reciept_detail
+           GROUP BY product_id
+           ORDER BY TotalQty ASC, reciept_detail_name DESC
+           LIMIT ?
+           """;
+
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                RecieptDetailWorstProduct obj = RecieptDetailWorstProduct.fromRS(rs);
+                list.add(obj);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
     @Override
     public RecieptDetail save(RecieptDetail obj) {
         String sql = "INSERT INTO reciept_detail(reciept_detail_name, reciept_detail_qty, reciept_detail_price, size, type_price, type, size_price, topping, topping_price, reciept_detail_total_price, reciept_id, product_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -227,8 +255,8 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         }
         return list;
     }
-    
-     public ArrayList<RecieptDetail> getrDetailsByReciptId( int recieptId) {
+
+    public ArrayList<RecieptDetail> getrDetailsByReciptId(int recieptId) {
         ArrayList<RecieptDetail> list = new ArrayList();
         String sql = """
                 SELECT *

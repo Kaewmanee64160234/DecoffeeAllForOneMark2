@@ -103,7 +103,7 @@ public class UserDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(183, 202, 219));
+        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
 
         lblID.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         lblID.setText("ID: ");

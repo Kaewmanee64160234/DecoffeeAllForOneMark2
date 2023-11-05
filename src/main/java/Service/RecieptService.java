@@ -13,6 +13,7 @@ import Model.HistoryOrderReport;
 import Model.Reciept;
 import Model.RecieptDetail;
 import Model.RecieptDetailReport;
+import Model.RecieptDetailWorstProduct;
 import Model.RecieptReport;
 import Model.Topping;
 
@@ -66,6 +67,11 @@ public class RecieptService {
     public List<RecieptDetailReport> getTopTenProductSale() {
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
         return recieptDetailDao.getTopTenProductSale(10);
+    }
+
+    public List<RecieptDetailWorstProduct> getTopFiveWorstSellingProducts() {
+        RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
+        return recieptDetailDao.getTopFiveWorstSellingProducts(5);
     }
 
     public List<RecieptReport> getRecieptByTotalSale(String begin, String end) {

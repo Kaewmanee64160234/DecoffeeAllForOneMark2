@@ -47,12 +47,10 @@
                       <Component id="btnMat" alignment="0" pref="175" max="32767" attributes="0"/>
                       <Component id="btnCico" alignment="0" pref="175" max="32767" attributes="0"/>
                       <Component id="btnLogout" alignment="0" pref="175" max="32767" attributes="0"/>
-                      <Component id="btnCheckStock" alignment="0" pref="175" max="32767" attributes="0"/>
-                      <Component id="btnHisMat" alignment="0" pref="175" max="32767" attributes="0"/>
+                      <Component id="btnHisOrd" alignment="0" pref="175" max="32767" attributes="0"/>
                       <Component id="btnSumSalary" alignment="0" pref="175" max="32767" attributes="0"/>
                       <Component id="btnCustomer" alignment="1" pref="175" max="32767" attributes="0"/>
                       <Component id="btnPromotion" alignment="1" pref="175" max="32767" attributes="0"/>
-                      <Component id="btnBuyStock" alignment="1" pref="175" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -80,12 +78,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnMat" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnHisMat" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnCheckStock" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnBuyStock" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnHisOrd" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnCico" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnSumSalary" min="-2" max="-2" attributes="0"/>
@@ -230,7 +224,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCheckStock">
+        <Component class="javax.swing.JButton" name="btnHisOrd">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ae" green="cd" red="e0" type="rgb"/>
@@ -238,24 +232,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Kanit" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Check Stock"/>
+            <Property name="text" type="java.lang.String" value="History Order"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCheckStockActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnHisMat">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ae" green="cd" red="e0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="14" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="History Material"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisMatActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisOrdActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSumSalary">
@@ -298,20 +278,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPromotionActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnBuyStock">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ae" green="cd" red="e0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Kanit" size="14" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Buy Stock"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuyStockActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

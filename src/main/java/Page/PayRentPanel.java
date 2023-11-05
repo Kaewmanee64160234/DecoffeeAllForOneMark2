@@ -264,11 +264,7 @@ public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDi
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPayRent.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblPayRentMouseClicked(evt);
-            }
-        });
+      
         jScrollPane1.setViewportView(tblPayRent);
 
         btnAddRentBill.setBackground(new java.awt.Color(142, 172, 205));

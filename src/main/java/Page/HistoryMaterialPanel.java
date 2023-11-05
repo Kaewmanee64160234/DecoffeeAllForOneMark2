@@ -5,10 +5,12 @@
 package Page;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Model.Bill;
 import Model.BillDetail;
 import Model.DateLabelFormatter;
 import Model.HistoryMaterialReport;
+import Model.User;
 import Service.BillDetailService;
 import Service.BillService;
 import java.awt.Color;
@@ -29,7 +31,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Lenovo
  */
-public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePage {
+public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePage, LoginObs {
 
     private final BillService billService;
     private List<HistoryMaterialReport> billList;
@@ -57,6 +59,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     }
 
     private void initTableBill() {
+        tblBillMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         model3 = new AbstractTableModel() {
             String[] colNames = {"ID", "Date History", "Total"};
 
@@ -207,6 +210,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblBillMaterial.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblBillMaterial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -218,6 +222,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblBillMaterial.setSelectionBackground(new java.awt.Color(213, 208, 189));
         tblBillMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblBillMaterialMouseClicked(evt);
@@ -253,8 +258,8 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblStartDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblStartDate1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,12 +284,13 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                         .addComponent(lblStartDate))
                     .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblListBuy.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblListBuy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -304,6 +310,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                 return canEdit [columnIndex];
             }
         });
+        tblListBuy.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane2.setViewportView(tblListBuy);
 
         lblTotal.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -348,12 +355,13 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotal)
-                    .addComponent(lblTotalShow)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTotalShow))
+                .addGap(12, 12, 12)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -384,10 +392,10 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
     private void tblBillMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMaterialMouseClicked
 
         int selectedRow = tblBillMaterial.getSelectedRow();
-        if (selectedRow >= 0 ) {
+        if (selectedRow >= 0) {
             String selectedDate = (String) tblBillMaterial.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
             List<BillDetail> billDetailsForDate = billDetailService.getBillDetailForDate(selectedDate);
-            
+
             System.out.println(billDetailsForDate);
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
@@ -396,7 +404,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             model.addColumn("Price");
             model.addColumn("Total");
             model.addColumn("Discount");
-    
+
             int totalAmount = 0;
             for (BillDetail bd : billDetailsForDate) {
                 Object[] rowData = {
@@ -408,16 +416,16 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
                     bd.getDiscount()
                 };
                 model.addRow(rowData);
-    
+
                 totalAmount += bd.getTotal();
             }
-    
+
             tblListBuy.setModel(model);
+            tblBillMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
             lblTotalShow.setText(String.valueOf(totalAmount));
         }
 
 
-        
     }//GEN-LAST:event_tblBillMaterialMouseClicked
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -469,6 +477,13 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
     public void addInSubs(ChagePage chagePage) {
         chagpages.add(chagePage);
+    }
+
+    @Override
+    public void loginData(User user) {
+        txtUserName1.setText(user.getUsername());
+        txtRole1.setText(user.getRole());
+
     }
 
 }

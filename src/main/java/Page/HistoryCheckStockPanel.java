@@ -47,7 +47,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         list = checkMaterialDetailService.getCheckMaterialDetails();
         listCM = checkMaterialService.getCheckMaterials();
 
-        tblDateHistory.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 24));
+        tblDateHistory.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblDateHistory.setRowHeight(30);
         tblDateHistory.setModel(new AbstractTableModel() {
             String[] columnNames = {"No.", "Date History"};
@@ -114,6 +114,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                     }
 
                     tblHistoryStock.setModel(model);
+                    tblHistoryStock.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
                 }
             }
         });
@@ -225,7 +226,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
         jPanelBill.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblDateHistory.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tblDateHistory.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblDateHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -234,6 +235,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2"
             }
         ));
+        tblDateHistory.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblDateHistory);
 
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -242,7 +244,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         lblStartDate1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate1.setText("To Date :");
 
-        btnSubmit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSubmit.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,18 +264,20 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addGroup(jPanelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanelBillLayout.createSequentialGroup()
-                        .addComponent(lblStartDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblStartDate1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelBillLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelBillLayout.createSequentialGroup()
+                                .addComponent(lblStartDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblStartDate1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSubmit)))
                 .addContainerGap())
         );
         jPanelBillLayout.setVerticalGroup(
@@ -296,6 +300,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
         jPanelDetail.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnBack.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,6 +308,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             }
         });
 
+        tblHistoryStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblHistoryStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -311,6 +317,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
+        tblHistoryStock.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane3.setViewportView(tblHistoryStock);
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 20)); // NOI18N
@@ -336,7 +343,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             .addGroup(jPanelDetailLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addGap(36, 36, 36)
                 .addComponent(btnBack)
                 .addContainerGap())

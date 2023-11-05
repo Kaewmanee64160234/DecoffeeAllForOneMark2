@@ -35,6 +35,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         materialService = new MaterialService();
 
         list = materialService.getMaterials();
+        tblCheckStock.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCheckStock.setModel(new AbstractTableModel() {
             String[] columnNames = {"Id", "Name", "Number", "Minnimum", "Unit"};
 
@@ -121,7 +122,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnBack.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +130,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
             }
         });
 
-        btnConfirm.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +215,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblCheckStock.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        tblCheckStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblCheckStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -226,6 +227,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
                 "Id", "Name", "Number", "Minnimum", "Unit"
             }
         ));
+        tblCheckStock.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblCheckStock);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

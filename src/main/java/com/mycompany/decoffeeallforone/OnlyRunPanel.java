@@ -7,7 +7,7 @@ public class OnlyRunPanel extends javax.swing.JFrame {
 
     public OnlyRunPanel() {
         initComponents();
-        scrPanel.setViewportView(new HistoryMaterialPanel());
+        scrPanel.setViewportView(new HistoryOrderPanel());
     }
 
     @SuppressWarnings("unchecked")

@@ -79,6 +79,26 @@ public class EmployeeDao implements Dao<Employee> {
         return employee;
     }
 
+    public Employee getEmployeebyUserId(int id) {
+        Employee employee = null;
+        String sql = "SELECT * FROM employee WHERE user_id=?";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                employee = Employee.fromRS(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return employee;
+
+    }
+
     @Override
     public List<Employee> getAll() {
         ArrayList<Employee> list = new ArrayList();
@@ -141,7 +161,7 @@ public class EmployeeDao implements Dao<Employee> {
         return list;
     }
 
-    public List<EmployeeReport> getEmployeeByTotalHour(String begin, String end,int limit) {
+    public List<EmployeeReport> getEmployeeByTotalHour(String begin, String end, int limit) {
         ArrayList<EmployeeReport> list = new ArrayList();
         String sql = """
                 SELECT emp.employee_id,

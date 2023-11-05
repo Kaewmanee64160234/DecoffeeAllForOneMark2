@@ -5,6 +5,7 @@
 package com.mycompany.decoffeeallforone;
 
 import Component.ChagePage;
+import Component.EmpObs;
 import Component.LoginObs;
 import Component.NavigationBar;
 import Component.ProductListPanel;
@@ -56,7 +57,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs {
+public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, EmpObs {
 
     /**
      * Creates new form MainFrame
@@ -75,6 +76,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private Employee employee;
     private BuyStockPanel buyStockPanel;
     private ArrayList<LoginObs> loginObses;
+    private ArrayList<EmpObs> empObss;
     private HistoryMaterialPanel historyMaterialPanel;
     private Component PosDialog;
     private final JFrame frame;
@@ -87,7 +89,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     public MainFrame() {
         initComponents();
         loginObses = new ArrayList<>();
-
+        empObss = new ArrayList<>();
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Set full Screen
@@ -121,6 +123,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buystockPanel.addInSubs(this);
         navigationBar.addInSubs(this);
         buyStockPanel.addInSubs(this);
+        userPannel.addInSub(this);
+        empObss.add(employeePannel);
 
 //        navigationBar.addInSubsLogin(this);
         hisPageSummaySalary.addInChagePage(this);
@@ -328,6 +332,14 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
 //        System.out.println("com.mycompany.decoffeeallforone.MainFrame.loginData()");
 //        EmployeeService employSer = new EmployeeService();
 //        buyStockPanel = new BuyStockPanel(employSer.getById(user.getEmployee_id()));
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        System.out.println("com.mycompany.decoffeeallforone.MainFrame.updateEmployee()");
+        for (EmpObs empObs : empObss) {
+            empObs.updateEmployee(employee);
+        }
     }
 
 }

@@ -338,15 +338,15 @@ public class AddARentBillDialog extends javax.swing.JDialog {
             electicBill = Float.parseFloat(txtElectricBill.getText());
             total = Float.parseFloat(txtTotal.getText());
             if (rent < 1) {
-                JOptionPane.showMessageDialog(this, "Rent must be greater than or equal to 0");
+                JOptionPane.showMessageDialog(this, "Rent must be greater than 0");
                 return;
             }
             if (waterBill < 1) {
-                JOptionPane.showMessageDialog(this, "Water Bill must be greater than or equal to 0");
+                JOptionPane.showMessageDialog(this, "Water Bill must be greater than 0");
                 return;
             }
             if (electicBill < 1) {
-                JOptionPane.showMessageDialog(this, "Electic Bill must be greater than or equal to 0");
+                JOptionPane.showMessageDialog(this, "Electic Bill must be greater than 0");
                 return;
             }
             if (total < 1) {

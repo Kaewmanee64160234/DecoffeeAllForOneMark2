@@ -60,8 +60,6 @@ import scrollbar.ScrollBarCustom;
  */
 public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, DataUpdateObserver, EmpObs {
 
-
-
     /**
      * Creates new form MainFrame
      */
@@ -262,17 +260,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
 
         if (pageName.equals("POS")) {
-            scrPanel.setViewportView(posPanel);
-            // PosDialog PosDialog = new PosDialog(frame);
-            // PosDialog.setLocationRelativeTo(this); // set dialog to center
-            // PosDialog.setVisible(true);
+            JFrame posDialogFrame = new JFrame("POS");
+            posDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            posDialogFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            posDialogFrame.setUndecorated(true);
 
-//            if (pageName.equals("POS")) {
-//                PosDialog posDialog = new PosDialog(this); // สร้าง JDialog ใหม่
-//                posDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // ปิด JDialog เมื่อคุณปิดหน้าต่าง
-//                posDialog.setVisible(true); // แสดง JDialog
-//            }
-            scrPanel.setViewportView(new PosPanel());
+            posDialogFrame.add(posPanel);
+            posDialogFrame.setVisible(true);
 
         }
         if (pageName.equals("Product")) {
@@ -344,11 +338,10 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     public void onDataUpdated() {
         System.out.println("com.mycompany.decoffeeallforone.MainFrame.onDataUpdated()");
         for (DataUpdateObserver dataUpdateObserver : dataUpdateObservers) {
-            
+
             dataUpdateObserver.onDataUpdated();
         }
-        }
-        
+    }
 
     public void updateEmployee(Employee employee) {
         System.out.println("com.mycompany.decoffeeallforone.MainFrame.updateEmployee()");

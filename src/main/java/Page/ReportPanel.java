@@ -404,6 +404,10 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         lblProductOutstock.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblProductOutstock.setText("Product Out Of Stock");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
         lblProductOutstock1.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblProductOutstock1.setText("Top 5 Worst Product");
 

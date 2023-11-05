@@ -4,6 +4,7 @@ import com.mycompany.decoffeeallforone.*;
 import Dialog.PromotionDialog;
 import Model.Promotion;
 import Service.PromotionService;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -24,6 +25,7 @@ public class PromotionPanel extends javax.swing.JPanel {
 
         list = promotionService.getPromotions();
         tblPromotion.setRowHeight(30);
+        tblPromotion.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblPromotion.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Created_Date", "End_Date", "Name", "Discount", "Discount_Perc", "Point_Discount"};
 

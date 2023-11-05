@@ -121,6 +121,8 @@ public class PrintPayRentHistory extends javax.swing.JDialog implements CodeDial
         lblName2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblName2.setText("To: ");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
         btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnConfirm.setForeground(new java.awt.Color(255, 255, 255));

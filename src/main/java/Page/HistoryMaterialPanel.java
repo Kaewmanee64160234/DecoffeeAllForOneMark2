@@ -390,7 +390,7 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
 
 
     private void tblBillMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMaterialMouseClicked
-
+        tblListBuy.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         int selectedRow = tblBillMaterial.getSelectedRow();
         if (selectedRow >= 0) {
             String selectedDate = (String) tblBillMaterial.getValueAt(selectedRow, 1); // Assuming column index 1 contains the date
@@ -421,7 +421,6 @@ public class HistoryMaterialPanel extends javax.swing.JPanel implements ChagePag
             }
 
             tblListBuy.setModel(model);
-            tblBillMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
             lblTotalShow.setText(String.valueOf(totalAmount));
         }
 

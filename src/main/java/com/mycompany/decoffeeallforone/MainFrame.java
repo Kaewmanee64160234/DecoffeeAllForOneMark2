@@ -30,6 +30,7 @@ import Page.PayRentPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.PromotionPanel;
 import Page.ReportPanel;
 import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
@@ -81,6 +82,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private historyPageSummaySalary hisPageSummaySalary;
     private TableSalaryPanel tableSalaryPanel;
     private CustomerPanel customerPanel;
+    private PromotionPanel promotionPanel;
 
     public MainFrame() {
         initComponents();
@@ -110,6 +112,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         historyMaterialPanel = new HistoryMaterialPanel();
         buyStockPanel = new BuyStockPanel(employee);
         customerPanel = new CustomerPanel();
+        promotionPanel = new PromotionPanel();
         jScrollPane1.setViewportView(navigationBar);
         loginObses.add(checkInOutPannel);
 
@@ -123,6 +126,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         hisPageSummaySalary.addInChagePage(this);
         tableSalaryPanel.addInChagePage(this);
         customerPanel.addInChangePage(this);
+        promotionPanel.addInChangePage(this);
         frame = (JFrame) SwingUtilities.getRoot(this);
 
         scrPanel.setViewportView(new UserPanel());
@@ -297,6 +301,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("Customer")) {
             scrPanel.setViewportView(customerPanel);
+        }
+        if (pageName.equals("Promotion")) {
+            scrPanel.setViewportView(promotionPanel);
         }
 
     }

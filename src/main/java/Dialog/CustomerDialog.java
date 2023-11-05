@@ -78,7 +78,7 @@ public class CustomerDialog extends javax.swing.JDialog {
         lblPoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPoint.setText("Point:");
 
-        btnSave.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +86,7 @@ public class CustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        btnClear.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnClear.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnClear.setText("Cancel");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +169,7 @@ public class CustomerDialog extends javax.swing.JDialog {
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblName1.setFont(new java.awt.Font("Kanit", 1, 30)); // NOI18N
-        lblName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblName1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblName1.setText("Customer");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

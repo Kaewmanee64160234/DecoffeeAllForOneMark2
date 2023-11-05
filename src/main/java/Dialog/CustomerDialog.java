@@ -8,6 +8,7 @@ import Model.Customer;
 import Service.CustomerService;
 import Service.ValidateException;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -50,9 +51,7 @@ public class CustomerDialog extends javax.swing.JDialog {
         lblPoint = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        lblStartMember = new javax.swing.JLabel();
         edtPoint = new javax.swing.JTextField();
-        edtName3 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lblName1 = new javax.swing.JLabel();
 
@@ -98,13 +97,7 @@ public class CustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        lblStartMember.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-        lblStartMember.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblStartMember.setText("Start Member:");
-
         edtPoint.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
-
-        edtName3.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,13 +117,9 @@ public class CustomerDialog extends javax.swing.JDialog {
                                     .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(edtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblStartMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(edtName3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(edtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -157,12 +146,8 @@ public class CustomerDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(edtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblStartMember)
-                            .addComponent(edtName3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                            .addComponent(edtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -217,11 +202,43 @@ public class CustomerDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Customer customer;
+        String name = edtName.getText();
+        String tel = edtTel.getText();
+        int point;
+        try {
+            point = Integer.parseInt(edtTel.getText());
+            if (point < 0) {
+                JOptionPane.showMessageDialog(this, "Point must be greater than or equal to 0");
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Point must be a valid integer and not null.");
+            return;
+        }
+        if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            return;
+        }
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
+        if (!tel.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Please insert a telephone number with exactly 10 digits.");
+            return;
+        }
+
+        else {
+        }
         try {
             if (editedCustomer.getId() < 0) {
-
-                setFormToObject();
-                customer = customerService.addNew(editedCustomer);
+                if (isDuplicatePhoneNumber(tel)) {
+                    setFormToObject();
+                    customer = customerService.addNew(editedCustomer);
+                } else {
+                    return;
+                }
 
             } else {
                 setFormToObject();
@@ -234,6 +251,18 @@ public class CustomerDialog extends javax.swing.JDialog {
         }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
+    private boolean isDuplicatePhoneNumber(String phoneNumber) {
+        List<Customer> customers = customerService.getCustomers(); // Replace with your data source
+
+        for (Customer customer : customers) {
+            if (customer.getTel().equals(phoneNumber)) {
+                JOptionPane.showMessageDialog(this, "This phone number is a duplicate.");
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     private void setFormToObject() {
         editedCustomer.setName(edtName.getText());
@@ -247,6 +276,7 @@ public class CustomerDialog extends javax.swing.JDialog {
         edtPoint.setText((editedCustomer.getPoint() + ""));
     }
 
+
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         dispose();
     }//GEN-LAST:event_btnClearActionPerformed
@@ -259,7 +289,6 @@ public class CustomerDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
     private javax.swing.JTextField edtName;
-    private javax.swing.JTextField edtName3;
     private javax.swing.JTextField edtPoint;
     private javax.swing.JTextField edtTel;
     private javax.swing.JLabel jLabel2;
@@ -269,6 +298,5 @@ public class CustomerDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblPoint;
-    private javax.swing.JLabel lblStartMember;
     // End of variables declaration//GEN-END:variables
 }

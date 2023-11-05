@@ -72,7 +72,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpOb
         employeeService = new EmployeeService();
 
         list = employeeService.getEmployees();
-        tblEmployee.setRowHeight(60);
+        tblEmployee.setRowHeight(50);
         tblEmployee.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblEmployee.setModel(new AbstractTableModel() {
             String[] columnNames = {"Profile","ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};

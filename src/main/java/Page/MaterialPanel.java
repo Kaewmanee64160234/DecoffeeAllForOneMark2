@@ -68,7 +68,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
         materialService = new MaterialService();
 
         list = materialService.getMaterials();
-        tblMaterial.setRowHeight(60);
+        tblMaterial.setRowHeight(50);
         tblMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblMaterial.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Date", "Minimum Quantity", "Quantity", "Unit", "Price Per Unit", "Action"};

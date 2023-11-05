@@ -243,7 +243,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         txtDateTime.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         txtDateTime.setText("00/00/00 00:00:00");
 
+        btnCheckIn.setBackground(new java.awt.Color(93, 156, 89));
         btnCheckIn.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckIn.setText("Check In");
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +253,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             }
         });
 
+        btnCheckOut.setBackground(new java.awt.Color(231, 70, 70));
         btnCheckOut.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckOut.setText("Check Out");
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

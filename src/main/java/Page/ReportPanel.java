@@ -404,6 +404,10 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         lblProductOutstock.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblProductOutstock.setText("Product Out Of Stock");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
         lblProductOutstock1.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblProductOutstock1.setText("Top 5 Worst Product");
 
@@ -469,7 +473,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnComfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(lblStartDate)
                     .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEndDate))

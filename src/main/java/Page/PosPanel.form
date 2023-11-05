@@ -205,12 +205,12 @@
                           </Group>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnFindMember" alignment="3" pref="43" max="32767" attributes="0"/>
-                              <Component id="btnMainMenu" alignment="3" pref="43" max="32767" attributes="0"/>
-                              <Component id="btnCancel" alignment="3" pref="43" max="32767" attributes="0"/>
-                              <Component id="btnPosConfirm" alignment="3" pref="43" max="32767" attributes="0"/>
-                              <Component id="btnAddMember" alignment="3" pref="43" max="32767" attributes="0"/>
-                              <Component id="btnPromotion" alignment="3" pref="43" max="32767" attributes="0"/>
+                              <Component id="btnFindMember" alignment="3" pref="30" max="32767" attributes="0"/>
+                              <Component id="btnMainMenu" alignment="3" pref="30" max="32767" attributes="0"/>
+                              <Component id="btnCancel" alignment="3" pref="30" max="32767" attributes="0"/>
+                              <Component id="btnPosConfirm" alignment="3" pref="30" max="32767" attributes="0"/>
+                              <Component id="btnAddMember" alignment="3" pref="30" max="32767" attributes="0"/>
+                              <Component id="btnPromotion" alignment="3" pref="30" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="scrProductList" pref="0" max="32767" attributes="0"/>
@@ -594,11 +594,11 @@
                           <Component id="lblChange" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCalculator" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCalculator" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnCash" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnPromtpay" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCash" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btnPromtpay" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -810,9 +810,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnDrinks" alignment="3" max="32767" attributes="0"/>
-                          <Component id="btnDessert" alignment="3" max="32767" attributes="0"/>
-                          <Component id="btnFood" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnDrinks" alignment="3" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnDessert" alignment="3" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnFood" alignment="3" pref="30" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

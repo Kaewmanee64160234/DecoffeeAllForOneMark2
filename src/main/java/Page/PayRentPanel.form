@@ -188,9 +188,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnPayRent" alignment="3" max="32767" attributes="0"/>
-                      <Component id="btnPrintPaymentHistory" alignment="3" max="32767" attributes="0"/>
-                      <Component id="btnAddRentBill" max="32767" attributes="0"/>
+                      <Component id="btnPayRent" alignment="3" pref="30" max="32767" attributes="0"/>
+                      <Component id="btnPrintPaymentHistory" alignment="3" pref="30" max="32767" attributes="0"/>
+                      <Component id="btnAddRentBill" pref="30" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -212,14 +212,14 @@
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnConfirm" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnConfirm" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                           <Component id="cmbPosition" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="btnClear" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnClear" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="262" max="32767" attributes="0"/>
@@ -263,10 +263,20 @@
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="pnlDatePicker1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
         </Container>
         <Container class="javax.swing.JPanel" name="pnlDatePicker2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
         </Container>

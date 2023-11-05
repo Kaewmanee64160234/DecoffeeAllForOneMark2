@@ -55,7 +55,7 @@ public class SuccessDialog extends javax.swing.JFrame {
         lblText.setBounds(170, 220, 190, 40);
 
         btnOk.setBackground(new java.awt.Color(102, 204, 255));
-        btnOk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnOk.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnOk.setText("OK");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

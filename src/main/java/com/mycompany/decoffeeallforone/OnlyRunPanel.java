@@ -2,12 +2,13 @@ package com.mycompany.decoffeeallforone;
 
 import Page.HistoryMaterialPanel;
 import Page.HistoryOrderPanel;
+import Page.PosPanel;
 
 public class OnlyRunPanel extends javax.swing.JFrame {
 
     public OnlyRunPanel() {
         initComponents();
-        scrPanel.setViewportView(new HistoryOrderPanel());
+        scrPanel.setViewportView(new PosPanel());
     }
 
     @SuppressWarnings("unchecked")

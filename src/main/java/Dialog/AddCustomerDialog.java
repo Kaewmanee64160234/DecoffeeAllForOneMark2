@@ -237,7 +237,7 @@ public class AddCustomerDialog extends javax.swing.JDialog implements CusObs {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Point must be a valid integer.");
+            JOptionPane.showMessageDialog(this, "Point must be a valid integer and not null.");
             return;
         }
         if (name.length() < 3) {

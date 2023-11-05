@@ -326,6 +326,11 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             }
         ));
         tblHistoryStock.setSelectionBackground(new java.awt.Color(213, 208, 189));
+        tblHistoryStock.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHistoryStockMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblHistoryStock);
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 20)); // NOI18N
@@ -402,6 +407,10 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     private void edtDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDatePicker1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtDatePicker1ActionPerformed
+
+    private void tblHistoryStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistoryStockMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblHistoryStockMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

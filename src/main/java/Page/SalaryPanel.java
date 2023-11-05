@@ -6,9 +6,11 @@ package Page;
 
 import Component.ChagePage;
 import Component.changePageSummary;
+import Component.sentDate;
 import Dialog.PrintSlipDialog;
 import Dialog.ProductDialog;
 import Dialog.SelectDateForPrintReport;
+import Dialog.UserDialog;
 import Model.Employee;
 import Model.EmployeeReport;
 import Model.Product;
@@ -52,7 +54,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel implements changePageSummary, ChagePage {
+public class SalaryPanel extends javax.swing.JPanel implements changePageSummary, ChagePage, sentDate {
 
     private Product editedProduct;
     private Employee editedEmployee;
@@ -70,6 +72,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private historyPageSummaySalary hisPageSummaySalary_ = new historyPageSummaySalary();
     private TableSalaryPanel tableSalaryPanel;
     private SelectDateForPrintReport selectDateForPrintReport;
+    private String date = "";
 
     /**
      * Creates new form SalaryPanel
@@ -499,15 +502,24 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        // TODO add your handling code here:
-        try {
-            ReportSS.getInstance().complieReport();
-
-            ReportSS.getInstance().printReport("2023-11-04");
-
-        } catch (JRException ex) {
-            Logger.getLogger(PosPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        selectDateForPrintReport.addinDate(this);
+        selectDateForPrintReport.setLocationRelativeTo(this); //set dialog to center
+        selectDateForPrintReport.setVisible(true);
+        selectDateForPrintReport.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                try {
+                    if ( date != "") {
+                        ReportSS.getInstance().complieReport();
+                        ReportSS.getInstance().printReport(date);
+                    }
+                } catch (JRException ex) {
+                    Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
+        });
 
 
     }//GEN-LAST:event_btnPrintActionPerformed
@@ -573,6 +585,12 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             chagePage.chagePage(pageName);
 
         }
+    }
+
+    @Override
+    public void sentDate(String date) {
+        this.date = date;
+
     }
 
 }

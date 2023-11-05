@@ -6,7 +6,9 @@ package Dialog;
 
 import Component.sentDate;
 import Page.DateLabelFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -16,7 +18,7 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author USER
  */
-public class SelectDateForPrintReport extends javax.swing.JDialog implements sentDate{
+public class SelectDateForPrintReport extends javax.swing.JDialog implements sentDate {
 
     private UtilDateModel model1;
     private ArrayList<sentDate> sentArrayList = new ArrayList<>();
@@ -125,6 +127,15 @@ public class SelectDateForPrintReport extends javax.swing.JDialog implements sen
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
+         String formattedDate = ""; 
+        if (model1.getValue() == null) {
+            formattedDate = "";
+        }
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(pattern);
+        formattedDate = inputFormat.format(model1.getValue());
+       
+        sentDate(formattedDate);
         dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
@@ -177,11 +188,15 @@ public class SelectDateForPrintReport extends javax.swing.JDialog implements sen
     private javax.swing.JPanel pnlDatePicker2;
     // End of variables declaration//GEN-END:variables
 
+    public void addinDate(sentDate ss_) {
+        sentArrayList.add(ss_);
+    }
+
     @Override
     public void sentDate(String date) {
         for (sentDate date1 : sentArrayList) {
             date1.sentDate(date);
-            
+
         }
     }
 }

@@ -8,6 +8,7 @@ import Component.ChagePage;
 import Component.changePageSummary;
 import Dialog.PrintSlipDialog;
 import Dialog.ProductDialog;
+import Dialog.SelectDateForPrintReport;
 import Model.Employee;
 import Model.EmployeeReport;
 import Model.Product;
@@ -65,20 +66,23 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private AbstractTableModel model3;
     private DefaultCategoryDataset barDataset;
     private List<SummarySalary> salary;
-    private  SummarySalaryService summarySalaryService = new SummarySalaryService();
+    private SummarySalaryService summarySalaryService = new SummarySalaryService();
     private historyPageSummaySalary hisPageSummaySalary_ = new historyPageSummaySalary();
-    private TableSalaryPanel tableSalaryPanel ;
+    private TableSalaryPanel tableSalaryPanel;
+    private SelectDateForPrintReport selectDateForPrintReport;
 
     /**
      * Creates new form SalaryPanel
      */
     public SalaryPanel() {
         initComponents();
-        salary = new ArrayList<>(); 
+        salary = new ArrayList<>();
         initDatePicker();
         initBarChart();
         loadBarDataset();
         initTableEmployee();
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        selectDateForPrintReport = new SelectDateForPrintReport(frame, true);
         jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
         employeeService = new EmployeeService();
@@ -88,7 +92,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         list = new ArrayList<>();
         subs = new ArrayList<>();
         employeeList = new ArrayList<>();
-        
 
         list = (ArrayList<Employee>) employeeService.getEmployees();
 
@@ -502,14 +505,15 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
         try {
-              ReportSS.getInstance().complieReport();
+            ReportSS.getInstance().complieReport();
+
             ReportSS.getInstance().printReport("2023-11-04");
 
         } catch (JRException ex) {
             Logger.getLogger(PosPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed

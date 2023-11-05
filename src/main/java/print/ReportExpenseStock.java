@@ -4,9 +4,11 @@
  */
 package print;
 
+import Model.Bill;
 import Model.Reciept;
 import Model.ReportSSModel;
 import Model.SummarySalary;
+import Service.BillService;
 import Service.RecieptDetailService;
 import Service.RecieptService;
 import Service.SummarySalaryService;
@@ -30,19 +32,19 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author USER
  */
-public class ReportSaleIncome {
+public class ReportExpenseStock {
 
-    private static ReportSaleIncome instance;
+    private static ReportExpenseStock instance;
     private JasperReport reportPay;
 
-    public static ReportSaleIncome getInstance() {
+    public static ReportExpenseStock getInstance() {
         if (instance == null) {
-            instance = new ReportSaleIncome();
+            instance = new ReportExpenseStock();
         }
         return instance;
     }
 
-    private ReportSaleIncome() {
+    private ReportExpenseStock() {
 
     }
 
@@ -56,25 +58,24 @@ public class ReportSaleIncome {
             SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date_ = inputDateFormat.parse(date);
 
-            SimpleDateFormat outputDateFormat_1 = new SimpleDateFormat("MM-YYYY");
-            RecieptService recieptService = new RecieptService();
-            ArrayList<Reciept> reciepts = new ArrayList<>();
-            Reciept reciept_ = new Reciept();
-            reciept_ = recieptService.getTotalRecietOneMonth(outputDateFormat_1.format(date_));
-            reciepts = recieptService.getHistoryReciptByMonthAndYear(outputDateFormat_1.format(date_));
-            if (reciepts.size() >= 1) {
-                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reciepts);
+            SimpleDateFormat outputDateFormat_1 = new SimpleDateFormat("YYYY-MM");
+            BillService billService = new BillService();
+            ArrayList<Bill> biills = new ArrayList<>();
+            Bill bill = new Bill();
+            bill = billService.getBillByDate(date);
+            biills = billService.getBillOneMonth(date);
+            if (biills.size() >= 1) {
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(biills);
                 Map<String, Object> map = new HashMap<>();
                 map.put("month", outputDateFormat_1.format(date_));
 
-                map.put("total", reciept_.getTotal() + "");
+                map.put("total", bill.getBillTotal() + "");
 
                 JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
                 view(print);
             }
-
         } catch (ParseException ex) {
-            Logger.getLogger(ReportSaleIncome.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportExpenseStock.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

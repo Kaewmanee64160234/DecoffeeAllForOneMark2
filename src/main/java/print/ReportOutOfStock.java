@@ -60,12 +60,13 @@ public class ReportOutOfStock {
             MaterialService materialService = new MaterialService();
           ArrayList<Material> materials = new ArrayList<>();
           materials = materialService.getMaterialByMinQtyReport();
+          if (materials.size() >= 1) {
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(materials);
             Map<String, Object> map = new HashMap<>();
           
             JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
             view(print);
-
+          }
        
     }
 

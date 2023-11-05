@@ -60,7 +60,7 @@ public class ReportSS {
             SimpleDateFormat outputDateFormat_1 = new SimpleDateFormat("MM-YYYY");
 
             ArrayList<SummarySalary> sses = salaryService.getSummarySalaryForReport(outputDateFormat_.format(date_));
-            if (sses.size() >=1) {
+            if (sses.size() >= 1) {
                 ArrayList<ReportSSModel> reportSSModels = new ArrayList<>();
                 for (SummarySalary sse : sses) {
 
@@ -78,12 +78,12 @@ public class ReportSS {
                 String formattedDateStr = outputDateFormat.format(date_);
                 map.put("month", formattedDateStr);
                 map.put("total", ss.getTotalPaid());
-
-                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportSSModels);
-                JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
-                view(print);
+                if (reportSSModels.size() >= 1) {
+                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportSSModels);
+                    JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
+                    view(print);
+                }
             }
-
         } catch (ParseException ex) {
             Logger.getLogger(ReportSS.class.getName()).log(Level.SEVERE, null, ex);
         }

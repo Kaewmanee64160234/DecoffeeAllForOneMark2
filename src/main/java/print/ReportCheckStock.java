@@ -47,7 +47,8 @@ public class ReportCheckStock {
             MaterialService materialService = new MaterialService();
             ArrayList<Material> materials = new ArrayList<>();
             materials = (ArrayList<Material>) materialService.getMaterials();
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(materials);
+            if(materials.size()>=1){
+                 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(materials);
             Map<String, Object> map = new HashMap<>();
             map.put("month", "");
             
@@ -55,6 +56,8 @@ public class ReportCheckStock {
 
             JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
             view(print);
+            }
+           
 
     }
 

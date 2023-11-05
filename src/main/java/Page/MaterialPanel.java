@@ -5,7 +5,9 @@
 package Page;
 
 import Component.LoginObs;
+import Component.sentDate;
 import Dialog.MaterialDialog;
+import Dialog.SelectDateForPrintReport;
 import Model.Material;
 import Model.User;
 import Service.MaterialService;
@@ -29,18 +31,22 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import net.sf.jasperreports.engine.JRException;
 import print.ReportCheckStock;
+import print.ReportExpenseStock;
 import print.ReportOutOfStock;
 import print.ReportSS;
+import print.ReportSaleIncome;
 
 /**
  *
  * @author toey
  */
-public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
+public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDate {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
+    private SelectDateForPrintReport selectDateForPrintReport;
+    private String date;
 
     /**
      * Creates new form UserPanel
@@ -48,6 +54,8 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
     public MaterialPanel() {
         initComponents();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        selectDateForPrintReport = new SelectDateForPrintReport(frame, true);
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -161,6 +169,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
         tblMaterial = new javax.swing.JTable();
         btnAdd1 = new javax.swing.JButton();
         btnAdd2 = new javax.swing.JButton();
+        btnAdd3 = new javax.swing.JButton();
 
         jPanelHead.setBackground(new java.awt.Color(224, 205, 174));
         jPanelHead.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -188,7 +197,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
             .addGroup(jPanelHeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
@@ -256,6 +265,14 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
             }
         });
 
+        btnAdd3.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd3.setText("Expense and Purchase Report");
+        btnAdd3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -263,9 +280,11 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAdd3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdd2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdd1)
@@ -280,7 +299,8 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnAdd1)
-                    .addComponent(btnAdd2))
+                    .addComponent(btnAdd2)
+                    .addComponent(btnAdd3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -294,7 +314,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelHead, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
+                    .addComponent(jPanelHead, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
@@ -314,12 +334,12 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
-       
- try {
+
+        try {
             Date currentDate = new Date();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
             String forr = simpleDateFormat.format(currentDate);
-            
+
             // TODO add your handling code here:
             ReportCheckStock.getInstance().complieReport();
             ReportCheckStock.getInstance().printReport();
@@ -331,11 +351,11 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
 
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             Date currentDate = new Date();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
             String forr = simpleDateFormat.format(currentDate);
-            
+
             // TODO add your handling code here:
             ReportOutOfStock.getInstance().complieReport();
             ReportOutOfStock.getInstance().printReport(forr);
@@ -344,6 +364,28 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
             Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAdd2ActionPerformed
+
+    private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
+        // TODO add your handling code here:
+        selectDateForPrintReport.addinDate(this);
+        selectDateForPrintReport.setLocationRelativeTo(this); //set dialog to center
+        selectDateForPrintReport.setVisible(true);
+        selectDateForPrintReport.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                try {
+                    if (date != "") {
+                        ReportSaleIncome.getInstance().complieReport();
+                        ReportSaleIncome.getInstance().printReport(date);
+                    }
+                } catch (JRException ex) {
+                    Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        });
+    }//GEN-LAST:event_btnAdd3ActionPerformed
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
@@ -370,6 +412,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnAdd2;
+    private javax.swing.JButton btnAdd3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -386,6 +429,11 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs {
         txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
 
+    }
+
+    @Override
+    public void sentDate(String date) {
+          this.date = date;
     }
 
 }

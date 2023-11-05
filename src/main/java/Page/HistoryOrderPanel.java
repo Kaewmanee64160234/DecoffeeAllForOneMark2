@@ -36,7 +36,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @Dang Double H
  */
-public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,sentDate{
+public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage, sentDate {
 
     private final RecieptService recieptService;
     private List<HistoryOrderReport> recieptList;
@@ -428,8 +428,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage,s
             tblOrderInDate.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
             lblTotalShow.setText(String.valueOf(totalAmount));
         }
-
-
+        
     }//GEN-LAST:event_tblDateOrderMouseClicked
 
     private void btnSubmit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmit1ActionPerformed

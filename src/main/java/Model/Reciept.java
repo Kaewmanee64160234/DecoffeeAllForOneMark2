@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Reciept {
 
     private int id;
-    private Date creaetedDate;
+    private String creaetedDate;
     private int queue;
     private float discount;
     private float total;
@@ -46,7 +46,7 @@ public class Reciept {
         this.CreatedDate = CreatedDate;
     }
 
-    public Reciept(int id, Date creaetedDate, int queue, float discount, float total, float receive, float change,
+    public Reciept(int id, String creaetedDate, int queue, float discount, float total, float receive, float change,
             int totalQTY, String payment, int storeId, int customerId, int promotionId) {
         this.id = id;
         this.creaetedDate = creaetedDate;
@@ -71,7 +71,7 @@ public class Reciept {
     }
     // not id
 
-    public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
+    public Reciept(String creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId, int promotionId) {
         this.id = -1;
         this.creaetedDate = creaetedDate;
@@ -88,7 +88,7 @@ public class Reciept {
     }
     // no Promotion
 
-    public Reciept(Date creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
+    public Reciept(String creaetedDate, int queue, float discount, float total, float receive, float change, int totalQTY,
             String payment, int storeId, int customerId) {
         this.id = -1;
         this.creaetedDate = creaetedDate;
@@ -106,7 +106,7 @@ public class Reciept {
 
     public Reciept() {
         this.id = -1;
-        this.creaetedDate = new Date(2023, 10, 14);
+        this.creaetedDate = null;
         this.queue = 0;
         this.discount = 0;
         this.total = 0;
@@ -190,11 +190,11 @@ public class Reciept {
         this.id = id;
     }
 
-    public Date getCreaetedDate() {
+    public String getCreaetedDate() {
         return creaetedDate;
     }
 
-    public void setCreaetedDate(Date creaetedDate) {
+    public void setCreaetedDate(String creaetedDate) {
         this.creaetedDate = creaetedDate;
     }
 
@@ -352,7 +352,7 @@ public class Reciept {
         try {
             Reciept obj = new Reciept();
             obj.setId(rs.getInt("reciept_id"));
-            obj.setCreaetedDate(rs.getTimestamp("create_date"));
+            obj.setCreaetedDate(rs.getString("create_date"));
             obj.setQueue(rs.getInt("reciept_queue"));
             obj.setDiscount(rs.getFloat("reciept_discount"));
             obj.setTotal(rs.getFloat("reciept_total"));
@@ -375,7 +375,7 @@ public class Reciept {
         try {
             Reciept obj = new Reciept();
             obj.setId(rs.getInt("reciept_id"));
-            obj.setCreaetedDate(rs.getTimestamp("create_date"));
+            obj.setCreaetedDate(rs.getString("create_date"));
              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Define your desired date and time format
             String formattedDate = sdf.format(obj.getCreaetedDate());
             obj.setCreatedDate(formattedDate);

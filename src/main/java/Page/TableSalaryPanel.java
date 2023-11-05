@@ -137,7 +137,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
         btnCancel1 = new javax.swing.JButton();
         btnConfirm1 = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(195, 176, 145));
 
         lblNameEmp.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
         lblNameEmp.setText("Keawmanee Marasri");
@@ -340,22 +340,13 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel1;
-    private javax.swing.JButton btnComfirm;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnPayMentStatus;
-    private javax.swing.JButton btnPaymentHistory;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnPrintSlip;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanelHead2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblEndDate;
     private javax.swing.JLabel lblNameEmp;
-    private javax.swing.JLabel lblStartDate;
-    private javax.swing.JPanel pnlDatePicker1;
-    private javax.swing.JPanel pnlDatePicker2;
     private javax.swing.JTable tblPaidDate;
     private javax.swing.JLabel txtBathPerHr;
     // End of variables declaration//GEN-END:variables

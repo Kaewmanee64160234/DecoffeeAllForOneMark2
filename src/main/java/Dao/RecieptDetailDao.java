@@ -158,7 +158,7 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         }
         return list;
     }
-
+    
     @Override
     public RecieptDetail save(RecieptDetail obj) {
         String sql = "INSERT INTO reciept_detail(reciept_detail_name, reciept_detail_qty, reciept_detail_price, size, type_price, type, size_price, topping, topping_price, reciept_detail_total_price, reciept_id, product_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -278,7 +278,5 @@ public class RecieptDetailDao implements Dao<RecieptDetail> {
         }
         return list;
     }
-
-    
 
 }

@@ -71,7 +71,7 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
 
         customerService = new CustomerService();
         list = customerService.getCustomers();
-        tblCustomer.setRowHeight(60);
+        tblCustomer.setRowHeight(50);
         tblCustomer.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCustomer.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember", "Action"};
@@ -189,7 +189,7 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addContainerGap())

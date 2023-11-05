@@ -243,6 +243,10 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel6.setText("Start Date:");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel7.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel7.setText("Status:");
 
@@ -258,7 +262,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        
         jScrollPane1.setViewportView(tblPayRent);
 
         btnAddRentBill.setBackground(new java.awt.Color(142, 172, 205));
@@ -349,9 +352,9 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPayRent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPrintPaymentHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddRentBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPayRent, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(btnPrintPaymentHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(btnAddRentBill, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -368,11 +371,11 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                         .addGap(19, 19, 19)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
-                            .addComponent(btnConfirm)))
+                            .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnClear))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addContainerGap())

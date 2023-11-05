@@ -9,6 +9,7 @@ import Service.MaterialService;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,10 +29,6 @@ public class MaterialDialog extends javax.swing.JDialog {
         setObjectToForm();
         materialService = new MaterialService();
     }
-
-    
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,7 +78,9 @@ public class MaterialDialog extends javax.swing.JDialog {
         txtUnit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtUnit.setText("Unit: ");
 
+        btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +88,9 @@ public class MaterialDialog extends javax.swing.JDialog {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(93, 156, 89));
         btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,8 +181,8 @@ public class MaterialDialog extends javax.swing.JDialog {
                     .addComponent(edtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnCancel))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -232,6 +233,58 @@ public class MaterialDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Material material;
+        String name = edtName.getText();
+        String unit = edtUnit.getText();
+        int Min;
+        int qty;
+        float pricePer;
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
+        if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Please Insert name more than 3 character");
+            return;
+        }
+        try {
+            Min = Integer.parseInt(edtMinimum.getText());
+            if (Min < 1) {
+                JOptionPane.showMessageDialog(this, "Minimum must more than 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please fill the Minimum and must be a valid integer.");
+            return;
+        }
+        try {
+            qty = Integer.parseInt(edtQuantity.getText());
+            if (qty < 1) {
+                JOptionPane.showMessageDialog(this, "Quantity must more than 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please fill the Quantity and must be a valid integer.");
+            return;
+        }
+        if (unit.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Unit must not contain numbers.");
+            return;
+        }
+        if (unit.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Please Insert unit more than 3 character");
+            return;
+        }
+
+        try {
+            pricePer = Float.parseFloat(edtPericePerUnit.getText());
+            if (pricePer < 1) {
+                JOptionPane.showMessageDialog(this, "Price per unit must more than 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please fill the Price per unit and must be a valid integer.");
+            return;
+        }
         if (editedMaterial.getId() < 0) {//Add New
             setFormToObject();
             material = materialService.addNew(editedMaterial);
@@ -257,10 +310,10 @@ public class MaterialDialog extends javax.swing.JDialog {
 
     private void setObjectToForm() {
         edtName.setText(editedMaterial.getName());
-        edtMinimum.setText(editedMaterial.getMatMinQty()+ "");
+        edtMinimum.setText(editedMaterial.getMatMinQty() + "");
         edtQuantity.setText(editedMaterial.getMatQty() + "");
-        edtUnit.setText(editedMaterial.getMatUnit()+ "");
-        edtPericePerUnit.setText(editedMaterial.getMatPricePerUnit()+ "");
+        edtUnit.setText(editedMaterial.getMatUnit() + "");
+        edtPericePerUnit.setText(editedMaterial.getMatPricePerUnit() + "");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

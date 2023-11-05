@@ -1,5 +1,7 @@
 package com.mycompany.decoffeeallforone;
 
+import Page.CheckStockPanel;
+import Page.HistoryCheckStockPanel;
 import Page.HistoryMaterialPanel;
 import Page.HistoryOrderPanel;
 import Page.PosPanel;
@@ -8,7 +10,7 @@ public class OnlyRunPanel extends javax.swing.JFrame {
 
     public OnlyRunPanel() {
         initComponents();
-        scrPanel.setViewportView(new PosPanel());
+        scrPanel.setViewportView(new HistoryCheckStockPanel());
     }
 
     @SuppressWarnings("unchecked")

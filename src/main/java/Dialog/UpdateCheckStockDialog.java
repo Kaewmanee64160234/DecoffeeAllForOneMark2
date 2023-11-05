@@ -31,7 +31,9 @@ public class UpdateCheckStockDialog extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("วัน/เดือน/ปี :");
 
+        btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

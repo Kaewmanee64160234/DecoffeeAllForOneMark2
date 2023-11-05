@@ -5,6 +5,7 @@
 package Page;
 
 import Component.ChagePage;
+import Component.LoginObs;
 import Component.changePageSummary;
 import Component.sentDate;
 import Dialog.PrintSlipDialog;
@@ -15,6 +16,7 @@ import Model.Employee;
 import Model.EmployeeReport;
 import Model.Product;
 import Model.SummarySalary;
+import Model.User;
 import Service.EmployeeService;
 import Service.SummarySalaryService;
 import TablebtnEditDelete.TableActionCellRenderer;
@@ -54,7 +56,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel implements changePageSummary, ChagePage, sentDate {
+public class SalaryPanel extends javax.swing.JPanel implements LoginObs, changePageSummary, ChagePage, sentDate {
 
     private Product editedProduct;
     private Employee editedEmployee;
@@ -109,7 +111,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         employeeService = new EmployeeService();
 
         list = (ArrayList<Employee>) employeeService.getEmployees();
-        tblSalary.setRowHeight(60);
+        tblSalary.setRowHeight(50);
         tblSalary.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         tblSalary.setModel(new AbstractTableModel() {
             String[] columnNames = {"Profile", "ID", "Name", "Address", "Telephone", "Email", "Position", "Hourly wage", "Action"};
@@ -233,6 +235,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     }
 
     private void initTableEmployee() {
+        tblTopEmployee.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 14));
         model3 = new AbstractTableModel() {
             String[] colNames = {"ID", "Name", "TotalHour"};
 
@@ -297,10 +300,14 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         btnComfirm = new javax.swing.JButton();
         jpnlHeader1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtUserName1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtRole1 = new javax.swing.JLabel();
 
         pnlNavigation2.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblTopEmployee.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        tblTopEmployee.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblTopEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -314,7 +321,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         ));
         jScrollPane3.setViewportView(tblTopEmployee);
 
-        tblSalary.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        tblSalary.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         tblSalary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -338,11 +345,11 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         pnlBarGraph.setLayout(pnlBarGraphLayout);
         pnlBarGraphLayout.setHorizontalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnlBarGraphLayout.setVerticalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 162, Short.MAX_VALUE)
+            .addGap(0, 171, Short.MAX_VALUE)
         );
 
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
@@ -369,7 +376,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         btnPrint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnPrint.setForeground(new java.awt.Color(255, 255, 255));
         btnPrint.setText("Print");
-        btnPrint.setPreferredSize(new java.awt.Dimension(72, 35));
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrintActionPerformed(evt);
@@ -393,66 +399,59 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(pnlNavigation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4)
                             .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(32, 32, 32))
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addComponent(lblStartDate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEndDate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnPaymentHistory)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)))
-                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
+                        .addComponent(lblStartDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEndDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                        .addComponent(btnPaymentHistory)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPrint)))
                 .addContainerGap())
         );
         pnlNavigation2Layout.setVerticalGroup(
             pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblStartDate)
-                        .addComponent(lblEndDate, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnPaymentHistory, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnComfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPaymentHistory)
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrint)
+                    .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblStartDate)
+                            .addComponent(lblEndDate, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnlHeader1.setBackground(new java.awt.Color(224, 205, 174));
@@ -462,6 +461,18 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel3.setText("Salary");
 
+        jLabel7.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel7.setText("User Name: ");
+
+        txtUserName1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtUserName1.setText("Name");
+
+        jLabel8.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel8.setText("Role:");
+
+        txtRole1.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        txtRole1.setText("Role");
+
         javax.swing.GroupLayout jpnlHeader1Layout = new javax.swing.GroupLayout(jpnlHeader1);
         jpnlHeader1.setLayout(jpnlHeader1Layout);
         jpnlHeader1Layout.setHorizontalGroup(
@@ -469,13 +480,30 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(jpnlHeader1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(868, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRole1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jpnlHeader1Layout.setVerticalGroup(
             jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlHeader1Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(jLabel3)
+                .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnlHeader1Layout.createSequentialGroup()
+                        .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtUserName1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtRole1)))
+                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -483,7 +511,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+            .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
             .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -492,7 +520,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addComponent(jpnlHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(pnlNavigation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -557,6 +585,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -569,6 +599,8 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private javax.swing.JPanel pnlNavigation2;
     private javax.swing.JTable tblSalary;
     private javax.swing.JTable tblTopEmployee;
+    private javax.swing.JLabel txtRole1;
+    private javax.swing.JLabel txtUserName1;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -599,6 +631,12 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     public void sentDate(String date) {
         this.date = date;
 
+    }
+
+    @Override
+    public void loginData(User user) {
+        txtUserName1.setText(user.getUsername());
+        txtRole1.setText(user.getRole());
     }
 
 }

@@ -680,11 +680,11 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                     .addComponent(txtBaht5)
                     .addComponent(lblChange))
                 .addGap(18, 18, 18)
-                .addComponent(btnCalculator)
+                .addComponent(btnCalculator, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnlCaculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCash)
-                    .addComponent(btnPromtpay))
+                    .addComponent(btnCash, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPromtpay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -748,9 +748,9 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDrinks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDessert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnDessert, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnFood, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -895,12 +895,12 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
                             .addComponent(jpnlMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jpnlDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnFindMember, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                            .addComponent(btnMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                            .addComponent(btnPosConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                            .addComponent(btnAddMember, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                            .addComponent(btnPromotion, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)))
+                            .addComponent(btnFindMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(btnPosConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(btnAddMember, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(btnPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)))
                     .addComponent(scrProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(7, 7, 7))
         );
@@ -1001,7 +1001,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         payment = "QR";
         reciept.setPayment(payment);
         btnCash.setEnabled(false);
-        btnCalculator.setEnabled(false);
+        btnCalculator.setEnabled(true);
     }
 
     private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalculatorActionPerformed
@@ -1033,10 +1033,14 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     }
 
     private void btnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashActionPerformed
+        if (reciept.getRecieptDetails().size() <= 0) {
+            JOptionPane.showMessageDialog(this, "Detail is emplty");
+            return;
+        }
         payment = "cash";
         reciept.setPayment(payment);
         btnPromtpay.setEnabled(false);
-        btnCalculator.setEnabled(false);
+        btnCalculator.setEnabled(true);
     }//GEN-LAST:event_btnCashActionPerformed
 
     private void btnPromotionMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnPromotionMouseClicked

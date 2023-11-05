@@ -118,7 +118,9 @@ public class HistorySalaryDialog extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnPaid.setBackground(new java.awt.Color(33, 156, 144));
         btnPaid.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPaid.setForeground(new java.awt.Color(255, 255, 255));
         btnPaid.setText("Paid");
         btnPaid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +141,7 @@ public class HistorySalaryDialog extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnPaid)
+                .addComponent(btnPaid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

@@ -94,7 +94,9 @@ public class ProductDialog extends javax.swing.JDialog {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(93, 156, 89));
         btnSave.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +104,9 @@ public class ProductDialog extends javax.swing.JDialog {
             }
         });
 
+        btnCancel.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,8 +212,8 @@ public class ProductDialog extends javax.swing.JDialog {
                     .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnCancel))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -260,6 +264,27 @@ public class ProductDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Product product;
+        float price;
+        String name = edtName.getText();
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
+        if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            return;
+        }
+        try {
+            price = Float.parseFloat(edtPrice.getText());
+            if (price < 1) {
+                JOptionPane.showMessageDialog(this, "Price must more than 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please fill the price and must be a valid integer.");
+            return;
+        }
+
         if (editedProduct.getId() < 0) {//Add New
             setFormToObject();
             try {
@@ -364,9 +389,8 @@ public class ProductDialog extends javax.swing.JDialog {
         editedProduct.setSweetLevel((String) cmbSweetlv.getSelectedItem());
 
         int selectedIndex = cmbCatId.getSelectedIndex();
-        
 
-            editedProduct.setCategoryId(selectedIndex + 1);
+        editedProduct.setCategoryId(selectedIndex + 1);
 
         editedProduct.setSize((String) cmbSize.getSelectedItem());
         editedProduct.setType((String) cmbType.getSelectedItem());

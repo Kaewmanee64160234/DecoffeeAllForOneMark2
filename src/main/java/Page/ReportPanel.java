@@ -9,6 +9,7 @@ import Component.LoginObs;
 import Model.CustomerReport;
 import Model.MaterialReport;
 import Model.RecieptDetailReport;
+import Model.RecieptDetailWorstProduct;
 import Model.RecieptReport;
 import Model.User;
 import Service.CustomerService;
@@ -38,15 +39,22 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
 
     private final CustomerService customerService;
     private final List<CustomerReport> customerList;
-    private AbstractTableModel model;
+
     private final MaterialService materialService;
     private final List<MaterialReport> materialList;
-    private AbstractTableModel model2;
+
     private final RecieptService recieptDetailService;
     private final List<RecieptDetailReport> recieptDetailList;
+    private final List<RecieptDetailWorstProduct> recieptDetailList2;
+
+    private AbstractTableModel model;
+    private AbstractTableModel model2;
     private AbstractTableModel model3;
+    private AbstractTableModel model6;
+
     private UtilDateModel model4;
     private UtilDateModel model5;
+
     private DefaultCategoryDataset barDataset;
     private List<RecieptReport> reciept;
     private ArrayList<LoginObs> loginObses;
@@ -59,10 +67,14 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         initComponents();
         customerService = new CustomerService();
         customerList = customerService.getTopFiveCustomerByTotalPrice();
+
         materialService = new MaterialService();
         materialList = materialService.getMaterialByMinQty();
+
         recieptDetailService = new RecieptService();
         recieptDetailList = recieptDetailService.getTopTenProductSale();
+        recieptDetailList2 = recieptDetailService.getTopFiveWorstSellingProducts();
+
         chagePages = new ArrayList<>();
         loginObses = new ArrayList<>();
 
@@ -70,6 +82,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         initTableCustomer();
         initTableMaterial();
         initTableTopSeller();
+        initTableWorstProduct();
         initDatePicker();
         initBarChart();
         loadBarDataset();
@@ -132,6 +145,44 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
         pnlDatePicker2.add(datePicker2);
         model5.setSelected(true);
+    }
+
+    private void initTableWorstProduct() {
+        model6 = new AbstractTableModel() {
+            String[] colNames = {"ID", "Name", "TotalQty"};
+
+            @Override
+            public String getColumnName(int column) {
+                return colNames[column];
+            }
+
+            @Override
+            public int getRowCount() {
+                return recieptDetailList2.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 3;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                RecieptDetailWorstProduct recieptDetail2 = recieptDetailList2.get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return recieptDetail2.getId();
+                    case 1:
+                        return recieptDetail2.getName();
+                    case 2:
+                        return recieptDetail2.getTotalQty();
+                    default:
+                        return "";
+                }
+            }
+        };
+        tblWorstProduct.setModel(model6);
+
     }
 
     private void initTableTopSeller() {
@@ -355,7 +406,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         lblProductOutstock.setText("Product Out Of Stock");
 
         lblProductOutstock1.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        lblProductOutstock1.setText("Worst 5 Product");
+        lblProductOutstock1.setText("Top 5 Worst Product");
 
         tblWorstProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -496,7 +547,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
                             .addComponent(jLabel6)
                             .addComponent(txtRole)))
                     .addComponent(jLabel1))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -507,7 +558,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)))
+                    .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

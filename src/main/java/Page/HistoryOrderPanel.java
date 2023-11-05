@@ -171,10 +171,16 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate.setText("Date:");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
         lblStartDate1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate1.setText("To Date:");
 
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnSubmit.setBackground(new java.awt.Color(33, 156, 144));
         btnSubmit.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +245,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                         .addComponent(lblStartDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanelHisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,7 +289,9 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
         lblTotalShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalShow.setText("0");
 
+        btnBack.setBackground(new java.awt.Color(231, 70, 70));
         btnBack.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,7 +333,7 @@ public class HistoryOrderPanel extends javax.swing.JPanel implements ChagePage {
                     .addComponent(lblTotal)
                     .addComponent(lblTotalShow))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBack)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 

@@ -260,6 +260,27 @@ public class ProductDialog extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Product product;
+        float price;
+        String name = edtName.getText();
+        if (name.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
+            return;
+        }
+        if (name.length() < 3) {
+            JOptionPane.showMessageDialog(this, "Plase Insert name more than 3 character");
+            return;
+        }
+        try {
+            price = Float.parseFloat(edtPrice.getText());
+            if (price < 1) {
+                JOptionPane.showMessageDialog(this, "Price must more than 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please fill the price and must be a valid integer.");
+            return;
+        }
+
         if (editedProduct.getId() < 0) {//Add New
             setFormToObject();
             try {
@@ -364,9 +385,8 @@ public class ProductDialog extends javax.swing.JDialog {
         editedProduct.setSweetLevel((String) cmbSweetlv.getSelectedItem());
 
         int selectedIndex = cmbCatId.getSelectedIndex();
-        
 
-            editedProduct.setCategoryId(selectedIndex + 1);
+        editedProduct.setCategoryId(selectedIndex + 1);
 
         editedProduct.setSize((String) cmbSize.getSelectedItem());
         editedProduct.setType((String) cmbType.getSelectedItem());

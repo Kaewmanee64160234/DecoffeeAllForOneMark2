@@ -207,7 +207,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

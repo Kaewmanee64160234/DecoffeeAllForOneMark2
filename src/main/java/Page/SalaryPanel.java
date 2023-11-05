@@ -328,17 +328,17 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         ));
         jScrollPane4.setViewportView(tblSalary);
 
-        jLabel4.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("TopGoodEmployee");
 
-        jLabel5.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel5.setText("SalaryTable");
 
         javax.swing.GroupLayout pnlBarGraphLayout = new javax.swing.GroupLayout(pnlBarGraph);
         pnlBarGraph.setLayout(pnlBarGraphLayout);
         pnlBarGraphLayout.setHorizontalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 565, Short.MAX_VALUE)
         );
         pnlBarGraphLayout.setVerticalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,10 +348,16 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate.setText("Start Date:");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
         lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblEndDate.setText("End Date:");
 
-        btnPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnPaymentHistory.setBackground(new java.awt.Color(83, 113, 136));
+        btnPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPaymentHistory.setForeground(new java.awt.Color(255, 255, 255));
         btnPaymentHistory.setText("Payment history");
         btnPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,19 +365,21 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             }
         });
 
-        btnPrint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
+        btnPrint.setBackground(new java.awt.Color(237, 125, 49));
+        btnPrint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
         btnPrint.setText("Print");
+        btnPrint.setPreferredSize(new java.awt.Dimension(72, 35));
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrintActionPerformed(evt);
             }
         });
 
-        btnComfirm.setBackground(new java.awt.Color(213, 208, 189));
+        btnComfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnComfirm.setForeground(new java.awt.Color(103, 93, 80));
+        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnComfirm.setText("Confirm");
-        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
         btnComfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComfirmActionPerformed(evt);
@@ -388,12 +396,15 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     .addComponent(jScrollPane4)
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(32, 32, 32))
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -405,13 +416,13 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                                 .addComponent(lblEndDate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addGap(0, 633, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnPaymentHistory)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPrint)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)))
                         .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -426,12 +437,12 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnComfirm)
-                    .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnPaymentHistory)
-                        .addComponent(btnPrint)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnPaymentHistory, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,7 +469,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             .addGroup(jpnlHeader1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(814, Short.MAX_VALUE))
+                .addContainerGap(868, Short.MAX_VALUE))
         );
         jpnlHeader1Layout.setVerticalGroup(
             jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +483,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
+            .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
             .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(

@@ -337,11 +337,10 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnComfirm.setBackground(new java.awt.Color(213, 208, 189));
+        btnComfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnComfirm.setForeground(new java.awt.Color(103, 93, 80));
+        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnComfirm.setText("Confirm");
-        btnComfirm.setBorder(null);
         btnComfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComfirmActionPerformed(evt);
@@ -485,7 +484,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lblTopCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTopSeller, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -547,7 +546,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
                             .addComponent(jLabel6)
                             .addComponent(txtRole)))
                     .addComponent(jLabel1))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

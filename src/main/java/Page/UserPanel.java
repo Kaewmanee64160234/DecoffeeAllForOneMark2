@@ -189,7 +189,9 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs{
         tblUser.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblUser);
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -209,11 +209,11 @@ public class PromotionPanel extends javax.swing.JPanel implements LoginObs, Chag
         tblPromotion.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblPromotion);
 
-        btnAdd.setBackground(new java.awt.Color(213, 208, 189));
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(103, 93, 80));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
-        btnAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
+        btnAdd.setBorder(null);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -239,7 +239,7 @@ public class PromotionPanel extends javax.swing.JPanel implements LoginObs, Chag
                 .addContainerGap()
                 .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

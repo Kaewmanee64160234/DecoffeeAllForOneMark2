@@ -215,9 +215,9 @@
                       <Component id="txtDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="btnCheckIn" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btnCheckIn" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnCheckOut" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btnCheckOut" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>

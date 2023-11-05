@@ -56,7 +56,7 @@ public class ConfirmDialog extends javax.swing.JFrame {
         lblPhoto.setBounds(180, 30, 180, 140);
 
         btnYes.setBackground(new java.awt.Color(130, 205, 71));
-        btnYes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnYes.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnYes.setText("YES");
         btnYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +67,7 @@ public class ConfirmDialog extends javax.swing.JFrame {
         btnYes.setBounds(140, 230, 100, 40);
 
         btnNo.setBackground(new java.awt.Color(252, 79, 79));
-        btnNo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnNo.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnNo.setText("NO");
         btnNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

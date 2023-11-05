@@ -226,7 +226,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Employee :");
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +235,7 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Start Date : ");
 
         cmbStatus.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -246,10 +246,10 @@ public class historyPageSummaySalary extends javax.swing.JPanel implements Chage
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Status : ");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Stop Date : ");
 
         btnClear.setBackground(new java.awt.Color(204, 255, 204));

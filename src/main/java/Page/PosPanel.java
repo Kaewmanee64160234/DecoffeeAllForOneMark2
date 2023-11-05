@@ -80,6 +80,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
     private CustomerService customerService;
     private String payment;
     private int queue = 1;
+    private ArrayList<CusObs> cusObs = new ArrayList<>();
 
     /**
      * Creates new form PosDialog
@@ -1261,7 +1262,7 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         productListPanel = new ProductListPanel(catId);
         productListPanel.addOnBuyProduct(this);
         scrProductList.setViewportView(productListPanel);
-
+        
     }
 
     @Override
@@ -1274,7 +1275,16 @@ public final class PosPanel extends javax.swing.JPanel implements BuyProductable
         lblMemberPoint.setText(customer.getPoint() + "");
         lblPhoneNumber.setText(customer.getTel());
         lblTotalPoint.setText((customer.getPoint() - Integer.parseInt(lblPointEarn.getText())) + "");
+        for (CusObs cd : cusObs) {
+            cd.updateCustomer(customer);
+        }
+        
     }
+     public void addSubs(CusObs cusObss) {
+        cusObs.add(cusObss);
+
+    }
+
 
     @Override
     public void setInfoPromotion(Promotion promotion) {

@@ -5,6 +5,7 @@
 package com.mycompany.decoffeeallforone;
 
 import Component.ChagePage;
+import Component.CusObs;
 import Component.EmpObs;
 import Component.LoginObs;
 import Component.NavigationBar;
@@ -13,6 +14,7 @@ import Component.changePageSummary;
 import Dialog.CustomerDialog;
 import Dialog.PosDialog;
 import Dialog.PosPromotionDialog;
+import Model.Customer;
 import Model.Employee;
 import Model.Promotion;
 import Model.RentStore;
@@ -57,7 +59,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author USER
  */
-public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, EmpObs {
+public class MainFrame extends javax.swing.JFrame implements ChagePage, changePageSummary, LoginObs, EmpObs, CusObs {
 
     /**
      * Creates new form MainFrame
@@ -77,6 +79,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private BuyStockPanel buyStockPanel;
     private ArrayList<LoginObs> loginObses;
     private ArrayList<EmpObs> empObss;
+    private ArrayList<CusObs> cusObss;
     private HistoryMaterialPanel historyMaterialPanel;
     private Component PosDialog;
     private final JFrame frame;
@@ -90,6 +93,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         initComponents();
         loginObses = new ArrayList<>();
         empObss = new ArrayList<>();
+        cusObss = new ArrayList<>();
         scrPanel.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Set full Screen
@@ -125,6 +129,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         buyStockPanel.addInSubs(this);
         userPannel.addInSub(this);
         empObss.add(employeePannel);
+        cusObss.add(customerPanel);
+        posPanel.addSubs(this);
 
 //        navigationBar.addInSubsLogin(this);
         hisPageSummaySalary.addInChagePage(this);
@@ -339,6 +345,13 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         System.out.println("com.mycompany.decoffeeallforone.MainFrame.updateEmployee()");
         for (EmpObs empObs : empObss) {
             empObs.updateEmployee(employee);
+        }
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        for (CusObs cusObs : cusObss) {
+            cusObs.updateCustomer(customer);
         }
     }
 

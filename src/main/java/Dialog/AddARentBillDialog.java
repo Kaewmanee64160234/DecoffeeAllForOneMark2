@@ -29,7 +29,7 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author ASUS
  */
-public class AddARentBillDialog extends javax.swing.JDialog {
+public class AddARentBillDialog extends javax.swing.JDialog{
 
     private final RentStoreService rentStoreService;
     private ArrayList<RentStore> lists;

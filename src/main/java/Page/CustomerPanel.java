@@ -5,6 +5,7 @@
 package Page;
 
 import Component.ChagePage;
+import Component.CusObs;
 import Component.LoginObs;
 import Dialog.CustomerDialog;
 import Model.Customer;
@@ -28,7 +29,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Lenovo
  */
-public class CustomerPanel extends javax.swing.JPanel implements LoginObs, ChagePage{
+public class CustomerPanel extends javax.swing.JPanel implements LoginObs, ChagePage, CusObs{
 
     private final CustomerService customerService;
     private List<Customer> list;
@@ -332,6 +333,11 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
     
     public void loginObs(LoginObs logObs){
         loginObses.add(logObs);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        refreshTable();
     }
     
 }

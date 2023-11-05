@@ -6,6 +6,7 @@ package Page;
 
 import Component.EmpObs;
 import Component.LoginObs;
+import Dialog.EditUserDialog;
 import TablebtnEditDelete.TableActionCellRenderer;
 import Dialog.UserDialog;
 import Model.Employee;
@@ -38,6 +39,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
     private User editedUser;
     private ArrayList<EmpObs> empObss;
     private UserDialog userDialog;
+    private EditUserDialog editUserDialog;
 
     /**
      * Creates new form UserPanel
@@ -54,7 +56,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
                 int selectIndex = tblUser.getSelectedRow();
                 if (selectIndex >= 0) {
                     editedUser = list.get(selectIndex);
-                    openDialog();
+                    openDialog2();
                 }
             }
 
@@ -80,7 +82,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
         tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
 
         tblUser.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Profile", "Id", "Login", "Name", "Password", "Role", "Action"};
+            String[] columnNames = {"Profile", "Id", "Login", "Name", "Role", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -94,7 +96,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
 
             @Override
             public int getColumnCount() {
-                return 7;
+                return 6;
             }
 
             @Override
@@ -126,10 +128,8 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
                     case 3:
                         return user.getUsername();
                     case 4:
-                        return user.getPassword();
-                    case 5:
                         return user.getRole();
-                    case 6:
+                    case 5:
                         return new TableActionCellRenderer();
                     default:
                         return "Unknown";
@@ -138,15 +138,15 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                if (columnIndex == 6) {
+                if (columnIndex == 5) {
                     return true;
                 }
                 return false;
             }
 
         });
-        tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
-        tblUser.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        tblUser.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderer());
+        tblUser.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -313,6 +313,19 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
             public void windowClosed(WindowEvent e) {
                 refreshTable();
                 updateEmployee(new Employee());
+            }
+
+        });
+    }
+    private void openDialog2() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        editUserDialog = new EditUserDialog(frame, editedUser);
+        editUserDialog.setLocationRelativeTo(this); //set dialog to center
+        editUserDialog.setVisible(true);
+        editUserDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
             }
 
         });

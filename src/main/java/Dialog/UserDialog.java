@@ -14,7 +14,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -41,13 +43,14 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
     public UserDialog(java.awt.Frame parent, User editedUser) {
         super(parent, true);
         initComponents();
+        employeeService = new EmployeeService();
         editedUser = new User();
+        editedEmployee = new Employee();
         this.editedUser = editedUser;
         setObjectToForm();
         userService = new UserService();
         loadImage();
-        employeeService = new EmployeeService();
-        editedEmployee = new Employee();
+
     }
 
     private void loadImage() {
@@ -366,12 +369,33 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
+   private boolean isDuplicatePhoneNumber(String phoneNumber) {
+    List<Employee> employees = employeeService.getEmployees(); // Replace with your data source
 
+    for (Employee employee : employees) {
+        if (employee.getTelephone().equals(phoneNumber)) {
+            return true; // The phone number is a duplicate
+        }
+    }
+
+    return false; // The phone number is not a duplicate
+}
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         User user;
         String login = edtLogin.getText();
         String name = edtName.getText();
         String password = edtPassword.getText();
+        Employee employee;
+        String address = txtAddress.getText();
+        String tel = txtTelephone.getText();
+        String name2 = edtName.getText();
+        String email = txtEmail.getText();
+        editedEmployee.setAddress(address);
+        editedEmployee.setEmail(email);
+        editedEmployee.setName(name2);
+        editedEmployee.setPosition((String) cmbPosition.getSelectedItem());
+        editedEmployee.setTelephone(tel);
+
         if (login.length() < 3) {
             JOptionPane.showMessageDialog(this, "Please Insert login name more than 3 character");
             return;
@@ -384,31 +408,6 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
             JOptionPane.showMessageDialog(this, "Please Insert name more than 3 character");
             return;
         }
-        if (password.length() < 5) {
-            JOptionPane.showMessageDialog(this, "Please Insert password more than 5 character");
-            return;
-        }
-        if (editedUser.getId() < 0) {//Add New
-            setFormToObject();
-            user = userService.addNew(editedUser);
-            saveImage(user);
-        } else {
-            setFormToObject();
-            user = userService.update(editedUser);
-            saveImage(user);
-        }
-
-        Employee employee;
-        String name2 = edtName.getText();
-        String address = txtAddress.getText();
-        String tel = txtTelephone.getText();
-        String email = txtEmail.getText();
-        editedEmployee.setName(name2);
-        editedEmployee.setAddress(address);
-        editedEmployee.setEmail(email);
-        editedEmployee.setPosition((String) cmbPosition.getSelectedItem());
-        editedEmployee.setTelephone(tel);
-
         if (name2.matches(".*\\d+.*")) {
             JOptionPane.showMessageDialog(this, "Name must not contain numbers.");
             return;
@@ -417,12 +416,12 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
             JOptionPane.showMessageDialog(this, "Please Insert name more than 3 character");
             return;
         }
-        if (!tel.matches("\\d{10}")) {
-            JOptionPane.showMessageDialog(this, "Please insert a telephone number with exactly 10 digits.");
-            return;
-        }
         if (address.length() < 3) {
             JOptionPane.showMessageDialog(this, "Please Insert address more than 3 character");
+            return;
+        }
+        if (password.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Please Insert password more than 5 character");
             return;
         }
         if (email.length() < 10) {
@@ -439,10 +438,29 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
             JOptionPane.showMessageDialog(this, "Please fill the hourly wage and must be a valid integer.");
             return;
         }
+        if (!tel.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "Please insert a telephone number with exactly 10 digits.");
+            return;
+        }
+        if (isDuplicatePhoneNumber(tel)) {
+            JOptionPane.showMessageDialog(this, "This phone number is a duplicate.");
+            return;
+        }
+
+        if (editedUser.getId() < 0) {//Add New
+            setFormToObject();
+            user = userService.addNew(editedUser);
+            saveImage(user);
+        } else {
+            setFormToObject();
+            user = userService.update(editedUser);
+            saveImage(user);
+        }
         if (editedEmployee.getId() < 0) {//Add New
             setFormToObject();
             editedEmployee.setUser_id(user.getId());
             employee = employeeService.addNew(editedEmployee);
+            System.out.println(editedEmployee.toString());
         } else {
             setFormToObject();
             employee = employeeService.update(editedEmployee);
@@ -450,6 +468,7 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
 
         updateEmployee(editedEmployee);
         this.dispose();
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -483,8 +502,8 @@ public class UserDialog extends javax.swing.JDialog implements EmpObs {
         edtLogin.setText(editedUser.getLogin());
         edtName.setText(editedUser.getUsername());
         edtPassword.setText(editedUser.getPassword());
-
         cmbRole.setSelectedItem(editedUser.getRole());
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

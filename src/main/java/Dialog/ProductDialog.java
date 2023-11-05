@@ -68,11 +68,9 @@ public class ProductDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-<<<<<<< HEAD
-        jPanel2.setBackground(new java.awt.Color(255, 251, 245));
-=======
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
->>>>>>> 77dc247f47fa6e80bb89e0cad556a577287f5ed7
+
 
         jLabel3.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel3.setText("Name:");

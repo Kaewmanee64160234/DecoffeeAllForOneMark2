@@ -73,7 +73,7 @@ public class ReportSS {
             Map<String, Object> map = new HashMap<>();
 
             String formattedDateStr = outputDateFormat.format(date_);
-            map.put("month", formattedDateStr);
+            map.put("month", outputDateFormat_);
             map.put("total", ss.getTotalPaid());
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportSSModels);

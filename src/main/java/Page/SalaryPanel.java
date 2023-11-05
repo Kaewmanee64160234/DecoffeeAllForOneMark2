@@ -234,7 +234,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     private void initTableEmployee() {
         model3 = new AbstractTableModel() {
-            String[] colNames = {"ID", "Name", "MonthYear", "TotalHour"};
+            String[] colNames = {"ID", "Name", "TotalHour"};
 
             @Override
             public String getColumnName(int column) {
@@ -248,7 +248,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 3;
             }
 
             @Override
@@ -260,8 +260,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     case 1:
                         return employee.getName();
                     case 2:
-                        return employee.getMonthYear();
-                    case 3:
                         return employee.getTopEmployee();
 
                     default:

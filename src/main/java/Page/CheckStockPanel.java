@@ -12,15 +12,26 @@ import Service.CheckinoutService;
 import Service.EmployeeService;
 import Service.MaterialService;
 import Service.UserService;
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.DefaultFormatter;
 import scrollbar.ScrollBarCustom;
 
-public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs,DataUpdateObserver{
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs, DataUpdateObserver {
 
     private final MaterialService materialService;
     private List<Material> list;
@@ -37,7 +48,6 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
         this.materialPanel = materialPanel;
     }
 
-
     public CheckStockPanel() {
         initComponents();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
@@ -46,6 +56,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
         materialService = new MaterialService();
         list = materialService.getMaterials();
         tblCheckStock.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
+        tblCheckStock.setRowHeight(50);
         tblCheckStock.setModel(new AbstractTableModel() {
             String[] columnNames = {"Id", "Name", "Number", "Minnimum", "Unit"};
 
@@ -102,11 +113,62 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return columnIndex == 2;
-
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
+        tblCheckStock.getColumnModel().getColumn(2).setCellEditor(new CheckStockPanel.QtyCellEditor());
+        tblCheckStock.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setHorizontalAlignment(SwingConstants.CENTER);
+                return this;
             }
 
         });
+    }
+
+    public class QtyCellEditor extends DefaultCellEditor {
+
+        private JSpinner input;
+
+        public QtyCellEditor() {
+            super(new JTextField());
+            input = new JSpinner();
+            SpinnerNumberModel numberModel = (SpinnerNumberModel) input.getModel();
+            numberModel.setMinimum(1);
+            JSpinner.NumberEditor editor = (JSpinner.NumberEditor) input.getEditor();
+            DefaultFormatter formatter = (DefaultFormatter) editor.getTextField().getFormatter();
+            formatter.setCommitsOnValidEdit(true);
+            editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+            input.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+
+                }
+
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            super.getTableCellEditorComponent(table, value, isSelected, row, column);
+            int qty = Integer.parseInt(value.toString());
+            input.setValue(qty);
+            return input;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            int qty = (int) input.getValue(); // Get the Integer value directly
+            return String.valueOf(qty);
+
+        }
     }
 
     public void addInSubs(ChagePage chagePage) {
@@ -264,6 +326,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         chagePage("Material");
     }//GEN-LAST:event_btnBackActionPerformed
@@ -280,9 +343,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
             refreshTable();
             JOptionPane.showMessageDialog(this, "Update Material Complete.");
 
-
-                onDataUpdated();
-
+            onDataUpdated();
 
             chagePage("Material");
         }
@@ -346,9 +407,8 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
         tblCheckStock.revalidate();
         tblCheckStock.repaint();
 
-  
-         onDataUpdated();
-  
+        onDataUpdated();
+
     }
 
     @Override
@@ -360,16 +420,15 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
 
     @Override
     public void loginData(User user) {
-       EmployeeService employeeService = new EmployeeService();
-       employee = employeeService.getEmployeebyUserId(user.getId());
-       
+        EmployeeService employeeService = new EmployeeService();
+        employee = employeeService.getEmployeebyUserId(user.getId());
+
         txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
 
-
     }
-    
-    public  void addInupdate (DataUpdateObserver dataUpdateObserver){
+
+    public void addInupdate(DataUpdateObserver dataUpdateObserver) {
         dataUpdateObservers.add(dataUpdateObserver);
     }
 
@@ -377,8 +436,8 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, Lo
     public void onDataUpdated() {
         for (DataUpdateObserver dataUpdateObserver : dataUpdateObservers) {
             dataUpdateObserver.onDataUpdated();
-            
+
         }
-   
+
     }
 }

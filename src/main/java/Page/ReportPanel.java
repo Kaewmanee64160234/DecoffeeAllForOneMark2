@@ -499,7 +499,7 @@ public class ReportPanel extends javax.swing.JPanel implements LoginObs, ChagePa
         jpnlHeader1.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
-        jLabel1.setText("Report");
+        jLabel1.setText("Dashboard");
 
         jLabel5.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         jLabel5.setText("User Name: ");

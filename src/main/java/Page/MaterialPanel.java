@@ -299,7 +299,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         });
 
         btnReportStock.setBackground(new java.awt.Color(41, 91, 167));
-        btnReportStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnReportStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnReportStock.setForeground(new java.awt.Color(255, 255, 255));
         btnReportStock.setText("Print Report Stock");
         btnReportStock.addActionListener(new java.awt.event.ActionListener() {
@@ -309,7 +309,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         });
 
         btnExpense.setBackground(new java.awt.Color(185, 0, 91));
-        btnExpense.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnExpense.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnExpense.setForeground(new java.awt.Color(255, 255, 255));
         btnExpense.setText("Print Expense CheckStock");
         btnExpense.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +319,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         });
 
         btnOutOfStock.setBackground(new java.awt.Color(68, 93, 72));
-        btnOutOfStock.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+        btnOutOfStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnOutOfStock.setForeground(new java.awt.Color(255, 255, 255));
         btnOutOfStock.setText("Print Out Of Stock");
         btnOutOfStock.addActionListener(new java.awt.event.ActionListener() {
@@ -335,10 +335,10 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(241, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addContainerGap(131, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnBuyStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuyStock)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCheckStock)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

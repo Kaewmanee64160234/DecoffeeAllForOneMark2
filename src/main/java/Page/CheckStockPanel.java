@@ -4,6 +4,7 @@ import Component.ChagePage;
 import Component.LoginObs;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
+import Model.Employee;
 import Model.Material;
 import Model.User;
 import Service.CheckMaterialService;
@@ -19,13 +20,23 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import scrollbar.ScrollBarCustom;
 
-public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,LoginObs {
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs,DataUpdateObserver{
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
     private ArrayList<ChagePage> subs;
     private ArrayList<ChagePage> chagpages;
+    private Employee employee = new Employee();
+    private ArrayList<DataUpdateObserver> dataUpdateObservers = new ArrayList<>();
+
+    // OVS
+    private MaterialPanel materialPanel;
+
+    public void setMaterialPanel(MaterialPanel materialPanel) {
+        this.materialPanel = materialPanel;
+    }
+
 
     public CheckStockPanel() {
         initComponents();
@@ -33,7 +44,6 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         subs = new ArrayList<>();
         int number = 0;
         materialService = new MaterialService();
-
         list = materialService.getMaterials();
         tblCheckStock.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCheckStock.setModel(new AbstractTableModel() {
@@ -255,19 +265,30 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+//        if (saveCheckStockDetail()) {
+//            JOptionPane.showMessageDialog(this, "Update Material Complete.");
+//            chagePage("Material");
+//        }
+//        refreshTable();
+
         if (saveCheckStockDetail()) {
+            list = materialService.getMaterials();
+            refreshTable();
             JOptionPane.showMessageDialog(this, "Update Material Complete.");
+
+
+                onDataUpdated();
+
+
             chagePage("Material");
         }
-        refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private boolean saveCheckStockDetail() {
         try {
             CheckMaterialService checkMatService = new CheckMaterialService();
             CheckMaterial checkMaterial = new CheckMaterial();
-            EmployeeService empService = new EmployeeService();
-            checkMaterial.setEmployeeId(2);
+            checkMaterial.setEmployeeId(employee.getId());
             ArrayList<CheckMaterialDetail> checkMaterialDetails = new ArrayList<>();
             //set last mat in matdetail
             for (Material material : materialService.getMaterials()) {
@@ -275,7 +296,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
                 CheckMaterialDetail checkMaterialDetail = new CheckMaterialDetail(material.getName(), material.getMatQty(), 1, material.getId());
                 checkMaterialDetails.add(checkMaterialDetail);
             }
-//        //set current qty
+            //set current qty
             checkMaterial.setDetails(checkMaterialDetails);
             ArrayList<CheckMaterialDetail> checkMaterialDetails_ = new ArrayList<>();
             int count = 0;
@@ -321,21 +342,39 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         tblCheckStock.revalidate();
         tblCheckStock.repaint();
 
+  
+         onDataUpdated();
+  
     }
 
     @Override
     public void chagePage(String pageName) {
         for (ChagePage sub : subs) {
             sub.chagePage(pageName);
-
         }
-
     }
 
     @Override
     public void loginData(User user) {
+       EmployeeService employeeService = new EmployeeService();
+       employee = employeeService.getEmployeebyUserId(user.getId());
+       
         txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
 
+
+    }
+    
+    public  void addInupdate (DataUpdateObserver dataUpdateObserver){
+        dataUpdateObservers.add(dataUpdateObserver);
+    }
+
+    @Override
+    public void onDataUpdated() {
+        for (DataUpdateObserver dataUpdateObserver : dataUpdateObservers) {
+            dataUpdateObserver.onDataUpdated();
+            
+        }
+   
     }
 }

@@ -76,4 +76,8 @@ public class EmployeeService {
         EmployeeDao employeeDao = new EmployeeDao();
         return employeeDao.getNameEmployees();
     }
+      public Employee getEmployeebyUserId(int id) {
+        EmployeeDao employeeDao = new EmployeeDao();
+        return employeeDao.getEmployeebyUserId(id);
+     }
 }

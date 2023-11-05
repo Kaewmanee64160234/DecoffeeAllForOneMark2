@@ -5,12 +5,17 @@
 package print;
 
 import Model.Reciept;
+import Model.ReportSSModel;
 import Model.SummarySalary;
 import Service.SummarySalaryService;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -44,19 +49,39 @@ public class ReportSS {
 
     }
 
-    public void printReport(SummarySalary summarySalary, String date) throws JRException {
-        SummarySalaryService salaryService = new SummarySalaryService();
-        ArrayList<SummarySalary> sses = salaryService.getSummarySalaryForReport(date);
-        ArrayList<SummarySalary> sses1 = salaryService.getSummarySalaryByTotalPaid(date, date);
-        Map<String, Object> map = new HashMap<>();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
-        String strDate = formatter.format(date);
-        map.put("month", strDate);
-        map.put("total", sses1.get(0).getTotalPaid());
+    public void printReport(String date) throws JRException {
+        try {
+            SummarySalaryService salaryService = new SummarySalaryService();
+            SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date_ = inputDateFormat.parse(date);
+            // Format the date to "MM/dd" format
+            SimpleDateFormat outputDateFormat = new SimpleDateFormat("MM/dd");
+            SimpleDateFormat outputDateFormat_ = new SimpleDateFormat("YYYY-MM");
 
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(sses);
-        JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
-        view(print);
+            ArrayList<SummarySalary> sses = salaryService.getSummarySalaryForReport(outputDateFormat_.format(date_));
+            ArrayList<ReportSSModel> reportSSModels = new ArrayList<>();
+            for (SummarySalary sse : sses) {
+                ReportSSModel reportSSModel = new ReportSSModel();
+                reportSSModel.setDate(sse.getDate());
+                reportSSModel.setSalary(sse.getSalary()+"");
+                reportSSModel.setEmployeeName(sse.getEmployeeName());
+                reportSSModels.add(reportSSModel);
+            }
+
+            SummarySalary ss = new SummarySalary();
+            ss = salaryService.getTotalSummarySalaryOneMonth(date);
+            Map<String, Object> map = new HashMap<>();
+
+            String formattedDateStr = outputDateFormat.format(date_);
+            map.put("month", formattedDateStr);
+            map.put("total", ss.getTotalPaid());
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reportSSModels);
+            JasperPrint print = JasperFillManager.fillReport(reportPay, map, dataSource);
+            view(print);
+        } catch (ParseException ex) {
+            Logger.getLogger(ReportSS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void view(JasperPrint print) throws JRException {

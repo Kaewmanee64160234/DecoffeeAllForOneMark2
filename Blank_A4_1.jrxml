@@ -29,14 +29,13 @@
 		</box>
 	</style>
 	<parameter name="month" class="java.lang.String"/>
-	<parameter name="total" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.Float"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="number" class="java.lang.String"/>
-	<field name="EmployeeName" class="java.lang.String"/>
-	<field name="ss_date" class="java.lang.String"/>
-	<field name="ss_salary" class="java.lang.String"/>
+	<field name="employeeName" class="java.lang.String"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="salary" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -45,21 +44,21 @@
 			<staticText>
 				<reportElement x="-1" y="-1" width="551" height="40" uuid="9c4bc2bd-85f3-4d9e-bbff-351d53518c8a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="18" isBold="true"/>
+					<font fontName="Angsana New" size="27" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Employee Monthly Salary Payment List]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="-1" y="50" width="140" height="30" uuid="3487f409-b363-4ed6-aae7-aff69d74c5df"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16"/>
+					<font fontName="Angsana New" size="25"/>
 				</textElement>
 				<text><![CDATA[Mounth/Year :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="141" y="50" width="100" height="30" uuid="825cbafe-b183-4554-aacb-cb71a029c725"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="16"/>
+					<font fontName="Angsana New" size="25"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
 			</textField>
@@ -69,7 +68,7 @@
 		<band height="42" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<staticText>
-				<reportElement x="248" y="0" width="163" height="42" backcolor="#A1D0FF" uuid="3c002ca0-efa8-49a7-abd8-1094c9a25290"/>
+				<reportElement x="248" y="0" width="164" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="3c002ca0-efa8-49a7-abd8-1094c9a25290"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -77,12 +76,12 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16"/>
+					<font fontName="Angsana New" size="25"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="412" y="0" width="138" height="42" backcolor="#A1D0FF" uuid="4a9a1c40-7af1-48b4-9776-12f161db536e"/>
+				<reportElement x="412" y="0" width="138" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="4a9a1c40-7af1-48b4-9776-12f161db536e"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -90,12 +89,12 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16"/>
+					<font fontName="Angsana New" size="25"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="248" height="42" backcolor="#A1D0FF" uuid="801b369c-4f75-445d-84f1-c332194c8ab4"/>
+				<reportElement x="0" y="0" width="248" height="42" forecolor="#030303" backcolor="#A1D0FF" uuid="801b369c-4f75-445d-84f1-c332194c8ab4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid"/>
@@ -103,52 +102,43 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16"/>
+					<font fontName="Angsana New" size="25"/>
 				</textElement>
 				<text><![CDATA[Name]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="79" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="248" height="30" uuid="b5433630-c205-4995-9830-4a499961a36b"/>
+				<reportElement x="0" y="0" width="248" height="30" uuid="cf4562dd-b2e4-4780-8dc2-ac13569d8035"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="14"/>
+					<font fontName="Angsana New" size="19"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{EmployeeName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="248" y="0" width="163" height="30" uuid="9c49ff07-b54e-40df-a01c-59ad0a9521f6"/>
+				<reportElement x="248" y="0" width="164" height="30" uuid="f30e27a2-ddcf-4d32-9fa2-75971103cf36"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="19"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ss_date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="0" width="140" height="30" uuid="c55aee36-0285-484f-bd21-937699cd062e"/>
+				<reportElement x="412" y="0" width="138" height="30" uuid="a7d3d2ed-bc3b-4692-92b2-6b545c65adb1"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="14"/>
+					<font fontName="Angsana New" size="19"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ss_salary}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -164,7 +154,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="16"/>
+					<font fontName="Angsana New" size="25"/>
 				</textElement>
 				<text><![CDATA[Total ]]></text>
 			</staticText>
@@ -178,7 +168,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="14"/>
+					<font fontName="Angsana New" size="22"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>

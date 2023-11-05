@@ -295,7 +295,7 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
                 FROM employee e
                 JOIN check_in_out c ON e.employee_id = c.employee_id
                 JOIN summary_salary s ON c.ss_id = s.ss_id
-                WHERE strftime('%Y-%m', s.ss_date) = '?';  
+                WHERE strftime('%Y-%m', s.ss_date) = ?;
 
                                                                    """;
         Connection conn = DatabaseHelper.getConnect();
@@ -315,6 +315,32 @@ public class SummarySalaryDao implements Dao<SummarySalary> {
             return null;
         }
         return summaryList;
+
+    }
+
+    public SummarySalary getTotalSummarySalaryOneMonth(String date) {
+        SummarySalary summary = new SummarySalary();
+        String sql = "SELECT strftime('%m-%Y', ss.ss_date) AS MonthYear, " +
+            "sum(ss.ss_salary) AS TotalPaid " +
+            "FROM summary_salary ss " +
+            "WHERE ss.ss_date BETWEEN '2023-11-01' AND '2023-11-30' " + 
+            "GROUP BY MonthYear " +
+            "ORDER BY TotalPaid DESC;";
+        System.out.println(sql);
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+//            stmt.setString(1, date);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                summary = SummarySalary.fromRSReport(rs);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return summary;
 
     }
 

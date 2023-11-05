@@ -58,6 +58,8 @@ public class SummarySalary {
         this.paidStatus = "N";
         this.MonthYear = "";
         this.TotalPaid = 0;
+        this.EmployeeName="";
+  
     }
 
     public SummarySalary(String MonthYear, float TotalPaid) {
@@ -244,7 +246,7 @@ public class SummarySalary {
      public static SummarySalary fromRSReportPrint(ResultSet rs) {
         try{
             SummarySalary summarySalary = new SummarySalary();
-            summarySalary.setEmployeeName(rs.getString("EmployeeName"));
+            summarySalary.setEmployeeName(rs.getString("employee_name"));
             summarySalary.setDate(rs.getString("ss_date"));
             summarySalary.setSalary(rs.getDouble("ss_salary"));
             return summarySalary;

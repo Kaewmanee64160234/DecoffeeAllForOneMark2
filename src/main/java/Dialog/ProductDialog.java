@@ -287,13 +287,18 @@ public class ProductDialog extends javax.swing.JDialog {
         }
 
         if (editedProduct.getId() < 0) {//Add New
-            setFormToObject();
-            try {
-                product = productService.addNew(editedProduct);
-                saveImage(product);
-            } catch (ValidateException ex) {
-                Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, ex.getMessage());
+            if (isDuplicatePName(name)) {
+
+                setFormToObject();
+                try {
+                    product = productService.addNew(editedProduct);
+                    saveImage(product);
+                } catch (ValidateException ex) {
+                    Logger.getLogger(ProductDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            } else {
+                return;
             }
 
         } else {
@@ -317,7 +322,7 @@ public class ProductDialog extends javax.swing.JDialog {
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         chooseImage();
     }//GEN-LAST:event_lblPhotoMouseClicked
- 
+
     private void cmbCatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatIdActionPerformed
 
     }//GEN-LAST:event_cmbCatIdActionPerformed
@@ -325,6 +330,17 @@ public class ProductDialog extends javax.swing.JDialog {
     private void cmbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSizeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSizeActionPerformed
+    private boolean isDuplicatePName(String Name) {
+        List<Product> products = productService.getProductsOrderByName();
+
+        for (Product product : products) {
+            if (product.getName().equals(Name)) {
+                JOptionPane.showMessageDialog(this, "The product name is a duplicate.");
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void loadImage() {
         if (editedProduct.getId() > 0) {

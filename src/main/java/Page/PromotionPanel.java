@@ -90,7 +90,7 @@ public class PromotionPanel extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
-        tblPromotion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblPromotion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblPromotion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -102,12 +102,13 @@ public class PromotionPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPromotion.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblPromotion);
 
         jPanel2.setBackground(new java.awt.Color(242, 234, 211));
 
         btnAdd.setBackground(new java.awt.Color(213, 208, 189));
-        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(103, 93, 80));
         btnAdd.setText("Add");
         btnAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
@@ -118,7 +119,7 @@ public class PromotionPanel extends javax.swing.JPanel {
         });
 
         btnEdit.setBackground(new java.awt.Color(213, 208, 189));
-        btnEdit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(103, 93, 80));
         btnEdit.setText("Edit");
         btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
@@ -129,7 +130,7 @@ public class PromotionPanel extends javax.swing.JPanel {
         });
 
         btnDelete.setBackground(new java.awt.Color(213, 208, 189));
-        btnDelete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(103, 93, 80));
         btnDelete.setText("Delete");
         btnDelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
@@ -149,7 +150,7 @@ public class PromotionPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(

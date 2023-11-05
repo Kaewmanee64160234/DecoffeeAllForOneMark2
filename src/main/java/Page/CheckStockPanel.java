@@ -4,6 +4,7 @@ import Component.ChagePage;
 import Component.LoginObs;
 import Model.CheckMaterial;
 import Model.CheckMaterialDetail;
+import Model.Employee;
 import Model.Material;
 import Model.User;
 import Service.CheckMaterialService;
@@ -11,21 +12,41 @@ import Service.CheckinoutService;
 import Service.EmployeeService;
 import Service.MaterialService;
 import Service.UserService;
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.DefaultFormatter;
 import scrollbar.ScrollBarCustom;
 
-public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,LoginObs {
+public class CheckStockPanel extends javax.swing.JPanel implements ChagePage, LoginObs, DataUpdateObserver {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
     private ArrayList<ChagePage> subs;
     private ArrayList<ChagePage> chagpages;
+    private Employee employee = new Employee();
+    private ArrayList<DataUpdateObserver> dataUpdateObservers = new ArrayList<>();
+
+    // OVS
+    private MaterialPanel materialPanel;
+
+    public void setMaterialPanel(MaterialPanel materialPanel) {
+        this.materialPanel = materialPanel;
+    }
 
     public CheckStockPanel() {
         initComponents();
@@ -33,9 +54,9 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         subs = new ArrayList<>();
         int number = 0;
         materialService = new MaterialService();
-
         list = materialService.getMaterials();
         tblCheckStock.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
+        tblCheckStock.setRowHeight(50);
         tblCheckStock.setModel(new AbstractTableModel() {
             String[] columnNames = {"Id", "Name", "Number", "Minnimum", "Unit"};
 
@@ -92,11 +113,62 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return columnIndex == 2;
-
+                switch (columnIndex) {
+                    case 2:
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
+        tblCheckStock.getColumnModel().getColumn(2).setCellEditor(new CheckStockPanel.QtyCellEditor());
+        tblCheckStock.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setHorizontalAlignment(SwingConstants.CENTER);
+                return this;
             }
 
         });
+    }
+
+    public class QtyCellEditor extends DefaultCellEditor {
+
+        private JSpinner input;
+
+        public QtyCellEditor() {
+            super(new JTextField());
+            input = new JSpinner();
+            SpinnerNumberModel numberModel = (SpinnerNumberModel) input.getModel();
+            numberModel.setMinimum(1);
+            JSpinner.NumberEditor editor = (JSpinner.NumberEditor) input.getEditor();
+            DefaultFormatter formatter = (DefaultFormatter) editor.getTextField().getFormatter();
+            formatter.setCommitsOnValidEdit(true);
+            editor.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
+            input.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+
+                }
+
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            super.getTableCellEditorComponent(table, value, isSelected, row, column);
+            int qty = Integer.parseInt(value.toString());
+            input.setValue(qty);
+            return input;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            int qty = (int) input.getValue(); // Get the Integer value directly
+            return String.valueOf(qty);
+
+        }
     }
 
     public void addInSubs(ChagePage chagePage) {
@@ -190,7 +262,9 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         tblCheckStock.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblCheckStock);
 
+        btnBack.setBackground(new java.awt.Color(231, 70, 70));
         btnBack.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,7 +272,9 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
             }
         });
 
+        btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,8 +303,8 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack)
-                    .addComponent(btnConfirm))
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -250,24 +326,34 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         chagePage("Material");
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+//        if (saveCheckStockDetail()) {
+//            JOptionPane.showMessageDialog(this, "Update Material Complete.");
+//            chagePage("Material");
+//        }
+//        refreshTable();
+
         if (saveCheckStockDetail()) {
+            list = materialService.getMaterials();
+            refreshTable();
             JOptionPane.showMessageDialog(this, "Update Material Complete.");
+
+            onDataUpdated();
+
             chagePage("Material");
         }
-        refreshTable();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private boolean saveCheckStockDetail() {
         try {
             CheckMaterialService checkMatService = new CheckMaterialService();
             CheckMaterial checkMaterial = new CheckMaterial();
-            EmployeeService empService = new EmployeeService();
-            checkMaterial.setEmployeeId(2);
+            checkMaterial.setEmployeeId(employee.getId());
             ArrayList<CheckMaterialDetail> checkMaterialDetails = new ArrayList<>();
             //set last mat in matdetail
             for (Material material : materialService.getMaterials()) {
@@ -275,7 +361,7 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
                 CheckMaterialDetail checkMaterialDetail = new CheckMaterialDetail(material.getName(), material.getMatQty(), 1, material.getId());
                 checkMaterialDetails.add(checkMaterialDetail);
             }
-//        //set current qty
+            //set current qty
             checkMaterial.setDetails(checkMaterialDetails);
             ArrayList<CheckMaterialDetail> checkMaterialDetails_ = new ArrayList<>();
             int count = 0;
@@ -321,21 +407,37 @@ public class CheckStockPanel extends javax.swing.JPanel implements ChagePage,Log
         tblCheckStock.revalidate();
         tblCheckStock.repaint();
 
+        onDataUpdated();
+
     }
 
     @Override
     public void chagePage(String pageName) {
         for (ChagePage sub : subs) {
             sub.chagePage(pageName);
-
         }
-
     }
 
     @Override
     public void loginData(User user) {
+        EmployeeService employeeService = new EmployeeService();
+        employee = employeeService.getEmployeebyUserId(user.getId());
+
         txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
+
+    }
+
+    public void addInupdate(DataUpdateObserver dataUpdateObserver) {
+        dataUpdateObservers.add(dataUpdateObserver);
+    }
+
+    @Override
+    public void onDataUpdated() {
+        for (DataUpdateObserver dataUpdateObserver : dataUpdateObservers) {
+            dataUpdateObserver.onDataUpdated();
+
+        }
 
     }
 }

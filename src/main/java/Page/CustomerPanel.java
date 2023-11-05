@@ -5,6 +5,7 @@
 package Page;
 
 import Component.ChagePage;
+import Component.CusObs;
 import Component.LoginObs;
 import Dialog.CustomerDialog;
 import Model.Customer;
@@ -28,7 +29,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author Lenovo
  */
-public class CustomerPanel extends javax.swing.JPanel implements LoginObs, ChagePage{
+public class CustomerPanel extends javax.swing.JPanel implements LoginObs, ChagePage, CusObs{
 
     private final CustomerService customerService;
     private List<Customer> list;
@@ -71,7 +72,7 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
 
         customerService = new CustomerService();
         list = customerService.getCustomers();
-        tblCustomer.setRowHeight(60);
+        tblCustomer.setRowHeight(50);
         tblCustomer.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblCustomer.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Name", "Tel", "Point", "StartMember", "Action"};
@@ -147,7 +148,9 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +190,7 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addContainerGap())
@@ -330,6 +333,11 @@ public class CustomerPanel extends javax.swing.JPanel implements LoginObs, Chage
     
     public void loginObs(LoginObs logObs){
         loginObses.add(logObs);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        refreshTable();
     }
     
 }

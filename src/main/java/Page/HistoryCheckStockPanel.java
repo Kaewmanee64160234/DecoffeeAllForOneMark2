@@ -241,10 +241,16 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
         lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate.setText("From Date :");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
         lblStartDate1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         lblStartDate1.setText("To Date :");
 
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnSubmit.setBackground(new java.awt.Color(33, 156, 144));
         btnSubmit.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,7 +294,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblStartDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,7 +306,9 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
 
         jPanelDetail.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnBack.setBackground(new java.awt.Color(231, 70, 70));
         btnBack.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +326,11 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
             }
         ));
         tblHistoryStock.setSelectionBackground(new java.awt.Color(213, 208, 189));
+        tblHistoryStock.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHistoryStockMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblHistoryStock);
 
         jLabel1.setFont(new java.awt.Font("Kanit", 0, 20)); // NOI18N
@@ -345,7 +358,7 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addGap(36, 36, 36)
-                .addComponent(btnBack)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -394,6 +407,10 @@ public class HistoryCheckStockPanel extends javax.swing.JPanel {
     private void edtDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDatePicker1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtDatePicker1ActionPerformed
+
+    private void tblHistoryStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistoryStockMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblHistoryStockMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

@@ -4,9 +4,12 @@
  */
 package Page;
 
+import Component.EmpObs;
 import Component.LoginObs;
+import Dialog.EditUserDialog;
 import TablebtnEditDelete.TableActionCellRenderer;
 import Dialog.UserDialog;
+import Model.Employee;
 import Model.User;
 import Service.UserService;
 import TablebtnEditDelete.TableActionCellEditor;
@@ -15,6 +18,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,11 +32,14 @@ import scrollbar.ScrollBarCustom;
  *
  * @author toey
  */
-public class UserPanel extends javax.swing.JPanel implements LoginObs {
+public class UserPanel extends javax.swing.JPanel implements LoginObs, EmpObs {
 
     private final UserService userService;
     private List<User> list;
     private User editedUser;
+    private ArrayList<EmpObs> empObss;
+    private UserDialog userDialog;
+    private EditUserDialog editUserDialog;
 
     /**
      * Creates new form UserPanel
@@ -40,14 +47,17 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
     public UserPanel() {
         initComponents();
 
+        empObss = new ArrayList();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        userDialog = new UserDialog(frame, editedUser);
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
                 int selectIndex = tblUser.getSelectedRow();
                 if (selectIndex >= 0) {
                     editedUser = list.get(selectIndex);
-                    openDialog();
+                    openDialog2();
                 }
             }
 
@@ -69,11 +79,11 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
         userService = new UserService();
 
         list = userService.getUsers();
-        tblUser.setRowHeight(60);
+        tblUser.setRowHeight(50);
         tblUser.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
 
         tblUser.setModel(new AbstractTableModel() {
-            String[] columnNames = {"Profile", "Id", "Login", "Name", "Password", "Role", "Action"};
+            String[] columnNames = {"Profile", "Id", "Login", "Name", "Role", "Action"};
 
             @Override
             public String getColumnName(int column) {
@@ -87,7 +97,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
 
             @Override
             public int getColumnCount() {
-                return 7;
+                return 6;
             }
 
             @Override
@@ -119,10 +129,8 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
                     case 3:
                         return user.getUsername();
                     case 4:
-                        return user.getPassword();
-                    case 5:
                         return user.getRole();
-                    case 6:
+                    case 5:
                         return new TableActionCellRenderer();
                     default:
                         return "Unknown";
@@ -131,17 +139,17 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                if (columnIndex == 6) {
+                if (columnIndex == 5) {
                     return true;
                 }
                 return false;
             }
 
         });
-        tblUser.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRenderer());
-        tblUser.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
         int columnIndex = 0; // The column index where you want to display the image
         tblUser.getColumnModel().getColumn(columnIndex).setCellRenderer(new ImageRenderer());
+        tblUser.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRenderer());
+        tblUser.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -191,7 +199,9 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
         tblUser.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblUser);
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,7 +226,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addContainerGap())
@@ -229,16 +239,16 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
         jLabel2.setText("User");
 
-        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel5.setText("User Name: ");
 
-        txtUserName.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        txtUserName.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtUserName.setText("Name");
 
-        jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         jLabel6.setText("Role:");
 
-        txtRole.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        txtRole.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
         txtRole.setText("Role");
 
         javax.swing.GroupLayout jpnlHeader1Layout = new javax.swing.GroupLayout(jpnlHeader1);
@@ -265,7 +275,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
                 .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtUserName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtRole))
@@ -291,7 +301,7 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jpnlHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
@@ -299,10 +309,25 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        UserDialog userDialog = new UserDialog(frame, editedUser);
+        userDialog = new UserDialog(frame, editedUser);
         userDialog.setLocationRelativeTo(this); //set dialog to center
         userDialog.setVisible(true);
+        userDialog.addInSub(this);
         userDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                refreshTable();
+                updateEmployee(new Employee());
+            }
+
+        });
+    }
+    private void openDialog2() {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        editUserDialog = new EditUserDialog(frame, editedUser);
+        editUserDialog.setLocationRelativeTo(this); //set dialog to center
+        editUserDialog.setVisible(true);
+        editUserDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 refreshTable();
@@ -341,6 +366,19 @@ public class UserPanel extends javax.swing.JPanel implements LoginObs {
     public void loginData(User user) {
         txtUserName.setText(user.getUsername());
         txtRole.setText(user.getRole());
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        System.out.println("Page.UserPanel.updateEmployee()");
+        for (EmpObs empObs : empObss) {
+            empObs.updateEmployee(employee);
+            
+        }
+    }
+
+    public void addInSub(EmpObs empObs) {
+        empObss.add(empObs);
     }
 
 }

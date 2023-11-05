@@ -4,10 +4,10 @@
  */
 package Page;
 
+import Component.ChagePage;
 import Component.LoginObs;
-import Component.sentDate;
+import Component.changePageSummary;
 import Dialog.MaterialDialog;
-import Dialog.SelectDateForPrintReport;
 import Model.Material;
 import Model.User;
 import Service.MaterialService;
@@ -19,34 +19,24 @@ import scrollbar.ScrollBarCustom;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
-import net.sf.jasperreports.engine.JRException;
-import print.ReportCheckStock;
-import print.ReportExpenseStock;
-import print.ReportOutOfStock;
-import print.ReportSS;
-import print.ReportSaleIncome;
 
 /**
  *
  * @author toey
  */
-public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDate {
+public class MaterialPanel extends javax.swing.JPanel implements ChagePage, LoginObs, DataUpdateObserver {
 
     private final MaterialService materialService;
     private List<Material> list;
     private Material editedMaterial;
-    private SelectDateForPrintReport selectDateForPrintReport;
-    private String date;
+    private ArrayList<ChagePage> chagePages = new ArrayList<>();
 
     /**
      * Creates new form UserPanel
@@ -54,8 +44,6 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
     public MaterialPanel() {
         initComponents();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        selectDateForPrintReport = new SelectDateForPrintReport(frame, true);
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -64,6 +52,13 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
                     editedMaterial = list.get(selectIndex);
                     openDialog();
                 }
+            }
+
+            private void refreshTable() {
+                list = materialService.getMaterials();
+                tblMaterial.revalidate();
+                tblMaterial.repaint();
+
             }
 
             @Override
@@ -84,7 +79,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
         materialService = new MaterialService();
 
         list = materialService.getMaterials();
-        tblMaterial.setRowHeight(60);
+        tblMaterial.setRowHeight(50);
         tblMaterial.getTableHeader().setFont(new Font("Kanit", Font.PLAIN, 16));
         tblMaterial.setModel(new AbstractTableModel() {
             String[] columnNames = {"ID", "Date", "Minimum Quantity", "Quantity", "Unit", "Price Per Unit", "Action"};
@@ -167,9 +162,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
         btnAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMaterial = new javax.swing.JTable();
-        btnAdd1 = new javax.swing.JButton();
-        btnAdd2 = new javax.swing.JButton();
-        btnAdd3 = new javax.swing.JButton();
+        btnHisMat = new javax.swing.JButton();
+        btnCheckStock = new javax.swing.JButton();
+        btnBuyStock = new javax.swing.JButton();
 
         jPanelHead.setBackground(new java.awt.Color(224, 205, 174));
         jPanelHead.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -197,7 +192,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
             .addGroup(jPanelHeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                 .addGroup(jPanelHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
@@ -220,13 +215,15 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
                         .addGroup(jPanelHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtRole)))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,29 +244,40 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
             }
         ));
         tblMaterial.setSelectionBackground(new java.awt.Color(213, 208, 189));
+        tblMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMaterialMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMaterial);
 
-        btnAdd1.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnAdd1.setText("print Report Check Stock");
-        btnAdd1.addActionListener(new java.awt.event.ActionListener() {
+        btnHisMat.setBackground(new java.awt.Color(83, 113, 136));
+        btnHisMat.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnHisMat.setForeground(new java.awt.Color(255, 255, 255));
+        btnHisMat.setText("History Material");
+        btnHisMat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdd1ActionPerformed(evt);
+                btnHisMatActionPerformed(evt);
             }
         });
 
-        btnAdd2.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnAdd2.setText("print Material out of stock");
-        btnAdd2.addActionListener(new java.awt.event.ActionListener() {
+        btnCheckStock.setBackground(new java.awt.Color(255, 165, 89));
+        btnCheckStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckStock.setText("Check Stock");
+        btnCheckStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdd2ActionPerformed(evt);
+                btnCheckStockActionPerformed(evt);
             }
         });
 
-        btnAdd3.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnAdd3.setText("Expense and Purchase Report");
-        btnAdd3.addActionListener(new java.awt.event.ActionListener() {
+        btnBuyStock.setBackground(new java.awt.Color(176, 139, 187));
+        btnBuyStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnBuyStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuyStock.setText("Buy Stock");
+        btnBuyStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdd3ActionPerformed(evt);
+                btnBuyStockActionPerformed(evt);
             }
         });
 
@@ -280,15 +288,15 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAdd3)
+                        .addComponent(btnBuyStock)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdd1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCheckStock)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHisMat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdd)))
                 .addContainerGap())
         );
@@ -297,10 +305,10 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnAdd1)
-                    .addComponent(btnAdd2)
-                    .addComponent(btnAdd3))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHisMat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCheckStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuyStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -314,7 +322,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelHead, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE))
+                    .addComponent(jPanelHead, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
@@ -333,59 +341,21 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
         openDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
+    private void tblMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMaterialMouseClicked
+        refreshTable();
+    }//GEN-LAST:event_tblMaterialMouseClicked
 
-        try {
-            Date currentDate = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
-            String forr = simpleDateFormat.format(currentDate);
+    private void btnHisMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisMatActionPerformed
+        chagePage("HistoryMaterial");
+    }//GEN-LAST:event_btnHisMatActionPerformed
 
-            // TODO add your handling code here:
-            ReportCheckStock.getInstance().complieReport();
-            ReportCheckStock.getInstance().printReport();
+    private void btnCheckStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStockActionPerformed
+        chagePage("Check Stock");
+    }//GEN-LAST:event_btnCheckStockActionPerformed
 
-        } catch (JRException ex) {
-            Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnAdd1ActionPerformed
-
-    private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            Date currentDate = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
-            String forr = simpleDateFormat.format(currentDate);
-
-            // TODO add your handling code here:
-            ReportOutOfStock.getInstance().complieReport();
-            ReportOutOfStock.getInstance().printReport(forr);
-
-        } catch (JRException ex) {
-            Logger.getLogger(MaterialPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnAdd2ActionPerformed
-
-    private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
-        // TODO add your handling code here:
-        selectDateForPrintReport.addinDate(this);
-        selectDateForPrintReport.setLocationRelativeTo(this); //set dialog to center
-        selectDateForPrintReport.setVisible(true);
-        selectDateForPrintReport.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                try {
-                    if (date != "") {
-                        ReportSaleIncome.getInstance().complieReport();
-                        ReportSaleIncome.getInstance().printReport(date);
-                    }
-                } catch (JRException ex) {
-                    Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-
-        });
-    }//GEN-LAST:event_btnAdd3ActionPerformed
+    private void btnBuyStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyStockActionPerformed
+        chagePage("BuyStock");
+    }//GEN-LAST:event_btnBuyStockActionPerformed
 
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
@@ -410,9 +380,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAdd1;
-    private javax.swing.JButton btnAdd2;
-    private javax.swing.JButton btnAdd3;
+    private javax.swing.JButton btnBuyStock;
+    private javax.swing.JButton btnCheckStock;
+    private javax.swing.JButton btnHisMat;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -432,8 +402,19 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs,sentDa
     }
 
     @Override
-    public void sentDate(String date) {
-          this.date = date;
+    public void onDataUpdated() {
+        System.out.println("Page.MaterialPanel.onDataUpdated()");
+        refreshTable();
     }
 
+    @Override
+    public void chagePage(String pageName) {
+        for (ChagePage ch : chagePages) {
+            ch.chagePage(pageName);
+        }
+    }
+    
+    public void addInchangePage(ChagePage ch) {
+        chagePages.add(ch);
+    }
 }

@@ -24,13 +24,13 @@ import java.util.List;
 public class EmployeeService {
 
     private Employee editedEmployee;
-    
+
     public Employee getById(int id) {
         EmployeeDao employeeDao = new EmployeeDao();
         Employee employee = employeeDao.getById(id);
         return employee;
     }
- 
+
     public Employee getByTel(String tel) {
         EmployeeDao employeeDao = new EmployeeDao();
         Employee employee = employeeDao.getByTel(tel);
@@ -45,18 +45,17 @@ public class EmployeeService {
     public Employee getEditedEmployee() {
         return editedEmployee;
     }
-    
-     public List<EmployeeReport> getEmployeeByTotalHour(String begin, String end) {
+
+    public List<EmployeeReport> getEmployeeByTotalHour(String begin, String end) {
         EmployeeDao employeeDao = new EmployeeDao();
-        return employeeDao.getEmployeeByTotalHour(begin, end,5);
+        return employeeDao.getEmployeeByTotalHour(begin, end, 5);
     }
 
     public void setEditedEmployee(Employee editedEmployee) {
         this.editedEmployee = editedEmployee;
-        System.out.println("from service : "+editedEmployee.toString());
+        System.out.println("from service : " + editedEmployee.toString());
     }
 
-    
     public Employee addNew(Employee editedEmployee) {
         EmployeeDao employeeDao = new EmployeeDao();
         return employeeDao.save(editedEmployee);
@@ -75,5 +74,9 @@ public class EmployeeService {
     public ArrayList<String> getNameEmployees() {
         EmployeeDao employeeDao = new EmployeeDao();
         return employeeDao.getNameEmployees();
+    }
+    public Employee getEmployeebyUserId(int id) {
+        EmployeeDao employeeDao = new EmployeeDao();
+        return employeeDao.getEmployeebyUserId(id);
     }
 }

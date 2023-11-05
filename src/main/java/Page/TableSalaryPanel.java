@@ -147,7 +147,9 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
 
         txtBathPerHr.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
 
+        btnPrintSlip.setBackground(new java.awt.Color(255, 155, 80));
         btnPrintSlip.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPrintSlip.setForeground(new java.awt.Color(255, 255, 255));
         btnPrintSlip.setText("Print payment slip");
         btnPrintSlip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +157,9 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
             }
         });
 
+        btnPayMentStatus.setBackground(new java.awt.Color(145, 127, 179));
         btnPayMentStatus.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPayMentStatus.setForeground(new java.awt.Color(255, 255, 255));
         btnPayMentStatus.setText("Payment status");
         btnPayMentStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +182,9 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
         tblPaidDate.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblPaidDate);
 
+        btnCancel1.setBackground(new java.awt.Color(231, 70, 70));
         btnCancel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnCancel1.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel1.setText("Back");
         btnCancel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +192,9 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
             }
         });
 
+        btnConfirm1.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnConfirm1.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm1.setText("Confirm");
         btnConfirm1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +211,7 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
                 .addComponent(btnCancel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConfirm1)
-                .addContainerGap())
+                .addGap(13, 13, 13))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,14 +242,14 @@ public class TableSalaryPanel extends javax.swing.JPanel implements ChagePage, D
                         .addComponent(jLabel4)
                         .addComponent(txtBathPerHr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnPayMentStatus)
-                        .addComponent(btnPrintSlip)))
+                        .addComponent(btnPayMentStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPrintSlip, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel1)
-                    .addComponent(btnConfirm1))
+                    .addComponent(btnCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

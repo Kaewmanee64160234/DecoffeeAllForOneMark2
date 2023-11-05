@@ -152,7 +152,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         jLabel6 = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        lblImage = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         pfdPassword = new javax.swing.JPasswordField();
@@ -224,9 +223,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblImage.setBackground(new java.awt.Color(236, 226, 226));
-        lblImage.setOpaque(true);
-
         jLabel2.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         jLabel2.setText("Login: ");
 
@@ -243,7 +239,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         txtDateTime.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         txtDateTime.setText("00/00/00 00:00:00");
 
+        btnCheckIn.setBackground(new java.awt.Color(93, 156, 89));
         btnCheckIn.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckIn.setText("Check In");
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +249,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             }
         });
 
+        btnCheckOut.setBackground(new java.awt.Color(231, 70, 70));
         btnCheckOut.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckOut.setText("Check Out");
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,10 +263,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -288,9 +284,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(130, 130, 130)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,10 +297,10 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
                     .addComponent(jLabel4)
                     .addComponent(txtDateTime))
                 .addGap(35, 35, 35)
-                .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -430,7 +424,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         int height = image.getHeight(null);
         Image newImage = image.getScaledInstance((int) (100 * ((float) width) / height), 100, Image.SCALE_SMOOTH);
         icon.setImage(newImage);
-        lblImage.setIcon(icon);
     }
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
@@ -504,7 +497,6 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblImage;
     private javax.swing.JPasswordField pfdPassword;
     private javax.swing.JTable tblCheckInCheckOut;
     private javax.swing.JLabel txtDateTime;

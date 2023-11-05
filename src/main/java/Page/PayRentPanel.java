@@ -5,11 +5,13 @@
 package Page;
 
 import Component.CodeDialog;
+import Component.LoginObs;
 import Dialog.AddARentBillDialog;
 import Dialog.PayRentDialog;
 import Dialog.PrintPayRentHistory;
 import Model.DateLabelFormatter;
 import Model.RentStore;
+import Model.User;
 import Service.RentStoreService;
 import Validation.ValidateException;
 import java.awt.Font;
@@ -33,7 +35,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
+public class PayRentPanel extends javax.swing.JPanel implements LoginObs, CodeDialog {
 
     private final RentStoreService rentStoreService;
     private RentStore editedRentStore;
@@ -168,7 +170,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         tblPayRent = new javax.swing.JTable();
         btnAddRentBill = new javax.swing.JButton();
         btnPayRent = new javax.swing.JButton();
-        btnPrintPaymentHistory = new javax.swing.JButton();
         cmbPosition = new javax.swing.JComboBox<>();
         btnClear = new javax.swing.JButton();
 
@@ -177,7 +178,7 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         jPanel3.setPreferredSize(new java.awt.Dimension(521, 76));
 
         jLabel4.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
-        jLabel4.setText("Pay Rent");
+        jLabel4.setText("Rent Store");
 
         jLabel8.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         jLabel8.setText("User Name: ");
@@ -222,12 +223,14 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                             .addComponent(jLabel9)
                             .addComponent(txtRole)))
                     .addComponent(jLabel4))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnConfirm.setBackground(new java.awt.Color(93, 156, 89));
         btnConfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,7 +244,12 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         jLabel6.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel6.setText("Start Date:");
 
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel7.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Status:");
 
         tblPayRent.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
@@ -256,10 +264,12 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPayRent.setSelectionBackground(new java.awt.Color(213, 208, 189));
+
         jScrollPane1.setViewportView(tblPayRent);
 
+        btnAddRentBill.setBackground(new java.awt.Color(142, 172, 205));
         btnAddRentBill.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAddRentBill.setForeground(new java.awt.Color(255, 255, 255));
         btnAddRentBill.setText("Add a rent bill");
         btnAddRentBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,7 +277,9 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
             }
         });
 
+        btnPayRent.setBackground(new java.awt.Color(190, 173, 250));
         btnPayRent.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPayRent.setForeground(new java.awt.Color(255, 255, 255));
         btnPayRent.setText("Pay rent");
         btnPayRent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,15 +287,13 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
             }
         });
 
-        btnPrintPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnPrintPaymentHistory.setText("Print payment history");
-        btnPrintPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintPaymentHistoryActionPerformed(evt);
-            }
-        });
 
-        cmbPosition.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+       
+
+  
+
+        cmbPosition.setFont(new java.awt.Font("Kanit", 0, 14)); // NOI18N
+
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Not paid" }));
         cmbPosition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +301,9 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
             }
         });
 
+        btnClear.setBackground(new java.awt.Color(231, 70, 70));
         btnClear.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,56 +324,73 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(cmbPosition, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(btnConfirm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnClear)))
+                        .addGap(0, 500, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1142, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAddRentBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPayRent)
+
+                        .addGap(204, 204, 204))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbPosition, 0, 228, Short.MAX_VALUE)
                             .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(btnConfirm)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnClear)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnAddRentBill)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPayRent)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPrintPaymentHistory))
-                            .addComponent(jScrollPane1))
-                        .addContainerGap())))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClear))
+                            .addComponent(btnConfirm))
+                        .addGap(0, 402, Short.MAX_VALUE)))
+
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+
+
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPayRent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPrintPaymentHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddRentBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel6)
-                    .addComponent(btnClear))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel7)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbPosition))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(btnPayRent, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(btnAddRentBill, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(pnlDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbPosition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -483,10 +512,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         refreshTable();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnPrintPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPaymentHistoryActionPerformed
-        openDialog3();
-    }//GEN-LAST:event_btnPrintPaymentHistoryActionPerformed
-
     private void refreshTable() {
         rentStore = (ArrayList<RentStore>) rentStoreService.getRentStores();
         tblPayRent.revalidate();
@@ -504,7 +529,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnPayRent;
-    private javax.swing.JButton btnPrintPaymentHistory;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -528,5 +552,11 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         this.rentStore = (ArrayList<RentStore>) rentStores;
         System.out.println("Page.PayRentPanel.CodeDialog() :::::::::: " + rentStore);
         refreshTableGetList();
+    }
+
+    @Override
+    public void loginData(User user) {
+        txtUserName.setText(user.getUsername());
+        txtRole.setText(user.getRole());
     }
 }

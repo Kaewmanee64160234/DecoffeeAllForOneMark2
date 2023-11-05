@@ -6,8 +6,11 @@ package Page;
 
 import Component.ChagePage;
 import Component.changePageSummary;
+import Component.sentDate;
 import Dialog.PrintSlipDialog;
 import Dialog.ProductDialog;
+import Dialog.SelectDateForPrintReport;
+import Dialog.UserDialog;
 import Model.Employee;
 import Model.EmployeeReport;
 import Model.Product;
@@ -25,12 +28,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import javax.swing.table.AbstractTableModel;
+import net.sf.jasperreports.engine.JRException;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -39,6 +45,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import print.ReportManager;
+import print.ReportSS;
 import selectInTable.TableActionCellRender;
 import scrollbar.ScrollBarCustom;
 
@@ -46,7 +54,7 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class SalaryPanel extends javax.swing.JPanel implements changePageSummary, ChagePage {
+public class SalaryPanel extends javax.swing.JPanel implements changePageSummary, ChagePage, sentDate {
 
     private Product editedProduct;
     private Employee editedEmployee;
@@ -60,20 +68,24 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private AbstractTableModel model3;
     private DefaultCategoryDataset barDataset;
     private List<SummarySalary> salary;
-    private  SummarySalaryService summarySalaryService = new SummarySalaryService();
+    private SummarySalaryService summarySalaryService = new SummarySalaryService();
     private historyPageSummaySalary hisPageSummaySalary_ = new historyPageSummaySalary();
-    private TableSalaryPanel tableSalaryPanel ;
+    private TableSalaryPanel tableSalaryPanel;
+    private SelectDateForPrintReport selectDateForPrintReport;
+    private String date = "";
 
     /**
      * Creates new form SalaryPanel
      */
     public SalaryPanel() {
         initComponents();
-        salary = new ArrayList<>(); 
+        salary = new ArrayList<>();
         initDatePicker();
         initBarChart();
         loadBarDataset();
         initTableEmployee();
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        selectDateForPrintReport = new SelectDateForPrintReport(frame, true);
         jScrollPane3.setVerticalScrollBar(new ScrollBarCustom());
         jScrollPane4.setVerticalScrollBar(new ScrollBarCustom());
         employeeService = new EmployeeService();
@@ -83,7 +95,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         list = new ArrayList<>();
         subs = new ArrayList<>();
         employeeList = new ArrayList<>();
-        
 
         list = (ArrayList<Employee>) employeeService.getEmployees();
 
@@ -223,7 +234,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
     private void initTableEmployee() {
         model3 = new AbstractTableModel() {
-            String[] colNames = {"ID", "Name", "MonthYear", "TotalEmployee"};
+            String[] colNames = {"ID", "Name", "TotalHour"};
 
             @Override
             public String getColumnName(int column) {
@@ -237,7 +248,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
 
             @Override
             public int getColumnCount() {
-                return 4;
+                return 3;
             }
 
             @Override
@@ -249,8 +260,6 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                     case 1:
                         return employee.getName();
                     case 2:
-                        return employee.getMonthYear();
-                    case 3:
                         return employee.getTopEmployee();
 
                     default:
@@ -274,23 +283,24 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         pnlNavigation2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblTopEmployee = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblSalary = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        pnlBarGraph = new javax.swing.JPanel();
         lblStartDate = new javax.swing.JLabel();
         pnlDatePicker1 = new javax.swing.JPanel();
         lblEndDate = new javax.swing.JLabel();
         pnlDatePicker2 = new javax.swing.JPanel();
-        btnComfirm = new javax.swing.JButton();
-        pnlBarGraph = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        btnPrint = new javax.swing.JButton();
         btnPaymentHistory = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
+        btnComfirm = new javax.swing.JButton();
+        jpnlHeader1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
 
-        pnlNavigation2.setBackground(new java.awt.Color(255, 251, 245));
+        pnlNavigation2.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblTopEmployee.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblTopEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -304,9 +314,7 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         ));
         jScrollPane3.setViewportView(tblTopEmployee);
 
-        jLabel3.setFont(new java.awt.Font("Kanit", 0, 24)); // NOI18N
-        jLabel3.setText("Salary");
-
+        tblSalary.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
         tblSalary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -320,37 +328,63 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
         ));
         jScrollPane4.setViewportView(tblSalary);
 
+        jLabel4.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel4.setText("TopGoodEmployee");
 
+        jLabel5.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         jLabel5.setText("SalaryTable");
-
-        lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblStartDate.setText("Start Date:");
-
-        lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        lblEndDate.setText("End Date:");
-
-        btnComfirm.setBackground(new java.awt.Color(213, 208, 189));
-        btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnComfirm.setForeground(new java.awt.Color(103, 93, 80));
-        btnComfirm.setText("Confirm");
-        btnComfirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(103, 93, 80)));
-        btnComfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnComfirmActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlBarGraphLayout = new javax.swing.GroupLayout(pnlBarGraph);
         pnlBarGraph.setLayout(pnlBarGraphLayout);
         pnlBarGraphLayout.setHorizontalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 565, Short.MAX_VALUE)
         );
         pnlBarGraphLayout.setVerticalGroup(
             pnlBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 162, Short.MAX_VALUE)
         );
+
+        lblStartDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        lblStartDate.setText("Start Date:");
+
+        pnlDatePicker1.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblEndDate.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        lblEndDate.setText("End Date:");
+
+        pnlDatePicker2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnPaymentHistory.setBackground(new java.awt.Color(83, 113, 136));
+        btnPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPaymentHistory.setForeground(new java.awt.Color(255, 255, 255));
+        btnPaymentHistory.setText("Payment history");
+        btnPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaymentHistoryActionPerformed(evt);
+            }
+        });
+
+        btnPrint.setBackground(new java.awt.Color(237, 125, 49));
+        btnPrint.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("Print");
+        btnPrint.setPreferredSize(new java.awt.Dimension(72, 35));
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
+        btnComfirm.setBackground(new java.awt.Color(93, 156, 89));
+        btnComfirm.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnComfirm.setForeground(new java.awt.Color(255, 255, 255));
+        btnComfirm.setText("Confirm");
+        btnComfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlNavigation2Layout = new javax.swing.GroupLayout(pnlNavigation2);
         pnlNavigation2.setLayout(pnlNavigation2Layout);
@@ -360,50 +394,60 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addContainerGap()
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
-                        .addGap(0, 95, Short.MAX_VALUE)
-                        .addComponent(lblStartDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(lblEndDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlNavigation2Layout.createSequentialGroup()
                         .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(32, 32, 32))
+                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                                .addComponent(lblStartDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblEndDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlNavigation2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnPaymentHistory)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)))
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlNavigation2Layout.setVerticalGroup(
             pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
+                .addGap(14, 14, 14)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblStartDate)
+                        .addComponent(lblEndDate, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnPaymentHistory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlNavigation2Layout.createSequentialGroup()
-                        .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnComfirm)
-                            .addComponent(lblStartDate)
-                            .addComponent(lblEndDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
-                    .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(pnlDatePicker2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlDatePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlNavigation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(pnlBarGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addGap(12, 12, 12)
@@ -411,58 +455,44 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
                 .addContainerGap())
         );
 
-        jPanel3.setBackground(new java.awt.Color(195, 176, 145));
+        jpnlHeader1.setBackground(new java.awt.Color(224, 205, 174));
+        jpnlHeader1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jpnlHeader1.setPreferredSize(new java.awt.Dimension(521, 76));
 
-        btnPrint.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnPrint.setText("Print");
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Kanit", 0, 36)); // NOI18N
+        jLabel3.setText("Salary");
 
-        btnPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 12)); // NOI18N
-        btnPaymentHistory.setText("Payment history");
-        btnPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaymentHistoryActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPaymentHistory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPrint)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpnlHeader1Layout = new javax.swing.GroupLayout(jpnlHeader1);
+        jpnlHeader1.setLayout(jpnlHeader1Layout);
+        jpnlHeader1Layout.setHorizontalGroup(
+            jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlHeader1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPaymentHistory)
-                    .addComponent(btnPrint))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(868, Short.MAX_VALUE))
+        );
+        jpnlHeader1Layout.setVerticalGroup(
+            jpnlHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlHeader1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnlHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
             .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(pnlNavigation2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jpnlHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pnlNavigation2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -480,7 +510,26 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        // TODO add your handling code here:
+        selectDateForPrintReport.addinDate(this);
+        selectDateForPrintReport.setLocationRelativeTo(this); //set dialog to center
+        selectDateForPrintReport.setVisible(true);
+        selectDateForPrintReport.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                try {
+                    if ( date != "") {
+                        ReportSS.getInstance().complieReport();
+                        ReportSS.getInstance().printReport(date);
+                    }
+                } catch (JRException ex) {
+                    Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
+        });
+
+
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentHistoryActionPerformed
@@ -509,9 +558,9 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPanel jpnlHeader1;
     private javax.swing.JLabel lblEndDate;
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JPanel pnlBarGraph;
@@ -544,6 +593,12 @@ public class SalaryPanel extends javax.swing.JPanel implements changePageSummary
             chagePage.chagePage(pageName);
 
         }
+    }
+
+    @Override
+    public void sentDate(String date) {
+        this.date = date;
+
     }
 
 }

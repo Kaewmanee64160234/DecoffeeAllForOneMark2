@@ -207,7 +207,9 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
         btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +229,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblMaterial.setSelectionBackground(new java.awt.Color(164, 196, 203));
+        tblMaterial.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblMaterial);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -247,7 +249,7 @@ public class MaterialPanel extends javax.swing.JPanel implements LoginObs{
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())

@@ -4,7 +4,6 @@
  */
 package Page;
 
-import Component.EmpObs;
 import Component.LoginObs;
 import Dialog.EmployeeDialog;
 import Dialog.UserDialog;
@@ -31,19 +30,19 @@ import scrollbar.ScrollBarCustom;
  *
  * @author ASUS
  */
-public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpObs{
+public class EmployeePanel extends javax.swing.JPanel implements LoginObs{
 
     private final EmployeeService employeeService;
     private List<Employee> list;
     private Employee editedEmployee;
-    private UserPanel userPanel;
+
     /**
      * Creates new form Employee
      */
     public EmployeePanel() {
         initComponents();
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-        userPanel = new UserPanel();
+
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -160,6 +159,7 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpOb
         jPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
+        btnAdd = new javax.swing.JButton();
         jPanelHead = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -184,19 +184,35 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpOb
         tblEmployee.setSelectionBackground(new java.awt.Color(213, 208, 189));
         jScrollPane1.setViewportView(tblEmployee);
 
+        btnAdd.setBackground(new java.awt.Color(66, 133, 91));
+        btnAdd.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAdd)))
                 .addContainerGap())
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -277,6 +293,11 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpOb
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        editedEmployee = new Employee();
+        openDialog();
+    }//GEN-LAST:event_btnAddActionPerformed
+
     private void openDialog() {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         EmployeeDialog EmployeeDialog = new EmployeeDialog(frame, editedEmployee);
@@ -290,13 +311,14 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpOb
 
         });
     }
-    public void refreshTable() {
+    private void refreshTable() {
         list = employeeService.getEmployees();
         tblEmployee.revalidate();
         tblEmployee.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -312,12 +334,5 @@ public class EmployeePanel extends javax.swing.JPanel implements LoginObs, EmpOb
     public void loginData(User user) {
         txtUserName1.setText(user.getUsername());       
         txtRole1.setText(user.getRole());
-    }
-
-
-    @Override
-    public void updateEmployee(Employee employee) {
-        System.out.println("Page.EmployeePanel.updateEmployee()");
-        refreshTable();
     }
 }

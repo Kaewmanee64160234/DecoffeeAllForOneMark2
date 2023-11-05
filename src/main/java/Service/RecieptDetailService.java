@@ -3,6 +3,7 @@ package Service;
 import java.util.List;
 import Dao.RecieptDetailDao;
 import Model.RecieptDetail;
+import java.util.ArrayList;
 
 public class RecieptDetailService {
 
@@ -35,5 +36,10 @@ public class RecieptDetailService {
         RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
         return recieptDetailDao.delete(editedRecieptDetail);
     }
+    public ArrayList<RecieptDetail> getrDetailsByReciptId(int id) {
+        RecieptDetailDao recieptDetailDao = new RecieptDetailDao();
+        return recieptDetailDao.getrDetailsByReciptId(id);
+    }
+
 
 }

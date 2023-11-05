@@ -243,7 +243,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         txtDateTime.setFont(new java.awt.Font("Kanit", 0, 16)); // NOI18N
         txtDateTime.setText("00/00/00 00:00:00");
 
+        btnCheckIn.setBackground(new java.awt.Color(93, 156, 89));
         btnCheckIn.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckIn.setText("Check In");
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +253,9 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             }
         });
 
+        btnCheckOut.setBackground(new java.awt.Color(231, 70, 70));
         btnCheckOut.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
+        btnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckOut.setText("Check Out");
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,7 +398,7 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
             checkinoutService.addNew(checkinout);
             txtUserName.setText(user.getUsername());
             txtRole.setText(user.getRole());
-            list = checkinoutService.getCheckinoutsByIdEmployee(empID);
+            list = checkinoutService.getCheckinoutsByIdEmployeeDESC(empID);
 
             tblCheckInCheckOut.setEnabled(true);
             txtUserName.setText(user.getUsername());
@@ -451,18 +455,18 @@ public class CheckinCheckoutPanel extends javax.swing.JPanel implements LoginObs
         tblCheckInCheckOut.setEnabled(false);
         list.clear();
         refreshTable();
-        User user = new User();
-        user.setRole("user");
-        setImage(user);
-        loginData(user);
+//        User user = new User();
+//        user.setRole("user");
+//        setImage(user);
+//        loginData(user);
 
-        employee = new Employee();
-        txtUserName.setText("");
-        txtRole.setText("");
+//        employee = new Employee();
+//        txtUserName.setText("");
+//        txtRole.setText("");
         System.out.println("-----------------------------------");
         btnCheckIn.setEnabled(true);
         btnCheckOut.setEnabled(false);
-        setImage(user);
+//        setImage(user);
 
 
     }//GEN-LAST:event_btnCheckOutActionPerformed

@@ -31,6 +31,7 @@ import Page.PayRentPanel;
 
 import Page.PosPanel;
 import Page.ProductPanel;
+import Page.PromotionPanel;
 import Page.ReportPanel;
 import Page.SalaryPanel;
 import Page.TablePaymentStatusPanel;
@@ -45,6 +46,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -81,7 +83,8 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
     private PayRentPanel payRentPanel;
     private historyPageSummaySalary hisPageSummaySalary;
     private TableSalaryPanel tableSalaryPanel;
-    private CustomerPanel  customerPanel;
+    private CustomerPanel customerPanel;
+    private PromotionPanel promotionPanel;
 
     public MainFrame() {
         initComponents();
@@ -111,8 +114,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         historyMaterialPanel = new HistoryMaterialPanel();
         buyStockPanel = new BuyStockPanel(employee);
         customerPanel = new CustomerPanel();
+        promotionPanel = new PromotionPanel();
         jScrollPane1.setViewportView(navigationBar);
-                                loginObses.add(checkInOutPannel);
+        loginObses.add(checkInOutPannel);
 
         checkStockPanel.addInSubs(this);
         salaryPannel.addInSubs(this);
@@ -126,10 +130,11 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         hisPageSummaySalary.addInChagePage(this);
         tableSalaryPanel.addInChagePage(this);
         customerPanel.addInChangePage(this);
+        promotionPanel.addInChangePage(this);
         frame = (JFrame) SwingUtilities.getRoot(this);
 
         scrPanel.setViewportView(new UserPanel());
-        
+
         checkInOutPannel.addInLoginist(navigationBar);
         checkInOutPannel.addInLoginist(this.productPanel);
         checkInOutPannel.addInLoginist(this.materialPanel);
@@ -141,7 +146,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         checkInOutPannel.addInLoginist(customerPanel);
 
         hisPageSummaySalary.addInChagePage(this);
-        
+
         salaryPannel.addInChagePage(this);
         scrPanel.setViewportView(posPanel);
 
@@ -255,6 +260,14 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
             // PosDialog PosDialog = new PosDialog(frame);
             // PosDialog.setLocationRelativeTo(this); // set dialog to center
             // PosDialog.setVisible(true);
+
+//            if (pageName.equals("POS")) {
+//                PosDialog posDialog = new PosDialog(this); // สร้าง JDialog ใหม่
+//                posDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // ปิด JDialog เมื่อคุณปิดหน้าต่าง
+//                posDialog.setVisible(true); // แสดง JDialog
+//            }
+            scrPanel.setViewportView(new PosPanel());
+
         }
         if (pageName.equals("Product")) {
             scrPanel.setViewportView(productPanel);
@@ -292,6 +305,9 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         }
         if (pageName.equals("Customer")) {
             scrPanel.setViewportView(customerPanel);
+        }
+        if (pageName.equals("Promotion")) {
+            scrPanel.setViewportView(promotionPanel);
         }
 
     }

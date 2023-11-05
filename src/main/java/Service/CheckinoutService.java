@@ -17,13 +17,12 @@ import java.util.List;
  */
 public class CheckinoutService {
 
-    
     public Checkinout getById(int id) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         Checkinout checkinout = checkinoutDao.get(id);
         return checkinout;
     }
-    
+
     public Checkinout getByDate(Date date) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         Checkinout checkinout = checkinoutDao.getByDate(date);
@@ -34,17 +33,22 @@ public class CheckinoutService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.getAll(" cio_id asc");
     }
-    public  List<Checkinout> getCheckinoutsByIdEmployee(int id){
+
+    public List<Checkinout> getCheckinoutsByIdEmployee(int id) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.getAllByIdEmployee(id);
-        
+
     }
-    
+
+    public List<Checkinout> getCheckinoutsByIdEmployeeDESC(int id) {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        return checkinoutDao.getAllByIdEmployeeDESC(id);
+
+    }
+
     public Checkinout addNew(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         CheckMaterialDetailService checkMaterialDetailService = new CheckMaterialDetailService();
-
-        
 
         return checkinoutDao.save(editedCheckinout);
     }
@@ -53,38 +57,51 @@ public class CheckinoutService {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.update(editedCheckinout);
     }
+
     public int delete(Checkinout editedCheckinout) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         return checkinoutDao.delete(editedCheckinout);
     }
-      public ArrayList<Checkinout> getAllCheckinsByEmpIdAndPaidStatus(int id, char paidStatus) {
+
+    public ArrayList<Checkinout> getAllCheckinsByEmpIdAndPaidStatus(int id, char paidStatus) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
-        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id, paidStatus);
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id,
+                paidStatus);
         return checkins;
     }
-     public ArrayList<Checkinout> getCheckInOutByEmpIdStatusNoAndTotalNotZero(int id){
+
+    public ArrayList<Checkinout> getCheckInOutByEmpIdStatusNoAndTotalNotZero(int id) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
-        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByEmpIdStatusNoAndTotalNotZero(id);
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao
+                .getCheckInOutByEmpIdStatusNoAndTotalNotZero(id);
         return checkins;
-        
-     }
-     
-     public ArrayList<Checkinout> getLastCheckInOut(int id){
+
+    }
+
+    public ArrayList<Checkinout> getLastCheckInOut(int id) {
         CheckinoutDao checkinoutDao = new CheckinoutDao();
         ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getLastCheckInOut(id);
         return checkins;
-        
-     }
-     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,String status){
-          CheckinoutDao checkinoutDao = new CheckinoutDao();
-        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id,status.charAt(0));
-        return checkins;
-     }
-        public ArrayList<Checkinout> getCheckinoutsBySsId(int id){
-            CheckinoutDao checkinoutDao = new CheckinoutDao();
-            ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckinoutsBySsId(id);
-            return checkins;
-        }
-     
-}
 
+    }
+
+    public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id, String status) {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckInOutByPaidStatusAndEmpId(id,
+                status.charAt(0));
+        return checkins;
+    }
+
+    public ArrayList<Checkinout> getCheckinoutsBySsId(int id) {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        ArrayList<Checkinout> checkins = (ArrayList<Checkinout>) checkinoutDao.getCheckinoutsBySsId(id);
+        return checkins;
+    }
+
+    public Checkinout getLestCio() {
+        CheckinoutDao checkinoutDao = new CheckinoutDao();
+        Checkinout checkinout = checkinoutDao.getLestCio();
+        return checkinout;
+    }
+
+}

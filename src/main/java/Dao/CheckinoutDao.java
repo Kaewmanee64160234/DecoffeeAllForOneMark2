@@ -254,6 +254,27 @@ public class CheckinoutDao implements Dao<Checkinout> {
         }
         return list;
     }
+    public List<Checkinout> getAllByIdEmployeeDESC(int id) {
+        ArrayList<Checkinout> list = new ArrayList();
+        String sql = "SELECT * FROM check_in_out where employee_id = ? ORDER BY cio_date DESC";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Checkinout checkinout = Checkinout.fromRS(rs);
+                list.add(checkinout);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return list;
+    }
 
     
     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpId(int id,char paidStatus){
@@ -278,6 +299,8 @@ public class CheckinoutDao implements Dao<Checkinout> {
         }
         return list;
     }
+    
+        
     
     public ArrayList<Checkinout> getCheckInOutByPaidStatusAndEmpIdForAddInSS(int id,char paidStatus){
         ArrayList<Checkinout> list = new ArrayList();
@@ -369,6 +392,22 @@ public class CheckinoutDao implements Dao<Checkinout> {
         
     }
 
+    public Checkinout  getLestCio(){
+        Checkinout checkinout = null;
+        String sql = "SELECT * FROM check_in_out ORDER BY cio_date DESC  LIMIT 1;";
+        Connection conn = DatabaseHelper.getConnect();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+                checkinout = Checkinout.fromRS(rs);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return checkinout;
+    }
 
 }

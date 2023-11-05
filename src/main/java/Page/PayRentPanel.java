@@ -168,7 +168,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         tblPayRent = new javax.swing.JTable();
         btnAddRentBill = new javax.swing.JButton();
         btnPayRent = new javax.swing.JButton();
-        btnPrintPaymentHistory = new javax.swing.JButton();
         cmbPosition = new javax.swing.JComboBox<>();
         btnClear = new javax.swing.JButton();
 
@@ -222,7 +221,7 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                             .addComponent(jLabel9)
                             .addComponent(txtRole)))
                     .addComponent(jLabel4))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -262,6 +261,7 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+
         jScrollPane1.setViewportView(tblPayRent);
 
         btnAddRentBill.setBackground(new java.awt.Color(142, 172, 205));
@@ -281,16 +281,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         btnPayRent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPayRentActionPerformed(evt);
-            }
-        });
-
-        btnPrintPaymentHistory.setBackground(new java.awt.Color(248, 117, 170));
-        btnPrintPaymentHistory.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
-        btnPrintPaymentHistory.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrintPaymentHistory.setText("Print payment history");
-        btnPrintPaymentHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintPaymentHistoryActionPerformed(evt);
             }
         });
 
@@ -325,8 +315,7 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                         .addComponent(btnAddRentBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPayRent)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPrintPaymentHistory))
+                        .addGap(204, 204, 204))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -353,7 +342,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPayRent, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(btnPrintPaymentHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(btnAddRentBill, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,10 +488,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
         refreshTable();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnPrintPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPaymentHistoryActionPerformed
-        openDialog3();
-    }//GEN-LAST:event_btnPrintPaymentHistoryActionPerformed
-
     private void refreshTable() {
         rentStore = (ArrayList<RentStore>) rentStoreService.getRentStores();
         tblPayRent.revalidate();
@@ -521,7 +505,6 @@ public class PayRentPanel extends javax.swing.JPanel implements CodeDialog {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnPayRent;
-    private javax.swing.JButton btnPrintPaymentHistory;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

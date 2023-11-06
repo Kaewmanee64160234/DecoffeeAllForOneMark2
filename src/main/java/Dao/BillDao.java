@@ -223,6 +223,7 @@ public class BillDao implements Dao<Bill> {
     }
 
     public ArrayList<Bill> getBillOneMonth(String date) {
+        System.out.println(date);
         ArrayList<Bill> list = new ArrayList();
         String sql = "SELECT * FROM bill WHERE strftime('%Y-%m', bill_created_date) = ?";
         Connection conn = DatabaseHelper.getConnect();

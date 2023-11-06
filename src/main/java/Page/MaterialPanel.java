@@ -459,10 +459,11 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             @Override
             public void windowClosed(WindowEvent e) {
                 try {
-                    if (date != "") {
+                    System.out.println(date);
+                
                         ReportExpenseStock.getInstance().complieReport();
                         ReportExpenseStock.getInstance().printReport(date);
-                    }
+                    
                 } catch (JRException ex) {
                     Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }

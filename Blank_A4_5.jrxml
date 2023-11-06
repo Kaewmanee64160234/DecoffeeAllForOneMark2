@@ -8,14 +8,14 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
-	<field name=" shopname" class="java.lang.String"/>
+	<field name="shopname" class="java.lang.String"/>
 	<field name="creatdDate" class="java.lang.String"/>
 	<field name="buy" class="java.lang.Float"/>
 	<field name="totalDiscount" class="java.lang.Float"/>
 	<field name="billTotal" class="java.lang.Float"/>
 	<field name="change" class="java.lang.Float"/>
 	<field name="totalQty" class="java.lang.Integer"/>
-	<field name="employeeId" class="java.lang.String"/>
+	<field name="employeeId" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -189,7 +189,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Angsana New" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ shopname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{shopname}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="160" y="0" width="90" height="30" uuid="841818ce-2ccb-45bd-a3db-35531841d583">

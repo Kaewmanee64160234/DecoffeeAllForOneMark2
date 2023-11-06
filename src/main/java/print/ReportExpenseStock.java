@@ -49,7 +49,7 @@ public class ReportExpenseStock {
     }
 
     public void complieReport() throws JRException {
-        reportPay = JasperCompileManager.compileReport("./Blank_A4_2.jrxml");
+        reportPay = JasperCompileManager.compileReport("./Blank_A4_5.jrxml");
 
     }
 
@@ -59,11 +59,16 @@ public class ReportExpenseStock {
             Date date_ = inputDateFormat.parse(date);
 
             SimpleDateFormat outputDateFormat_1 = new SimpleDateFormat("YYYY-MM");
+            System.out.println("print.ReportExpenseStock.printReport()");
+            System.out.println(date);
             BillService billService = new BillService();
             ArrayList<Bill> biills = new ArrayList<>();
             Bill bill = new Bill();
-            bill = billService.getBillByDate(date);
-            biills = billService.getBillOneMonth(date);
+            bill = billService.getBillByDate(outputDateFormat_1.format(date_));
+            System.out.println(bill.getBillTotal());
+            biills = billService.getBillOneMonth(outputDateFormat_1.format(date_));
+            System.out.println("print.ReportExpenseStock.printReport()");
+            System.out.println(biills.size());
             if (biills.size() >= 1) {
                 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(biills);
                 Map<String, Object> map = new HashMap<>();

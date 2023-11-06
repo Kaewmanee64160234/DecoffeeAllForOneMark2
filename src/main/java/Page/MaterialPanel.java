@@ -34,6 +34,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import net.sf.jasperreports.engine.JRException;
 import print.ReportCheckStock;
+import print.ReportExpenseStock;
 import print.ReportOutOfStock;
 import print.ReportSaleIncome;
 
@@ -311,7 +312,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         btnExpense.setBackground(new java.awt.Color(185, 0, 91));
         btnExpense.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnExpense.setForeground(new java.awt.Color(255, 255, 255));
-        btnExpense.setText("Print Expense CheckStock");
+        btnExpense.setText("Print Out Of Stock");
         btnExpense.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExpenseActionPerformed(evt);
@@ -321,7 +322,7 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
         btnOutOfStock.setBackground(new java.awt.Color(68, 93, 72));
         btnOutOfStock.setFont(new java.awt.Font("Kanit", 0, 18)); // NOI18N
         btnOutOfStock.setForeground(new java.awt.Color(255, 255, 255));
-        btnOutOfStock.setText("Print Out Of Stock");
+        btnOutOfStock.setText("Print Expense CheckStock");
         btnOutOfStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOutOfStockActionPerformed(evt);
@@ -459,8 +460,8 @@ public class MaterialPanel extends javax.swing.JPanel implements ChagePage, Logi
             public void windowClosed(WindowEvent e) {
                 try {
                     if (date != "") {
-                        ReportSaleIncome.getInstance().complieReport();
-                        ReportSaleIncome.getInstance().printReport(date);
+                        ReportExpenseStock.getInstance().complieReport();
+                        ReportExpenseStock.getInstance().printReport(date);
                     }
                 } catch (JRException ex) {
                     Logger.getLogger(SalaryPanel.class.getName()).log(Level.SEVERE, null, ex);

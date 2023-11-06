@@ -145,7 +145,7 @@ public class MainFrame extends javax.swing.JFrame implements ChagePage, changePa
         frame = (JFrame) SwingUtilities.getRoot(this);
         materialPanel.addInchangePage(this);
         scrPanel.setViewportView(new UserPanel());
-
+historyMaterialPanel.addInSubs(this);
         checkInOutPannel.addInLoginist(navigationBar);
         checkInOutPannel.addInLoginist(this.productPanel);
         checkInOutPannel.addInLoginist(this.materialPanel);

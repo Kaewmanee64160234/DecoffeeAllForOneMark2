@@ -8,7 +8,7 @@
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="discount" class="java.lang.Float"/>
-	<field name="creaetedDate" class="java.util.Date"/>
+	<field name="creaetedDate" class="java.lang.String"/>
 	<field name="total" class="java.lang.Float"/>
 	<field name="receive" class="java.lang.Float"/>
 	<field name="change" class="java.lang.Float"/>
